@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
 import type { ExplodeSpec } from "../spec/schema.ts"
 import { layoutFor } from "../spec/layout.ts"
-import { LayerArt } from "../visuals/registry.tsx"
+import { PhotoLayer } from "./PhotoLayer.tsx"
 import { ComponentCopy, IntroCopy, OutroCopy } from "./copy.tsx"
 import { Frame } from "./Frame.tsx"
 
@@ -40,10 +40,11 @@ export function StaticStory({ spec }: { spec: ExplodeSpec }) {
                   style={{
                     zIndex: component.zIndex ?? 80 - component.order,
                     transform: `translate3d(${layout.x * 42}%, ${layout.y * 38}%, 0)`,
-                    opacity: dim ? 0.2 : 1,
+                    opacity: dim ? 0.35 : 1,
+                    filter: dim ? "blur(6px)" : "none",
                   }}
                 >
-                  <LayerArt component={component} />
+                  <PhotoLayer src={component.image} label={component.name} />
                 </div>
               )
             })}

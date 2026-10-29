@@ -21,7 +21,7 @@ export const componentSchema = z.object({
   /** Assembled offset before the explosion, as a fraction of the stage. */
   home: layoutSchema.optional(),
   layout: layoutSchema.optional(),
-  /** Key into the built-in illustration set. Demo only. */
+  /** Unused. Photographs come from `image`, not a drawing key. */
   visual: z.string().optional(),
   /** Relative image path, produced by the image step. */
   image: z.string().optional(),
@@ -65,7 +65,8 @@ export const explodeSpecSchema = z.object({
   facts: z.array(factSchema).default([]),
   sources: z.array(sourceSchema).default([]),
   heroImage: z.string().optional(),
-  visualMode: z.enum(["illustrated", "generated", "mixed"]).default("illustrated"),
+  explodedImage: z.string().optional(),
+  visualMode: z.enum(["pending", "generated", "mixed"]).default("pending"),
   artNote: z.string().optional(),
   closing: z.string().optional(),
   generation: z

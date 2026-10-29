@@ -11,6 +11,7 @@ import { researchItem } from "./pipeline/research.ts"
 import { runExplode } from "./pipeline/run.ts"
 import { explodeSpecSchema } from "./spec/schema.ts"
 import { readFile } from "node:fs/promises"
+import { readPhoto } from "./pipeline/photo.ts"
 import { generateVisuals } from "./pipeline/visuals.ts"
 import { normalizeSpec } from "./spec/normalize.ts"
 
@@ -77,18 +78,21 @@ export function createServer() {
     "explode_visualize",
     {
       title: "Generate teardown images",
-      description: "Generate a hero image and one top-down image per component into outDir/images, and return the updated spec.",
+      description:
+        "Edit the uploaded photo into a photoreal hero, an exploded view, and one close-up per component. The photo is the reference, not a style hint.",
       inputSchema: {
         specPath: z.string().describe("Path to an explode spec JSON"),
+        imagePath: z.string().describe("Path to the uploaded photo used as the edit reference"),
         outDir: z.string().describe("Folder that will receive images/"),
       },
     },
-    async ({ specPath, outDir }) => {
+    async ({ specPath, imagePath, outDir }) => {
       try {
         const models = assertModels()
         const raw = JSON.parse(await readFile(specPath, "utf8")) as unknown
         const spec = normalizeSpec(explodeSpecSchema.parse(raw))
-        const next = await generateVisuals(spec, path.resolve(outDir), models)
+        const photo = await readPhoto(imagePath)
+        const next = await generateVisuals(spec, path.resolve(outDir), models, photo.bytes)
         return text(next)
       } catch (error) {
         return failure(error)

@@ -1,0 +1,15 @@
+{
+  "hero": "murph/hero.jpg",
+  "exploded": "murph/exploded-alt.jpg",
+  "components": {
+    "crystal": "murph/crystal.jpg",
+    "hands": "murph/hands.jpg",
+    "dial": "murph/dial.jpg",
+    "movement": "murph/movement.jpg",
+    "crown": "murph/crown.jpg",
+    "case": "murph/case.jpg",
+    "caseback": "murph/caseback.jpg",
+    "strap": "murph/strap.jpg",
+    "buckle": "murph/buckle.jpg"
+  }
+}

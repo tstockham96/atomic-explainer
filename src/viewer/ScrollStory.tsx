@@ -5,8 +5,8 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import type { ExplodeSpec } from "../spec/schema.ts"
 import { layoutFor } from "../spec/layout.ts"
 import { chapterAt, progressForChapter, storyboard } from "../spec/storyboard.ts"
-import { LayerArt } from "../visuals/registry.tsx"
 import { ComponentCopy, IntroCopy, OutroCopy } from "./copy.tsx"
+import { PhotoLayer } from "./PhotoLayer.tsx"
 import { Frame } from "./Frame.tsx"
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
@@ -27,6 +27,7 @@ export function ScrollStory({ spec }: { spec: ExplodeSpec }) {
 
   const rootRef = useRef<HTMLDivElement>(null)
   const cameraRef = useRef<HTMLDivElement>(null)
+  const heroRef = useRef<HTMLDivElement>(null)
   const barRef = useRef<HTMLSpanElement>(null)
   const layerRefs = useRef<Array<HTMLDivElement | null>>([])
   const introRef = useRef<HTMLElement>(null)
@@ -61,16 +62,20 @@ export function ScrollStory({ spec }: { spec: ExplodeSpec }) {
         y: camera.clientHeight * 0.4,
       })
 
-      gsap.set(camera, { x: 0, y: 0, scale: 1, rotateX: 7, transformPerspective: 1400 })
+      const hero = heroRef.current
+      gsap.set(camera, { x: 0, y: 0, scale: 1, rotateX: 8, transformPerspective: 1400 })
       layers.forEach((layer, index) => {
         const home = components[index]?.home
         gsap.set(layer, {
           x: () => (home?.x ?? 0) * spread().x,
           y: () => (home?.y ?? 0) * spread().y,
-          z: (count - index) * 10,
-          opacity: 1,
+          z: (count - index) * 12,
+          opacity: hero ? 0 : 1,
+          scale: 1,
+          filter: "blur(0px)",
         })
       })
+      if (hero) gsap.set(hero, { opacity: 1, filter: "blur(0px)" })
 
       const panels = panelRefs.current.filter((panel): panel is HTMLElement => panel !== null)
       gsap.set([introRef.current, outroRef.current, ...panels], { autoAlpha: 0, y: 28 })
@@ -97,7 +102,10 @@ export function ScrollStory({ spec }: { spec: ExplodeSpec }) {
         },
       })
 
-      timeline.to(camera, { rotateX: 18, duration: board.explode }, board.intro)
+      timeline.to(camera, { rotateX: 16, duration: board.explode }, board.intro)
+      if (hero) {
+        timeline.to(hero, { opacity: 0, filter: "blur(8px)", duration: board.explode * 0.85 }, board.intro)
+      }
 
       layers.forEach((layer, index) => {
         const layout = layouts[index]
@@ -107,7 +115,8 @@ export function ScrollStory({ spec }: { spec: ExplodeSpec }) {
           {
             x: () => layout.x * spread().x,
             y: () => layout.y * spread().y,
-            z: (count - index) * 54,
+            z: (count - index) * 16,
+            opacity: 1,
             duration: board.explode,
           },
           board.intro,
@@ -133,7 +142,9 @@ export function ScrollStory({ spec }: { spec: ExplodeSpec }) {
           },
           start,
         )
-        if (layer) timeline.to(layer, { x: 0, y: 0, opacity: 1, duration: 0.28 }, start)
+        if (layer) {
+          timeline.to(layer, { x: 0, y: 0, opacity: 1, scale: 1.02, filter: "blur(0px)", duration: 0.28 }, start)
+        }
         layers.forEach((other, otherIndex) => {
           if (otherIndex === index) return
           const otherLayout = layouts[otherIndex]
@@ -142,7 +153,9 @@ export function ScrollStory({ spec }: { spec: ExplodeSpec }) {
             {
               x: () => (otherLayout?.x ?? 0) * spread().x,
               y: () => (otherLayout?.y ?? 0) * spread().y,
-              opacity: 0.05,
+              opacity: 0.28,
+              scale: 0.96,
+              filter: "blur(7px)",
               duration: 0.28,
             },
             start,
@@ -154,6 +167,7 @@ export function ScrollStory({ spec }: { spec: ExplodeSpec }) {
 
       const outroAt = board.intro + board.explode + count * board.chapter
       timeline.to(camera, { x: 0, y: 0, scale: 1, rotateX: 8, duration: 0.5 }, outroAt)
+      if (hero) timeline.to(hero, { opacity: 1, filter: "blur(0px)", duration: 0.45 }, outroAt)
       layers.forEach((layer, index) => {
         const home = components[index]?.home
         timeline.to(
@@ -161,7 +175,9 @@ export function ScrollStory({ spec }: { spec: ExplodeSpec }) {
           {
             x: () => (home?.x ?? 0) * spread().x,
             y: () => (home?.y ?? 0) * spread().y,
-            opacity: 1,
+            opacity: hero ? 0 : 1,
+            scale: 1,
+            filter: "blur(0px)",
             duration: 0.5,
           },
           outroAt,
@@ -214,6 +230,11 @@ export function ScrollStory({ spec }: { spec: ExplodeSpec }) {
         art={
           <div className="camera-rig">
             <div ref={cameraRef} className="camera">
+              {ordered.heroImage ? (
+                <div ref={heroRef} className="layer hero-layer">
+                  <PhotoLayer src={ordered.heroImage} label={ordered.item.name} />
+                </div>
+              ) : null}
               {components.map((component, index) => (
                 <div
                   key={component.id}
@@ -223,7 +244,7 @@ export function ScrollStory({ spec }: { spec: ExplodeSpec }) {
                   className="layer"
                   style={{ zIndex: component.zIndex ?? 80 - component.order }}
                 >
-                  <LayerArt component={component} />
+                  <PhotoLayer src={component.image} label={component.name} />
                 </div>
               ))}
             </div>

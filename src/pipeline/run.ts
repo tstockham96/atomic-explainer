@@ -6,6 +6,7 @@ import { identifyPhoto } from "./identify.ts"
 import { assertModels } from "./models.ts"
 import { renderSite } from "./render-site.ts"
 import { researchItem } from "./research.ts"
+import { readPhoto } from "./photo.ts"
 import { generateVisuals } from "./visuals.ts"
 
 export interface RunOptions {
@@ -36,8 +37,13 @@ export async function runExplode(options: RunOptions): Promise<ExplodeSpec> {
   }
 
   if (!options.skipImages) {
+    if (!options.photo) {
+      throw new Error("Photoreal edits need the uploaded photo as the reference. Pass the image path.")
+    }
     const models = assertModels()
-    spec = await generateVisuals(spec, path.resolve(options.outDir), models, log)
+    const photo = await readPhoto(options.photo)
+    log(`Images · ${models.image}, from ${photo.resolved}`)
+    spec = await generateVisuals(spec, path.resolve(options.outDir), models, photo.bytes, log)
   }
 
   await renderSite(spec, options.outDir, { log })

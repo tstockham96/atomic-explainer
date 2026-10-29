@@ -95,8 +95,12 @@ export function OutroCopy({ spec }: { spec: ExplodeSpec }) {
           </div>
         ))}
       </dl>
-      {spec.heroImage ? (
-        <img src={asset(spec.heroImage)} alt="" className="mt-5 h-28 w-full object-cover object-center opacity-80" />
+      {spec.explodedImage ?? spec.heroImage ? (
+        <img
+          src={asset(spec.explodedImage ?? spec.heroImage ?? "")}
+          alt=""
+          className="mt-5 h-36 w-full object-contain"
+        />
       ) : null}
       {spec.sources.length > 0 ? (
         <ul className="mt-5 space-y-1">

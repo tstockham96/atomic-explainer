@@ -12,10 +12,12 @@ const murph = explodeSpecSchema.parse(JSON.parse(readFileSync(specPath, "utf8"))
 
 describe("Murph demo spec", () => {
   it("parses and keeps the researched reference", () => {
-    expect(murph.item.reference).toBe("H70405730")
+    expect(murph.item.reference).toBe("H70605731")
     expect(murph.item.maker).toBe("Hamilton")
     expect(murph.components).toHaveLength(9)
-    expect(murph.visualMode).toBe("illustrated")
+    expect(murph.visualMode).toBe("generated")
+    expect(murph.heroImage).toBe("murph/hero.jpg")
+    expect(murph.explodedImage).toBe("murph/exploded-alt.jpg")
   })
 
   it("does not treat 316L as the published case alloy", () => {
@@ -31,9 +33,13 @@ describe("Murph demo spec", () => {
     }
   })
 
-  it("gives every part a drawing or a hint for the image step", () => {
+  it("points every part at a photograph in the manifest", () => {
+    const manifest = JSON.parse(readFileSync(path.join(process.cwd(), "public/murph/manifest.json"), "utf8")) as {
+      components: Record<string, string>
+    }
     for (const component of murph.components) {
-      expect(component.visual ?? component.visualHint).toBeTruthy()
+      expect(component.image).toBe(manifest.components[component.id])
+      expect(component.visual).toBeUndefined()
       expect(component.howItsMade.length).toBeGreaterThan(80)
     }
   })

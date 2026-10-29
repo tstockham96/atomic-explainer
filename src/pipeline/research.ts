@@ -18,9 +18,9 @@ ${JSON.stringify(identity, null, 2)}`,
   return normalizeSpec(
     explodeSpecSchema.parse({
       ...object,
-      visualMode: "illustrated",
+      visualMode: "pending",
       artNote:
-        "No layer images yet. Parts use a generic stand-in until the image step runs. Pass --skip-images to keep it this way.",
+        "No photographs yet. The image step edits the uploaded photo into a hero, an exploded view, and one cutout per part.",
       identity: {
         confidence: identity.confidence,
         notes: identity.notes,

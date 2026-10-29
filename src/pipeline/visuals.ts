@@ -1,9 +1,10 @@
 import { generateImage } from "ai"
 import { mkdir, writeFile } from "node:fs/promises"
 import path from "node:path"
-import type { ComponentSpec, ExplodeSpec } from "../spec/schema.ts"
+import type { ExplodeSpec } from "../spec/schema.ts"
 import { slug } from "../spec/normalize.ts"
 import type { ResolvedModels } from "./models.ts"
+import { componentEditPrompt, explodedEditPrompt, heroEditPrompt } from "./prompts.ts"
 import { imageModel } from "./providers.ts"
 
 function extension(mediaType: string | undefined) {
@@ -12,56 +13,62 @@ function extension(mediaType: string | undefined) {
   return "png"
 }
 
-function componentPrompt(spec: ExplodeSpec, component: ComponentSpec) {
-  return [
-    `Isolated product photograph of one part from a ${spec.item.name}: ${component.name}.`,
-    `Material: ${component.material}.`,
-    component.visualHint ?? "",
-    "Straight top-down view, centered, the part filling about 70 percent of the frame.",
-    "Background is a perfectly flat solid color #0c0d0b, no gradient, no floor, no shadow blob, no text, no watermark, no logo other than one that is physically part of the object.",
-    "Photoreal, crisp edges, one object only.",
-  ]
-    .filter(Boolean)
-    .join(" ")
+function editOptions(modelId: string) {
+  if (!modelId.includes("gpt-image")) return undefined
+  return {
+    openai: {
+      background: "transparent",
+      output_format: "png",
+    },
+  }
 }
 
-function heroPrompt(spec: ExplodeSpec) {
-  const names = spec.components.map((component) => component.name).join(", ")
-  return [
-    `Cinematic exploded product photograph of a ${spec.item.name}.`,
-    `Parts separated vertically in a neat column: ${names}.`,
-    "Dark studio, solid background #0c0d0b, no text, no watermark, photoreal.",
-  ].join(" ")
-}
-
-async function writeGenerated(outDir: string, stem: string, modelId: ReturnType<typeof imageModel>, prompt: string) {
+async function editPhoto(
+  modelId: ReturnType<typeof imageModel>,
+  modelName: string,
+  text: string,
+  source: Uint8Array,
+) {
   const result = await generateImage({
     model: modelId,
-    prompt,
+    prompt: {
+      text,
+      images: [source],
+    },
     aspectRatio: "1:1",
+    providerOptions: editOptions(modelName),
   })
-  const ext = extension(result.image.mediaType)
-  const relative = `images/${stem}.${ext}`
-  await writeFile(path.join(outDir, relative), result.image.uint8Array)
-  return relative
+  return result.image
 }
 
 export async function generateVisuals(
   spec: ExplodeSpec,
   outDir: string,
   models: ResolvedModels,
+  source: Uint8Array,
   log: (message: string) => void = () => undefined,
 ): Promise<ExplodeSpec> {
+  if (source.byteLength === 0) {
+    throw new Error("The reference photo is empty. Image edits need the uploaded photo.")
+  }
+
   await mkdir(path.join(outDir, "images"), { recursive: true })
   const warnings = [...(spec.generation?.warnings ?? [])]
   const model = imageModel(models.image, models.mode)
-  const components: ComponentSpec[] = []
 
+  async function save(stem: string, text: string) {
+    const image = await editPhoto(model, models.image, text, source)
+    const relative = `images/${stem}.${extension(image.mediaType)}`
+    await writeFile(path.join(outDir, relative), image.uint8Array)
+    return relative
+  }
+
+  const components = []
   for (const component of spec.components) {
-    log(`Image · ${component.name}`)
+    log(`Edit · ${component.name}`)
     try {
-      const image = await writeGenerated(outDir, slug(component.id), model, componentPrompt(spec, component))
-      components.push({ ...component, image })
+      const image = await save(slug(component.id), componentEditPrompt(spec, component))
+      components.push({ ...component, image, visual: undefined })
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error)
       warnings.push(`${component.name}: ${message}`)
@@ -70,26 +77,36 @@ export async function generateVisuals(
   }
 
   let heroImage = spec.heroImage
-  log("Image · exploded hero")
+  log("Edit · assembled hero")
   try {
-    heroImage = await writeGenerated(outDir, "hero", model, heroPrompt(spec))
+    heroImage = await save("hero", heroEditPrompt(spec))
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
     warnings.push(`hero: ${message}`)
   }
 
+  let explodedImage = spec.explodedImage
+  log("Edit · exploded view")
+  try {
+    explodedImage = await save("exploded", explodedEditPrompt(spec))
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error)
+    warnings.push(`exploded: ${message}`)
+  }
+
   const withImages = components.filter((component) => component.image).length
-  const visualMode = withImages === 0 ? spec.visualMode : withImages === components.length ? "generated" : "mixed"
+  const visualMode = withImages === 0 ? "pending" : withImages === components.length ? "generated" : "mixed"
 
   return {
     ...spec,
     components,
     heroImage,
+    explodedImage,
     visualMode,
     artNote:
       visualMode === "generated"
-        ? "Layer photography generated for this teardown. Backgrounds are prompted to match the page."
-        : spec.artNote,
+        ? "Photographs edited from the uploaded photo. Same object, studio lighting, flat background so the layers can separate."
+        : "Some photographic edits failed. Those parts stay empty until the image step succeeds. See generation.warnings.",
     generation: {
       visionModel: spec.generation?.visionModel,
       researchModel: spec.generation?.researchModel,

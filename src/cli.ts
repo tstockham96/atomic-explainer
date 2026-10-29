@@ -21,7 +21,7 @@ Usage
   explode ./photo.jpg
   explode ./photo.jpg --out ./site
   explode --from-spec public/spec.json --out ./site
-  explode --from-spec public/spec.json --images --out ./site
+  explode ./photo.jpg --from-spec public/spec.json --images --out ./site
 
 Options
   -o, --out <dir>         Output folder (default: ./explode-out)
@@ -36,7 +36,8 @@ Environment
   OPENAI_API_KEY          Direct OpenAI, used only if the gateway key is unset
   EXPLODE_VISION_MODEL    Default google/gemini-2.5-flash
   EXPLODE_RESEARCH_MODEL  Default anthropic/claude-sonnet-4.5
-  EXPLODE_IMAGE_MODEL     Default bfl/flux-2-pro
+  EXPLODE_IMAGE_MODEL     Default google/gemini-2.5-flash-image
+                          Also: bfl/flux-kontext-pro, bfl/flux-3-image, openai/gpt-image-1
 
 The committed Murph demo does not need a key:
   npm run dev

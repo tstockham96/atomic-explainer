@@ -21,7 +21,7 @@ Pieces, if you want to stop between steps:
 
 - `identifyPhoto(path, models)`
 - `researchItem(identity, models)`
-- `generateVisuals(spec, outDir, models)`
+- `generateVisuals(spec, outDir, models, sourcePhotoBytes)` edits the uploaded photo. It does not invent a new object.
 - `renderSite(spec, outDir)`
 - `solid3d` — interface only. `available` is `false`. Calling `reconstruct` throws `TODO(explode-3d)`.
 
@@ -53,7 +53,7 @@ During development, `npm run mcp` runs the TypeScript entry over stdio.
 | --- | --- | --- |
 | `explode_identify` | Maker, model, category from a photo path | Yes |
 | `explode_research` | Components, materials, process, spec JSON | Yes |
-| `explode_visualize` | Hero plus one image per part | Yes |
+| `explode_visualize` | Edit the uploaded photo into a hero, an exploded view, and one cutout per part | Yes |
 | `explode_build_site` | Static scroll site from a spec file | No |
 | `explode_run` | All of the above | Yes |
 

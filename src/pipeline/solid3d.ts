@@ -3,7 +3,7 @@ import type { ExplodeSpec } from "../spec/schema.ts"
 /**
  * Future true-3D step.
  *
- * TODO(explode-3d): replace illustrated or generated flat layers with real geometry.
+ * TODO(explode-3d): replace the photographic cutouts with real geometry.
  * The intended pipeline is:
  * 1. Segment the source photo, or the researched components, into parts.
  * 2. Reconstruct each part as a mesh — image-to-3D, a CAD match, or a parametric stand-in.

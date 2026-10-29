@@ -3,9 +3,9 @@ import type { ExplodeSpec } from "../spec/schema.ts"
 
 function artNote(spec: ExplodeSpec) {
   if (spec.artNote) return spec.artNote
-  if (spec.visualMode === "generated") return "Layer photography generated for this teardown."
-  if (spec.visualMode === "mixed") return "Some layers are generated photographs. The rest are illustrated stand-ins."
-  return "Illustrated stand-in. Run explode with an image model to replace these layers."
+  if (spec.visualMode === "generated") return "Photographs edited from the uploaded photo."
+  if (spec.visualMode === "mixed") return "Some photographic edits failed. Empty plates are missing files."
+  return "Waiting for photographs listed in the image manifest."
 }
 
 export function Frame({

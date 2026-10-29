@@ -2,7 +2,7 @@
 
 A photo of a physical thing goes in. A scroll-driven “how it’s made” site comes out.
 
-The committed demo is the [Hamilton Khaki Field Murph 38mm](https://www.hamiltonwatch.com/en-us/h70405730-khaki-field-murph-38mm.html), reference **H70405730**. Scroll the page and the watch comes apart: sapphire, cathedral hands, dial, H-10, crown, case, exhibition caseback, strap, buckle. Nothing on that page is a 3D model. The parts are layered drawings with depth, parallax, and a camera move.
+The committed demo is the [Hamilton Khaki Field Murph 42mm](https://www.hamiltonwatch.com/en-us/h70605731-khaki-field-murph-auto.html), reference **H70605731**. Scroll separates photographs of that watch: the assembled hero, then each part, with a little parallax and a shallow depth of field. The zoom stays slight because the frames are about 1024 pixels.
 
 ```bash
 npm install
@@ -46,18 +46,18 @@ npm run explode -- ./photo.jpg --out ./site
 | --- | --- | --- |
 | Identify the photo | `google/gemini-2.5-flash` | `EXPLODE_VISION_MODEL` |
 | Research the teardown | `anthropic/claude-sonnet-4.5` | `EXPLODE_RESEARCH_MODEL` |
-| Draw each part | `bfl/flux-2-pro` | `EXPLODE_IMAGE_MODEL` |
+| Edit the photo | `google/gemini-2.5-flash-image` | `EXPLODE_IMAGE_MODEL` |
 
-Gateway ids look like `provider/model`. Direct OpenAI strips the provider prefix, so `openai/gpt-image-1` becomes `gpt-image-1`. Direct defaults are `gpt-4o` and `gpt-image-1`.
+The image step is an edit. The uploaded photo is sent as the reference (`prompt.images`), and the prompt asks for a photoreal studio shot of that same object. Other reference-capable gateway ids: `bfl/flux-kontext-pro`, `bfl/flux-3-image`, `openai/gpt-image-1`. Direct OpenAI defaults to `gpt-image-1` and asks for a transparent PNG.
 
 ```bash
-npm run explode -- ./photo.jpg --skip-images   # spec + generic stand-in art
-npm run explode -- --from-spec public/spec.json --images --out ./site
+npm run explode -- ./photo.jpg --skip-images
+npm run explode -- ./photo.jpg --from-spec public/spec.json --images --out ./site
 ```
 
 No secrets belong in the repo. `.env` is gitignored.
 
-The Murph layers in the demo are original illustrations, labeled as stand-ins. They are not factory drawings. The movement bridges are a schematic. Image generation was not run in this build; the prompts and the client are ready.
+The Murph demo is those photographs, mapped in `public/murph/manifest.json`. The exploded still in the outro is `exploded-alt.jpg`, the pass with the clearer case and caseback. `exploded.jpg` is the other stack and stays in the folder. Movement, crown, and caseback are representative, and the caseback engraving in the picture is not Hamilton’s production text. The watermarked retailer photo used to generate them is not in the repo.
 
 ## Pipeline
 
@@ -73,8 +73,8 @@ flowchart LR
 
 1. **Identify.** A vision model returns maker, model, category, and a confidence score. It is told not to invent a reference number.
 2. **Research.** A second call returns the spec: the object, and each component’s name, material, how it is made, a fact or two, and stack order. The prompt tells the model to drop measurements it cannot source.
-3. **Images.** One top-down frame per component, plus an exploded hero, on a flat `#0c0d0b` ground so the layers can sit on the page. A failed image does not abort the run. That part keeps its drawing or a labeled stand-in, and the warning is stored on the spec.
-4. **Site.** A static folder: `index.html`, the built viewer, `spec.json`, and `images/`. The page pins, spreads the layers on z and y, then zooms the copy for each part.
+3. **Images.** The uploaded photo is the reference for three edits: an assembled hero, a photoreal exploded view, and a close-up cutout of each component. Prompts lock studio lighting and a flat `#0c0d0b` ground. A failed edit does not abort the run. The warning is stored on the spec, and that plate stays empty.
+4. **Site.** A static folder: `index.html`, the viewer, `spec.json`, and `images/`. The page pins. The hero fades, the cutouts separate in depth, and the active part sharpens while the others fall out of focus.
 5. **True 3D.** Not built. `src/pipeline/solid3d.ts` is the interface and a `TODO(explode-3d)`. `solid3d.available` is `false`.
 
 The spec is version `1`. See `src/spec/schema.ts`.
@@ -94,8 +94,8 @@ npm run mcp
 ```
 src/pipeline     identify, research, images, site writer, 3D stub
 src/spec         zod schema, stack layout, scroll chapters
-src/visuals      Murph drawings and the generic stand-in
-src/viewer       GSAP ScrollTrigger page
+src/viewer       scroll page, photographic layers
+public/murph/manifest.json   demo photo paths
 public/spec.json researched Murph demo
 ```
 
@@ -112,11 +112,10 @@ npm run build      # dist-site/ and dist/cli.js
 
 ## Roadmap
 
-- Background removal, so generated parts composite cleanly instead of relying on a matched ground.
+- Background removal when a model will not return a clean cutout.
 - A real image-to-3D provider behind `solid3d.reconstruct`, emitting one glTF per component and driving the same chapters with a camera.
 - A service manual pass: torque, oiling points, and what not to touch, when a source actually says so.
-- More built-in drawings than the Murph. Anything else already falls through to the labeled plate, or to generated photos when a key is set.
 
 ## Sources for the demo
 
-The Murph copy is summarized from Hamilton’s H70405730 page, Hamilton’s account of making the Murph, Caliber Corner and WatchBase on the H-10, and Monochrome’s hands-on of the 38mm. Links are in the page footer and in `public/spec.json`. Hamilton does not publish a steel grade for this case. The demo does not call it 316L.
+The Murph copy is summarized from Hamilton’s H70605731 page, Hamilton’s account of making the Murph, and Caliber Corner and WatchBase on the H-10. Links are in the page footer and in `public/spec.json`. Hamilton does not publish a steel grade for this case. The demo does not call it 316L. The caseback lettering in the photograph is generated.

@@ -3,6 +3,8 @@ import { tmpdir } from "node:os"
 import path from "node:path"
 import { afterEach, describe, expect, it } from "vitest"
 import { formatHelp } from "../src/cli.ts"
+import { componentEditPrompt, explodedEditPrompt, heroEditPrompt } from "../src/pipeline/prompts.ts"
+import { applyManifest, manifestSchema } from "../src/spec/manifest.ts"
 import { resolveModels } from "../src/pipeline/models.ts"
 import { SPEC_MARKER, injectSpec, renderSite } from "../src/pipeline/render-site.ts"
 import { explodeSpecSchema } from "../src/spec/schema.ts"
@@ -29,7 +31,7 @@ describe("credentials", () => {
     expect(result).toMatchObject({
       mode: "gateway",
       vision: "google/gemini-2.5-flash",
-      image: "bfl/flux-2-pro",
+      image: "google/gemini-2.5-flash-image",
     })
     expect(JSON.stringify(result)).not.toContain("secret")
   })
@@ -67,9 +69,39 @@ describe("site render", () => {
     const index = await renderSite(murph, out, { templateDir: template })
     const html = await readFile(index, "utf8")
     const written = JSON.parse(await readFile(path.join(out, "spec.json"), "utf8")) as { item: { reference?: string } }
-    expect(html).toContain("H70405730")
-    expect(written.item.reference).toBe("H70405730")
+    expect(html).toContain("H70605731")
+    expect(written.item.reference).toBe("H70605731")
     expect(await readFile(path.join(out, "app.js"), "utf8")).toContain("viewer")
+  })
+})
+
+describe("photographic edits", () => {
+  it("tells the model to match the reference photo", () => {
+    const hero = heroEditPrompt(murph)
+    const exploded = explodedEditPrompt(murph)
+    const crystal = murph.components.find((component) => component.id === "crystal")
+    expect(crystal).toBeDefined()
+    const closeup = componentEditPrompt(murph, crystal!)
+    for (const prompt of [hero, exploded, closeup]) {
+      expect(prompt).toContain("Photorealistic")
+      expect(prompt).toContain("reference")
+      expect(prompt).toContain("Do not illustrate")
+    }
+    expect(closeup).toContain("Sapphire crystal")
+    expect(exploded).toContain("Caliber H-10")
+  })
+
+  it("applies a manifest onto the spec", () => {
+    const manifest = manifestSchema.parse({
+      hero: "shots/hero.png",
+      exploded: "shots/exploded.png",
+      components: { crystal: "shots/crystal.png" },
+    })
+    const next = applyManifest(murph, manifest)
+    expect(next.heroImage).toBe("shots/hero.png")
+    expect(next.explodedImage).toBe("shots/exploded.png")
+    expect(next.components.find((component) => component.id === "crystal")?.image).toBe("shots/crystal.png")
+    expect(next.components.find((component) => component.id === "dial")?.image).toBe("murph/dial.jpg")
   })
 })
 

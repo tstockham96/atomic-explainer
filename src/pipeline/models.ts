@@ -12,7 +12,7 @@ export type ModelResolution = ResolvedModels | { error: string }
 const GATEWAY_DEFAULTS = {
   vision: "google/gemini-2.5-flash",
   research: "anthropic/claude-sonnet-4.5",
-  image: "bfl/flux-2-pro",
+  image: "google/gemini-2.5-flash-image",
 }
 
 const OPENAI_DEFAULTS = {
