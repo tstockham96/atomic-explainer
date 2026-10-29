@@ -86,9 +86,12 @@ describe("photographic edits", () => {
       expect(prompt).toContain("Photorealistic")
       expect(prompt).toContain("reference")
       expect(prompt).toContain("Do not illustrate")
+      expect(prompt).toContain("Do not bake in labels")
     }
     expect(closeup).toContain("Sapphire crystal")
     expect(exploded).toContain("Caliber H-10")
+    expect(exploded).toContain("assembly axis")
+    expect(exploded).toContain("subtle shadows")
   })
 
   it("applies a manifest onto the spec", () => {

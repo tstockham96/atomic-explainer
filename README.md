@@ -2,7 +2,7 @@
 
 A photo of a physical thing goes in. A scroll-driven “how it’s made” site comes out.
 
-The committed demo is the [Hamilton Khaki Field Murph 42mm](https://www.hamiltonwatch.com/en-us/h70605731-khaki-field-murph-auto.html), reference **H70605731**. Scroll separates photographs of that watch: the assembled hero, then each part, with a little parallax and a shallow depth of field. The zoom stays slight because the frames are about 1024 pixels.
+The page is the exploded-view poster: bold title, gray subtitle, parts along one axis, HTML labels with leader lines, and inset cards for the assembled photo, dimensions, and the active part. Dark objects use a navy studio. Image prompts ask for that same breakdown and leave the labels off the pictures. The demo is the [Hamilton Khaki Field Murph 42mm](https://www.hamiltonwatch.com/en-us/h70605731-khaki-field-murph-auto.html), reference **H70605731**.
 
 ```bash
 npm install

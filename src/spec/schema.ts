@@ -64,6 +64,8 @@ export const explodeSpecSchema = z.object({
   components: z.array(componentSchema).min(1),
   facts: z.array(factSchema).default([]),
   sources: z.array(sourceSchema).default([]),
+  /** Light studio for pale objects, dark navy for dark ones. */
+  studio: z.enum(["light", "dark"]).default("light"),
   heroImage: z.string().optional(),
   explodedImage: z.string().optional(),
   visualMode: z.enum(["pending", "generated", "mixed"]).default("pending"),
