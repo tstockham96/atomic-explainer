@@ -15,7 +15,7 @@ html,
 body {
   margin: 0;
   min-height: 100dvh;
-  background: #0b1018;
+  background: #07080c;
   color: #f4f6f8;
   font-family: var(--font-sans);
   text-rendering: optimizeLegibility;
@@ -880,5 +880,473 @@ a:focus-visible {
 
   .footnote {
     white-space: normal;
+  }
+}
+
+.reel {
+  background: #07080c;
+  color: #f4f1ea;
+  min-height: 100dvh;
+}
+
+.topbar {
+  position: fixed;
+  z-index: 30;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.3rem 1.6rem;
+  background: linear-gradient(#07080c 20%, rgba(7, 8, 12, 0));
+  pointer-events: none;
+}
+
+.topbar button,
+.topbar .brand {
+  pointer-events: auto;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+}
+
+.topbar nav {
+  display: flex;
+  gap: 0.9rem;
+}
+
+.topbar button.on {
+  color: #f4f1ea;
+}
+
+.topbar button:not(.on):not(.brand) {
+  color: rgba(244, 241, 234, 0.46);
+}
+
+.pin {
+  height: 100dvh;
+  position: relative;
+}
+
+.sticky-stage {
+  height: 100dvh;
+  display: grid;
+  grid-template-columns: minmax(16rem, 1fr) auto minmax(12rem, 0.85fr);
+  align-items: center;
+  gap: 0.75rem;
+  padding: 4.2rem 1.25rem 1.4rem;
+  background:
+    radial-gradient(ellipse 48% 62% at 50% 46%, #1c1e24 0%, #101116 46%, #07080c 74%);
+}
+
+.caption-col {
+  position: relative;
+  min-height: 16rem;
+  align-self: center;
+  max-width: 28rem;
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  opacity: 0;
+  transform: translateY(-50%);
+  visibility: hidden;
+}
+
+.caption .kicker,
+.sheet .kicker,
+.essay .kicker,
+.quiet-hero .kicker {
+  margin: 0 0 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 234, 0.48);
+}
+
+.caption h1,
+.caption h2,
+.quiet-hero h1,
+.essay h2,
+.sheet-head h2 {
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 0.96;
+}
+
+.caption h1 {
+  font-size: clamp(2.7rem, 4.6vw, 5.2rem);
+}
+
+.caption h1 em,
+.quiet-hero h1 em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.caption h2 {
+  font-size: clamp(2rem, 3vw, 3.3rem);
+}
+
+.caption .sub,
+.caption .material,
+.caption .fact-line {
+  margin: 0.85rem 0 0;
+  max-width: 34ch;
+  color: rgba(244, 241, 234, 0.72);
+  font-size: 1.02rem;
+  line-height: 1.45;
+}
+
+.caption .material {
+  color: rgba(244, 241, 234, 0.5);
+  font-size: 0.92rem;
+}
+
+.caption .sub {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.canvas-col {
+  height: 100%;
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+}
+
+.canvas-frame {
+  position: relative;
+  /* Definite size. A percentage of the auto grid column collapses to nothing. */
+  width: min(calc((100dvh - 5.4rem) * 9 / 16), calc(100vw - 40rem));
+  aspect-ratio: 9 / 16;
+  height: auto;
+  background: #0a0b0e;
+}
+
+.canvas-frame canvas,
+.canvas-frame .poster,
+.canvas-frame .still {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.canvas-frame .poster,
+.canvas-frame .still {
+  transition: opacity 0.2s linear;
+}
+
+.canvas-frame:not(.is-live) .poster,
+.canvas-frame.is-live .still {
+  visibility: hidden;
+}
+
+.canvas-frame[data-painted="true"] .poster {
+  opacity: 0;
+}
+
+.canvas-frame .still-explode,
+.canvas-frame .still-part {
+  opacity: 0;
+}
+
+.edge-fade {
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, #07080c, rgba(7, 8, 12, 0) 13%, rgba(7, 8, 12, 0) 87%, #07080c),
+    linear-gradient(180deg, rgba(7, 8, 12, 0.72), rgba(7, 8, 12, 0) 11%, rgba(7, 8, 12, 0) 88%, #07080c);
+}
+
+.pluses {
+  position: absolute;
+  inset: 12% 10%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pluses span {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+}
+
+.pluses span::before,
+.pluses span::after {
+  content: "";
+  position: absolute;
+  background: rgba(244, 241, 234, 0.8);
+}
+
+.pluses span::before {
+  left: 6px;
+  top: 0;
+  width: 1px;
+  height: 14px;
+}
+
+.pluses span::after {
+  top: 6px;
+  left: 0;
+  height: 1px;
+  width: 14px;
+}
+
+.pluses span:nth-child(1) { top: 8%; left: 6%; }
+.pluses span:nth-child(2) { top: 18%; right: 4%; }
+.pluses span:nth-child(3) { bottom: 22%; left: 10%; }
+.pluses span:nth-child(4) { bottom: 12%; right: 8%; }
+
+.scrub-label {
+  margin: 0.85rem 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 234, 0.45);
+}
+
+.scrub-bar {
+  width: min(9rem, 40%);
+  height: 1px;
+  margin-top: 0.45rem;
+  background: rgba(244, 241, 234, 0.16);
+  overflow: hidden;
+}
+
+.scrub-bar span {
+  display: block;
+  height: 100%;
+  background: #f4f1ea;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+.part-rail {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  justify-self: end;
+  max-width: 16rem;
+}
+
+.part-rail button {
+  display: flex;
+  gap: 0.65rem;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: rgba(244, 241, 234, 0.42);
+  font: inherit;
+  font-size: 0.86rem;
+  text-align: left;
+  cursor: pointer;
+  padding: 0.15rem 0;
+}
+
+.part-rail button span {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.part-rail button.on {
+  color: #f4f1ea;
+}
+
+.sheet,
+.essay,
+.notes,
+.quiet-hero {
+  padding: 6.5rem 1.5rem 4rem;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.sheet-head h2,
+.essay h2 {
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  max-width: 18ch;
+}
+
+.part-grid {
+  list-style: none;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.6rem 1.2rem;
+}
+
+.part-grid img,
+.quiet-hero img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  background: #101116;
+  border-radius: 2px;
+}
+
+.quiet-hero img {
+  aspect-ratio: 9 / 16;
+  width: min(100%, 420px);
+  margin-top: 1.5rem;
+}
+
+.part-grid h3 {
+  margin: 0.35rem 0 0.4rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.part-grid p:last-child {
+  margin: 0;
+  color: rgba(244, 241, 234, 0.66);
+  line-height: 1.45;
+}
+
+.empty-shot {
+  aspect-ratio: 1;
+  background: #16181e;
+}
+
+.essay h2 {
+  max-width: 22ch;
+  font-weight: 450;
+  line-height: 1.15;
+}
+
+.essay dl {
+  margin: 2.4rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.2rem 1rem;
+}
+
+.essay dt {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(244, 241, 234, 0.45);
+}
+
+.essay dd {
+  margin: 0.3rem 0 0;
+  font-size: 1.05rem;
+}
+
+.notes p,
+.notes a {
+  color: rgba(244, 241, 234, 0.62);
+  max-width: 62ch;
+  line-height: 1.5;
+}
+
+.notes ul {
+  margin: 1.2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.notes li + li {
+  margin-top: 0.4rem;
+}
+
+.notes a {
+  color: #f4f1ea;
+}
+
+.quiet-hero h1 {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  margin: 0;
+  letter-spacing: -0.04em;
+}
+
+.is-quiet .topbar {
+  position: absolute;
+}
+
+@media (max-width: 860px) {
+  .sticky-stage {
+    grid-template-columns: 1fr;
+    padding: 3.4rem 0.75rem 0.8rem;
+  }
+
+  .caption-col {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-height: 0;
+    max-width: none;
+    padding: 3.2rem 1.1rem 4.4rem;
+    background: linear-gradient(transparent, rgba(7, 8, 12, 0.92) 42%, #07080c);
+    pointer-events: none;
+  }
+
+  .caption h1 {
+    font-size: 2.4rem;
+  }
+
+  .part-rail {
+    display: none;
+  }
+
+  .sticky-stage {
+    padding-bottom: 10.5rem;
+  }
+
+  .caption-col {
+    height: 9.5rem;
+    padding: 1.2rem 1.1rem 1.4rem;
+  }
+
+  .caption .sub {
+    -webkit-line-clamp: 2;
+  }
+
+  .canvas-frame {
+    width: min(86vw, calc((100dvh - 14rem) * 9 / 16));
+  }
+
+  .part-grid,
+  .essay dl {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .part-grid,
+  .essay dl {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar nav {
+    gap: 0.55rem;
   }
 }

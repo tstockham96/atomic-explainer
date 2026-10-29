@@ -2,7 +2,9 @@ import "dotenv/config"
 import { parseArgs } from "node:util"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
+import { extractFrames } from "./pipeline/motion.ts"
 import { runExplode } from "./pipeline/run.ts"
+import { parseSkip } from "./spec/frames.ts"
 
 interface Flags {
   help: boolean
@@ -11,6 +13,11 @@ interface Flags {
   fromSpec?: string
   skipImages: boolean
   images: boolean
+  motion: boolean
+  extract?: string
+  framesDir?: string
+  fps?: number
+  skips: ReturnType<typeof parseSkip>[]
   photo?: string
 }
 
@@ -22,22 +29,34 @@ Usage
   explode ./photo.jpg --out ./site
   explode --from-spec public/spec.json --out ./site
   explode ./photo.jpg --from-spec public/spec.json --images --out ./site
+  explode ./photo.jpg --motion --out ./site
+  explode --extract ./explode.mp4 --frames-dir ./frames/explode --skip 4.55-5.65 --skip-keep 2
 
 Options
   -o, --out <dir>         Output folder (default: ./explode-out)
       --from-spec <file>  Render a spec JSON instead of calling models
       --skip-images       Research and build, but do not call an image model
       --images            With --from-spec, also generate layer images
+      --motion            After stills, make rotation + explode clips and extract WebP frames
+      --extract <video>   Only extract a clip to WebP frames. No model call
+      --frames-dir <dir>  Destination for --extract
+      --fps <n>           Frame rate for extraction (default 12)
+      --skip <a-b>        Source-time range to rush or drop. Repeatable
+      --skip-keep <n>     Frames to keep inside each --skip (default 0 drops it)
       --json              Print the spec JSON to stdout
   -h, --help
 
 Environment
   AI_GATEWAY_API_KEY      Vercel AI Gateway (preferred)
   OPENAI_API_KEY          Direct OpenAI, used only if the gateway key is unset
+  FAL_KEY                 Used when EXPLODE_VIDEO_PROVIDER=fal
   EXPLODE_VISION_MODEL    Default google/gemini-2.5-flash
   EXPLODE_RESEARCH_MODEL  Default anthropic/claude-sonnet-4.5
   EXPLODE_IMAGE_MODEL     Default google/gemini-2.5-flash-image
                           Also: bfl/flux-kontext-pro, bfl/flux-3-image, openai/gpt-image-1
+  EXPLODE_VIDEO_PROVIDER  gateway (default) or fal
+  EXPLODE_VIDEO_MODEL     Default klingai/kling-v2.6-i2v
+                          Also: google/veo-3.1-fast-generate-001, bytedance/seedance-v1.5-pro
 
 The committed Murph demo does not need a key:
   npm run dev
@@ -53,6 +72,12 @@ export function parseFlags(argv: string[]): Flags {
       "from-spec": { type: "string" },
       "skip-images": { type: "boolean", default: false },
       images: { type: "boolean", default: false },
+      motion: { type: "boolean", default: false },
+      extract: { type: "string" },
+      "frames-dir": { type: "string" },
+      fps: { type: "string" },
+      skip: { type: "string", multiple: true },
+      "skip-keep": { type: "string" },
       json: { type: "boolean", default: false },
       help: { type: "boolean", short: "h", default: false },
       "model-vision": { type: "string" },
@@ -65,6 +90,13 @@ export function parseFlags(argv: string[]): Flags {
   if (values["model-research"]) process.env.EXPLODE_RESEARCH_MODEL = values["model-research"]
   if (values["model-image"]) process.env.EXPLODE_IMAGE_MODEL = values["model-image"]
 
+  const keep = values["skip-keep"] ? Number(values["skip-keep"]) : 0
+  const skips = (values.skip ?? []).map((range) => parseSkip(range, keep))
+  const fps = values.fps ? Number(values.fps) : undefined
+  if (fps !== undefined && (!Number.isFinite(fps) || fps <= 0)) {
+    throw new Error(`--fps must be a positive number, got "${values.fps}".`)
+  }
+
   return {
     help: values.help,
     json: values.json,
@@ -72,6 +104,11 @@ export function parseFlags(argv: string[]): Flags {
     fromSpec: values["from-spec"],
     skipImages: values["skip-images"],
     images: values.images,
+    motion: values.motion,
+    extract: values.extract,
+    framesDir: values["frames-dir"],
+    fps,
+    skips,
     photo: positionals[0],
   }
 }
@@ -81,6 +118,21 @@ export async function main(argv: string[]) {
   if (flags.help) {
     console.log(formatHelp())
     return 0
+  }
+
+  if (flags.extract) {
+    if (!flags.framesDir) {
+      console.error("--extract needs --frames-dir.")
+      return 1
+    }
+    try {
+      const sequence = await extractFrames(flags.extract, flags.framesDir, { fps: flags.fps, skips: flags.skips })
+      console.error(`  ${sequence.count} frames  ${flags.framesDir}`)
+      return 0
+    } catch (error) {
+      console.error(error instanceof Error ? error.message : String(error))
+      return 1
+    }
   }
 
   if (!flags.photo && !flags.fromSpec) {
@@ -94,6 +146,8 @@ export async function main(argv: string[]) {
       specPath: flags.fromSpec,
       outDir: flags.out,
       skipImages: flags.images ? false : flags.fromSpec ? true : flags.skipImages,
+      motion: flags.motion,
+      skips: flags.skips,
       log: (message) => {
         if (!flags.json) console.error(message)
       },

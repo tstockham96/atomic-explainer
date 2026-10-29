@@ -263,6 +263,23 @@
       "image": "murph/buckle.jpg"
     }
   ],
-  "heroImage": "murph/hero.jpg",
-  "explodedImage": "murph/exploded-alt.jpg"
+  "heroImage": "murph/hero-916.jpg",
+  "explodedImage": "murph/exploded-alt.jpg",
+  "frames": {
+    "rotation": {
+      "dir": "murph/frames/rotation",
+      "count": 121,
+      "ext": "webp",
+      "pad": 4,
+      "start": 1
+    },
+    "explode": {
+      "dir": "murph/frames/explode",
+      "count": 110,
+      "ext": "webp",
+      "pad": 4,
+      "start": 1,
+      "note": "The explode clip flashes a second crystal from 4.55s to 5.65s. Those seconds are two frames, so the scroll rushes through them."
+    }
+  }
 }

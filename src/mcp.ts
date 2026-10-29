@@ -13,7 +13,10 @@ import { explodeSpecSchema } from "./spec/schema.ts"
 import { readFile } from "node:fs/promises"
 import { readPhoto } from "./pipeline/photo.ts"
 import { generateVisuals } from "./pipeline/visuals.ts"
+import { extractFrames, generateMotion } from "./pipeline/motion.ts"
+import { resolveVideo } from "./pipeline/models.ts"
 import { normalizeSpec } from "./spec/normalize.ts"
+import { parseSkip } from "./spec/frames.ts"
 
 function text(value: unknown) {
   return { content: [{ type: "text" as const, text: typeof value === "string" ? value : JSON.stringify(value, null, 2) }] }
@@ -132,15 +135,17 @@ export function createServer() {
         imagePath: z.string(),
         outDir: z.string().optional(),
         skipImages: z.boolean().optional(),
+        motion: z.boolean().optional().describe("Also generate rotation and explode clips, then extract WebP frames"),
       },
     },
-    async ({ imagePath, outDir, skipImages }) => {
+    async ({ imagePath, outDir, skipImages, motion }) => {
       try {
         const destination = outDir ?? "./explode-out"
         const spec = await runExplode({
           photo: imagePath,
           outDir: destination,
           skipImages: skipImages ?? false,
+          motion: motion ?? false,
         })
         return text({
           outDir: path.resolve(destination),
@@ -148,6 +153,62 @@ export function createServer() {
           item: spec.item,
           components: spec.components.map((component) => component.name),
           warnings: spec.generation?.warnings ?? [],
+        })
+      } catch (error) {
+        return failure(error)
+      }
+    },
+  )
+
+  server.registerTool(
+    "explode_extract_frames",
+    {
+      title: "Extract a scroll sequence",
+      description:
+        "Turn a rotation or explode clip into a numbered WebP sequence with ffmpeg. Optional skip ranges rush or drop a bad patch of source time.",
+      inputSchema: {
+        videoPath: z.string(),
+        outDir: z.string(),
+        fps: z.number().positive().optional(),
+        skip: z.array(z.string()).optional().describe('Source ranges like "4.55-5.65"'),
+        skipKeep: z.number().int().nonnegative().optional(),
+      },
+    },
+    async ({ videoPath, outDir, fps, skip, skipKeep }) => {
+      try {
+        const sequence = await extractFrames(videoPath, outDir, {
+          fps,
+          skips: (skip ?? []).map((range) => parseSkip(range, skipKeep ?? 0)),
+        })
+        return text({ count: sequence.count, dir: outDir, fps: sequence.fps })
+      } catch (error) {
+        return failure(error)
+      }
+    },
+  )
+
+  server.registerTool(
+    "explode_motion",
+    {
+      title: "Generate rotation and explode clips",
+      description:
+        "Image-to-video from the hero still (a turn) and from hero plus exploded still (the teardown), then extract WebP frames onto the spec. Needs AI_GATEWAY_API_KEY or FAL_KEY.",
+      inputSchema: {
+        specPath: z.string(),
+        outDir: z.string().describe("Folder that already contains the hero and exploded images"),
+      },
+    },
+    async ({ specPath, outDir }) => {
+      try {
+        const video = resolveVideo()
+        if ("error" in video) throw new Error(video.error)
+        const raw = JSON.parse(await readFile(specPath, "utf8")) as unknown
+        const spec = normalizeSpec(explodeSpecSchema.parse(raw))
+        const next = await generateMotion(spec, outDir, video)
+        return text({
+          video: next.generation?.videoModel,
+          rotation: next.frames?.rotation?.count ?? 0,
+          explode: next.frames?.explode?.count ?? 0,
         })
       } catch (error) {
         return failure(error)

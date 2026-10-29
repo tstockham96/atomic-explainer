@@ -41,6 +41,17 @@ export const sourceSchema = z.object({
   url: z.string().url(),
 })
 
+/** Scroll-scrubbed stills. `0001.webp` lives in `dir` when `start` is 1. */
+export const frameSequenceSchema = z.object({
+  dir: z.string().min(1),
+  count: z.number().int().nonnegative().default(0),
+  ext: z.enum(["webp", "jpg", "jpeg", "png"]).default("webp"),
+  pad: z.number().int().min(1).max(8).default(4),
+  start: z.number().int().nonnegative().default(1),
+  /** Why a sequence was retimed, when it was. */
+  note: z.string().optional(),
+})
+
 export const explodeSpecSchema = z.object({
   version: z.literal(1),
   item: z.object({
@@ -68,6 +79,16 @@ export const explodeSpecSchema = z.object({
   studio: z.enum(["light", "dark"]).default("light"),
   heroImage: z.string().optional(),
   explodedImage: z.string().optional(),
+  /**
+   * Image sequences for the pinned film. Missing or `count: 0` falls back to stills.
+   * `rotation` plays first. `explode` continues from its last frame. Callouts hold the final explode frame.
+   */
+  frames: z
+    .object({
+      rotation: frameSequenceSchema.optional(),
+      explode: frameSequenceSchema.optional(),
+    })
+    .optional(),
   visualMode: z.enum(["pending", "generated", "mixed"]).default("pending"),
   artNote: z.string().optional(),
   closing: z.string().optional(),
@@ -76,6 +97,7 @@ export const explodeSpecSchema = z.object({
       visionModel: z.string().optional(),
       researchModel: z.string().optional(),
       imageModel: z.string().optional(),
+      videoModel: z.string().optional(),
       warnings: z.array(z.string()).default([]),
     })
     .optional(),
@@ -111,5 +133,6 @@ export const identitySchema = z.object({
 
 export type ExplodeSpec = z.infer<typeof explodeSpecSchema>
 export type ComponentSpec = z.infer<typeof componentSchema>
+export type FrameSequence = z.infer<typeof frameSequenceSchema>
 export type Identity = z.infer<typeof identitySchema>
 export type ResearchedSpec = z.infer<typeof researchedSpecSchema>

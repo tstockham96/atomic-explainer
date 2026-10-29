@@ -22,6 +22,8 @@ Pieces, if you want to stop between steps:
 - `identifyPhoto(path, models)`
 - `researchItem(identity, models)`
 - `generateVisuals(spec, outDir, models, sourcePhotoBytes)` edits the uploaded photo. It does not invent a new object.
+- `generateMotion(spec, outDir, video)` makes the rotation and explode clips, then extracts frames.
+- `extractFrames(videoPath, outDir, { fps, skips })` is ffmpeg only.
 - `renderSite(spec, outDir)`
 - `solid3d` — interface only. `available` is `false`. Calling `reconstruct` throws `TODO(explode-3d)`.
 
@@ -54,8 +56,10 @@ During development, `npm run mcp` runs the TypeScript entry over stdio.
 | `explode_identify` | Maker, model, category from a photo path | Yes |
 | `explode_research` | Components, materials, process, spec JSON | Yes |
 | `explode_visualize` | Edit the uploaded photo into a hero, an exploded view, and one cutout per part | Yes |
+| `explode_motion` | Rotation clip from the hero, explode clip from hero + exploded still, then WebP frames | Yes |
+| `explode_extract_frames` | ffmpeg a clip into a numbered WebP sequence. No model call | No |
 | `explode_build_site` | Static scroll site from a spec file | No |
-| `explode_run` | All of the above | Yes |
+| `explode_run` | Identify, research, images, site. Pass `motion: true` to add clips | Yes |
 
 `explode_build_site` is the one to use on the committed Murph spec when you only want a site folder.
 

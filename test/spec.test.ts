@@ -5,6 +5,8 @@ import { layoutFor } from "../src/spec/layout.ts"
 import { normalizeSpec } from "../src/spec/normalize.ts"
 import { explodeSpecSchema, type ComponentSpec } from "../src/spec/schema.ts"
 import { chapterAt, progressForChapter } from "../src/spec/storyboard.ts"
+import { filmMap, frameIndex, phaseAt, progressForPhase } from "../src/spec/film.ts"
+import { frameFile, keptFrameNumbers } from "../src/spec/frames.ts"
 import { solid3d } from "../src/pipeline/solid3d.ts"
 
 const specPath = path.join(process.cwd(), "public", "spec.json")
@@ -16,8 +18,11 @@ describe("Murph demo spec", () => {
     expect(murph.item.maker).toBe("Hamilton")
     expect(murph.components).toHaveLength(9)
     expect(murph.visualMode).toBe("generated")
-    expect(murph.heroImage).toBe("murph/hero.jpg")
+    expect(murph.heroImage).toBe("murph/hero-916.jpg")
     expect(murph.explodedImage).toBe("murph/exploded-alt.jpg")
+    expect(murph.frames?.rotation?.count).toBeGreaterThan(60)
+    expect(murph.frames?.explode?.count).toBeGreaterThan(60)
+    expect(murph.frames?.explode?.note).toContain("crystal")
   })
 
   it("does not treat 316L as the published case alloy", () => {
@@ -55,6 +60,30 @@ describe("storyboard", () => {
     expect(chapterAt(progressForChapter(0, count), count)).toBe(0)
     expect(chapterAt(progressForChapter(4, count), count)).toBe(4)
     expect(chapterAt(progressForChapter(count, count), count)).toBe(count)
+  })
+})
+
+describe("film sequence", () => {
+  it("plays a turn, then the explosion, then one slice per part", () => {
+    const map = filmMap(9)
+    expect(phaseAt(0, 9).phase).toBe("title")
+    expect(phaseAt(map.turn + 0.01, 9).phase).toBe("turn")
+    expect(phaseAt(map.burst + 0.01, 9).phase).toBe("burst")
+    expect(phaseAt(map.parts + 0.001, 9)).toMatchObject({ phase: "part", partIndex: 0 })
+    expect(phaseAt(0.999, 9).partIndex).toBe(8)
+    expect(phaseAt(progressForPhase(3, 9), 9).partIndex).toBe(3)
+    expect(frameIndex(0, 121)).toBe(0)
+    expect(frameIndex(1, 121)).toBe(120)
+  })
+
+  it("rushes a bad source range down to a couple of frames", () => {
+    const kept = keptFrameNumbers(120, 12, [{ start: 4.55, end: 5.65, keep: 2 }])
+    const dropped = 120 - kept.length
+    expect(dropped).toBeGreaterThan(8)
+    expect(kept).toHaveLength(120 - dropped)
+    expect(frameFile({ dir: "murph/frames/rotation", ext: "webp", pad: 4, start: 1 }, 0)).toBe(
+      "murph/frames/rotation/0001.webp",
+    )
   })
 })
 

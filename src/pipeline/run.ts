@@ -8,12 +8,18 @@ import { renderSite } from "./render-site.ts"
 import { researchItem } from "./research.ts"
 import { readPhoto } from "./photo.ts"
 import { generateVisuals } from "./visuals.ts"
+import { generateMotion } from "./motion.ts"
+import { resolveVideo } from "./models.ts"
+import type { SkipRange } from "../spec/frames.ts"
 
 export interface RunOptions {
   photo?: string
   specPath?: string
   outDir: string
   skipImages?: boolean
+  /** Hero photo → rotation clip, hero+exploded → explode clip, then WebP frames. */
+  motion?: boolean
+  skips?: SkipRange[]
   log?: (message: string) => void
 }
 
@@ -46,6 +52,16 @@ export async function runExplode(options: RunOptions): Promise<ExplodeSpec> {
     spec = await generateVisuals(spec, path.resolve(options.outDir), models, photo.bytes, log)
   }
 
+  if (options.motion) {
+    const video = resolveVideo()
+    if ("error" in video) {
+      const error = new Error(video.error)
+      error.name = "ExplodeConfigError"
+      throw error
+    }
+    spec = await generateMotion(spec, options.outDir, video, log, { skips: options.skips })
+  }
+
   await renderSite(spec, options.outDir, { log })
   return spec
 }
@@ -62,6 +78,7 @@ function withIdentity(spec: ExplodeSpec, identity: Identity, sourcePhoto: string
       visionModel,
       researchModel: spec.generation?.researchModel,
       imageModel: spec.generation?.imageModel,
+      videoModel: spec.generation?.videoModel,
       warnings: spec.generation?.warnings ?? [],
     },
   }
@@ -72,4 +89,5 @@ export { researchItem } from "./research.ts"
 export { generateVisuals } from "./visuals.ts"
 export { renderSite } from "./render-site.ts"
 export { solid3d } from "./solid3d.ts"
-export { resolveModels } from "./models.ts"
+export { resolveModels, resolveVideo } from "./models.ts"
+export { extractFrames, generateMotion } from "./motion.ts"

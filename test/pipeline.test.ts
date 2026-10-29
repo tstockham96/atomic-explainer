@@ -3,9 +3,9 @@ import { tmpdir } from "node:os"
 import path from "node:path"
 import { afterEach, describe, expect, it } from "vitest"
 import { formatHelp } from "../src/cli.ts"
-import { componentEditPrompt, explodedEditPrompt, heroEditPrompt } from "../src/pipeline/prompts.ts"
+import { componentEditPrompt, explodedEditPrompt, explodeMotionPrompt, heroEditPrompt, rotationMotionPrompt } from "../src/pipeline/prompts.ts"
 import { applyManifest, manifestSchema } from "../src/spec/manifest.ts"
-import { resolveModels } from "../src/pipeline/models.ts"
+import { resolveModels, resolveVideo } from "../src/pipeline/models.ts"
 import { SPEC_MARKER, injectSpec, renderSite } from "../src/pipeline/render-site.ts"
 import { explodeSpecSchema } from "../src/spec/schema.ts"
 import { readFileSync } from "node:fs"
@@ -42,6 +42,27 @@ describe("credentials", () => {
       EXPLODE_IMAGE_MODEL: "openai/gpt-image-1",
     })
     expect(result).toMatchObject({ mode: "openai", image: "gpt-image-1", vision: "gpt-4o" })
+  })
+})
+
+describe("motion", () => {
+  it("asks for a locked turn and a first-to-last explosion", () => {
+    expect(rotationMotionPrompt(murph)).toContain("one full turn")
+    expect(rotationMotionPrompt(murph)).toContain("No people")
+    expect(explodeMotionPrompt(murph)).toContain("first frame")
+    expect(explodeMotionPrompt(murph)).toContain("last frame")
+    expect(explodeMotionPrompt(murph)).toContain("Sapphire crystal")
+  })
+
+  it("defaults video to gateway Kling and can switch to fal", () => {
+    expect(resolveVideo({ AI_GATEWAY_API_KEY: "secret-gateway" })).toMatchObject({
+      provider: "gateway",
+      model: "klingai/kling-v2.6-i2v",
+    })
+    expect(resolveVideo({ FAL_KEY: "secret-fal", EXPLODE_VIDEO_PROVIDER: "fal" })).toMatchObject({
+      provider: "fal",
+    })
+    expect(JSON.stringify(resolveVideo({ AI_GATEWAY_API_KEY: "secret-gateway" }))).not.toContain("secret")
   })
 })
 

@@ -50,6 +50,27 @@ export function explodedEditPrompt(spec: ExplodeSpec) {
   ].join(" ")
 }
 
+export function rotationMotionPrompt(spec: ExplodeSpec) {
+  return [
+    `Photoreal studio product film of the exact ${spec.item.name} in the first frame.`,
+    "The object rotates smoothly through one full turn on a locked camera. Soft even light, subtle contact shadow, no zoom, no cut.",
+    studioLine(spec),
+    "No people, no hands, no text, no labels, no watermark.",
+  ].join(" ")
+}
+
+export function explodeMotionPrompt(spec: ExplodeSpec) {
+  const names = spec.components.map((component) => component.name).join(", ")
+  return [
+    `Photoreal studio film of the exact ${spec.item.name}.`,
+    "The first frame is the assembled object. The last frame is the exploded view.",
+    `Parts separate in one continuous motion along the assembly axis: ${names}.`,
+    "Camera locked, soft even light, subtle shadow under each floating part.",
+    studioLine(spec),
+    "No cut, no text, no labels, no leader lines, no watermark.",
+  ].join(" ")
+}
+
 export function componentEditPrompt(spec: ExplodeSpec, component: ComponentSpec) {
   return [
     `Use the uploaded ${spec.item.name} image as reference.`,
