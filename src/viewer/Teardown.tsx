@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import type { ExplodeSpec } from "../spec/schema.ts"
-import { ScrollStory } from "./ScrollStory.tsx"
-import { StaticStory } from "./StaticStory.tsx"
+import { Film } from "./Film.tsx"
 
 function usePrefersReducedMotion() {
   const [reduce, setReduce] = useState(
@@ -24,6 +23,6 @@ export function Teardown({ spec }: { spec: ExplodeSpec }) {
     document.title = `explode — ${spec.item.name}`
   }, [spec.item.name])
 
-  if (reduce) return <StaticStory spec={spec} />
-  return <ScrollStory spec={spec} />
+  if (reduce) return <Film spec={spec} reduced />
+  return <Film spec={spec} />
 }

@@ -2,7 +2,9 @@
 
 A photo of a physical thing goes in. A scroll-driven “how it’s made” site comes out.
 
-The page is the exploded-view poster: bold title, gray subtitle, parts along one axis, HTML labels with leader lines, and inset cards for the assembled photo, dimensions, and the active part. Dark objects use a navy studio. Image prompts ask for that same breakdown and leave the labels off the pictures. The demo is the [Hamilton Khaki Field Murph 42mm](https://www.hamiltonwatch.com/en-us/h70605731-khaki-field-murph-auto.html), reference **H70605731**.
+The page is the exploded-view poster: bold title, gray subtitle, parts along one axis, HTML labels with leader lines, and inset cards for the assembled photo, dimensions, and the active part. Dark objects use a navy studio. Image prompts ask for that same breakdown and leave the labels off the pictures. The demo is the [Hamilton Khaki Field Murph 42mm](https://www.hamiltonwatch.com/en-us/h70605731-khaki-field-murph-auto.html), reference **H70605731**. Scroll is a pinned film: the assembled object eases in, the exploded poster is the next chapter, then each part gets its own full-viewport chapter. `prefers-reduced-motion` drops the pin and the smoothing.
+
+Motion is [GSAP](https://gsap.com/) with ScrollTrigger (GreenSock, now free for standard use) and [Lenis](https://github.com/darkroomengineering/lenis) (MIT, darkroom.engineering) for inertial scrolling.
 
 ```bash
 npm install

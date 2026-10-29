@@ -1,7 +1,15 @@
 import { useState } from "react"
 import { asset } from "./asset.ts"
 
-export function PhotoLayer({ src, label }: { src?: string; label: string }) {
+export function PhotoLayer({
+  src,
+  label,
+  priority = false,
+}: {
+  src?: string
+  label: string
+  priority?: boolean
+}) {
   const [missing, setMissing] = useState(!src)
 
   if (!src || missing) {
@@ -19,6 +27,9 @@ export function PhotoLayer({ src, label }: { src?: string; label: string }) {
       alt=""
       className="photo-cutout"
       draggable={false}
+      loading={priority ? "eager" : "lazy"}
+      decoding="async"
+      fetchPriority={priority ? "high" : "auto"}
       onError={() => setMissing(true)}
     />
   )
