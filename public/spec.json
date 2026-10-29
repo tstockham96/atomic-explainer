@@ -1,0 +1,201 @@
+{
+  "version": 1,
+  "item": {
+    "name": "Hamilton Khaki Field Murph 38mm",
+    "maker": "Hamilton",
+    "model": "Khaki Field Murph",
+    "emphasis": "Murph",
+    "category": "Wristwatch",
+    "reference": "H70405730",
+    "year": "38mm follow-up to the 2019 catalog Murph",
+    "summary": "Hamilton built the Murph after the field watch Murphy Cooper wears in Interstellar. This is the 38mm one you can buy: black dial, cathedral hands, and an automatic H-10 visible through the caseback."
+  },
+  "identity": {
+    "confidence": 1,
+    "notes": "Pre-researched demo of reference H70405730. Not identified from a photograph in this build."
+  },
+  "visualMode": "illustrated",
+  "artNote": "Illustrated stand-in, drawn for this demo. The movement is a schematic, not a tracing of an H-10. With an image model configured, explode replaces each layer with a generated photograph.",
+  "closing": "Take away the movie and what is left is a current Swiss field watch. ETA’s Powermatic 80 family, cased in steel, under sapphire, sealed to 100 meters, on a black strap. The dial is the souvenir. The making is ordinary in the best way: repeatable, and meant to be worn.",
+  "facts": [
+    { "label": "Case", "value": "38 mm steel, 11.1 mm" },
+    { "label": "Movement", "value": "H-10 automatic, 80 h" },
+    { "label": "Crystal", "value": "Sapphire, anti-reflective" },
+    { "label": "Water", "value": "100 m / 10 bar" },
+    { "label": "Beat", "value": "21,600 vph" },
+    { "label": "Lugs", "value": "20 mm, leather strap" },
+    { "label": "Jewels", "value": "25, Nivachron spring" },
+    { "label": "Reference", "value": "H70405730" }
+  ],
+  "sources": [
+    {
+      "title": "Hamilton — Khaki Field Murph 38mm, H70405730",
+      "url": "https://www.hamiltonwatch.com/en-us/h70405730-khaki-field-murph-38mm.html"
+    },
+    {
+      "title": "Hamilton — Making the Khaki Field Murph",
+      "url": "https://www.hamiltonwatch.com/en-us/making-the-khaki-field-murph"
+    },
+    {
+      "title": "Caliber Corner — Hamilton caliber H-10",
+      "url": "https://calibercorner.com/hamilton-caliber-h-10/"
+    },
+    {
+      "title": "WatchBase — Hamilton caliber H-10",
+      "url": "https://watchbase.com/hamilton/caliber/h-10"
+    },
+    {
+      "title": "Monochrome — hands-on, Murph 38mm",
+      "url": "https://monochrome-watches.com/hands-on-review-hamilton-khaki-field-murph-38mm-specs-price/"
+    }
+  ],
+  "components": [
+    {
+      "id": "crystal",
+      "name": "Sapphire crystal",
+      "material": "Synthetic sapphire, anti-reflective coating",
+      "howItsMade": "The window is lab-grown corundum, aluminum oxide, the same mineral as sapphire. A boule is grown, sliced, and diamond-ground into a clear disc, then polished. Hamilton lists an anti-reflective coating on this reference: a thin film deposited in vacuum so the black dial does not mirror the room.",
+      "funFacts": [
+        "Sapphire sits at 9 on the Mohs scale. A steel key will not scratch it. A hard knock still can.",
+        "The coating is on Hamilton’s spec sheet for H70405730, alongside the open caseback."
+      ],
+      "order": 0,
+      "zIndex": 80,
+      "placement": "stack",
+      "visual": "murph-crystal",
+      "visualHint": "A single flat round watch crystal, clear with a faint blue anti-reflective edge, top-down, nothing else in frame.",
+      "layout": { "x": 0, "y": -0.24, "focus": 1 }
+    },
+    {
+      "id": "hands",
+      "name": "Cathedral hands",
+      "material": "Metal hands filled with beige Super-LumiNova",
+      "howItsMade": "The hour and minute hands are cathedral profiles, stamped, polished, and filled with Super-LumiNova, a non-radioactive strontium-aluminate pigment cured in the pad. They press onto the hour wheel and cannon pinion. The seconds hand is a plain needle on the center seconds pinion.",
+      "funFacts": [
+        "On the 42mm Murph the seconds hand carries Eureka in lacquered Morse code. Monochrome’s hands-on of this 38mm found a plain needle.",
+        "The fill is the vintage beige Super-LumiNova Hamilton uses on the Murph, not the green of many tool watches."
+      ],
+      "order": 1,
+      "zIndex": 70,
+      "placement": "stack",
+      "visual": "murph-hands",
+      "visualHint": "Cathedral hour and minute hands plus a thin seconds needle, beige luminous fill, isolated top-down on a dark ground.",
+      "layout": { "x": 0, "y": -0.14, "focus": 1.55 }
+    },
+    {
+      "id": "dial",
+      "name": "Black field dial",
+      "material": "Printed metal dial, beige markings",
+      "howItsMade": "A field dial starts as a metal blank, finished matte black, then pad-printed with the minute track, Arabic numerals, and the words Hamilton and Khaki Automatic. Luminous material goes into the marks that need to glow. Swiss Made at the bottom is a legal claim: the movement is Swiss, and the watch is cased and inspected in Switzerland.",
+      "funFacts": [
+        "Every hour is a numeral. That is the Murph dial, not the bar-marker Khaki Field beside it in the catalog.",
+        "Monochrome describes the 38mm markings as printed beige. A bracelet reference, H70405130, is sold with slightly domed numerals."
+      ],
+      "order": 2,
+      "zIndex": 60,
+      "placement": "stack",
+      "visual": "murph-dial",
+      "visualHint": "Matte black watch dial with beige Arabic numerals 1 through 12 and a minute track, no hands, top-down.",
+      "layout": { "x": 0, "y": -0.05, "focus": 1.22 }
+    },
+    {
+      "id": "movement",
+      "name": "Caliber H-10",
+      "material": "ETA C07.611 base, 25 jewels, Nivachron hairspring",
+      "howItsMade": "Hamilton’s H-10 is its name for an ETA Powermatic 80 automatic, documented for current references as caliber C07.611. ETA machines the brass mainplate and bridges, presses in synthetic ruby jewels, and fits a longer mainspring than a plain ETA 2824-2. The beat is 21,600 vibrations an hour, 3 Hz instead of that 2824’s 4 Hz, which is a large part of how the barrel reaches 80 hours. A Nivachron hairspring, a titanium alloy, replaces a plain steel spring so magnetism bothers it less. The rotor is signed Hamilton and winds both ways. Many of these leave the factory laser-regulated, without an index you can nudge with a screwdriver.",
+      "funFacts": [
+        "Central hours, minutes, and seconds, with hacking and hand-winding. The Murph has no date, so the calendar works are simply not used.",
+        "Early reviews of the 42mm Murph called it a C07.111, the synthetic-escapement sibling. Current H-10 listings, including Caliber Corner, name the Nivachron C07.611."
+      ],
+      "order": 3,
+      "zIndex": 40,
+      "placement": "stack",
+      "visual": "murph-movement",
+      "figureLabel": "Schematic, not a factory tracing.",
+      "visualHint": "Top-down automatic watch movement, rhodium-colored bridges, red jewels, striped rotor engraved HAMILTON, round, isolated.",
+      "layout": { "x": 0, "y": 0.02, "focus": 1.45 }
+    },
+    {
+      "id": "crown",
+      "name": "Signed crown",
+      "material": "Polished stainless steel, push-pull, gasketed",
+      "howItsMade": "The crown is turned from steel, knurled so a thumb can find it, and polished, with Hamilton’s shield on the end. It pushes and pulls. It does not screw down. You pull it to set the hands and turn it clockwise to wind. Gaskets in the crown tube do the sealing, which is how a non-screw crown still carries a 100 meter rating.",
+      "funFacts": [
+        "The crown is large for a 38mm case, the same easy-grip idea as the bigger field watches.",
+        "The water rating assumes the crown is pushed fully home."
+      ],
+      "order": 4,
+      "zIndex": 75,
+      "placement": "side",
+      "visual": "murph-crown",
+      "visualHint": "A single knurled watch crown with an H on the end, polished steel, isolated on a dark ground.",
+      "home": { "x": 0.22, "y": 0 },
+      "layout": { "x": 0.34, "y": -0.02, "focus": 1.85 }
+    },
+    {
+      "id": "case",
+      "name": "38 mm case",
+      "material": "Brushed and polished stainless steel",
+      "howItsMade": "The mid-case is machined from stainless bar. Lugs are milled, spring-bar holes drilled, flat surfaces brushed in a straight grain, and the sloped bezel polished so a bright ring sits on the matte body. That bezel is fixed. It is case finishing, not a rotating dive ring, and it is drawn here as its own edge so the polish reads. Hamilton’s public spec says stainless steel and does not publish an alloy number such as 316L.",
+      "funFacts": [
+        "38 mm across, 11.1 mm thick, 20 mm between the lugs. Monochrome measured lug-to-lug at 44.7 mm.",
+        "10 bar, which Hamilton writes as 100 m. That is a pressure-test rating."
+      ],
+      "order": 5,
+      "zIndex": 50,
+      "placement": "stack",
+      "visual": "murph-case",
+      "visualHint": "Empty round stainless watch case, 38mm field-watch lugs, brushed flanks, polished fixed bezel, no dial, top-down.",
+      "layout": { "x": 0, "y": 0.14, "focus": 1.12 }
+    },
+    {
+      "id": "caseback",
+      "name": "Exhibition caseback",
+      "material": "Sapphire window in a stainless ring",
+      "howItsMade": "A second sapphire disc sits in a steel ring with a gasket and closes onto the case, twist-on, so the rotor stays visible. The steel is finished to match the mid-case. The gasket, not the glass, is what keeps water out. Hamilton marks H70405730 as an open caseback.",
+      "funFacts": [
+        "The first 2,555 pieces of the original 42mm Murph came in a Nathan Crowley box and were not numbered on the caseback.",
+        "Through the window you get an industrial H-10: ETA’s finishing, a Hamilton rotor, and not much haute decoration."
+      ],
+      "order": 6,
+      "zIndex": 30,
+      "placement": "stack",
+      "visual": "murph-caseback",
+      "visualHint": "Round steel watch caseback with a clear sapphire window in the center, engraved ring, top-down, isolated.",
+      "layout": { "x": 0, "y": 0.2, "focus": 1.18 }
+    },
+    {
+      "id": "strap",
+      "name": "Calfskin strap",
+      "material": "Black cow leather, white contrast stitch",
+      "howItsMade": "The strap is cut from cow leather, skived thinner where it meets the lugs, and stitched in white thread that shows against the black. Hamilton’s strap for this reference is cow leather, 20 mm at the lugs, closing on an 18 mm pin buckle. Spring bars, not screws, hold it in the holes.",
+      "funFacts": [
+        "Retail descriptions of H70405730 call out the white contrast stitch. Some call the surface alligator-grained calf.",
+        "20 mm is a common lug width, so the watch can move to a NATO later. The stock look is the black leather."
+      ],
+      "order": 7,
+      "zIndex": 15,
+      "placement": "strap",
+      "visual": "murph-strap",
+      "visualHint": "Black leather watch strap with white stitching, shown flat from above, no buckle, dark background.",
+      "layout": { "x": 0, "y": 0.18, "focus": 1.05 }
+    },
+    {
+      "id": "buckle",
+      "name": "Pin buckle",
+      "material": "Brushed and polished stainless steel",
+      "howItsMade": "A tang buckle is stamped or machined from steel. The frame is brushed, the edges polished, and the Hamilton mark etched in. The leather tail passes through the frame, the tang finds a hole, and a keeper holds the spare length.",
+      "funFacts": [
+        "The buckle is 18 mm, narrower than the 20 mm lug end, because the strap tapers.",
+        "It is a pin buckle, not a deployant. One less hinge."
+      ],
+      "order": 8,
+      "zIndex": 20,
+      "placement": "strap",
+      "visual": "murph-buckle",
+      "visualHint": "A single stainless steel tang buckle for a watch strap, top-down, isolated on a dark ground.",
+      "home": { "x": 0, "y": -0.34 },
+      "layout": { "x": 0, "y": -0.42, "focus": 1.7 }
+    }
+  ]
+}

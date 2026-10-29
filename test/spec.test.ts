@@ -1,0 +1,87 @@
+import { readFileSync } from "node:fs"
+import path from "node:path"
+import { describe, expect, it } from "vitest"
+import { layoutFor } from "../src/spec/layout.ts"
+import { normalizeSpec } from "../src/spec/normalize.ts"
+import { explodeSpecSchema, type ComponentSpec } from "../src/spec/schema.ts"
+import { chapterAt, progressForChapter } from "../src/spec/storyboard.ts"
+import { solid3d } from "../src/pipeline/solid3d.ts"
+
+const specPath = path.join(process.cwd(), "public", "spec.json")
+const murph = explodeSpecSchema.parse(JSON.parse(readFileSync(specPath, "utf8")))
+
+describe("Murph demo spec", () => {
+  it("parses and keeps the researched reference", () => {
+    expect(murph.item.reference).toBe("H70405730")
+    expect(murph.item.maker).toBe("Hamilton")
+    expect(murph.components).toHaveLength(9)
+    expect(murph.visualMode).toBe("illustrated")
+  })
+
+  it("does not treat 316L as the published case alloy", () => {
+    const casePart = murph.components.find((component) => component.id === "case")
+    expect(casePart?.material.toLowerCase()).not.toContain("316l")
+    expect(casePart?.howItsMade).toContain("does not publish")
+  })
+
+  it("cites public sources", () => {
+    expect(murph.sources.length).toBeGreaterThanOrEqual(4)
+    for (const source of murph.sources) {
+      expect(source.url.startsWith("https://")).toBe(true)
+    }
+  })
+
+  it("gives every part a drawing or a hint for the image step", () => {
+    for (const component of murph.components) {
+      expect(component.visual ?? component.visualHint).toBeTruthy()
+      expect(component.howItsMade.length).toBeGreaterThan(80)
+    }
+  })
+})
+
+describe("storyboard", () => {
+  const count = 9
+
+  it("maps the ends and the middle of each chapter", () => {
+    expect(chapterAt(0, count)).toBe(-1)
+    expect(chapterAt(1, count)).toBe(count)
+    expect(chapterAt(progressForChapter(-1, count), count)).toBe(-1)
+    expect(chapterAt(progressForChapter(0, count), count)).toBe(0)
+    expect(chapterAt(progressForChapter(4, count), count)).toBe(4)
+    expect(chapterAt(progressForChapter(count, count), count)).toBe(count)
+  })
+})
+
+describe("layout", () => {
+  it("stacks parts from top to bottom when the model omits coordinates", () => {
+    const part = { placement: "stack" } as ComponentSpec
+    const top = layoutFor({ ...part, id: "a", name: "A", material: "m", howItsMade: "h", funFacts: ["f"], order: 0 }, 0, 5)
+    const bottom = layoutFor({ ...part, id: "b", name: "B", material: "m", howItsMade: "h", funFacts: ["f"], order: 4 }, 4, 5)
+    expect(top.y).toBeLessThan(0)
+    expect(bottom.y).toBeGreaterThan(0)
+  })
+
+  it("keeps an authored offset", () => {
+    const crystal = murph.components[0]
+    expect(crystal).toBeDefined()
+    expect(layoutFor(crystal!, 0, murph.components.length).y).toBeLessThan(0)
+  })
+})
+
+describe("normalizeSpec", () => {
+  it("renumbers order after a sort", () => {
+    const spec = normalizeSpec({
+      ...murph,
+      components: [...murph.components].reverse().map((component, index) => ({ ...component, order: index })),
+    })
+    expect(spec.components.map((component) => component.order)).toEqual(spec.components.map((_, index) => index))
+    expect(new Set(spec.components.map((component) => component.id)).size).toBe(spec.components.length)
+  })
+})
+
+describe("solid 3D stub", () => {
+  it("is explicitly unavailable", async () => {
+    expect(solid3d.available).toBe(false)
+    await expect(solid3d.reconstruct({ spec: murph })).rejects.toThrow(/TODO\(explode-3d\)/)
+  })
+})
