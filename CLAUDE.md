@@ -84,7 +84,7 @@ It is not WebGL and not a 3D model in the browser. It is the Apple AirPods techn
 
 - **GSAP ScrollTrigger** pins one section (`#film` in `src/viewer/Film.tsx`) with `scrub: true`.
 - **Lenis** (`lerp: 0.09`) is the inertial scroller. It drives `gsap.ticker` and calls `ScrollTrigger.update` on scroll. Lunar uses Locomotive Scroll; explode uses Lenis for the same job.
-- **Canvas 2D** (`src/viewer/Reel.tsx`) paints the current WebP. Scroll progress maps through `src/spec/film.ts`: a short title, then the turn, then the explosion, then the last exploded frame holds while HTML callouts step through each part.
+- **Canvas 2D** (`src/viewer/Reel.tsx`) paints the current WebP. Scroll progress maps through `src/spec/film.ts`: a short title, then the turn, then the explosion, then component close-ups accompany HTML callouts. A chapter bar and keyboard-accessible range control allow direct navigation.
 - Lunar uses several pinned canvases. Explode uses one continuous pin, because the turn’s last frame is the explosion’s first frame.
 - If a spec has no frame sequences, the same pin crossfades the hero still into the exploded still.
 - `prefers-reduced-motion` drops the pin and shows the stills in order.
@@ -102,7 +102,7 @@ No API keys belong in the repo. `.env` and `.env.*` are gitignored; `.env.exampl
 - True 3D is a stub (`solid3d.ts`). There is no glTF, no camera path, and no image-to-3D provider.
 - Background removal is not implemented. A model that will not return a clean cutout leaves an empty plate.
 - Specs without `frames.rotation` / `frames.explode` only crossfade stills. They do not scrub a film.
-- The design is still not quite there. It should feel more premium: type, pacing, the pinned frame, and the callouts do not yet have the finish of a studio scrollytelling piece.
+- The editorial design pass uses charcoal, ivory, and a vermilion accent, a larger film stage, direct chapter navigation, and an expandable anatomy section. Automated browser QA could not run in the initial environment; visually review desktop, mobile, and reduced-motion views before merging the design branch.
 
 ## Direction
 

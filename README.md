@@ -2,7 +2,7 @@
 
 A photo of a physical thing goes in. A scroll-driven “how it’s made” site comes out.
 
-The page is one pinned film, in the manner of [lunarwheel.it](https://lunarwheel.it) (see [docs/reference-lunarwheel.md](docs/reference-lunarwheel.md)). Scroll scrubs a canvas: the object turns, then comes apart, then the last exploded frame holds while HTML callouts step through each part. The picture is 9:16, centered on a dark studio with the edges vignetted into the page. After the pin, a parts grid, a short essay, and sources. `prefers-reduced-motion` drops the pin and shows the stills in order.
+The page is one pinned film, in the manner of [lunarwheel.it](https://lunarwheel.it) (see [docs/reference-lunarwheel.md](docs/reference-lunarwheel.md)). Scroll scrubs a canvas: the object turns, then comes apart, then component close-ups accompany HTML callouts. Chapter buttons and a keyboard-accessible scrubber provide direct navigation. The picture is 9:16, centered on a dark studio with the edges vignetted into the page. After the pin, a light anatomy section exposes complete manufacturing explanations and image notes through expandable entries, followed by field notes and sources. `prefers-reduced-motion` drops the pin and shows the stills in order.
 
 The demo is the [Hamilton Khaki Field Murph 42mm](https://www.hamiltonwatch.com/en-us/h70605731-khaki-field-murph-auto.html), reference **H70605731**. Frames are WebP sequences in `public/murph/frames/` (121-frame turn, 110-frame explosion). The explosion rushes through 4.55s–5.65s of the source clip, where a second crystal flashes. If a spec has no frames, the same pin crossfades the hero still into the exploded still.
 

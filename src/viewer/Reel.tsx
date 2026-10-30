@@ -36,12 +36,17 @@ export function Reel({
   spec,
   api,
   onJump,
+  onSeek,
 }: {
   spec: ExplodeSpec
   api: { current: ReelHandle | null }
   onJump: (id: string) => void
+  onSeek: (progress: number) => void
 }) {
   const components = spec.components
+  const stageRef = useRef<HTMLDivElement>(null)
+  const seekRef = useRef<HTMLInputElement>(null)
+  const phaseRefs = useRef<Array<HTMLButtonElement | null>>([])
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const frameRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef<HTMLImageElement>(null)
@@ -85,6 +90,17 @@ export function Reel({
     const count = components.length
     const sample = phaseAt(progress, count)
     const map = filmMap(count)
+    stageRef.current?.setAttribute("data-phase", sample.phase)
+    if (seekRef.current) {
+      seekRef.current.value = String(Math.round(progress * 1000))
+      seekRef.current.setAttribute("aria-valuetext", sample.phase === "part"
+        ? components[sample.partIndex]?.name ?? "Component"
+        : sample.phase === "title" ? "Overview" : sample.phase === "turn" ? "Rotation" : "Exploded view")
+    }
+    phaseRefs.current.forEach((button, index) => {
+      const current = index === 0 ? sample.phase === "title" : index === 1 ? sample.phase === "turn" : sample.phase === "burst" || sample.phase === "part"
+      button?.setAttribute("aria-pressed", String(current))
+    })
     const fade = 0.012
 
     const title = windowOpacity(progress, 0, map.turn - fade, fade)
@@ -106,7 +122,7 @@ export function Reel({
     setCaption(captions[2] ?? null, burst)
     components.forEach((_, index) => {
       const start = map.parts + index * span
-      const end = start + span
+      const end = index === count - 1 ? 1 + edge * 2 : start + span
       const opacity = windowOpacity(progress, start + edge, end - edge, edge)
       setCaption(captions[index + 3] ?? null, opacity)
     })
@@ -115,7 +131,7 @@ export function Reel({
       if (!button) return
       const on = sample.phase === "part" && sample.partIndex === index
       button.classList.toggle("on", on)
-      button.style.opacity = sample.phase === "title" ? "0.35" : "1"
+      button.setAttribute("aria-current", on ? "step" : "false")
     })
 
     if (barRef.current) barRef.current.style.transform = `scaleX(${progress})`
@@ -139,6 +155,11 @@ export function Reel({
           ? nearestReady(explodeRef.current, explodeFrame)
           : nearestReady(rotationRef.current, rotationFrame)
       if (paint(image)) frameRef.current?.setAttribute("data-painted", "true")
+      partRefs.current.forEach((node, index) => {
+        if (!node) return
+        const on = sample.phase === "part" && sample.partIndex === index && node.complete && node.naturalWidth > 0 ? windowOpacity(sample.local, 0.08, index === count - 1 ? 1.08 : 0.92, 0.08) : 0
+        node.style.opacity = String(on)
+      })
       return
     }
 
@@ -156,7 +177,7 @@ export function Reel({
     }
     partRefs.current.forEach((node, index) => {
       if (!node) return
-      const on = sample.phase === "part" && sample.partIndex === index ? windowOpacity(sample.local, 0.12, 0.88, 0.12) : 0
+      const on = sample.phase === "part" && sample.partIndex === index && node.complete && node.naturalWidth > 0 ? windowOpacity(sample.local, 0.12, index === count - 1 ? 1.12 : 0.88, 0.12) : 0
       node.style.opacity = String(on)
       node.style.transform = `scale(${(0.94 + on * 0.06).toFixed(3)})`
     })
@@ -249,32 +270,32 @@ export function Reel({
     spec.frames?.rotation && spec.frames.rotation.count > 1 ? asset(frameFile(spec.frames.rotation, 0)) : heroSrc
 
   return (
-    <div className="sticky-stage">
+    <div className="sticky-stage" ref={stageRef} data-phase="title">
+      <div className="stage-heading"><span>An object study</span><span>{spec.item.category} / {String(components.length).padStart(2, "0")} components</span></div>
       <div className="caption-col">
         <div className="caption" ref={(node) => { captionRefs.current[0] = node }} data-caption="title">
-          <p className="kicker">{spec.item.maker}</p>
+          <p className="kicker"><span className="status-dot" />Inside {spec.item.maker}</p>
           <h1>
             <Title model={spec.item.model} emphasis={spec.item.emphasis} />
           </h1>
-          <p className="sub">
-            {spec.item.reference ? `Reference ${spec.item.reference}. ` : ""}
-            {spec.item.year ?? "Scroll to turn it."}
-          </p>
+          <p className="sub">An ordinary object. An extraordinary amount of thought. Explore what lies beneath the surface.</p>
+          <button className="explore-button" type="button" onClick={() => onJump("@burst")}>Take it apart <span aria-hidden="true">↗</span></button>
+          <p className="reference-line">{spec.item.reference ? `REF. ${spec.item.reference}` : spec.item.category} <span>·</span> {components.length} parts to discover</p>
         </div>
         <div className="caption" ref={(node) => { captionRefs.current[1] = node }} data-caption="turn">
-          <p className="kicker">Turn</p>
-          <h2>One full revolution.</h2>
-          <p className="sub">Scroll is the turntable. The last frame is where it comes apart.</p>
+          <p className="kicker">01 / The whole</p>
+          <h2>A closer look.<br /><em>Every angle.</em></h2>
+          <p className="sub">Before the pieces, the whole. Follow the form, the surfaces, and the details that bring it together.</p>
         </div>
         <div className="caption" ref={(node) => { captionRefs.current[2] = node }} data-caption="burst">
-          <p className="kicker">Open</p>
-          <h2>Along the stack.</h2>
+          <p className="kicker">02 / Beneath the surface</p>
+          <h2>More than<br /><em>meets the eye.</em></h2>
           <p className="sub">
             {components
               .slice(0, 4)
               .map((component) => component.name)
               .join(", ")}
-            . One continuous motion.
+            . Each piece has a purpose.
           </p>
         </div>
         {components.map((component, index) => (
@@ -286,6 +307,7 @@ export function Reel({
             <p className="material">{component.material}</p>
             <p className="sub">{lead(component.howItsMade)}</p>
             {active === index ? <Stat component={component} /> : null}
+            <button className="detail-link" type="button" onClick={() => onJump(`detail-${component.id}`)}>Explore this component <span aria-hidden="true">↗</span></button>
           </div>
         ))}
       </div>
@@ -301,6 +323,7 @@ export function Reel({
               key={component.id}
               ref={(node) => { partRefs.current[index] = node }}
               className="still still-part"
+              onLoad={() => applyRef.current(progressRef.current)}
               src={component.image ? asset(component.image) : undefined}
               alt=""
             />
@@ -310,13 +333,10 @@ export function Reel({
           </div>
           <div className="edge-fade" />
         </div>
-        <p className="scrub-label">{ready ? "Scroll" : "Loading frames"}</p>
-        <div className="scrub-bar" aria-hidden="true">
-          <span ref={barRef} />
-        </div>
+        <p className="image-note">{spec.visualMode === "generated" ? "AI-generated study · illustrative imagery" : "Visual study"}</p>
       </div>
 
-      <ol className="part-rail">
+      <ol className="part-rail" aria-label="Explore components">
         {components.map((component, index) => (
           <li key={component.id}>
             <button
@@ -330,6 +350,21 @@ export function Reel({
           </li>
         ))}
       </ol>
+      <footer className="stage-footer">
+        <div className="scroll-hint"><span aria-hidden="true">↓</span> {ready ? "Scroll to discover" : "Preparing the film"}</div>
+        <div className="chapter-controls" aria-label="Film chapters">
+          {[{ label: "Overview", target: "film" }, { label: "Rotate", target: "@turn" }, { label: "Explode", target: "@burst" }].map((chapter, index) => (
+            <button key={chapter.target} type="button" ref={(node) => { phaseRefs.current[index] = node }} onClick={() => onJump(chapter.target)} aria-pressed={index === 0}>
+              <span>0{index + 1}</span> {chapter.label}
+            </button>
+          ))}
+        </div>
+        <a className="skip-story" href="#parts" onClick={(event) => { event.preventDefault(); onJump("parts") }}>Browse all parts ↗</a>
+        <div className="timeline">
+          <div className="scrub-bar" aria-hidden="true"><span ref={barRef} /></div>
+          <input ref={seekRef} type="range" min="0" max="1000" defaultValue="0" aria-label="Explore the film" onChange={(event) => onSeek(Number(event.target.value) / 1000)} />
+        </div>
+      </footer>
     </div>
   )
 }

@@ -29,9 +29,23 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
   const api = useRef<ReelHandle | null>(null)
   const components = spec.components
 
+  const seek = (progress: number) => {
+    const trigger = triggerRef.current
+    if (!trigger) return
+    lenisRef.current?.scrollTo(trigger.start + (trigger.end - trigger.start) * progress, { immediate: true })
+  }
+
   const jump = (id: string) => {
     const lenis = lenisRef.current
     const trigger = triggerRef.current
+    if ((id === "@turn" || id === "@burst") && trigger && lenis) {
+      lenis.scrollTo(trigger.start + (trigger.end - trigger.start) * progressForPhase(id === "@turn" ? "turn" : "burst", components.length), { duration: 1.2 })
+      return
+    }
+    if ((id === "film" || id === "intro") && trigger && lenis) {
+      lenis.scrollTo(trigger.start, { duration: 1.05 })
+      return
+    }
     const part = components.findIndex((component) => component.id === id)
     if (part >= 0 && trigger && lenis) {
       const progress = progressForPhase(part, components.length)
@@ -40,7 +54,12 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
     }
     const node = document.getElementById(id === "intro" ? "film" : id)
     if (!node) return
-    if (lenis) lenis.scrollTo(node, { duration: 1.05, offset: 0 })
+    if (id.startsWith("detail-")) {
+      const detail = node.querySelector("details")
+      if (detail) detail.open = true
+      ScrollTrigger.refresh()
+    }
+    if (lenis) lenis.scrollTo(node, { duration: 1.05, offset: -90 })
     else node.scrollIntoView({ behavior: "smooth" })
   }
 
@@ -63,12 +82,13 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
         id: "explode-film",
         trigger: pin,
         start: "top top",
-        end: () => (window.innerWidth < 860 ? `+=${110 + count * 62}%` : `+=${160 + count * 92}%`),
+        end: () => (window.innerWidth < 860 ? `+=${180 + count * 45}%` : `+=${200 + count * 52}%`),
         pin: true,
         scrub: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => api.current?.setProgress(self.progress),
+        onRefresh: (self) => api.current?.setProgress(self.progress),
       })
       triggerRef.current = trigger
 
@@ -112,88 +132,96 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
         gsap.ticker.remove(tick)
       }
     },
-    { scope: rootRef, dependencies: [spec] },
+    { scope: rootRef, dependencies: [spec], revertOnUpdate: true },
   )
 
   return (
     <div ref={rootRef} className="reel">
       <header className="topbar">
         <button type="button" className="brand" onClick={() => jump("film")}>
-          explode
+          <span className="brand-symbol" aria-hidden="true">✳</span> explode<span className="brand-period">.</span>
         </button>
+        <span className="brand-description">Everything has a story inside.</span>
         <nav aria-label="Page">
           <button type="button" data-nav="film" className="on" onClick={() => jump("film")}>
-            Watch
+            The object
           </button>
           <button type="button" data-nav="parts" onClick={() => jump("parts")}>
-            Parts
+            Anatomy
           </button>
           <button type="button" data-nav="making" onClick={() => jump("making")}>
-            Making
+            Field notes
           </button>
           <button type="button" data-nav="notes" onClick={() => jump("notes")}>
-            Notes
+            Sources
           </button>
         </nav>
       </header>
 
       <section id="film" className="pin">
-        <Reel spec={spec} api={api} onJump={jump} />
+        <Reel spec={spec} api={api} onJump={jump} onSeek={seek} />
       </section>
 
-      <Sheets spec={spec} />
+      <Sheets spec={spec} onRestart={() => jump("film")} />
     </div>
   )
 }
 
-function Sheets({ spec }: { spec: ExplodeSpec }) {
+function Sheets({ spec, onRestart }: { spec: ExplodeSpec; onRestart?: () => void }) {
   return (
     <>
       <section id="parts" className="sheet">
+        <div className="section-rule"><span>01 / Anatomy</span><span>{String(spec.components.length).padStart(2, "0")} individual stories</span></div>
         <div className="sheet-head">
-          <p className="kicker">Parts</p>
-          <h2>The stack, piece by piece.</h2>
+          <h2>A whole world.<br /><em>In every part.</em></h2>
+          <p>Look a little closer. Discover the materials, processes, and small decisions behind each component.</p>
         </div>
         <ol className="part-grid">
           {spec.components.map((component, index) => (
-            <li key={component.id} id={component.id}>
-              {component.image ? <img src={asset(component.image)} alt="" /> : <div className="empty-shot" />}
-              <p className="kicker">{String(index + 1).padStart(2, "0")}</p>
+            <li key={component.id} id={`detail-${component.id}`}>
+              <div className="part-image">
+                <span className="part-number">{String(index + 1).padStart(2, "0")}</span>
+                {component.image ? <img src={asset(component.image)} alt={component.name} loading="lazy" /> : <div className="empty-shot">Image unavailable</div>}
+              </div>
+              <p className="part-material">{component.material}</p>
               <h3>{component.name}</h3>
-              <p>{lead(component.howItsMade)}</p>
+              <p className="part-summary">{lead(component.howItsMade)}</p>
+              <details onToggle={() => ScrollTrigger.refresh()}>
+                <summary>How it’s made <span aria-hidden="true">+</span></summary>
+                <div className="part-detail">
+                  <p>{component.howItsMade}</p>
+                  {component.funFacts.map((fact) => <p key={fact}>{fact}</p>)}
+                  {component.figureLabel ? <p className="figure-note">{component.figureLabel}</p> : null}
+                </div>
+              </details>
             </li>
           ))}
         </ol>
       </section>
 
       <section id="making" className="essay">
-        <p className="kicker">{spec.item.maker}</p>
-        <h2>{spec.closing ?? spec.item.summary}</h2>
+        <div className="section-rule"><span>02 / Field notes</span><span>{spec.item.maker}</span></div>
+        <div className="essay-layout">
+          <div><p className="kicker">The bigger picture</p><h2>Considered.<br /><em>Inside and out.</em></h2></div>
+          <div><p className="essay-intro">{spec.item.summary}</p><p className="essay-body">{spec.closing}</p></div>
+        </div>
         <dl>
           {spec.facts.map((fact) => (
-            <div key={fact.label}>
-              <dt>{fact.label}</dt>
-              <dd>{fact.value}</dd>
-            </div>
+            <div key={fact.label}><dt>{fact.label}</dt><dd>{fact.value}</dd></div>
           ))}
         </dl>
       </section>
 
       <section id="notes" className="notes">
-        {spec.artNote ? <p>{spec.artNote}</p> : null}
-        {spec.frames?.explode?.note ? <p>{spec.frames.explode.note}</p> : null}
-        {spec.sources.length > 0 ? (
-          <ul>
-            {spec.sources.map((source) => (
-              <li key={source.url}>
-                <a href={source.url} target="_blank" rel="noreferrer">
-                  {source.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        ) : null}
+        <div className="section-rule"><span>03 / Sources & image notes</span><span>Curiosity, with context.</span></div>
+        <div className="notes-layout">
+          <div><h2>Behind the study.</h2>{spec.artNote ? <p>{spec.artNote}</p> : null}</div>
+          {spec.sources.length > 0 ? <ol>{spec.sources.map((source, index) => (
+            <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer"><span>{String(index + 1).padStart(2, "0")}</span>{source.title}<span aria-hidden="true">↗</span></a></li>
+          ))}</ol> : null}
+        </div>
       </section>
+      <footer className="site-footer"><a className="brand" href="#film" onClick={onRestart ? (event) => { event.preventDefault(); onRestart() } : undefined}>✳ explode.</a><p>For the endlessly curious.</p><a href="https://github.com/tstockham96/explode" target="_blank" rel="noreferrer">Explore the project ↗</a></footer>
     </>
   )
 }
