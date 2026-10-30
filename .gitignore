@@ -14,6 +14,9 @@ dist-ssr
 dist-site
 explode-out
 *.local
+.env
+.env.*
+!.env.example
 source.jpg
 **/source.jpg
 
