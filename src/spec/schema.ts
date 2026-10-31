@@ -128,6 +128,7 @@ export const explodeSpecSchema = z.object({
   }).optional(),
   visualMode: z.enum(["pending", "generated", "mixed"]).default("pending"),
   artNote: z.string().optional(),
+  modelNotice: z.string().max(120).optional(),
   closing: z.string().optional(),
   generation: z
     .object({

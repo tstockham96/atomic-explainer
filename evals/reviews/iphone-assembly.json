@@ -1,0 +1,273 @@
+{
+  "version": 1,
+  "objectName": "iPhone 18 Pro",
+  "mode": "authored",
+  "reviewer": "Codex structural audit; visual fidelity remains unreviewed",
+  "independence": "self-review",
+  "specSha256": "5c3877eb4e010210e3d32968a59c15d39dbc9aed005223c072a49843706f566e",
+  "assetSha256": "855280c0398be2e4255065173320c98d1e895ff81bd7353d91427e3e2efd3ed8",
+  "experienceSha256": "c29e053275ba091ece46113a8a2cb3af75a1d44d8e106e34e3716b52de1f9df9",
+  "components": [
+    {
+      "componentId": "front-glass",
+      "geometry": "approximate",
+      "material": "unreviewed",
+      "views": [
+        "assembled"
+      ],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [
+        "evals/reports/iphone-assembly/desktop-assembled.png"
+      ],
+      "notes": "Actual independently mapped geometry exists. Schematic internals and surfaces have not been compared to exact-model photographs. No fidelity pass."
+    },
+    {
+      "componentId": "display",
+      "geometry": "approximate",
+      "material": "unreviewed",
+      "views": [
+        "assembled"
+      ],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [
+        "evals/reports/iphone-assembly/desktop-assembled.png"
+      ],
+      "notes": "Actual independently mapped geometry exists. Schematic internals and surfaces have not been compared to exact-model photographs. No fidelity pass."
+    },
+    {
+      "componentId": "back-glass",
+      "geometry": "approximate",
+      "material": "unreviewed",
+      "views": [
+        "assembled"
+      ],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [
+        "evals/reports/iphone-assembly/desktop-assembled.png"
+      ],
+      "notes": "Actual independently mapped geometry exists. Schematic internals and surfaces have not been compared to exact-model photographs. No fidelity pass."
+    },
+    {
+      "componentId": "battery",
+      "geometry": "approximate",
+      "material": "unreviewed",
+      "views": [
+        "assembled"
+      ],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [
+        "evals/reports/iphone-assembly/desktop-assembled.png"
+      ],
+      "notes": "Actual independently mapped geometry exists. Schematic internals and surfaces have not been compared to exact-model photographs. No fidelity pass."
+    },
+    {
+      "componentId": "rear-cameras",
+      "geometry": "approximate",
+      "material": "unreviewed",
+      "views": [
+        "assembled"
+      ],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [
+        "evals/reports/iphone-assembly/desktop-assembled.png"
+      ],
+      "notes": "Actual independently mapped geometry exists. Schematic internals and surfaces have not been compared to exact-model photographs. No fidelity pass."
+    },
+    {
+      "componentId": "front-camera",
+      "geometry": "approximate",
+      "material": "unreviewed",
+      "views": [
+        "assembled"
+      ],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [
+        "evals/reports/iphone-assembly/desktop-assembled.png"
+      ],
+      "notes": "Actual independently mapped geometry exists. Schematic internals and surfaces have not been compared to exact-model photographs. No fidelity pass."
+    },
+    {
+      "componentId": "logic-board",
+      "geometry": "approximate",
+      "material": "unreviewed",
+      "views": [
+        "assembled"
+      ],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [
+        "evals/reports/iphone-assembly/desktop-assembled.png"
+      ],
+      "notes": "Actual independently mapped geometry exists. Schematic internals and surfaces have not been compared to exact-model photographs. No fidelity pass."
+    },
+    {
+      "componentId": "taptic-engine",
+      "geometry": "approximate",
+      "material": "unreviewed",
+      "views": [
+        "assembled"
+      ],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [
+        "evals/reports/iphone-assembly/desktop-assembled.png"
+      ],
+      "notes": "Actual independently mapped geometry exists. Schematic internals and surfaces have not been compared to exact-model photographs. No fidelity pass."
+    },
+    {
+      "componentId": "top-speaker",
+      "geometry": "approximate",
+      "material": "unreviewed",
+      "views": [
+        "assembled"
+      ],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [
+        "evals/reports/iphone-assembly/desktop-assembled.png"
+      ],
+      "notes": "Actual independently mapped geometry exists. Schematic internals and surfaces have not been compared to exact-model photographs. No fidelity pass."
+    },
+    {
+      "componentId": "bottom-speaker",
+      "geometry": "approximate",
+      "material": "unreviewed",
+      "views": [
+        "assembled"
+      ],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [
+        "evals/reports/iphone-assembly/desktop-assembled.png"
+      ],
+      "notes": "Actual independently mapped geometry exists. Schematic internals and surfaces have not been compared to exact-model photographs. No fidelity pass."
+    },
+    {
+      "componentId": "usb-c",
+      "geometry": "approximate",
+      "material": "unreviewed",
+      "views": [
+        "assembled"
+      ],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [
+        "evals/reports/iphone-assembly/desktop-assembled.png"
+      ],
+      "notes": "Actual independently mapped geometry exists. Schematic internals and surfaces have not been compared to exact-model photographs. No fidelity pass."
+    },
+    {
+      "componentId": "enclosure",
+      "geometry": "approximate",
+      "material": "unreviewed",
+      "views": [
+        "assembled"
+      ],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [
+        "evals/reports/iphone-assembly/desktop-assembled.png"
+      ],
+      "notes": "Actual independently mapped geometry exists. Schematic internals and surfaces have not been compared to exact-model photographs. No fidelity pass."
+    }
+  ],
+  "ratings": {},
+  "learningChecks": [
+    {
+      "goalIndex": 0,
+      "question": "Which part stores energy, and which coordinates processing?",
+      "expectedAnswer": "The battery stores electrical energy; circuitry on the logic board coordinates processing and distribution.",
+      "componentIds": [
+        "battery",
+        "logic-board"
+      ],
+      "referenceIds": [
+        "specs"
+      ],
+      "learnerResult": "not-tested",
+      "level": "beginner"
+    },
+    {
+      "goalIndex": 1,
+      "question": "What does the camera send to the processing electronics?",
+      "expectedAnswer": "The optical and sensing assembly converts incoming light into image data for electronic processing.",
+      "componentIds": [
+        "rear-cameras",
+        "logic-board"
+      ],
+      "referenceIds": [
+        "specs"
+      ],
+      "learnerResult": "not-tested",
+      "level": "intermediate"
+    },
+    {
+      "goalIndex": 2,
+      "question": "Why should the screen and rear closure be separate in the explainer?",
+      "expectedAnswer": "The display presents information, the rear glass closes the back, and the enclosure supports the assemblies.",
+      "componentIds": [
+        "display",
+        "back-glass",
+        "enclosure"
+      ],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "learnerResult": "not-tested",
+      "level": "beginner"
+    },
+    {
+      "goalIndex": 1,
+      "question": "Can these public specifications establish the camera module\u2019s hidden geometry?",
+      "expectedAnswer": "No. Product specifications and a repair table of contents identify assemblies but do not establish internal dimensions or connections. Inspect exact-model internal references before modeling.",
+      "componentIds": [
+        "rear-cameras",
+        "logic-board"
+      ],
+      "referenceIds": [
+        "specs"
+      ],
+      "learnerResult": "not-tested",
+      "level": "advanced"
+    }
+  ],
+  "limitations": [
+    "Internal dimensions, routing, regional layout and hidden surfaces remain unverified.",
+    "Screws, adhesives, seals, antennas, wireless charging and thermal assemblies are not represented.",
+    "Exterior openings, camera positions and manufacturing details need photographic comparison.",
+    "No photo was supplied and no geometry provider was called; an agent authored this example recipe.",
+    "This tests agent-authored geometry and import, not unattended photo-to-model generation.",
+    "Only representative parts were tested at three camera angles; all-component reference comparison is outstanding."
+  ]
+}

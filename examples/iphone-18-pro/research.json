@@ -1,0 +1,737 @@
+{
+  "version": 1,
+  "item": {
+    "name": "iPhone 18 Pro",
+    "maker": "Apple",
+    "model": "iPhone 18 Pro",
+    "category": "smartphone",
+    "year": "2026",
+    "summary": "A spatial prototype of how a phone stores energy, processes signals and produces light, images, sound and touch."
+  },
+  "components": [
+    {
+      "id": "front-glass",
+      "name": "Front cover",
+      "material": "Ceramic Shield 2; clear cover approximation",
+      "howItsMade": "The cover protects the display while letting its light reach your eyes. Glass and the OLED underneath have different jobs and different optical behavior.",
+      "funFacts": [
+        "A transparent cover can protect pixels without producing light itself."
+      ],
+      "order": 0,
+      "figureLabel": "Approximate geometry; verify against exact-model views.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/specs/"
+        ],
+        "note": "Component role is educational; placement, shape and finish are not reference-matched."
+      }
+    },
+    {
+      "id": "display",
+      "name": "OLED display",
+      "material": "Glass substrate and OLED stack; schematic backing",
+      "howItsMade": "Pixels turn electrical signals into light. This opaque display panel sits beneath the separate transparent cover; it is not a piece of clear glass.",
+      "funFacts": [
+        "Emit controlled light for the image you see."
+      ],
+      "order": 1,
+      "figureLabel": "Approximate geometry; verify against exact-model views.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/specs/"
+        ],
+        "note": "Component role is educational; placement, shape and finish are not reference-matched."
+      }
+    },
+    {
+      "id": "back-glass",
+      "name": "Rear closure",
+      "material": "Ceramic Shield back; illustrative colored finish",
+      "howItsMade": "The rear closure seals the back of the device. Its colored finish blocks the view inside, even though the substrate is glass.",
+      "funFacts": [
+        "Close the rear while leaving the camera optics exposed."
+      ],
+      "order": 2,
+      "figureLabel": "Approximate geometry; verify against exact-model views.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/specs/"
+        ],
+        "note": "Component role is educational; placement, shape and finish are not reference-matched."
+      }
+    },
+    {
+      "id": "battery",
+      "name": "Stored energy",
+      "material": "Lithium-ion battery; schematic pack and casing",
+      "howItsMade": "Chemical energy becomes electrical power for the phone. The logic board regulates and distributes that power to its other systems.",
+      "funFacts": [
+        "Supply electrical energy to the power circuitry."
+      ],
+      "order": 3,
+      "figureLabel": "Approximate geometry; verify against exact-model views.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/specs/"
+        ],
+        "note": "Component role is educational; placement, shape and finish are not reference-matched."
+      }
+    },
+    {
+      "id": "rear-cameras",
+      "name": "Light becomes data",
+      "material": "Optics, sensor packages and housings; schematic",
+      "howItsMade": "Lenses focus incoming light onto sensors. The logic board then processes the sensor signals into an image; the optical path and the data path are different parts of the same story.",
+      "funFacts": [
+        "Convert incoming light into electronic image signals."
+      ],
+      "order": 4,
+      "figureLabel": "Approximate geometry; verify against exact-model views.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/specs/"
+        ],
+        "note": "Component role is educational; placement, shape and finish are not reference-matched."
+      }
+    },
+    {
+      "id": "front-camera",
+      "name": "Front-facing camera",
+      "material": "Schematic optical and electronic module",
+      "howItsMade": "A front-facing sensor captures light for calls and selfies. This model does not reconstruct the separate Face ID system.",
+      "funFacts": [
+        "Capture a front-facing image."
+      ],
+      "order": 5,
+      "figureLabel": "Approximate geometry; verify against exact-model views.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/specs/"
+        ],
+        "note": "Component role is educational; placement, shape and finish are not reference-matched."
+      }
+    },
+    {
+      "id": "logic-board",
+      "name": "Processing & power",
+      "material": "Circuit board, package and shield approximations",
+      "howItsMade": "Electronic circuits process inputs and drive outputs. Follow the connections: battery power comes in, camera data is processed, and display information goes out.",
+      "funFacts": [
+        "Coordinate computation, power distribution and peripheral signals."
+      ],
+      "order": 6,
+      "figureLabel": "Approximate geometry; verify against exact-model views.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/specs/"
+        ],
+        "note": "Component role is educational; placement, shape and finish are not reference-matched."
+      }
+    },
+    {
+      "id": "taptic-engine",
+      "name": "Motion you can feel",
+      "material": "Schematic metal actuator housing",
+      "howItsMade": "Electrical input produces controlled mechanical vibration. The enclosure transmits that vibration to your hand; this housing does not yet show the moving mechanism inside.",
+      "funFacts": [
+        "Produce tactile feedback through controlled movement."
+      ],
+      "order": 7,
+      "figureLabel": "Approximate geometry; verify against exact-model views.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/specs/"
+        ],
+        "note": "Component role is educational; placement, shape and finish are not reference-matched."
+      }
+    },
+    {
+      "id": "top-speaker",
+      "name": "Top speaker",
+      "material": "Internal materials unverified",
+      "howItsMade": "Convert electrical signals into sound. Manufacturing details are unresolved.",
+      "funFacts": [
+        "Convert electrical signals into sound."
+      ],
+      "order": 8,
+      "figureLabel": "Approximate geometry; verify against exact-model views.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/specs/"
+        ],
+        "note": "Component role is educational; placement, shape and finish are not reference-matched."
+      }
+    },
+    {
+      "id": "bottom-speaker",
+      "name": "Sound output",
+      "material": "Schematic acoustic module",
+      "howItsMade": "A speaker converts an electrical signal into moving air. Its enclosure and outlet shape the sound; those acoustic paths still need a detailed reconstruction.",
+      "funFacts": [
+        "Convert electrical signals into sound."
+      ],
+      "order": 9,
+      "figureLabel": "Approximate geometry; verify against exact-model views.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/specs/"
+        ],
+        "note": "Component role is educational; placement, shape and finish are not reference-matched."
+      }
+    },
+    {
+      "id": "usb-c",
+      "name": "Power & data in",
+      "material": "Illustrative metal shell and insulating tongue",
+      "howItsMade": "The port connects the phone to wired power and data. Its shell protects the connector; electrical contacts carry the signals and power.",
+      "funFacts": [
+        "Provide a wired connection for charging and data."
+      ],
+      "order": 10,
+      "figureLabel": "Approximate geometry; verify against exact-model views.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/specs/"
+        ],
+        "note": "Component role is educational; placement, shape and finish are not reference-matched."
+      }
+    },
+    {
+      "id": "enclosure",
+      "name": "Structure around it all",
+      "material": "Aluminum; exact alloy and finish unverified",
+      "howItsMade": "The enclosure gives the assembly its shape and supports its parts. It also provides interfaces for controls and openings; small seals and fasteners are omitted here.",
+      "funFacts": [
+        "Support and protect the phone\u2019s assemblies."
+      ],
+      "order": 11,
+      "figureLabel": "Approximate geometry; verify against exact-model views.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/specs/"
+        ],
+        "note": "Component role is educational; placement, shape and finish are not reference-matched."
+      }
+    }
+  ],
+  "facts": [
+    {
+      "label": "Width",
+      "value": "71.9 mm"
+    },
+    {
+      "label": "Height",
+      "value": "150.0 mm"
+    },
+    {
+      "label": "Depth",
+      "value": "8.75 mm"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Apple iPhone 18 Pro technical specifications",
+      "url": "https://www.apple.com/iphone-18-pro/specs/"
+    },
+    {
+      "title": "Apple iPhone 18 Pro repair manual contents",
+      "url": "https://support.apple.com/en-mide/127388"
+    }
+  ],
+  "understanding": {
+    "version": 1,
+    "identityScope": "iPhone 18 Pro dimensional study. Exterior envelope follows published dimensions; interior placement, thicknesses and reverse surfaces are schematic. Not manufacturer CAD or an automatic photo reconstruction.",
+    "learningGoals": [
+      "Distinguish energy storage, processing and output.",
+      "Explain how light becomes image data.",
+      "Distinguish display, back closure and supporting enclosure."
+    ],
+    "references": [
+      {
+        "id": "specs",
+        "title": "Apple technical specifications",
+        "url": "https://www.apple.com/iphone-18-pro/specs/",
+        "kind": "specification",
+        "scope": "exact-model",
+        "observation": "Read model materials, exterior dimensions, OLED display, cameras, battery and wired connector specifications.",
+        "limitations": "Does not establish exact internal meshes, hidden materials or factory CAD."
+      },
+      {
+        "id": "manual",
+        "title": "Apple repair manual contents",
+        "url": "https://support.apple.com/en-mide/127388",
+        "kind": "manual",
+        "scope": "exact-model",
+        "observation": "Read the component/procedure inventory and regional eSIM/pSIM and antenna distinctions in the table of contents.",
+        "limitations": "Linked internal-view and procedure pages returned HTTP 429 during this audit. Their diagrams were not inspected; do not treat this inventory as observed internal geometry."
+      }
+    ],
+    "components": [
+      {
+        "componentId": "front-glass",
+        "function": "Protect the display while transmitting its light.",
+        "claims": [
+          {
+            "statement": "Apple specifies a Ceramic Shield 2 front.",
+            "basis": "documented",
+            "referenceIds": [
+              "specs"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "specs"
+          ],
+          "shape": "Build an explicitly schematic, independently explorable part. Only overall enclosure dimensions are specified; do not present internal dimensions as measured.",
+          "materialBehavior": "Transparent, non-metallic cover. Optical constants are illustrative, not verified formulation.",
+          "hiddenSurfaces": "Simple closed reverse surfaces; exact underside and interfaces unresolved.",
+          "exclude": [
+            "Opaque glass",
+            "Baked photographic reflections"
+          ],
+          "acceptanceChecks": [
+            "Inspect transmission, edge highlights and reverse face."
+          ]
+        },
+        "unknowns": [
+          "Exact geometry, finish and physical interfaces need reference matching."
+        ]
+      },
+      {
+        "componentId": "display",
+        "function": "Emit controlled light for the image you see.",
+        "claims": [
+          {
+            "statement": "Display is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Build an explicitly schematic, independently explorable part. Only overall enclosure dimensions are specified; do not present internal dimensions as measured.",
+          "materialBehavior": "OLED display; Ceramic Shield 2 front. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Simple closed reverse surfaces; exact underside and interfaces unresolved.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact geometry, finish and physical interfaces need reference matching."
+        ]
+      },
+      {
+        "componentId": "back-glass",
+        "function": "Close the rear while leaving the camera optics exposed.",
+        "claims": [
+          {
+            "statement": "Back glass is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Build an explicitly schematic, independently explorable part. Only overall enclosure dimensions are specified; do not present internal dimensions as measured.",
+          "materialBehavior": "Ceramic Shield back. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Simple closed reverse surfaces; exact underside and interfaces unresolved.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact geometry, finish and physical interfaces need reference matching."
+        ]
+      },
+      {
+        "componentId": "battery",
+        "function": "Supply electrical energy to the power circuitry.",
+        "claims": [
+          {
+            "statement": "Battery is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Build an explicitly schematic, independently explorable part. Only overall enclosure dimensions are specified; do not present internal dimensions as measured.",
+          "materialBehavior": "Rechargeable lithium-ion; pack geometry not inspected. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Simple closed reverse surfaces; exact underside and interfaces unresolved.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact geometry, finish and physical interfaces need reference matching."
+        ]
+      },
+      {
+        "componentId": "rear-cameras",
+        "function": "Convert incoming light into electronic image signals.",
+        "claims": [
+          {
+            "statement": "Rear camera assembly is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Build an explicitly schematic, independently explorable part. Only overall enclosure dimensions are specified; do not present internal dimensions as measured.",
+          "materialBehavior": "Optical and electronic assembly; internal materials unverified. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Simple closed reverse surfaces; exact underside and interfaces unresolved.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact geometry, finish and physical interfaces need reference matching."
+        ]
+      },
+      {
+        "componentId": "front-camera",
+        "function": "Capture a front-facing image.",
+        "claims": [
+          {
+            "statement": "Front camera is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Build an explicitly schematic, independently explorable part. Only overall enclosure dimensions are specified; do not present internal dimensions as measured.",
+          "materialBehavior": "Internal materials unverified. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Simple closed reverse surfaces; exact underside and interfaces unresolved.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact geometry, finish and physical interfaces need reference matching."
+        ]
+      },
+      {
+        "componentId": "logic-board",
+        "function": "Coordinate computation, power distribution and peripheral signals.",
+        "claims": [
+          {
+            "statement": "Logic board is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Build an explicitly schematic, independently explorable part. Only overall enclosure dimensions are specified; do not present internal dimensions as measured.",
+          "materialBehavior": "Board stack and package materials unverified. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Simple closed reverse surfaces; exact underside and interfaces unresolved.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact geometry, finish and physical interfaces need reference matching."
+        ]
+      },
+      {
+        "componentId": "taptic-engine",
+        "function": "Produce tactile feedback through controlled movement.",
+        "claims": [
+          {
+            "statement": "Taptic Engine is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Build an explicitly schematic, independently explorable part. Only overall enclosure dimensions are specified; do not present internal dimensions as measured.",
+          "materialBehavior": "Internal materials unverified. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Simple closed reverse surfaces; exact underside and interfaces unresolved.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact geometry, finish and physical interfaces need reference matching."
+        ]
+      },
+      {
+        "componentId": "top-speaker",
+        "function": "Convert electrical signals into sound.",
+        "claims": [
+          {
+            "statement": "Top speaker is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Build an explicitly schematic, independently explorable part. Only overall enclosure dimensions are specified; do not present internal dimensions as measured.",
+          "materialBehavior": "Internal materials unverified. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Simple closed reverse surfaces; exact underside and interfaces unresolved.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact geometry, finish and physical interfaces need reference matching."
+        ]
+      },
+      {
+        "componentId": "bottom-speaker",
+        "function": "Convert electrical signals into sound.",
+        "claims": [
+          {
+            "statement": "Bottom speaker is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Build an explicitly schematic, independently explorable part. Only overall enclosure dimensions are specified; do not present internal dimensions as measured.",
+          "materialBehavior": "Regional variant and internal materials unverified. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Simple closed reverse surfaces; exact underside and interfaces unresolved.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact geometry, finish and physical interfaces need reference matching."
+        ]
+      },
+      {
+        "componentId": "usb-c",
+        "function": "Provide a wired connection for charging and data.",
+        "claims": [
+          {
+            "statement": "USB-C connector is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Build an explicitly schematic, independently explorable part. Only overall enclosure dimensions are specified; do not present internal dimensions as measured.",
+          "materialBehavior": "Contact and housing alloys unverified. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Simple closed reverse surfaces; exact underside and interfaces unresolved.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact geometry, finish and physical interfaces need reference matching."
+        ]
+      },
+      {
+        "componentId": "enclosure",
+        "function": "Support and protect the phone\u2019s assemblies.",
+        "claims": [
+          {
+            "statement": "Enclosure is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Build an explicitly schematic, independently explorable part. Only overall enclosure dimensions are specified; do not present internal dimensions as measured.",
+          "materialBehavior": "Aluminum unibody; exact alloy not specified here. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Simple closed reverse surfaces; exact underside and interfaces unresolved.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact geometry, finish and physical interfaces need reference matching."
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "from": "battery",
+        "to": "logic-board",
+        "relationship": "Supplies electrical energy through power circuitry; exact routing not modeled.",
+        "basis": "inferred",
+        "referenceIds": [
+          "specs"
+        ]
+      },
+      {
+        "from": "rear-cameras",
+        "to": "logic-board",
+        "relationship": "Image data is processed electronically; physical connection geometry not inspected.",
+        "basis": "inferred",
+        "referenceIds": [
+          "specs"
+        ]
+      },
+      {
+        "from": "logic-board",
+        "to": "display",
+        "relationship": "Provides processed display information; circuit detail is not reconstructed.",
+        "basis": "inferred",
+        "referenceIds": [
+          "specs"
+        ]
+      },
+      {
+        "from": "display",
+        "to": "front-glass",
+        "relationship": "Display light passes through the protective cover.",
+        "basis": "inferred",
+        "referenceIds": [
+          "specs"
+        ]
+      }
+    ],
+    "unresolved": [
+      "Internal dimensions, routing, regional layout and hidden surfaces remain unverified.",
+      "Screws, adhesives, seals, antennas, wireless charging and thermal assemblies are not represented.",
+      "Exterior openings, camera positions and manufacturing details need photographic comparison.",
+      "No photo was supplied and no geometry provider was called; an agent authored this example recipe."
+    ]
+  },
+  "modelNotice": "Assembly prototype \u00b7 approximate internals",
+  "closing": "This prototype separates functional assemblies. It does not yet reproduce exact internal construction.",
+  "artNote": "Agent-authored spatial prototype. Published exterior dimensions; schematic internals, approximate finishes and no verified mechanical or electrical simulation."
+}

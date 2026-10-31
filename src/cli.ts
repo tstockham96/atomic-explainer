@@ -16,6 +16,7 @@ interface Flags {
   motion: boolean
   three: boolean
   plan: boolean
+  assemble?: string
   extract?: string
   framesDir?: string
   fps?: number
@@ -33,6 +34,7 @@ Usage
   explode ./photo.jpg --plan --out ./research
   explode --from-spec ./research.json --plan --out ./research
   explode --from-spec public/spec.json --out ./site
+  explode --from-spec ./research.json --assemble ./assembly.json --out ./site
   explode ./photo.jpg --from-spec public/spec.json --images --out ./site
   explode ./photo.jpg --motion --out ./site
   explode --extract ./explode.mp4 --frames-dir ./frames/explode --skip 4.55-5.65 --skip-keep 2
@@ -43,6 +45,7 @@ Options
       --skip-images       Research and build, but do not call an image model
       --images            With --from-spec, also generate layer images
       --motion            After stills, make rotation + explode clips and extract WebP frames
+      --assemble <file>   Build an agent-authored component recipe into a GLB and reviewable site
       --plan              Save research and component construction tasks; no geometry generation
       --3d                Research, generate a textured mesh, segment parts, and build a 3D draft
       --extract <video>   Only extract a clip to WebP frames. No model call
@@ -85,6 +88,7 @@ export function parseFlags(argv: string[]): Flags {
       motion: { type: "boolean", default: false },
       "3d": { type: "boolean", default: false },
       plan: { type: "boolean", default: false },
+      assemble: { type: "string" },
       extract: { type: "string" },
       "frames-dir": { type: "string" },
       fps: { type: "string" },
@@ -119,6 +123,7 @@ export function parseFlags(argv: string[]): Flags {
     motion: values.motion,
     three: values["3d"],
     plan: values.plan,
+    assemble: values.assemble,
     extract: values.extract,
     framesDir: values["frames-dir"],
     fps,
@@ -155,7 +160,10 @@ export async function main(argv: string[]) {
   }
 
   try {
-    const spec = await runExplode({
+    if (flags.assemble && (!flags.fromSpec || flags.three || flags.plan || flags.motion || flags.images)) throw Error("--assemble requires --from-spec and cannot be combined with generation flags.")
+    const spec = flags.assemble
+      ? await (await import("./pipeline/assemble.ts")).assembleStudy(flags.fromSpec!, flags.assemble, flags.out)
+      : await runExplode({
       photo: flags.photo,
       specPath: flags.fromSpec,
       outDir: flags.out,

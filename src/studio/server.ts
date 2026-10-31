@@ -5,9 +5,13 @@ import { mkdir, readFile, writeFile, rename, realpath } from "node:fs/promises"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { runExplode, type RunOptions } from "../pipeline/run.ts"
+import { assembleStudy } from "../pipeline/assemble.ts"
+import { assemblySchema } from "../spec/assembly.ts"
+import { explodeSpecSchema } from "../spec/schema.ts"
+import { validateAssemblyEvidence } from "../authoring/assembly.ts"
 import { packageRoot } from "../pipeline/render-site.ts"
 
-export interface StudioJob { id: string; status: "running" | "review" | "plan-ready" | "failed" | "interrupted"; stage: string; log: string[]; error?: string; preview?: string; plan?: string }
+export interface StudioJob { id: string; status: "running" | "review" | "plan-ready" | "failed" | "interrupted"; stage: string; log: string[]; error?: string; preview?: string; componentReview?: string; plan?: string }
 const idPattern = /^[a-f0-9-]{36}$/
 const mimeTypes: Record<string, string> = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".glb": "model/gltf-binary", ".png": "image/png", ".jpg": "image/jpeg", ".webp": "image/webp", ".woff2": "font/woff2", ".svg": "image/svg+xml" }
 
@@ -68,6 +72,27 @@ export function createStudioServer(options: { root?: string; siteDir?: string; j
     const url = new URL(req.url ?? "/", origin)
     if (req.method === "POST" && req.headers["x-explode-token"] !== token) { json(res, 403, { error: "Refresh the page before submitting." }); return }
     if (url.pathname === "/api/config" && req.method === "GET") { json(res, 200, { token, missing: missing(), provider: "OpenAI research; component authoring required", capability: 'research-plan' }); return }
+    if (url.pathname === "/api/assemblies" && req.method === "POST") {
+      if (active.size) { json(res, 409, { error: "Wait for the current job to finish." }); return }
+      if (req.headers['content-type'] !== 'application/json') { json(res, 415, { error: 'Choose an assembly-project.json file.' }); return }
+      const id = randomUUID(); active.add(id)
+      try {
+        const chunks: Buffer[] = []; let size = 0
+        for await (const chunk of req) { size += chunk.length; if (size > 4 * 1024 * 1024) { json(res, 413, { error: 'Project exceeds 4 MB.' }); return }; chunks.push(chunk) }
+        const input = JSON.parse(Buffer.concat(chunks).toString('utf8'))
+        const spec = explodeSpecSchema.parse(input.spec), assembly = assemblySchema.parse(input.assembly)
+        validateAssemblyEvidence(spec, assembly)
+        const directory = path.join(jobsRoot, id), site = path.join(directory, 'site')
+        await mkdir(directory, { recursive: true })
+        await writeFile(path.join(directory, 'research.json'), JSON.stringify(spec))
+        await writeFile(path.join(directory, 'assembly.json'), JSON.stringify(assembly))
+        await assembleStudy(path.join(directory, 'research.json'), path.join(directory, 'assembly.json'), site, options.siteDir ?? path.join(root, 'dist-site'))
+        const job: StudioJob = { id, status: 'review', stage: 'Assembly built · fidelity review required', log: ['Built the supplied component recipe locally. No AI provider called.'], preview: `/jobs/${id}/index.html`, componentReview: `/jobs/${id}/assembly-review.json` }
+        await save(job); memory.set(id, job); json(res, 201, job)
+      } catch (error) { json(res, 400, { error: error instanceof Error ? error.message.slice(0, 1200) : 'Invalid assembly project.' }) }
+      finally { active.delete(id) }
+      return
+    }
     if (url.pathname === "/api/jobs" && req.method === "POST") {
       if (missing().length) { json(res, 503, { error: `Configure ${missing().join(" and ")} in .env, then restart the studio.` }); return }
       if (active.size) { json(res, 409, { error: "A generation is already running. Wait for it to finish." }); return }

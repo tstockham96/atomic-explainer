@@ -21,7 +21,7 @@
   "scripts": {
     "dev": "vite",
     "studio": "node dist/studio.js",
-    "build": "tsc -b && vite build && npm run build:cli && npm run build:study",
+    "build": "tsc -b && vite build && npm run build:cli && npm run build:study && npm run build:examples",
     "build:site": "vite build",
     "build:cli": "esbuild src/cli.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/cli.js --banner:js=\"#!/usr/bin/env node\" && esbuild src/mcp.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/mcp.js --banner:js=\"#!/usr/bin/env node\" && chmod +x dist/cli.js dist/mcp.js && esbuild src/studio/server.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/studio.js",
     "preview": "vite preview",
@@ -31,10 +31,11 @@
     "test": "vitest run",
     "lint": "oxlint",
     "build:study": "node tools/murph-study/build.mjs --packaged",
-    "build:eval": "vite build --outDir dist-eval && npm run build:cli && node tools/murph-study/build.mjs --packaged dist-eval/murph-study",
+    "build:eval": "vite build --outDir dist-eval && npm run build:cli && node tools/murph-study/build.mjs --packaged dist-eval/murph-study && node --import tsx tools/build-examples.ts dist-eval",
     "eval": "tsx tools/evals/run.ts",
     "eval:browser": "playwright test",
-    "eval:release": "tsx tools/evals/run.ts --require-ready --case murph-current"
+    "eval:release": "tsx tools/evals/run.ts --require-ready --case murph-current",
+    "build:examples": "node --import tsx tools/build-examples.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.105",

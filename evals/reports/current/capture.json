@@ -1,28 +1,28 @@
 {
-  "recordedAt": "2026-10-31T01:48:23.684Z",
-  "experienceSha256": "c0888758a706c67a2f3766bb13043a0ca3d74fda19f2f9ef31827a6e04291e38",
+  "recordedAt": "2026-10-31T02:26:55.097Z",
+  "experienceSha256": "c29e053275ba091ece46113a8a2cb3af75a1d44d8e106e34e3716b52de1f9df9",
   "assetSha256": "bc05ec5e791e7209557153c4058fb89ae0134e3b1a6ec2e7a3a40c7197ab5fa7",
   "viewerSha256": "16e08d42810b4ff0f90b7b797c4c8ab3f0333080236ce2fdc9450800c884e461",
   "htmlSha256": "3ac3e5cc55cb2367c76747c735c80534fb2a251db74a14de40a88a5005c9c24e",
   "resources": [
     {
       "file": "/murph-study/study.js",
-      "durationMs": 42,
-      "bytes": 2521735
+      "durationMs": 27.399999976158142,
+      "bytes": 2521797
     },
     {
       "file": "/murph-study/studio-small-09.hdr",
-      "durationMs": 19,
+      "durationMs": 15.699999928474426,
       "bytes": 1615248
     },
     {
       "file": "/murph-study/study.json",
-      "durationMs": 9.299999952316284,
+      "durationMs": 6.199999928474426,
       "bytes": 63044
     },
     {
       "file": "/murph-study/murph-researched.glb",
-      "durationMs": 91.39999997615814,
+      "durationMs": 89.70000004768372,
       "bytes": 38004384
     }
   ],

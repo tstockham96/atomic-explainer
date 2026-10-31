@@ -182,3 +182,16 @@ The Murph copy is summarized from Hamilton’s H70605731 page, Hamilton’s acco
 ## Licenses
 
 Explode code is MIT. Third-party software and model assets retain their own terms; the Chronograph model and derived renders are CC BY 4.0 with separate logo notices. See [THIRD_PARTY.md](THIRD_PARTY.md).
+
+
+### Second-object preview and agent handoff
+
+After `npm run build && npm run studio`, open:
+
+- Murph: <http://127.0.0.1:4319/murph-study/index.html>
+- iPhone assembly prototype: <http://127.0.0.1:4319/iphone-study/index.html>
+- Studio and example links: <http://127.0.0.1:4319/create>
+
+The phone has actual separate 3D parts, built through the reusable recipe exporter. Its internal geometry is **schematic**, not a photorealistic reconstruction or proof of automatic photo-to-internals generation. The original research-only phone evaluation remains a separate negative case.
+
+An agent can author `research.json` plus `assembly.json`, then use `--assemble` or the `explode_assemble` MCP tool. Open the resulting `assembly-project.json` in the studio to build and review it without API keys. Existing multipart GLB imports remain the route for detailed/organic geometry beyond the recipe vocabulary. See [the construction contract](docs/3d-scenes.md#build-an-agent-authored-component-recipe).

@@ -77,3 +77,28 @@ it("recovers an interrupted job using saved research and the original photo", as
   expect((await fetch(`${base}/api/jobs/${id}/resume`, { method: "POST", headers: { "X-Explode-Token": token } })).status).toBe(202)
   await vi.waitFor(() => expect(run).toHaveBeenCalledWith(expect.objectContaining({ photo: path.join(directory, "source.jpg"), specPath: path.join(directory, "site/research.json"), planOnly: true })))
 })
+
+it('imports an agent assembly without credentials or provider calls and rejects incomplete geometry', async () => {
+  const root = await mkdtemp(path.join(tmpdir(), 'explode-import-')); cleanups.push(() => rm(root, { recursive: true, force: true }))
+  await mkdir(path.join(root, 'dist-site'))
+  await writeFile(path.join(root, 'dist-site/index.html'), '<script>window.__EXPLODE_SPEC__ = null;</script>')
+  const run = vi.fn(), server = createStudioServer({ root, run, env: {} })
+  await new Promise<void>((resolve, reject) => { server.once('error', reject); server.listen(0, '127.0.0.1', resolve) })
+  cleanups.push(() => new Promise<void>(resolve => server.close(() => resolve())))
+  const base = `http://127.0.0.1:${(server.address() as { port: number }).port}`
+  const { token } = await (await fetch(`${base}/api/config`)).json()
+  const spec = JSON.parse(await readFile('examples/iphone-18-pro/research.json', 'utf8'))
+  const assembly = JSON.parse(await readFile('examples/iphone-18-pro/assembly.json', 'utf8'))
+  const headers = { 'Content-Type': 'application/json', 'X-Explode-Token': token }
+  expect((await fetch(`${base}/api/assemblies`, { method: 'POST', headers: { ...headers, Origin: 'https://unrelated.example' }, body: JSON.stringify({ spec, assembly }) })).status).toBe(403)
+  const incomplete = { ...assembly, parts: assembly.parts.slice(1) }
+  expect((await fetch(`${base}/api/assemblies`, { method: 'POST', headers, body: JSON.stringify({ spec, assembly: incomplete }) })).status).toBe(400)
+  const result = await fetch(`${base}/api/assemblies`, { method: 'POST', headers, body: JSON.stringify({ spec, assembly }) })
+  expect(result.status).toBe(201)
+  const job = await result.json()
+  expect(job.status).toBe('review')
+  expect((await fetch(base + job.preview)).status).toBe(200)
+  expect((await fetch(`${base}/jobs/${job.id}/assembly.glb`)).headers.get('content-type')).toBe('model/gltf-binary')
+  expect((await (await fetch(`${base}/jobs/${job.id}/assembly-review.json`)).json()).status).toBe('unreviewed')
+  expect(run).not.toHaveBeenCalled()
+})

@@ -55,7 +55,9 @@ export function cameraShot(model: ExplodableModel, progress: number, aspect: num
   const narrow = aspect < 0.85
   const direction = hero.clone().lerp(overview, ease(sample.separation)).normalize()
   const bounds = model.overviewBounds ?? new THREE.Box3().setFromObject(model.root)
-  const shot = frameBox(bounds, direction, aspect, narrow ? [0.85, 0.60] : [0.85, 0.72])
+  const shot = frameBox(bounds, direction, aspect, narrow ? [0.85, THREE.MathUtils.lerp(.40, .55, sample.separation)] : [0.85, THREE.MathUtils.lerp(.52, .68, sample.separation)])
+  const lift = shot.up.clone().multiplyScalar(-shot.distance * Math.tan(THREE.MathUtils.degToRad(STORY_FOV / 2)) * .16 * (1 - sample.separation))
+  shot.target.add(lift); shot.position.add(lift)
   const selected = model.parts[sample.index]
   if (selected && sample.focus > 0) {
     const partBox = new THREE.Box3().setFromObject(selected.group)

@@ -21,11 +21,11 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm test
-      - run: npm run eval
       - run: npx playwright install --with-deps chromium
       - run: npm run eval:browser
         env:
           EXPLODE_SOFTWARE_GL: "1"
+      - run: npm run eval
       - uses: actions/upload-artifact@v4
         if: always()
         with:

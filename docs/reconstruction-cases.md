@@ -44,3 +44,21 @@ The research prompt and construction plan carry review requirements from `src/pi
 See [the evaluation method and current failures](evaluations.md). The Murph and phone are benchmark cases, not universal material or geometry templates.
 
 - Pausing motion must stop settled redraws, not merely freeze time while exhausting the GPU. Detect software graphics and reduce raster/postprocessing cost consistently across materials; preserve the same geometry, evidence and physical separation. Test the software path separately from normal hardware rendering.
+
+## Case: research fixture mistaken for an available preview
+
+**Observed failure:** an iPhone research-only benchmark was described alongside a rendered watch; the user reasonably expected a phone preview. A JSON component inventory does not establish that geometry exists.
+
+**General rule:** distinguish research-only, authored assembly, generated exterior and reviewed reconstruction at the point of entry. Link to actual previews from the studio. A preview that builds successfully must retain its fidelity limitations on screen. The phone prototype now exercises the common recipe → GLB → viewer path, while the original research-only fixture stays intact as a negative evaluation case.
+
+## Case: new objects inherit another object's export and framing assumptions
+
+**Observed failures:** whole-template copying bundled unrelated example folders; a tall phone overlapped its title in the generic viewer.
+
+**General rule:** export shared viewer assets plus the selected object's referenced assets. Use model bounds and reserved text space, rather than assuming watch proportions. Test another aspect ratio, all-sided part inspection, portrait screens, and the exported artifact. The assembly tests exercise genuine openings, separate glass/display behavior, component provenance and GLB round-tripping; they do not award visual fidelity scores.
+
+## Case: a research plan has no executable handoff
+
+**Observed failure:** photo upload ended at a plan, with no way to bring an agent's constructed parts back into the studio.
+
+**General rule:** provide a reversible, provider-independent construction/import stage. Agent-authored dimensioned recipes now compile to separate geometry and can be imported as a project without keys. Reject missing inventory, unknown references and unresolved deferred parts. Keep every material/fidelity review pending until compared to actual evidence. Record which steps were authored manually so this cannot masquerade as an unattended photo-to-model benchmark.

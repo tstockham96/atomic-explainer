@@ -104,6 +104,21 @@ export function createServer() {
   )
 
   server.registerTool(
+    "explode_assemble",
+    {
+      title: "Build researched component geometry",
+      description: "Build an agent-authored dimensional assembly recipe into a multipart GLB, review checklist and explainer. No paid model calls. All parts remain unreviewed until compared with references.",
+      inputSchema: { specPath: z.string(), assemblyPath: z.string(), outDir: z.string() },
+    },
+    async ({ specPath, assemblyPath, outDir }) => {
+      try {
+        const spec = await (await import('./pipeline/assemble.ts')).assembleStudy(specPath, assemblyPath, path.resolve(outDir))
+        return text({ index: path.resolve(outDir, 'index.html'), project: path.resolve(outDir, 'assembly-project.json'), item: spec.item.name, status: 'unreviewed' })
+      } catch (error) { return failure(error) }
+    },
+  )
+
+  server.registerTool(
     "explode_build_site",
     {
       title: "Build the scroll site",

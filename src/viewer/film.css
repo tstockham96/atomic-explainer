@@ -175,3 +175,20 @@
   .mesh-part-label::after { height: 22px; margin-top: 6px; }
   .mesh-description { max-width: 45ch; }
 }
+
+.mesh-navigation { position:absolute; top:26px; left:30px; display:flex; align-items:center; gap:22px; z-index:5; font:12px var(--font-sans); color:var(--scene-ink); }
+.mesh-navigation a { color:inherit; text-decoration:none; padding:12px 0; }
+.mesh-navigation label { display:flex; align-items:center; gap:10px; }
+.mesh-navigation select { max-width:200px; min-height:44px; border:1px solid #788b8555; border-radius:6px; padding:8px 12px; background:#eff2ed; color:#253b36; font:inherit; }
+.mesh-connection { display:block; margin-top:20px; padding-top:16px; border-top:1px solid #82958c55; font-size:12px; line-height:1.7; }
+.mesh-navigation :focus-visible { outline:2px solid currentColor; outline-offset:4px; }
+@media(max-width:699px) {
+  .mesh-navigation { top:13px; left:18px; gap:12px; font-size:11px; }
+  .mesh-navigation label { font-size:0; }
+  .mesh-navigation select { max-width:150px; font-size:11px; }
+  .atmosphere-switch { top:70px; right:18px; }
+  .mesh-bottom { align-items:flex-end; gap:16px; font-size:9px; line-height:1.5; }
+  .mesh-bottom span { max-width:65%; }
+  .mesh-bottom button { min-height:44px; }
+  .mesh-connection { font-size:11px; margin-top:12px; padding-top:10px; }
+}

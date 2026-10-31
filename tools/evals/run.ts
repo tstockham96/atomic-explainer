@@ -8,6 +8,7 @@ import {glbComponentIds} from '../../src/evals/inventory.ts'
 
 const cases=[
  {id:'murph-v17',spec:'docs/research/murph-study.json',review:'evals/reviews/murph-v17.json',inventory:'docs/research/reviews/murph-v17/component-material-inventory.json',measurements:'docs/research/reviews/murph-v17'},
+ {id:'iphone-assembly',spec:'examples/iphone-18-pro/research.json',review:'evals/reviews/iphone-assembly.json'},
  {id:'iphone-18-pro',spec:'evals/cases/iphone-18-pro.json',review:'evals/reviews/iphone-18-pro.json'},
 ]
 // Explicit current-model review, if present; never overwrite the baseline ratings.
@@ -20,6 +21,17 @@ for(const item of cases){
  for(const file of files){const resolved=path.resolve(file);if(!resolved.startsWith(process.cwd()+path.sep)){missingEvidenceFiles.push(file);continue}try{await access(resolved)}catch{missingEvidenceFiles.push(file)}}
  const measurements:Measurements={specSha256:createHash('sha256').update(bytes).digest('hex'),missingEvidenceFiles}
  if(item.inventory){const inventory=JSON.parse(await readFile(item.inventory,'utf8'));measurements.renderedComponentIds=inventory.components.map((c:{id:string})=>c.id)}
+ if(item.id==='iphone-assembly'){
+  measurements.experienceSha256=await experienceFingerprint()
+  try {
+   const project=JSON.parse(await readFile('dist-eval/iphone-study/assembly-project.json','utf8'))
+   const recipe=JSON.parse(await readFile('examples/iphone-18-pro/assembly.json','utf8'))
+   const {assemblySchema}=await import('../../src/spec/assembly.ts')
+   if(JSON.stringify(assemblySchema.parse(project.assembly))!==JSON.stringify(assemblySchema.parse(recipe)))throw Error('Stale recipe output')
+   const model=await readFile('dist-eval/iphone-study/assembly.glb')
+   measurements.renderedComponentIds=glbComponentIds(model);measurements.assetSha256=createHash('sha256').update(model).digest('hex');measurements.assetBytes=model.byteLength
+  }catch{missingEvidenceFiles.push('Build the current phone assembly with npm run build:eval before evaluating its exported geometry.')}
+ }
  if(item.id==='murph-current'){const model=await readFile('public/models/murph/murph.glb');measurements.renderedComponentIds=glbComponentIds(model);measurements.assetSha256=createHash('sha256').update(model).digest('hex');measurements.assetBytes=model.byteLength}
  if(item.id==='murph-current'){
   const capture=JSON.parse(await readFile('evals/reports/current/capture.json','utf8'))

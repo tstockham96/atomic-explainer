@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process"
-import { cp, mkdir, readFile, writeFile } from "node:fs/promises"
+import { cp, mkdir, readFile, writeFile, readdir } from "node:fs/promises"
 import { existsSync } from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
@@ -52,7 +52,20 @@ export async function renderSite(
   }
 
   await mkdir(destination, { recursive: true })
-  await cp(templateDir, destination, { recursive: true, force: true })
+  const referenced = [spec.heroImage, spec.explodedImage, ...spec.components.map(p => p.image), spec.frames?.rotation?.dir, spec.frames?.explode?.dir, spec.scene3d?.kind === 'gltf' ? spec.scene3d.url : undefined]
+    .filter((value): value is string => Boolean(value) && !/^(https?:|data:)/.test(value!))
+    .map(value => value.replace(/^\//, ''))
+  // A new object must not silently ship every other specimen in the template.
+  const include = (source: string) => {
+    const relative = path.relative(templateDir, source).split(path.sep).join('/')
+    if (!relative || relative === 'assets' || relative.startsWith('assets/')) return true
+    if (!relative.includes('/') && /\.(html|js|css|woff2?|txt)$/.test(relative)) return true
+    return referenced.some(file => relative === file || relative.startsWith(`${file}/`) || file.startsWith(`${relative}/`))
+  }
+  for (const name of await readdir(templateDir)) {
+    const source = path.join(templateDir, name)
+    if (include(source)) await cp(source, path.join(destination, name), { recursive: true, force: true, filter: include })
+  }
 
   // Self-contained local GLB files travel with exported explainers.
   if (spec.scene3d?.kind === "gltf" && !/^(https?:|data:)/.test(spec.scene3d.url)) {

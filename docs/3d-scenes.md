@@ -69,3 +69,24 @@ Parts never dissolve, fade, or change opacity during the scroll story. The viewe
 Bind labels and engraving to supporting triangles or a surface-conforming decal, including cutout masks. `src/authoring/surface.ts` supplies planar UVs and front-face material assignment for authored parts: holes cannot carry artwork, and backs remain undecorated unless supported by references. The Murph rotor uses this path instead of a transparent artwork plane. Base color and engraved relief contain no painted illumination; both use the scene's lighting. The retained generated exterior still limits the study's overall finish fidelity.
 
 The research prompt and generated construction plan carry the same visual-review requirements from `src/pipeline/quality.ts`. Those requirements guide an agent or future component builder; they do not constitute automated visual verification or implement arbitrary-object reconstruction.
+
+## Build an agent-authored component recipe
+
+A construction plan is not geometry. There are now two explicit handoff paths:
+
+1. Source/model a multipart GLB and map its nodes using the existing spec contract.
+2. For dimensioned plates, frames, rings and cylindrical parts, author a recipe using `src/spec/assembly.ts`. Build it with the shared assembler:
+
+```sh
+npm run explode -- --from-spec examples/iphone-18-pro/research.json --assemble examples/iphone-18-pro/assembly.json --out ./phone-out
+```
+
+The MCP equivalent is `explode_assemble(specPath, assemblyPath, outDir)`. Neither route calls a paid provider. The outputs are a self-contained GLB, an explainer, `assembly-review.json`, and `assembly-project.json`. The last file can be opened through **Open agent-built project** in the local studio, including when no research API key is configured.
+
+Recipes use millimeters for geometry, shared named PBR materials, independently addressable component groups and evidence references. Explosion offsets use the viewer's normalized units (longest assembly dimension is seven units). Openings are actual geometry, not artwork pasted over surfaces. Glass and opaque display/backing materials remain distinct. No photographic lighting is baked into these procedural surfaces.
+
+Every researched component must be represented, references must exist, and deferred construction must be resolved or explicitly scoped before a build is accepted. Structural validation does not prove source entailment. A recipe claiming `reference-matched` still exports with an **unreviewed** checklist. Compare assembled/front/oblique/reverse and exported views against inspected references before changing a review verdict.
+
+This is a limited dimensional modeling vocabulary, not a universal reconstruction model. Organic surfaces, complex castings, fabric, detailed gear trains and exact hidden interfaces still need appropriate modeling tools or sourced assets. Do not replace a difficult part with a box and call it faithful. Schematic geometry may test navigation and educational structure, but must remain visibly labeled.
+
+The iPhone example deliberately tests this shared construction/export/viewer path. Its overall enclosure envelope uses published dimensions; internal forms, positions and finishes are illustrative. Screws, seals, antennas, wireless charging and thermal assemblies are omitted and recorded as unresolved. It is not evidence that one uploaded photo can reconstruct a phone's internals.

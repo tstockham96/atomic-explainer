@@ -78,6 +78,9 @@ test('ordinary forward and backward scrolling preserves the live scene',async({p
  await page.mouse.wheel(0,900)
  await expect.poll(()=>page.evaluate(()=>window.__explodeReview.snapshot().progress)).toBeGreaterThan(.01)
  await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(500)
+ // Wait for the rendered forward pose, not just the DOM scroll position.
+ // Software GPUs can still be catching up when the wheel has already stopped.
+ await expect.poll(()=>page.evaluate(()=>window.__explodeReview.snapshot().progress)).toBeGreaterThan(.035)
  const forward=await page.evaluate(()=>window.__explodeReview.snapshot())
  expect(forward.allVisible).toBe(true)
  await page.mouse.wheel(0,-600)

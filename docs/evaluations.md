@@ -1,6 +1,6 @@
 # Evaluate the explanation, not just the renderer
 
-**Current verdict: authored prototype, not ready for reliable arbitrary-photo reconstruction.** The new upload studio creates an evidence-backed component plan. It does not claim to generate researched internals automatically. The Murph is a separate authored example. The iPhone case below is research only.
+**Current verdict: authored prototype, not ready for reliable arbitrary-photo reconstruction.** The new upload studio creates an evidence-backed component plan. It does not claim to generate researched internals automatically. The Murph is a separate authored example. The original iPhone case below is research only. A separate, explicitly schematic phone assembly now exercises construction and import; it does not inherit a visual-quality pass.
 
 ## What we measure
 
@@ -34,6 +34,7 @@ The evaluator has 18 gates. Every design/model criterion must reach 3; component
 | Saved Murph v17 baseline | 1.33/4 | 1.67/4 | Not ready; weak navigation/accessibility, approximate geometry |
 | Current packaged Murph | 2.67/4 | 1.67/4 | Better experience; fidelity still falls short |
 | iPhone 18 Pro research case | Not scored | Not scored | No generated model; cannot claim visual quality |
+| iPhone authored assembly prototype | Not scored | Not scored | Real 12-part GLB; schematic internal geometry, reference fidelity fails |
 
 These are Codex self-reviews, not user-study scores. The model score deliberately does not rise simply because the page looks better or code tests pass.
 
@@ -79,3 +80,28 @@ On a Mac with Chrome installed, `PLAYWRIGHT_CHANNEL=chrome npm run eval:browser`
 For another object, add a researched spec in `evals/cases/`, a review following `src/evals/evaluate.ts` in `evals/reviews/`, and register it in `tools/evals/run.ts`. Record how it was produced (`authored`, `live-generation`, `fixture`, or `research-only`). Use actual geometry inventory and review every component. Preserve failing cases as regression fixtures.
 
 The most useful next independent eval is a short learner session: ask someone unfamiliar with the object to predict how energy or information travels through it before and after exploration, explain what happens if one component is removed, and distinguish observed facts from reconstruction assumptions. Correct labels alone do not demonstrate understanding.
+
+
+## What the 2.67 and 1.67 scores mean
+
+These are the last reviewed Murph scores out of four, not probabilities or an automatic-upload success rate.
+
+| Area | Criterion scores | Gap to close |
+| --- | --- | --- |
+| Experience: 2.67 | Composition 3, typography 3, continuity 2, pacing 2, controls 3, accessibility 3 | Reduce repetitive stops; make transitions teach a relationship; test camera travel across different object proportions |
+| Model: 1.67 | Identity 2, anatomy 1, materials 2, optics 2, detail 2, mechanism 1 | Reference-match shapes and reverse surfaces, include missing parts, remove baked lighting, and demonstrate causal operation rather than separation alone |
+
+The second-object work closes an infrastructure gap: an agent can now build a reviewed-inventory recipe, export actual multipart geometry and return the project to the studio without provider calls. It also fixes generic hero/title overlap and adds direct component selection and relationship captions. It does **not** justify raising either Murph score. The packaged Murph was recaptured and visually rechecked after these changes; its score remains unchanged. Historical baseline evidence is retained.
+
+The phone is an authored assembly prototype with 12 groups, including separate front cover and display. Its recipes and limitations live under `examples/iphone-18-pro/`. Structural tests validate openings, optics preservation, inventory/provenance, a real exported GLB and credential-free import. Browser tests examine actual framing and project import. Internal shapes, finishes, placement and small interfaces still fail a reference-fidelity bar; it is not a new photorealism benchmark.
+
+Next quality work, in priority order:
+
+1. Collect and inspect exact-model front, rear, side and teardown references; separate observed shape from inferred geometry.
+2. Replace schematic/approximate parts with evidence-matched meshes, including hidden faces, mountings and finishes. Keep the same component IDs and story, so improved assets drop into the common viewer.
+3. Add causal demonstrations and learner tasks: predict which output fails when a specific connection is interrupted, then explain why. Do not equate a relationship caption with a working mechanism simulation.
+4. Run a held-out real-photo task, recording agent edits, missing references, provider costs and failures. Score the raw generated result separately from the manually corrected result.
+5. Independently review rendered comparisons and learner results before claiming a reliable arbitrary-product workflow.
+
+Validation for the assembly/import follow-up: 107 unit/contract tests and 11 browser tests pass on local Chrome. The phone geometry is about 1.5 MB. The phone evaluation remains `not-ready`; model presence and portable export are not visual-quality passes.
+Software-graphics checks also pass after correcting a test that compared reverse scrolling against an unsettled forward render. Ten checks passed in the full software run; the corrected scroll check passed in its focused rerun. This synchronization fix does not change the renderer or its quality ratings.

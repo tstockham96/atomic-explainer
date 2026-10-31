@@ -1,8 +1,9 @@
+import { sampleScene } from './timeline.ts'
 import { configureRenderBudget } from './renderBudget.ts'
 import { isTransmitting, createOpticalBackdrop } from './optics.ts'
 import * as THREE from "three"
 import { createStudioEnvironment, createGlassEnvironment } from "./studio.ts"
-import { cameraShot, poseModel, frameBox, STORY_FOV } from "./choreography.ts"
+import { cameraShot, poseModel, frameBox, STORY_FOV, corners } from "./choreography.ts"
 import type { ExplodeSpec } from "../../spec/schema.ts"
 import { loadModel } from "./loadModel.ts"
 
@@ -11,6 +12,7 @@ export interface SceneHandle {
   setProgress: (value: number) => void
   setAtmosphere: (value: Atmosphere) => void
   setPaused: (value: boolean) => void
+  snapshot: () => { selected: string | null; allVisible: boolean; bounds: { left: number; right: number; top: number; bottom: number } | null; progress: number }
   capture: () => string
   dispose: () => void
 }
@@ -195,6 +197,12 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     setProgress: (value) => { dirty = true; progress = Math.max(0, Math.min(1, value)) },
     setAtmosphere: (value) => { dirty = true; atmosphere = value },
     setPaused: (value) => { dirty = true; paused = value },
+    snapshot: () => {
+      const sample = sampleScene(displayed, model.parts.length), selected = model.parts[sample.index]
+      model.root.updateMatrixWorld(true)
+      const points = corners(new THREE.Box3().setFromObject(selected?.group ?? model.root)).map(p => p.project(camera))
+      return { selected: selected?.id ?? null, progress: displayed, allVisible: model.parts.every(p => p.group.visible), bounds: { left: Math.min(...points.map(p => (p.x + 1) * host.clientWidth / 2)), right: Math.max(...points.map(p => (p.x + 1) * host.clientWidth / 2)), top: Math.min(...points.map(p => (1 - p.y) * host.clientHeight / 2)), bottom: Math.max(...points.map(p => (1 - p.y) * host.clientHeight / 2)) } }
+    },
     capture: () => { render(); return renderer.domElement.toDataURL("image/png") },
     dispose: () => {
       disposed = true

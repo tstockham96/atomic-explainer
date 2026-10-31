@@ -3,8 +3,11 @@ import type { ExplodeSpec } from "../spec/schema.ts"
 import type { ReelHandle } from "./Reel.tsx"
 import { windowOpacity } from "../spec/film.ts"
 import { scenePartIds } from "../spec/scene3d.ts"
-import { sampleScene } from "./three/timeline.ts"
+import { componentLesson } from "./three/learning.ts"
+import { THREE_TIMING, sampleScene } from "./three/timeline.ts"
 import type { Atmosphere, SceneHandle } from "./three/scene.ts"
+
+declare global { interface Window { __explodeAssemblyReview?: { inspect: (id: string, local?: number) => void; snapshot: SceneHandle['snapshot'] } } }
 
 export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: { current: ReelHandle | null }; onImages?: (images: Record<string, string>) => void }) {
   const host = useRef<HTMLDivElement>(null)
@@ -17,12 +20,14 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
   const [paused, setPaused] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [ready, setReady] = useState(false)
+  const [selected, setSelected] = useState("assembly")
   const ids = scenePartIds(spec)
   const components = ids.map((id) => spec.components.find((part) => part.id === id))
   const update = (value: number) => {
     progress.current = value
     handle.current?.setProgress(value)
     const sample = sampleScene(value, components.length)
+    setSelected(sample.index >= 0 ? ids[sample.index]! : "assembly")
     const show = (node: HTMLElement | null, opacity: number) => {
       if (!node) return
       node.style.opacity = String(opacity)
@@ -62,6 +67,10 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
       handle.current = scene
       scene.setProgress(progress.current)
       setReady(true)
+      if (new URLSearchParams(window.location.search).has('eval')) window.__explodeAssemblyReview = {
+        inspect: (id, local = .5) => { const i = ids.indexOf(id); updateRef.current(i < 0 ? 0 : THREE_TIMING.inspect + (i + local) * (1 - THREE_TIMING.inspect) / ids.length) },
+        snapshot: scene.snapshot,
+      }
     }).catch((reason: unknown) => {
       if (!cancelled) setError(reason instanceof Error ? reason.message : "The 3D scene could not load.")
     })
@@ -69,6 +78,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
       cancelled = true
       handle.current?.dispose()
       handle.current = null
+      delete window.__explodeAssemblyReview
     }
   }, [spec, onImages])
   useEffect(() => { handle.current?.setAtmosphere(atmosphere) }, [atmosphere, ready])
@@ -77,6 +87,14 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
   return (
     <div className={`mesh-film is-${atmosphere}`}>
       <div ref={host} className="mesh-host" />
+      <div className="mesh-navigation"><a href="/create">← Studio</a><label>Explore<select aria-label="Explore a component" value={selected} onChange={event => {
+        const index = ids.indexOf(event.target.value)
+        const value = index < 0 ? 0 : THREE_TIMING.inspect + (index + .5) * (1 - THREE_TIMING.inspect) / ids.length
+        const pin = host.current?.closest('.pin')?.parentElement
+        const spacer = pin?.parentElement
+        if (spacer) window.scrollTo({ top: spacer.getBoundingClientRect().top + window.scrollY + value * Math.max(0, spacer.offsetHeight - window.innerHeight), behavior: 'instant' })
+        updateRef.current(value)
+      }}><option value="assembly">Whole object</option>{components.map(c => c && <option key={c.id} value={c.id}>{c.name}</option>)}</select></label></div>
       <div className="atmosphere-switch" aria-label="Atmosphere">
         <button type="button" aria-pressed={atmosphere === "daylight"} onClick={() => setAtmosphere("daylight")}><span aria-hidden="true">☼</span> Daylight</button>
         <button type="button" aria-pressed={atmosphere === "midnight"} onClick={() => setAtmosphere("midnight")}><span aria-hidden="true">☾</span> Midnight</button>
@@ -93,11 +111,12 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
           <p className="mesh-counter">{String(index + 1).padStart(2, "0")} <span>/ {String(components.length).padStart(2, "0")}</span></p>
           <h2>{component.name}</h2>
           <p className="mesh-material">{component.material}</p>
-          <p className="mesh-description">{component.howItsMade.split(/(?<=[.!?])\s/).slice(0, 2).join(" ")}</p>
+          <p className="mesh-description">{componentLesson(spec, component.id)?.overview}
+          {componentLesson(spec, component.id)?.connections[0] && <span className="mesh-connection">{componentLesson(spec, component.id)?.connections[0]}</span>}</p>
         </div>
       ) : null)}
       {error ? <div className="mesh-error" role="alert"><h2>The 3D scene couldn’t open.</h2><p>{error}</p><a href="#parts">Read the anatomy below ↓</a></div> : null}
-      <div className="mesh-bottom"><span>{spec.scene3d?.kind === "procedural-watch" ? "Illustrative 3D model · not manufacturer CAD" : "Interactive 3D study"}</span><button type="button" onClick={() => setPaused(!paused)} aria-pressed={paused}>{paused ? "Resume motion" : "Pause motion"}</button></div>
+      <div className="mesh-bottom"><span>{spec.modelNotice ?? (spec.scene3d?.kind === "procedural-watch" ? "Illustrative 3D model · not manufacturer CAD" : "Interactive 3D study")}</span><button type="button" onClick={() => setPaused(!paused)} aria-pressed={paused}>{paused ? "Resume motion" : "Pause motion"}</button></div>
     </div>
   )
 }

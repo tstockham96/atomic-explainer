@@ -51,7 +51,7 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
     <main ref={rootRef} className="reel continuous-reel">
       <a className="skip-film" href="#parts">Skip motion and read the anatomy</a>
       <Scrollytelling.Root callbacks={callbacks}>
-        <Scrollytelling.Pin childHeight="100svh" pinSpacerHeight={`${(5 + tourLength * 1.7) * 100}svh`}>
+        <Scrollytelling.Pin childHeight="100svh" pinSpacerHeight={`${(4 + tourLength * 1.15) * 100}svh`}>
           <Scrollytelling.Animation tween={tween} />
           <section id="film" className="pin" aria-label={`${spec.item.name}: rotate, explode, and explore`}>
             {spec.scene3d ? <ObjectScene spec={spec} api={api} onImages={setImages} /> : <Reel spec={spec} api={api} />}
