@@ -1,3 +1,4 @@
+import { configureRenderBudget } from '../../src/viewer/three/renderBudget.ts'
 import { checkOptics } from './opticsCheck.ts'
 import { createGlassEnvironment } from '../../src/viewer/three/studio.ts'
 import { materialState, isTransmitting, hasOptics, createOpticalBackdrop } from '../../src/viewer/three/optics.ts'
@@ -23,7 +24,8 @@ import { componentLesson } from '../../src/viewer/three/learning.ts'
 const el=(id:string)=>document.getElementById(id)!
 const params=new URLSearchParams(location.search),capture=params.has('capture')
 const renderer=new T.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:capture})
-renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=.95
+const renderBudget=configureRenderBudget(renderer)
+renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=.95
 el('stage').append(renderer.domElement)
 renderer.domElement.setAttribute('role','img');renderer.domElement.setAttribute('aria-label','Interactive three-dimensional watch. Choose a component below, or skip to the written explanations.')
 const scene=new T.Scene(),camera=new T.PerspectiveCamera(33,1,2,2000)
@@ -45,7 +47,8 @@ class OpticalAO extends GTAOPass {
 }
 const composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,camera))
 const ao=new OpticalAO(scene,camera,innerWidth,innerHeight);ao.updateGtaoMaterial({radius:2.2,thickness:1,distanceExponent:2,scale:1.1,samples:16});ao.blendIntensity=.8;composer.addPass(ao);composer.addPass(new OutputPass());const fxaa=new ShaderPass(FXAAShader);composer.addPass(fxaa)
-const draw=()=>composer.render()
+let dirty=true,drawCount=0
+const draw=()=>{if(renderBudget.postprocessing)composer.render();else renderer.render(scene,camera);dirty=false;drawCount++}
 const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.enabled=false;controls.enablePan=false;controls.minDistance=30;controls.maxDistance=300
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches
 let free=false,paused=false,progress=0,manualProgress=0,last=performance.now(),time=0,model:Awaited<ReturnType<typeof buildMurph>>
@@ -84,7 +87,7 @@ const callouts=[{part:'barrel',point:[5.3,-6.4,.3],text:'Mainspring · stores en
  return {...c,label,line}
 })
 const clamp=T.MathUtils.clamp,lerp=T.MathUtils.lerp,smooth=ease
-function resize(){renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);fxaa.uniforms.resolution!.value.set(1/(innerWidth*renderer.getPixelRatio()),1/(innerHeight*renderer.getPixelRatio()));camera.aspect=innerWidth/innerHeight;camera.setViewOffset(innerWidth,innerHeight,innerWidth<700?0:-innerWidth*.16,innerWidth<700?innerHeight*.14:0,innerWidth,innerHeight);camera.updateProjectionMatrix();if(model)fitKeyframes()}
+function resize(){dirty=true;renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);fxaa.uniforms.resolution!.value.set(1/(innerWidth*renderer.getPixelRatio()),1/(innerHeight*renderer.getPixelRatio()));camera.aspect=innerWidth/innerHeight;camera.setViewOffset(innerWidth,innerHeight,innerWidth<700?0:-innerWidth*.16,innerWidth<700?innerHeight*.14:0,innerWidth,innerHeight);camera.updateProjectionMatrix();if(model)fitKeyframes()}
 addEventListener('resize',resize);resize()
 function placeParts(p:number){
  for(const[id,group]of Object.entries(model.parts)){group.position.copy(home[id]!).addScaledVector(new T.Vector3(...offsets[id] as [number,number,number]),separation(id,p));group.quaternion.copy(orientation[id]!)}
@@ -200,15 +203,22 @@ function pose(p:number,t:number,inspection?:TourSample,overall=p){
   c.label.style.left=`${labelX}px`;c.label.style.top=`${labelY}px`;c.line.setAttribute('x1',String(labelX));c.line.setAttribute('y1',String(labelY+12));c.line.setAttribute('x2',String(x));c.line.setAttribute('y2',String(y))
  }
 }
-const rotate=el('rotate');rotate.onclick=()=>{free=!free;controls.enabled=free;rotate.textContent=free?'Return to story':'Explore freely';rotate.setAttribute('aria-pressed',String(free))}
-el('motion').onclick=()=>{paused=!paused;el('motion').textContent=paused?'Resume motion':'Pause motion';el('motion').setAttribute('aria-pressed',String(paused))}
-function navigate(id:string){free=false;controls.enabled=false;rotate.textContent='Explore freely';rotate.setAttribute('aria-pressed','false');manualProgress=id?tour.progressFor(id,.2):0;progress=manualProgress;if(!reduce)scrollTo({top:progress*(el('journey').offsetHeight-innerHeight),behavior:'instant'});const sample=tour.sample(progress);pose(sample.base,time,sample,progress);draw()}
+const rotate=el('rotate');rotate.onclick=()=>{dirty=true;free=!free;controls.enabled=free;rotate.textContent=free?'Return to story':'Explore freely';rotate.setAttribute('aria-pressed',String(free))}
+el('motion').onclick=()=>{dirty=true;paused=!paused;el('motion').textContent=paused?'Resume motion':'Pause motion';el('motion').setAttribute('aria-pressed',String(paused))}
+function navigate(id:string){free=false;controls.enabled=false;rotate.textContent='Explore freely';rotate.setAttribute('aria-pressed','false');manualProgress=id?tour.progressFor(id,.2):0;progress=manualProgress;if(!reduce)scrollTo({top:progress*(el('journey').offsetHeight-innerHeight),behavior:'instant'});const sample=tour.sample(progress);pose(sample.base,time,sample,progress);pose(sample.base,time,sample,progress);draw()}
 el('component-menu').onchange=event=>navigate((event.target as HTMLSelectElement).value)
 el('next-part').onclick=()=>{const selected=tour.sample(progress).stop?.id,index=tour.intervals.findIndex(s=>s.id===selected);navigate(tour.intervals[(index+1)%tour.intervals.length]!.id)}
 addEventListener('scroll',()=>{if(free){free=false;controls.enabled=false;rotate.textContent='Explore freely';rotate.setAttribute('aria-pressed','false')}},{passive:true})
-function render(ms:number){const dt=Math.min((ms-last)/1000,.05);last=ms;if(!document.hidden&&!paused&&!reduce)time+=dt
- const max=el('journey').offsetHeight-innerHeight;const goal=reduce?manualProgress:clamp(scrollY/Math.max(max,1),0,1)
- progress=reduce?goal:lerp(progress,goal,1-Math.exp(-dt*8));const sample=tour.sample(progress);pose(sample.base,time,sample,progress);if(free)controls.update();draw()
+function render(ms:number){
+ const dt=Math.min((ms-last)/1000,.05);last=ms
+ if(document.hidden)return
+ const max=el('journey').offsetHeight-innerHeight,goal=reduce?manualProgress:clamp(scrollY/Math.max(max,1),0,1)
+ const moving=Math.abs(goal-progress)>.00001,ambient=!paused&&!reduce
+ const orbitChanged=free&&controls.update()
+ if(!dirty&&!moving&&!ambient&&!orbitChanged)return
+ if(ambient)time+=dt
+ progress=reduce||!moving?goal:lerp(progress,goal,1-Math.exp(-dt*8))
+ const sample=tour.sample(progress);pose(sample.base,time,sample,progress);draw()
 }
 const send=async(name:string,data:object)=>{const r=await fetch('http://127.0.0.1:4320/capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,...data})});if(!r.ok)throw Error('Capture write failed')}
 async function main(){
@@ -335,7 +345,7 @@ async function main(){
  if(params.has('eval'))Object.assign(window,{__explodeReview:{
   ready:true,ids:Object.keys(model.parts),
   inspect:(id:string,local=.2)=>{renderer.setAnimationLoop(null);progress=tour.progressFor(id,local);const sample=tour.sample(progress);pose(sample.base,0,sample,progress);pose(sample.base,0,sample,progress);draw()},
-  snapshot:()=>{model.root.updateMatrixWorld(true);const sample=tour.sample(progress),part=sample.stop?model.parts[sample.stop.id]:undefined,box=part?new T.Box3().setFromObject(part,true):undefined,points:T.Vector3[]=[];if(box)for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z])points.push(new T.Vector3(x,y,z).project(camera));return {progress,time,selected:sample.stop?.id??null,allVisible:Object.values(model.parts).every(p=>p.visible),bounds:points.length?{left:(Math.min(...points.map(p=>p.x))*.5+.5)*innerWidth,right:(Math.max(...points.map(p=>p.x))*.5+.5)*innerWidth,top:(.5-Math.max(...points.map(p=>p.y))*.5)*innerHeight,bottom:(.5-Math.min(...points.map(p=>p.y))*.5)*innerHeight}:null}},
+  snapshot:()=>{model.root.updateMatrixWorld(true);const sample=tour.sample(progress),part=sample.stop?model.parts[sample.stop.id]:undefined,box=part?new T.Box3().setFromObject(part,true):undefined,points:T.Vector3[]=[];if(box)for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z])points.push(new T.Vector3(x,y,z).project(camera));return {progress,time,drawCount,softwareGraphics:renderBudget.software,selected:sample.stop?.id??null,allVisible:Object.values(model.parts).every(p=>p.visible),bounds:points.length?{left:(Math.min(...points.map(p=>p.x))*.5+.5)*innerWidth,right:(Math.max(...points.map(p=>p.x))*.5+.5)*innerWidth,top:(.5-Math.max(...points.map(p=>p.y))*.5)*innerHeight,bottom:(.5-Math.min(...points.map(p=>p.y))*.5)*innerHeight}:null}},
  }})
 }
 main().catch(error=>{el('status').textContent='Study could not load';el('error').style.display='block';el('error').textContent='The 3D model could not load. You can still read the component explanations below. '+error.message;console.error(error);if(capture)void send('error',{error:error.message,stack:error.stack})})

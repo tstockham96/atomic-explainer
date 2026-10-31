@@ -1,3 +1,4 @@
+import { configureRenderBudget } from './renderBudget.ts'
 import { isTransmitting, createOpticalBackdrop } from './optics.ts'
 import * as THREE from "three"
 import { createStudioEnvironment, createGlassEnvironment } from "./studio.ts"
@@ -18,7 +19,7 @@ export interface PartLabel { id: string; x: number; y: number; visible: boolean 
 
 export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, onError: (message: string) => void, onFrame?: (labels: PartLabel[]) => void, onImages?: (images: Record<string, string>) => void): Promise<SceneHandle> {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" })
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75))
+  configureRenderBudget(renderer)
   renderer.outputColorSpace = THREE.SRGBColorSpace
   renderer.toneMapping = THREE.ACESFilmicToneMapping
   renderer.toneMappingExposure = 1.05
@@ -75,11 +76,12 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
   renderer.domElement.setAttribute("role", "img")
 
   let progress = 0, displayed = 0, atmosphere: Atmosphere = "daylight", night = 0
-  let paused = false, visible = true, time = 0, lastTime = 0, disposed = false
+  let dirty = true, paused = false, visible = true, time = 0, lastTime = 0, disposed = false
   let pointerX = 0, pointerY = 0, dragX = 0, dragY = 0, dragging = false, previousX = 0, previousY = 0
   const look = new THREE.Vector3()
 
   const resize = () => {
+    dirty = true
     const width = host.clientWidth, height = host.clientHeight
     renderer.setSize(width, height)
     camera.aspect = width / Math.max(1, height)
@@ -90,6 +92,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
   resize()
 
   const move = (event: PointerEvent) => {
+    dirty = true
     if (event.pointerType !== "mouse") return
     const rect = host.getBoundingClientRect()
     pointerX = ((event.clientX - rect.left) / rect.width - 0.5) * 2
@@ -107,7 +110,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     renderer.domElement.style.cursor = "grabbing"
   }
   const up = () => { dragging = false; renderer.domElement.style.cursor = "grab" }
-  const leave = () => { pointerX = 0; pointerY = 0 }
+  const leave = () => { dirty = true; pointerX = 0; pointerY = 0 }
   const lost = (event: Event) => {
     event.preventDefault()
     renderer.setAnimationLoop(null)
@@ -126,6 +129,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     if (disposed || !visible || document.hidden) { lastTime = milliseconds; return }
     const delta = Math.min((milliseconds - lastTime) / 1000 || 1 / 60, 0.05)
     lastTime = milliseconds
+    if (paused && !dirty) return
     if (!paused) time += delta
     const damp = 1 - Math.exp(-delta * 9)
     displayed = THREE.MathUtils.lerp(displayed, progress, damp)
@@ -157,6 +161,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
       const projected = box.getCenter(new THREE.Vector3()).project(camera)
       return { id: part.id, x: (projected.x + 1) * host.clientWidth / 2, y: (1 - projected.y) * host.clientHeight / 2, visible: showLabels && Math.abs(projected.x) < 0.95 && Math.abs(projected.y) < 0.85 }
     }))
+    dirty = Math.abs(displayed-progress)>.00001 || Math.abs(night-(atmosphere==='midnight'?1:0))>.0001 || Math.abs(dragX)+Math.abs(dragY)>.0001 || camera.position.distanceTo(shot.position)>.0001 || look.distanceTo(shot.target)>.0001
     render()
   }
   if (onImages) {
@@ -187,9 +192,9 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
   renderer.setAnimationLoop(frame)
 
   return {
-    setProgress: (value) => { progress = Math.max(0, Math.min(1, value)) },
-    setAtmosphere: (value) => { atmosphere = value },
-    setPaused: (value) => { paused = value },
+    setProgress: (value) => { dirty = true; progress = Math.max(0, Math.min(1, value)) },
+    setAtmosphere: (value) => { dirty = true; atmosphere = value },
+    setPaused: (value) => { dirty = true; paused = value },
     capture: () => { render(); return renderer.domElement.toDataURL("image/png") },
     dispose: () => {
       disposed = true

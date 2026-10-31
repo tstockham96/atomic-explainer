@@ -1,3 +1,4 @@
+import {experienceFingerprint} from './fingerprint.mjs'
 import {readFile,writeFile,mkdir,access} from 'node:fs/promises'
 import {createHash} from 'node:crypto'
 import path from 'node:path'
@@ -23,8 +24,8 @@ for(const item of cases){
  if(item.id==='murph-current'){
   const capture=JSON.parse(await readFile('evals/reports/current/capture.json','utf8'))
   const viewer=await readFile('tools/murph-study/viewer.ts'),html=await readFile('tools/murph-study/index.html')
-  measurements.experienceSha256=createHash('sha256').update(viewer).update(html).digest('hex')
-  const fresh=capture.assetSha256===measurements.assetSha256&&capture.viewerSha256===createHash('sha256').update(viewer).digest('hex')&&capture.htmlSha256===createHash('sha256').update(html).digest('hex')
+  measurements.experienceSha256=await experienceFingerprint()
+  const fresh=capture.experienceSha256===measurements.experienceSha256&&capture.assetSha256===measurements.assetSha256&&capture.viewerSha256===createHash('sha256').update(viewer).digest('hex')&&capture.htmlSha256===createHash('sha256').update(html).digest('hex')
   if(fresh){
    const motion=JSON.parse(await readFile('evals/reports/current/motion-check.json','utf8')),inspection=JSON.parse(await readFile('evals/reports/current/inspection-check.json','utf8'))
    measurements.motion={samples:motion.samples,allPartsVisible:motion.allPartsVisible,materialsUnchanged:motion.materialsUnchanged,contextIntrusions:inspection.results.reduce((n:number,r:{contextInFrame:string[]})=>n+r.contextInFrame.length,0)}

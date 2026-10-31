@@ -42,3 +42,5 @@ The research prompt and construction plan carry review requirements from `src/pi
 - Questions need distinct beginner, causal and evidence-critical levels; learner comprehension remains unmeasured until tested with learners.
 
 See [the evaluation method and current failures](evaluations.md). The Murph and phone are benchmark cases, not universal material or geometry templates.
+
+- Pausing motion must stop settled redraws, not merely freeze time while exhausting the GPU. Detect software graphics and reduce raster/postprocessing cost consistently across materials; preserve the same geometry, evidence and physical separation. Test the software path separately from normal hardware rendering.

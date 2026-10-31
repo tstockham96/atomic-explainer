@@ -591,8 +591,9 @@
     "Written learning questions have not been tested with learners.",
     "Browser checks measure layout and invariants, not photorealism, source entailment or physical mechanism correctness.",
     "The GLB is about 38 MB before HTTP compression; field loading and real mobile GPU performance are unmeasured.",
-    "Source exterior textures retain baked lighting; typography and hidden details remain approximate."
+    "Source exterior textures retain baked lighting; typography and hidden details remain approximate.",
+    "Software graphics uses lower raster resolution and skips screen-space postprocessing; geometry and material assignments are preserved. Saved visual ratings use the normal hardware path."
   ],
   "assetSha256": "bc05ec5e791e7209557153c4058fb89ae0134e3b1a6ec2e7a3a40c7197ab5fa7",
-  "experienceSha256": "e8450a0c48b6ab246652a58814945bec2ceb159eee8199ede5ddc40d53a1159e"
+  "experienceSha256": "c0888758a706c67a2f3766bb13043a0ca3d74fda19f2f9ef31827a6e04291e38"
 }

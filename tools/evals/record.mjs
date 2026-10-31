@@ -1,3 +1,4 @@
+import {experienceFingerprint} from './fingerprint.mjs';
 // Record the real packaged study. No provider calls, and no quality scores are
 // inferred from successful renders. Use a running local studio, not a web URL.
 import {chromium} from '@playwright/test';
@@ -33,6 +34,6 @@ try{
  await page.screenshot({path:`${out}/mobile.png`});
  const resources=await page.evaluate(()=>performance.getEntriesByType('resource').filter(r=>/murph-researched.glb|study.js|studio-small-09.hdr/.test(r.name)).map(r=>({file:new URL(r.name).pathname,durationMs:r.duration,bytes:r.decodedBodySize})));
  const hash=async file=>createHash('sha256').update(await readFile(file)).digest('hex');
- await writeFile(`${out}/capture.json`,JSON.stringify({recordedAt:new Date().toISOString(),assetSha256:await hash('public/models/murph/murph.glb'),viewerSha256:await hash('tools/murph-study/viewer.ts'),htmlSha256:await hash('tools/murph-study/index.html'),resources,note:'Local headless Chrome measurements; not field performance, mobile GPU measurements, or independent visual approval.'},null,2)+'\n');
+ await writeFile(`${out}/capture.json`,JSON.stringify({recordedAt:new Date().toISOString(),experienceSha256:await experienceFingerprint(),assetSha256:await hash('public/models/murph/murph.glb'),viewerSha256:await hash('tools/murph-study/viewer.ts'),htmlSha256:await hash('tools/murph-study/index.html'),resources,note:'Local headless Chrome measurements; not field performance, mobile GPU measurements, or independent visual approval.'},null,2)+'\n');
  console.log(`Recorded actual packaged-asset views and checks in ${out}`);
 }finally{await browser.close()}

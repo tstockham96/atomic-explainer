@@ -1,6 +1,6 @@
 import {test,expect,type Page} from '@playwright/test'
 
-type Review={ready:boolean;ids:string[];inspect:(id:string,local?:number)=>void;snapshot:()=>{time:number;selected:string|null;allVisible:boolean;bounds:{left:number;right:number;top:number;bottom:number}|null}}
+type Review={ready:boolean;ids:string[];inspect:(id:string,local?:number)=>void;snapshot:()=>{progress:number;time:number;drawCount:number;selected:string|null;allVisible:boolean;bounds:{left:number;right:number;top:number;bottom:number}|null}}
 declare global{interface Window{__explodeReview:Review}}
 async function load(page:Page){
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message))
@@ -35,9 +35,11 @@ for(const viewport of [{width:1440,height:900},{width:390,height:844},{width:360
 }
 test('reduced motion keeps every component and keyboard navigation available',async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});await load(page)
- const before=await page.evaluate(()=>window.__explodeReview.snapshot().time)
+ await page.waitForTimeout(100)
+ const before=await page.evaluate(()=>window.__explodeReview.snapshot())
  await page.waitForTimeout(300)
- expect(await page.evaluate(()=>window.__explodeReview.snapshot().time)).toBe(before)
+ const after=await page.evaluate(()=>window.__explodeReview.snapshot())
+ expect(after.time).toBe(before.time);expect(after.drawCount).toBe(before.drawCount)
  await page.locator('#component-menu').selectOption('rear-window')
  await expect(page.locator('#title')).toContainText('rear')
  await page.locator('#next-part').focus();await page.keyboard.press('Enter')
@@ -49,9 +51,11 @@ test('reduced motion keeps every component and keyboard navigation available',as
 test('pause stops ambient movement and all buttons have usable touch targets',async({page})=>{
  await load(page);await page.locator('#motion').click()
  await expect(page.locator('#motion')).toHaveAttribute('aria-pressed','true')
- const before=await page.evaluate(()=>window.__explodeReview.snapshot().time)
+ await page.waitForTimeout(100)
+ const before=await page.evaluate(()=>window.__explodeReview.snapshot())
  await page.waitForTimeout(300)
- expect(await page.evaluate(()=>window.__explodeReview.snapshot().time)).toBe(before)
+ const after=await page.evaluate(()=>window.__explodeReview.snapshot())
+ expect(after.time).toBe(before.time);expect(after.drawCount).toBe(before.drawCount)
  for(const button of await page.locator('.controls button').all())expect((await button.boundingBox())!.height).toBeGreaterThanOrEqual(44)
 })
 test('missing geometry leaves readable learning content and a clear error',async({page})=>{
@@ -72,11 +76,12 @@ test('upload promises a research plan, with no unattended model-generation claim
 test('ordinary forward and backward scrolling preserves the live scene',async({page})=>{
  await load(page)
  await page.mouse.wheel(0,900)
- await expect.poll(()=>page.evaluate(()=>window.__explodeReview.snapshot().selected)).not.toBe(undefined)
+ await expect.poll(()=>page.evaluate(()=>window.__explodeReview.snapshot().progress)).toBeGreaterThan(.01)
  await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(500)
  const forward=await page.evaluate(()=>window.__explodeReview.snapshot())
  expect(forward.allVisible).toBe(true)
  await page.mouse.wheel(0,-600)
  await expect.poll(()=>page.evaluate(()=>scrollY)).toBeLessThan(500)
+ await expect.poll(()=>page.evaluate(()=>window.__explodeReview.snapshot().progress)).toBeLessThan(forward.progress)
  expect(await page.evaluate(()=>window.__explodeReview.snapshot().allVisible)).toBe(true)
 })

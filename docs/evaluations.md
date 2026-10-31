@@ -58,7 +58,7 @@ The phone fixture uses [Apple’s iPhone 18 Pro specifications](https://www.appl
 
 The test establishes that the schema, construction planning, material obligations and learning checks work outside watches. It does **not** establish photo identification, generated geometry, phone likeness or end-to-end quality. No new paid generation call was made for this benchmark. Next, use a licensed multi-view reference set plus a real submitted photo, preserve provider artifacts/costs, and score the actual output without manually replacing failed geometry under the label “automatic.”
 
-Validation for this revision: **100 unit/contract tests and 8 browser tests pass**, along with type checking and a clean-output production build. The strict release gate exits nonzero as intended. Build output still warns about a large Three.js chunk; payload and field-performance work remain open.
+Validation for this revision: **102 unit/contract tests and 8 browser tests pass locally**, along with type checking and a clean-output production build. The first Linux run exposed excessive software-rendering cost and redraws while paused; the follow-up reduces raster work on software devices and stops drawing settled paused/reduced-motion scenes. All eight browser checks also pass with software graphics forced locally. The strict release gate exits nonzero as intended. Build output still warns about a large Three.js chunk; payload and field-performance work remain open.
 
 ## Run and extend
 
@@ -74,7 +74,7 @@ npm run eval:release
 
 `eval` writes reports and exits successfully even for known failing specimens. `eval:release` explicitly targets `murph-current` and exits nonzero until all gates pass. CI validates evaluator logic, builds the portable study and runs browser regressions; a green CI run does not turn a failing quality report green. The synthetic positive control tests evaluator logic only.
 
-On a Mac with Chrome installed, `PLAYWRIGHT_CHANNEL=chrome npm run eval:browser` avoids a browser download. For new visual evidence, start `npm run studio`, then run `PLAYWRIGHT_CHANNEL=chrome node tools/evals/record.mjs`. This records the actual packaged asset, source hashes and scoped measurements. Re-review after changes; do not simply update hashes to preserve an old approval.
+On a Mac with Chrome installed, `PLAYWRIGHT_CHANNEL=chrome npm run eval:browser` avoids a browser download. For new visual evidence, start `npm run studio`, then run `PLAYWRIGHT_CHANNEL=chrome node tools/evals/record.mjs`. This records the actual packaged asset, source hashes and scoped measurements. Re-review after changes; fingerprints include imported source and locked dependencies, not just the page. Do not simply update hashes to preserve an old approval.
 
 For another object, add a researched spec in `evals/cases/`, a review following `src/evals/evaluate.ts` in `evals/reviews/`, and register it in `tools/evals/run.ts`. Record how it was produced (`authored`, `live-generation`, `fixture`, or `research-only`). Use actual geometry inventory and review every component. Preserve failing cases as regression fixtures.
 

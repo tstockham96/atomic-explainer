@@ -116,7 +116,8 @@
     "Written learning questions have not been tested with learners.",
     "Browser checks measure layout and invariants, not photorealism, source entailment or physical mechanism correctness.",
     "The GLB is about 38 MB before HTTP compression; field loading and real mobile GPU performance are unmeasured.",
-    "Source exterior textures retain baked lighting; typography and hidden details remain approximate."
+    "Source exterior textures retain baked lighting; typography and hidden details remain approximate.",
+    "Software graphics uses lower raster resolution and skips screen-space postprocessing; geometry and material assignments are preserved. Saved visual ratings use the normal hardware path."
   ],
   "note": "Passing unit tests validates the evaluator, not the object. Scores are anchored reviewer judgments, not automatic proof of photorealism or learning."
 }
