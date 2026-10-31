@@ -25,9 +25,8 @@ try{
  page.on('pageerror',e=>errors.push(e.message));
  await page.goto(`http://127.0.0.1:${server.address().port}/index.html`);
  await page.waitForFunction(()=>window.ready,null,{timeout:90000});
- const download=page.waitForEvent('download',{timeout:180000});
- await page.evaluate(()=>window.exportModel());
- await(await download).saveAs(path.join(base,'assets.local/internal-study.glb'));
+ const [download]=await Promise.all([page.waitForEvent('download',{timeout:180000}),page.evaluate(()=>window.exportModel())]);
+ await download.saveAs(path.join(base,'assets.local/internal-study.glb'));
  if(errors.length)throw Error(errors.join('\n'));
 }finally{await browser?.close();await new Promise(resolve=>server.close(resolve))}
 const spec=explodeSpecSchema.parse(JSON.parse(await readFile(path.join(base,'internal-study.json'),'utf8')));

@@ -15,6 +15,8 @@ Inventory the current agent's actual tools. Research, vision, reference-image ge
 
 Read `docs/reconstruction-cases.md` for accumulated failure cases. Apply its general rules to the new object; do not copy another object's material assumptions. Record new cases and their evidence boundaries as they arise. Separate verified substrate/coating from photo-observed finish, and verify material maps after export.
 
+Each local GLB render writes `material-review.json`. Resolve its export issues and complete its pending per-component visual checks; a structural pass is not fidelity approval. For original procedural surfaces, `src/authoring/finishes.ts` supplies scale-aware normal/roughness finishes and opt-in UV preparation. Adjust the finish from inspected references; keep unknown alloys/coatings explicit. Preserve imported texture coordinates and artwork.
+
 Complete the construction plan's `requiredMaterialReview` for every component, not just the hero part. Compare related surfaces under matching conditions. Glass on the back deserves the same optical treatment as glass on the front, while shape/composition differences require evidence or an explicit assumption. Keep absent/deferred parts and unresolved mismatches visible in the review record.
 
 Prefer the host agent's research and writing capabilities when available. An OpenAI API key is needed only for steps that explicitly invoke OpenAI through the repository. The agent can write the researched spec itself and render it without any OpenAI call. Use the standalone API pipeline when requested or useful for unattended execution.

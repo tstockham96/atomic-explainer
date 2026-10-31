@@ -4,17 +4,15 @@ import * as T from 'three'
 import { mergeGeometries, mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
 import { contourPlate, roundedPlate, annulus } from '../../src/authoring/reference-parts.ts'
 
+import {surfaceFinish, prepareFinishUVs} from '../../src/authoring/finishes.ts'
+
 type V = [number,number,number]
 const Z = new T.Vector3(0,0,1)
 export function buildEngine() {
  const root=new T.Group();root.name='Porsche_901_01'
- const metal=(color:string,roughness:number,metalness=1)=>new T.MeshStandardMaterial({color,roughness,metalness})
- const m={cast:metal('#929993',.54,.85),machined:metal('#b5bfba',.4),steel:metal('#687177',.42),dark:metal('#161c1c',.5,.12),rubber:metal('#111616',.87,0),brass:metal('#ad945c',.33),iron:metal('#525851',.62,.8),exhaust:metal('#88847a',.47,.85),bakelite:metal('#462921',.4,0),ceramic:metal('#d9d5c7',.24,0)}
- // Fine isotropic casting relief: no painted highlights, rust, or borrowed photograph.
- const size=128,data=new Uint8Array(size*size*4);let seed=901
- for(let i=0;i<size*size;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;const v=seed>>>24;data[i*4]=v;data[i*4+1]=v;data[i*4+2]=v;data[i*4+3]=255}
- const grain=new T.DataTexture(data,size,size);grain.needsUpdate=true;grain.wrapS=grain.wrapT=T.RepeatWrapping;grain.repeat.set(5,5)
- m.cast.bumpMap=grain;m.cast.bumpScale=.0012;m.iron.bumpMap=grain;m.iron.bumpScale=.0008
+ const evidence='Photo-observed finish family from original/restored engine references; roughness and exact alloy remain estimates'
+ const finish=(kind:Parameters<typeof surfaceFinish>[0])=>surfaceFinish(kind,{evidence})
+ const m={cast:finish('cast'),machined:finish('machined'),steel:finish('steel'),dark:finish('coated'),rubber:finish('rubber'),brass:finish('brass'),iron:finish('iron'),exhaust:finish('exhaust'),bakelite:finish('resin'),ceramic:finish('ceramic')}
  function group(id:string){const g=new T.Group();g.name=id;g.userData.componentId=id;root.add(g);return g}
  function add(g:T.Object3D,mesh:T.Mesh,p:V=[0,0,0],axis:V=[0,0,1]){mesh.position.set(...p);mesh.quaternion.setFromUnitVectors(Z,new T.Vector3(...axis).normalize());g.add(mesh);return mesh}
  function cyl(g:T.Object3D,r:number,len:number,p:V,mat:T.Material=m.machined,axis:V=[0,0,1],r2=r,n=32){return add(g,new T.Mesh(new T.CylinderGeometry(r2,r,len,n).rotateX(Math.PI/2),mat),p,axis)}
@@ -182,6 +180,7 @@ export function buildEngine() {
  for(const x of [-190,190])ring(exhaust,54,52,13,[x,-150,320],m.machined,[1,0,0]);tube(exhaust,[[-240,-150,320],[-300,-150,330],[-325,-140,365]],20,m.exhaust)
  const flywheel=group('flywheel');cyl(flywheel,118,17,[0,0,-218],m.steel);gear(flywheel,121,98,8,[0,0,-228],105,m.steel);ring(flywheel,96,40,5,[0,0,-230],m.machined);for(let i=0;i<6;i++){const a=i*Math.PI/3;bolt(flywheel,[30*Math.cos(a),30*Math.sin(a),-235],[0,0,-1],5)}
  const air=group('air-cleaner');for(const s of [-1,1]){plate(air,110,356,65,[s*205,278,s*30],m.dark,52,[0,1,0]);for(const z of [-135,135])bolt(air,[s*205,315,z+s*30],[0,1,0],4);line(air,[s*153,272,-135+s*30],[s*153,272,135+s*30],2,m.machined)}tube(air,[[-205,292,-100],[-100,300,-170],[100,300,-170],[205,292,-100]],30,m.dark)
+ prepareFinishUVs(root)
  // Flatten each component by material: retain independent parts, reduce draw calls.
  root.updateMatrixWorld(true)
  for(const component of [...root.children]){

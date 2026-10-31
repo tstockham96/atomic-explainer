@@ -105,3 +105,19 @@ Next quality work, in priority order:
 
 Validation for the assembly/import follow-up: 107 unit/contract tests and 11 browser tests pass on local Chrome. The phone geometry is about 1.5 MB. The phone evaluation remains `not-ready`; model presence and portable export are not visual-quality passes.
 Software-graphics checks also pass after correcting a test that compared reverse scrolling against an unsettled forward render. Ten checks passed in the full software run; the corrected scroll check passed in its focused rerun. This synchronization fix does not change the renderer or its quality ratings.
+
+### Portable surface finishes
+
+Every local GLB preview includes `material-review.json` with its model hash, material inventory and per-component pending visual reviews. `src/evals/materials.ts` checks image/UV references and preservation of declared normal/roughness maps; `test/finishes.test.ts` additionally checks physical texture scale, reverse/edge UVs, source-material preservation, and the actual engine export. Deliberately dropping a normal map must fail the audit. A structural pass leaves `ready: false`.
+
+Visually compare casting, machining, coatings, rubber, PCB/package, foil and optics at assembled scale and inspection scale. Include front, grazing and reverse angles under neutral daylight and the presentation's alternate lighting. Check sparkle, stretched/repeating grain, reflection continuity, lost lettering, and false metal on polymer/coating surfaces. Record actual evidence and unresolved differences; don't turn a missing visual review into a passed numerical score. Geometry and surface normals must be judged separately from textures.
+
+Reproduce the multi-angle material captures for any running exported study:
+
+```sh
+PLAYWRIGHT_CHANNEL=chrome node tools/evals/capture-materials.mjs \
+  http://127.0.0.1:4319/porsche-study/index.html \
+  dist-site/porsche-study /tmp/engine-material-review
+```
+
+This checks the report's model hash, captures front/reverse/oblique views of every component, creates labeled contact sheets, and records browser errors. It samples alternate lighting on one component, explicitly recorded separately. Inspect the sheets against references; capture completion leaves visual verdicts pending.

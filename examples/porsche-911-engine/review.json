@@ -463,5 +463,6 @@
     "No running, combustion, fluid or thermal simulation.",
     "No independent visual review or learner study.",
     "Manually authored cross-object demonstration; unattended arbitrary-object reconstruction is not established."
-  ]
+  ],
+  "subsequentMaterialReview": "surface-review.json (this record retains its original model hash and historical geometry checks)"
 }

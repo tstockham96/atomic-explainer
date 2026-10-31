@@ -2218,7 +2218,7 @@
   "scene3d": {
     "kind": "gltf",
     "url": "models/engine.glb",
-    "lighting": "studio",
+    "lighting": "neutral",
     "requireCompleteMapping": true,
     "parts": [
       {

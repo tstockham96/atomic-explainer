@@ -101,6 +101,15 @@ export async function renderSite(
     }
   }
 
+  // Every locally exported object gets a material inventory, even without an
+  // independent assembly manifest. This never certifies visual readiness.
+  if (spec.scene3d?.kind === 'gltf' && !/^(https?:|data:)/.test(spec.scene3d.url)) {
+    const {auditMaterials} = await import('../evals/materials.ts')
+    const report = auditMaterials(await readFile(path.resolve(destination, spec.scene3d.url)))
+    await writeFile(path.join(destination, 'material-review.json'), `${JSON.stringify(report, null, 2)}\n`)
+    if(report.issues.length) log(`Material review: ${report.issues.length} export issues need attention.`)
+  }
+
   const indexPath = path.join(destination, "index.html")
   const html = await readFile(indexPath, "utf8")
   await writeFile(indexPath, injectSpec(html, spec))

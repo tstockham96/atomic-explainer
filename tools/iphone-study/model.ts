@@ -4,6 +4,9 @@ import { GLTFExporter } from 'three/addons/exporters/GLTFExporter.js'
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'
 import { contourPlate, roundedPlate, annulus, repeatGeometry } from '../../src/authoring/reference-parts.ts'
 
+import {removeUnmappedOcclusion} from '../../src/authoring/import-materials.ts'
+import {surfaceFinish, prepareFinishUVs} from '../../src/authoring/finishes.ts'
+
 // All internal dimensions are reference-fitted estimates in mm, not service CAD.
 // Contours follow the cited eSIM locator and teardown photographs; unseen detail
 // is explicitly approximate. No teardown photograph is used as a color texture.
@@ -12,26 +15,13 @@ const exterior=await new GLTFLoader().loadAsync('./apple-reference.glb');exterio
 const spec=await (await fetch('./exterior-study.json')).json()
 for(const o of spec.scene3d.omittedNodes){const node=root.getObjectByName(o.node);node?.removeFromParent()}
 for(const part of spec.scene3d.parts){const g=new T.Group();g.name=part.componentId;g.userData={componentId:part.componentId,evidence:'manufacturer-exterior'};root.add(g);for(const name of part.nodes){const node=root.getObjectByName(name);if(!node)throw Error('Missing source '+name);g.attach(node)}}
+const finish=(kind:Parameters<typeof surfaceFinish>[0],color?:string)=>surfaceFinish(kind,{color,evidence:'Finish family guided by locator/teardown references; microstructure and exact coating are approximations'})
 const mats={
- pcb:new T.MeshStandardMaterial({color:'#171d1b',roughness:.59,metalness:.1}),
- package:new T.MeshStandardMaterial({color:'#25292b',roughness:.68,metalness:.05}),
- ceramic:new T.MeshStandardMaterial({color:'#a89b81',roughness:.52,metalness:.03}),
- silver:new T.MeshStandardMaterial({color:'#a5a9a6',roughness:.33,metalness:1}),
- gold:new T.MeshStandardMaterial({color:'#c6a063',roughness:.3,metalness:1}),
- copper:new T.MeshStandardMaterial({color:'#ba7c51',roughness:.36,metalness:1}),
- flex:new T.MeshStandardMaterial({color:'#4c3020',roughness:.48,metalness:.2}),
- black:new T.MeshStandardMaterial({color:'#111617',roughness:.53,metalness:0}),
- graphite:new T.MeshStandardMaterial({color:'#343a3c',roughness:.8,metalness:.12}),
- foil:new T.MeshStandardMaterial({color:'#c3c4bf',roughness:.45,metalness:.92}),
+ pcb:finish('pcb'),package:finish('package'),ceramic:finish('ceramic','#a89b81'),
+ silver:finish('steel'),gold:finish('brass'),copper:finish('copper'),flex:finish('flex'),
+ black:finish('coated'),graphite:finish('graphite'),foil:finish('foil'),
  glass:new T.MeshPhysicalMaterial({color:'#667b8a',roughness:.045,metalness:0,transmission:.75,ior:1.5,thickness:.15}),
 }
-Object.entries(mats).forEach(([n,m])=>m.name='Observed finish · '+n)
-function finish(material:T.MeshStandardMaterial,grain:boolean){
- const c=document.createElement('canvas');c.width=c.height=256;const ctx=c.getContext('2d')!,im=ctx.createImageData(256,256);let seed=731;
- for(let y=0;y<256;y++)for(let x=0;x<256;x++){seed=(seed*1664525+1013904223)>>>0;const n=seed/4294967296,v=grain?Math.sin(x*2.1)*3+n*2:n*3;im.data.set([128+v,128,254,255],(y*256+x)*4)}ctx.putImageData(im,0,0);
- const map=new T.CanvasTexture(c);map.wrapS=map.wrapT=T.RepeatWrapping;map.repeat.set(.5,.5);material.normalMap=map;material.normalScale.set(.22,.22)
-}
-for(const mat of [mats.silver,mats.foil,mats.copper])finish(mat,true);finish(mats.pcb,false)
 
 function group(id:string){const g=new T.Group();g.name=id;g.userData={componentId:id,evidence:'reference-fitted',dimensionStatus:'estimated',referenceIds:['apple-locator','ifixit-internals']};root.add(g);return g}
 function place(g:T.Object3D,m:T.Object3D,x:number,y:number,z:number){m.position.set(x,y,z);g.add(m);return m}
@@ -112,6 +102,8 @@ const fasteners=group('fasteners');for(const [x,y]of [[-32,-69],[-32,-50],[-32,-
 const seal=group('display-seal');const out=new T.Shape();out.moveTo(-27,-73);out.lineTo(27,-73);out.quadraticCurveTo(34,-73,34,-66);out.lineTo(34,66);out.quadraticCurveTo(34,73,27,73);out.lineTo(-27,73);out.quadraticCurveTo(-34,73,-34,66);out.lineTo(-34,-66);out.quadraticCurveTo(-34,-73,-27,-73);const inner=new T.Path();inner.moveTo(-26,-71.9);inner.lineTo(26,-71.9);inner.quadraticCurveTo(32.9,-71.9,32.9,-65);inner.lineTo(32.9,65);inner.quadraticCurveTo(32.9,71.9,26,71.9);inner.lineTo(-26,71.9);inner.quadraticCurveTo(-32.9,71.9,-32.9,65);inner.lineTo(-32.9,-65);inner.quadraticCurveTo(-32.9,-71.9,-26,-71.9);out.holes.push(inner);place(seal,new T.Mesh(new T.ExtrudeGeometry(out,{depth:.16,bevelEnabled:false,curveSegments:24}),mats.black),0,0,5.7)
 // Source display is one-sided; attach a shaped backplate with no duplicated wallpaper.
 const display=root.getObjectByName('display')!;plate(display,64,139,.2,0,0,5.8,mats.graphite,7);plate(display,19,31,.12,-19,50,5.56,mats.silver,1)
+removeUnmappedOcclusion(root)
+prepareFinishUVs(root)
 // Snapshot source groups and new geometry. Detailed internals remain estimated.
 root.updateMatrixWorld(true)
 const renderer=new T.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});renderer.setSize(1200,1000);renderer.toneMapping=T.ACESFilmicToneMapping;document.body.append(renderer.domElement)

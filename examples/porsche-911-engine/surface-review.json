@@ -1,0 +1,648 @@
+{
+  "version": 1,
+  "date": "2026-10-31",
+  "reviewer": "Agent self-review, not independent validation",
+  "ready": false,
+  "status": "material-pipeline-improved; reference-fidelity-still-approximate",
+  "modelSha256": "0c702329727c3765989d351c81d3126752f408a61052a6ed5de0ddf06535a489",
+  "specSha256": "47361d048a5cee7552a3500e5c2397ebd627992d5dc93c6b564d85693182a2ec",
+  "checks": {
+    "unitAndIntegrationTests": 136,
+    "engineDesktopAndMobileTours": true,
+    "iphoneClosingReassembly": true,
+    "exportMaterialIssues": [],
+    "componentViews": 87,
+    "browserErrors": [],
+    "alternateLighting": {
+      "component": "exhaust",
+      "file": "midnight-sample.png",
+      "scope": "One sampled component; not an all-component alternate-lighting review"
+    }
+  },
+  "changes": [
+    "Shared physical-scale normal and roughness finishes for original geometry.",
+    "Preserve valid imported textures and UVs; document invalid AO binding repairs.",
+    "Smooth curved surfaces without pulling bevel shading into planar caps.",
+    "Every local GLB export receives a material inventory and pending per-component visual checks."
+  ],
+  "exportMaterials": [
+    {
+      "index": 0,
+      "name": "Surface \u00b7 machined",
+      "finish": {
+        "version": 1,
+        "kind": "machined",
+        "tileMm": 4,
+        "reliefMm": 0.0015,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Photo-observed finish family from original/restored engine references; roughness and exact alloy remain estimates",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 1,
+      "name": "Surface \u00b7 steel",
+      "finish": {
+        "version": 1,
+        "kind": "steel",
+        "tileMm": 4,
+        "reliefMm": 0.002,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Photo-observed finish family from original/restored engine references; roughness and exact alloy remain estimates",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 2,
+      "name": "Surface \u00b7 cast",
+      "finish": {
+        "version": 1,
+        "kind": "cast",
+        "tileMm": 8,
+        "reliefMm": 0.014,
+        "grain": "isotropic",
+        "basis": "approximation",
+        "evidence": "Photo-observed finish family from original/restored engine references; roughness and exact alloy remain estimates",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 3,
+      "name": "Surface \u00b7 iron",
+      "finish": {
+        "version": 1,
+        "kind": "iron",
+        "tileMm": 6,
+        "reliefMm": 0.012,
+        "grain": "isotropic",
+        "basis": "approximation",
+        "evidence": "Photo-observed finish family from original/restored engine references; roughness and exact alloy remain estimates",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 4,
+      "name": "Surface \u00b7 brass",
+      "finish": {
+        "version": 1,
+        "kind": "brass",
+        "tileMm": 3,
+        "reliefMm": 0.001,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Photo-observed finish family from original/restored engine references; roughness and exact alloy remain estimates",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 5,
+      "name": "Surface \u00b7 coated",
+      "finish": {
+        "version": 1,
+        "kind": "coated",
+        "tileMm": 3,
+        "reliefMm": 0.0015,
+        "grain": "isotropic",
+        "basis": "approximation",
+        "evidence": "Photo-observed finish family from original/restored engine references; roughness and exact alloy remain estimates",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 6,
+      "name": "Surface \u00b7 rubber",
+      "finish": {
+        "version": 1,
+        "kind": "rubber",
+        "tileMm": 2,
+        "reliefMm": 0.001,
+        "grain": "isotropic",
+        "basis": "approximation",
+        "evidence": "Photo-observed finish family from original/restored engine references; roughness and exact alloy remain estimates",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 7,
+      "name": "Surface \u00b7 coated",
+      "finish": {
+        "version": 1,
+        "kind": "coated",
+        "tileMm": 3,
+        "reliefMm": 0.0015,
+        "grain": "isotropic",
+        "basis": "approximation",
+        "evidence": "Photo-observed finish family from original/restored engine references; roughness and exact alloy remain estimates",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 8,
+      "name": "Surface \u00b7 resin",
+      "finish": {
+        "version": 1,
+        "kind": "resin",
+        "tileMm": 2,
+        "reliefMm": 0.0005,
+        "grain": "isotropic",
+        "basis": "approximation",
+        "evidence": "Photo-observed finish family from original/restored engine references; roughness and exact alloy remain estimates",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 9,
+      "name": "Surface \u00b7 ceramic",
+      "finish": {
+        "version": 1,
+        "kind": "ceramic",
+        "tileMm": 2,
+        "reliefMm": 0.0004,
+        "grain": "isotropic",
+        "basis": "approximation",
+        "evidence": "Photo-observed finish family from original/restored engine references; roughness and exact alloy remain estimates",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 10,
+      "name": "Surface \u00b7 exhaust",
+      "finish": {
+        "version": 1,
+        "kind": "exhaust",
+        "tileMm": 6,
+        "reliefMm": 0.004,
+        "grain": "isotropic",
+        "basis": "approximation",
+        "evidence": "Photo-observed finish family from original/restored engine references; roughness and exact alloy remain estimates",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    }
+  ],
+  "components": [
+    {
+      "componentId": "fan-drive",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-1.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Pulley diameters and belt cross-section are reference-fitted, not measured."
+      ]
+    },
+    {
+      "componentId": "fan",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-1.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Blade pitch and aerofoil geometry are inferred from photographs."
+      ]
+    },
+    {
+      "componentId": "fan-housing",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-1.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact alloy and casting marks are not established."
+      ]
+    },
+    {
+      "componentId": "alternator",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-1.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Internal windings and electrical circuit are outside this engine-mechanism study."
+      ]
+    },
+    {
+      "componentId": "cooling-shroud",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-2.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Duct contours and wall thickness are approximate; coating chemistry is unverified."
+      ]
+    },
+    {
+      "componentId": "air-cleaner",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-2.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Air-cleaner silhouette is less certain than the exposed engine; internal filter media is not reconstructed."
+      ]
+    },
+    {
+      "componentId": "carburetors",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-2.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Jet passages, calibration, and fuel recirculation plumbing are not reproduced."
+      ]
+    },
+    {
+      "componentId": "intake-manifolds",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-2.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Runner bends and wall thickness are reference-fitted."
+      ]
+    },
+    {
+      "componentId": "heads-left",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-3.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Combustion-chamber contours and port cross-sections are simplified."
+      ]
+    },
+    {
+      "componentId": "heads-right",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-3.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Bank spacing is illustrative, not a workshop measurement."
+      ]
+    },
+    {
+      "componentId": "cylinders-left",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-3.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Fin count/spacing and cylinder metallurgy are visual approximations, not a verified part specification."
+      ]
+    },
+    {
+      "componentId": "cylinders-right",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-3.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "This is a static assembly pose, not a running-engine simulation."
+      ]
+    },
+    {
+      "componentId": "pistons",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-4.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Crown profiles, ring gaps, pin-bore details and clearances are approximate."
+      ]
+    },
+    {
+      "componentId": "connecting-rods",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-4.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Forging contours and bearing clearances are simplified."
+      ]
+    },
+    {
+      "componentId": "crankshaft",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-4.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Throw layout is educational; balance, firing order and dynamic loads are not simulated."
+      ]
+    },
+    {
+      "componentId": "flywheel",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-4.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact tooth count and clutch interface dimensions are illustrative."
+      ]
+    },
+    {
+      "componentId": "timing-covers",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-5.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Contours and sealing lips are fitted to the diagram, not exact CAD."
+      ]
+    },
+    {
+      "componentId": "timing-chains",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-5.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Chain pitch, tensioner geometry and exact ratio are simplified; not a timing-setting reference."
+      ]
+    },
+    {
+      "componentId": "valve-covers",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-5.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Rib spacing, markings and gasket profiles are approximate."
+      ]
+    },
+    {
+      "componentId": "cam-carriers",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-5.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Carrier castings are simplified and not fully oil-tight solids."
+      ]
+    },
+    {
+      "componentId": "camshafts",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-6.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Lobe lift and phase are illustrative rather than verified 901/01 cam profiles."
+      ]
+    },
+    {
+      "componentId": "valvetrain",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-6.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact rocker ratios and valve angles are not measured."
+      ]
+    },
+    {
+      "componentId": "ignition",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-6.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Wire routing and plug details are representative; no exact firing-order claim."
+      ]
+    },
+    {
+      "componentId": "crankcase-left",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-6.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Casting shape and material grade are not established from measured factory data."
+      ]
+    },
+    {
+      "componentId": "crankcase-right",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-7.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Sealing geometry and oil passages are simplified."
+      ]
+    },
+    {
+      "componentId": "oil-pump",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-7.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "The permanent housing cutaway is illustrative; gear dimensions and hidden passages are schematic. The external oil tank is vehicle-mounted and not modeled."
+      ]
+    },
+    {
+      "componentId": "oil-cooler",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-7.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Internal flow channels and exact fin pitch are unverified."
+      ]
+    },
+    {
+      "componentId": "oil-lines",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-7.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Routing is representative; the vehicle reservoir and filter are outside the model boundary."
+      ]
+    },
+    {
+      "componentId": "exhaust",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "review/surfaces/sheet-8.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Heat exchangers, muffler baffles and exhaust wall thickness are simplified."
+      ]
+    }
+  ],
+  "remaining": [
+    "Finish families and physical grain scales are authored approximations, not measured or scanned materials.",
+    "No independent visual approval or learner validation.",
+    "Complex curved/directional surfaces may need custom UV unwraps; box projection is a starting point.",
+    "Case halves, carriers, alternator and air cleaner remain simplified; textures cannot recover missing casting contours and recesses.",
+    "Neutral illumination can make broad cast faces look too uniform; reference-specific surface variation and cavity shading need further work.",
+    "Exact alloy, coating, wear and restoration state are not established for every surface."
+  ]
+}

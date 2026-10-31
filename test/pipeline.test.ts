@@ -104,7 +104,11 @@ describe("site render", () => {
     await mkdir(templateDir)
     await mkdir(path.join(assetRoot, "models"), { recursive: true })
     await writeFile(path.join(templateDir, "index.html"), `<script>${SPEC_MARKER}</script>`)
-    const bytes = Buffer.from([0x67, 0x6c, 0x54, 0x46, 2, 0, 0, 0])
+    const json = Buffer.from(JSON.stringify({asset:{version:'2.0'},scenes:[{nodes:[]}],scene:0}))
+    const length = Math.ceil(json.length / 4) * 4
+    const bytes = Buffer.alloc(20 + length, 32)
+    bytes.writeUInt32LE(0x46546c67, 0); bytes.writeUInt32LE(2, 4); bytes.writeUInt32LE(bytes.length, 8)
+    bytes.writeUInt32LE(length, 12); bytes.writeUInt32LE(0x4e4f534a, 16); json.copy(bytes, 20)
     await writeFile(path.join(assetRoot, "models", "object.glb"), bytes)
     const spec = explodeSpecSchema.parse({ ...murph, scene3d: {
       kind: "gltf", url: "models/object.glb",
@@ -112,6 +116,9 @@ describe("site render", () => {
     } })
     await renderSite(spec, out, { templateDir, assetRoot })
     expect(await readFile(path.join(out, "models", "object.glb"))).toEqual(bytes)
+    const materialReview = JSON.parse(await readFile(path.join(out, 'material-review.json'), 'utf8'))
+    expect(materialReview.ready).toBe(false)
+    expect(materialReview.modelSha256).toHaveLength(64)
     expect(JSON.parse(await readFile(path.join(out, "spec.json"), "utf8")).scene3d).toEqual(spec.scene3d)
 
     await expect(renderSite({ ...spec, scene3d: { ...spec.scene3d!, kind: "gltf", url: "../outside.glb", parts: [] } }, out, { templateDir, assetRoot }))

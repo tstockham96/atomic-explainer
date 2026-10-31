@@ -68,5 +68,6 @@
     "No learner study or exact internal collision clearance validation has been completed.",
     "Combined source asset remains local-only; redistribution rights are not established."
   ],
-  "evidenceLocation": "Local captures and detailed sweep at work/iphone-asset-research/internal-final-* and internal-browser-review.json; excluded from repository with restricted source model."
+  "evidenceLocation": "Local captures and detailed sweep at work/iphone-asset-research/internal-final-* and internal-browser-review.json; excluded from repository with restricted source model.",
+  "subsequentMaterialReview": "surface-review.json (this record retains its original model hash and historical geometry checks)"
 }
