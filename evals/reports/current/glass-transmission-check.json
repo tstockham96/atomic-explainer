@@ -1,0 +1,69 @@
+{
+  "name": "glass-transmission-check",
+  "results": [
+    {
+      "shape": "flat",
+      "ior": 1.5,
+      "viewAngle": 0,
+      "baseline": 217,
+      "through": 208,
+      "retainedContrast": 0.9585253456221198
+    },
+    {
+      "shape": "flat",
+      "ior": 1.5,
+      "viewAngle": 0.45,
+      "baseline": 217,
+      "through": 214.36363636363637,
+      "retainedContrast": 0.9878508588186008
+    },
+    {
+      "shape": "flat",
+      "ior": 1.76,
+      "viewAngle": 0,
+      "baseline": 217,
+      "through": 201,
+      "retainedContrast": 0.9262672811059908
+    },
+    {
+      "shape": "flat",
+      "ior": 1.76,
+      "viewAngle": 0.45,
+      "baseline": 217,
+      "through": 212.63636363636363,
+      "retainedContrast": 0.9798910766652702
+    },
+    {
+      "shape": "curved",
+      "ior": 1.5,
+      "viewAngle": 0,
+      "baseline": 217,
+      "through": 208,
+      "retainedContrast": 0.9585253456221198
+    },
+    {
+      "shape": "curved",
+      "ior": 1.5,
+      "viewAngle": 0.45,
+      "baseline": 217,
+      "through": 208.3526170798898,
+      "retainedContrast": 0.9601503091239161
+    },
+    {
+      "shape": "curved",
+      "ior": 1.76,
+      "viewAngle": 0,
+      "baseline": 217,
+      "through": 201,
+      "retainedContrast": 0.9262672811059908
+    },
+    {
+      "shape": "curved",
+      "ior": 1.76,
+      "viewAngle": 0.45,
+      "baseline": 217,
+      "through": 201.07438016528923,
+      "retainedContrast": 0.9266100468446509
+    }
+  ]
+}

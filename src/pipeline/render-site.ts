@@ -42,7 +42,7 @@ export async function ensureViewerTemplate(root = packageRoot(), log: (message: 
 export async function renderSite(
   spec: ExplodeSpec,
   outDir: string,
-  options: { templateDir?: string; log?: (message: string) => void } = {},
+  options: { templateDir?: string; assetRoot?: string; log?: (message: string) => void } = {},
 ) {
   const log = options.log ?? (() => undefined)
   const destination = path.resolve(outDir)
@@ -53,6 +53,30 @@ export async function renderSite(
 
   await mkdir(destination, { recursive: true })
   await cp(templateDir, destination, { recursive: true, force: true })
+
+  // Self-contained local GLB files travel with exported explainers.
+  if (spec.scene3d?.kind === "gltf" && !/^(https?:|data:)/.test(spec.scene3d.url)) {
+    const relative = spec.scene3d.url
+    const inside = (root: string, file: string) => {
+      const resolved = path.resolve(root, file)
+      const fromRoot = path.relative(path.resolve(root), resolved)
+      if (!fromRoot || fromRoot === ".." || fromRoot.startsWith(`..${path.sep}`) || path.isAbsolute(fromRoot)) {
+        throw new Error("The 3D model path must stay inside the asset directory.")
+      }
+      return resolved
+    }
+    if (!relative.toLowerCase().endsWith(".glb")) throw new Error("Local 3D exports require a self-contained .glb file.")
+    const target = inside(destination, relative)
+    if (options.assetRoot) {
+      const source = inside(options.assetRoot, relative)
+      if (source !== target) {
+        await mkdir(path.dirname(target), { recursive: true })
+        await cp(source, target)
+      }
+    } else if (!existsSync(target)) {
+      throw new Error("The 3D model is missing. Supply assetRoot or place the GLB in the viewer's public assets.")
+    }
+  }
 
   const indexPath = path.join(destination, "index.html")
   const html = await readFile(indexPath, "utf8")

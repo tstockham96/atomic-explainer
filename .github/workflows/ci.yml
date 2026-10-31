@@ -1,0 +1,30 @@
+name: Evaluate Explode
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run eval
+      - run: npx playwright install --with-deps chromium
+      - run: npm run eval:browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evaluation-evidence
+          path: |
+            playwright-report/
+            test-results/
+            evals/reports/*.json
+# The release-quality gate intentionally fails for the current prototype. CI
+# tests evaluator logic and regressions; it must not label the model production-ready.

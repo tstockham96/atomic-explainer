@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import type { ExplodeSpec, FrameSequence } from "../spec/schema.ts"
-import { frameIndex, filmMap, phaseAt, windowOpacity } from "../spec/film.ts"
+import { filmMap, frameIndex, phaseAt, windowOpacity } from "../spec/film.ts"
+import { cameraAt, focusTour, type CameraPose } from "../spec/camera.ts"
 import { frameFile } from "../spec/frames.ts"
 import { asset } from "./asset.ts"
 import { discoverSequence, loadFrames, nearestReady, sequenceUrls } from "./sequence.ts"
@@ -9,368 +10,203 @@ export interface ReelHandle {
   setProgress: (progress: number) => void
 }
 
-function lead(text: string) {
-  const sentence = text.split(/(?<=[.!?])\s/)[0]
-  return sentence ?? text
-}
-
-function Title({ model, emphasis }: { model: string; emphasis?: string }) {
-  if (!emphasis) return model
-  const at = model.indexOf(emphasis)
-  if (at < 0) return model
-  return (
-    <>
-      {model.slice(0, at)}
-      <em>{emphasis}</em>
-      {model.slice(at + emphasis.length)}
-    </>
-  )
-}
-
-function smooth(value: number) {
-  const t = Math.min(1, Math.max(0, value))
-  return t * t * (3 - 2 * t)
-}
-
-export function Reel({
-  spec,
-  api,
-  onJump,
-  onSeek,
-}: {
+/** One canvas, one world. The camera never substitutes an isolated component photo. */
+export function Reel({ spec, api }: {
   spec: ExplodeSpec
   api: { current: ReelHandle | null }
-  onJump: (id: string) => void
-  onSeek: (progress: number) => void
 }) {
-  const components = spec.components
-  const stageRef = useRef<HTMLDivElement>(null)
-  const seekRef = useRef<HTMLInputElement>(null)
-  const phaseRefs = useRef<Array<HTMLButtonElement | null>>([])
+  const tour = focusTour(spec)
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const frameRef = useRef<HTMLDivElement>(null)
-  const heroRef = useRef<HTMLImageElement>(null)
-  const explodedRef = useRef<HTMLImageElement>(null)
-  const partRefs = useRef<Array<HTMLImageElement | null>>([])
-  const captionRefs = useRef<Array<HTMLElement | null>>([])
-  const railRefs = useRef<Array<HTMLButtonElement | null>>([])
-  const barRef = useRef<HTMLSpanElement>(null)
-  const plusRef = useRef<HTMLDivElement>(null)
-  const modeRef = useRef<"frames" | "stills">("stills")
+  const titleRef = useRef<HTMLDivElement>(null)
+  const captionRefs = useRef<Array<HTMLDivElement | null>>([])
+  const progressRef = useRef(0)
   const rotationRef = useRef<Array<HTMLImageElement | null>>([])
   const explodeRef = useRef<Array<HTMLImageElement | null>>([])
-  const rotationCount = useRef(0)
-  const explodeCount = useRef(0)
-  const progressRef = useRef(0)
-  const activeRef = useRef(-2)
-  const [active, setActive] = useState(-1)
-  const [ready, setReady] = useState(false)
-  const [live, setLive] = useState(false)
+  const stillsRef = useRef<{ hero: HTMLImageElement | null; exploded: HTMLImageElement | null }>({ hero: null, exploded: null })
+  const spriteRef = useRef<HTMLCanvasElement | null>(null)
+  const spriteImageRef = useRef<HTMLImageElement | null>(null)
+  const requestRef = useRef(0)
+  const [motion, setMotion] = useState<"loading" | "ready" | "still">("loading")
 
-  const paint = (image: HTMLImageElement | null) => {
-    const canvas = canvasRef.current
-    const box = frameRef.current
-    if (!canvas || !box || !image) return false
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return false
-    const rect = box.getBoundingClientRect()
-    const dpr = Math.min(window.devicePixelRatio || 1, 2)
-    const width = Math.max(1, Math.round(rect.width * dpr))
-    const height = Math.max(1, Math.round(rect.height * dpr))
-    if (canvas.width !== width || canvas.height !== height) {
-      canvas.width = width
-      canvas.height = height
-    }
-    ctx.drawImage(image, 0, 0, width, height)
-    return true
+  // Feather only the image's outside edge; the object and all its components stay in one plane.
+  const sprite = (image: HTMLImageElement) => {
+    const buffer = spriteRef.current ?? document.createElement("canvas")
+    spriteRef.current = buffer
+    if (spriteImageRef.current === image) return buffer
+    buffer.width = image.naturalWidth
+    buffer.height = image.naturalHeight
+    const context = buffer.getContext("2d")!
+    context.drawImage(image, 0, 0)
+    context.globalCompositeOperation = "destination-in"
+    const horizontal = context.createLinearGradient(0, 0, buffer.width, 0)
+    horizontal.addColorStop(0, "transparent")
+    horizontal.addColorStop(0.1, "black")
+    horizontal.addColorStop(0.9, "black")
+    horizontal.addColorStop(1, "transparent")
+    context.fillStyle = horizontal
+    context.fillRect(0, 0, buffer.width, buffer.height)
+    const vertical = context.createLinearGradient(0, 0, 0, buffer.height)
+    vertical.addColorStop(0, "transparent")
+    vertical.addColorStop(0.025, "black")
+    vertical.addColorStop(0.975, "black")
+    vertical.addColorStop(1, "transparent")
+    context.fillStyle = vertical
+    context.fillRect(0, 0, buffer.width, buffer.height)
+    context.globalCompositeOperation = "source-over"
+    spriteImageRef.current = image
+    return buffer
   }
 
-  const apply = (progress: number) => {
-    progressRef.current = progress
-    const count = components.length
-    const sample = phaseAt(progress, count)
-    const map = filmMap(count)
-    stageRef.current?.setAttribute("data-phase", sample.phase)
-    if (seekRef.current) {
-      seekRef.current.value = String(Math.round(progress * 1000))
-      seekRef.current.setAttribute("aria-valuetext", sample.phase === "part"
-        ? components[sample.partIndex]?.name ?? "Component"
-        : sample.phase === "title" ? "Overview" : sample.phase === "turn" ? "Rotation" : "Exploded view")
+  const paint = (image: HTMLImageElement, camera: CameraPose) => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const context = canvas.getContext("2d")
+    if (!context) return
+    const width = canvas.clientWidth
+    const height = canvas.clientHeight
+    const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    if (canvas.width !== Math.round(width * dpr) || canvas.height !== Math.round(height * dpr)) {
+      canvas.width = Math.round(width * dpr)
+      canvas.height = Math.round(height * dpr)
     }
-    phaseRefs.current.forEach((button, index) => {
-      const current = index === 0 ? sample.phase === "title" : index === 1 ? sample.phase === "turn" : sample.phase === "burst" || sample.phase === "part"
-      button?.setAttribute("aria-pressed", String(current))
-    })
-    const fade = 0.012
+    context.setTransform(dpr, 0, 0, dpr, 0, 0)
+    context.fillStyle = "#151515"
+    context.fillRect(0, 0, width, height)
+    context.imageSmoothingEnabled = true
+    context.imageSmoothingQuality = "high"
+    const fit = Math.min(width * 0.9 / image.naturalWidth, height * 0.92 / image.naturalHeight)
+    const imageWidth = image.naturalWidth * fit * camera.scale
+    const imageHeight = image.naturalHeight * fit * camera.scale
+    const narrow = width < 700
+    const anchorX = width * (0.5 - (narrow ? 0 : 0.14) * camera.focus)
+    const anchorY = height * (0.48 - (narrow ? 0.14 : 0) * camera.focus)
+    context.drawImage(sprite(image), anchorX - imageWidth * camera.x, anchorY - imageHeight * camera.y, imageWidth, imageHeight)
+  }
 
-    const title = windowOpacity(progress, 0, map.turn - fade, fade)
-    const turn = windowOpacity(progress, map.turn + fade, map.burst - fade, fade)
-    const burst = windowOpacity(progress, map.burst + fade, map.parts - fade, fade)
-    const span = (1 - map.parts) / map.count
-    const edge = span * 0.16
-
-    const captions = captionRefs.current
+  const apply = () => {
+    const progress = progressRef.current
+    // A spec without authored targets ends after the explosion instead of inventing positions.
+    const sample = phaseAt(tour.length ? progress : progress * filmMap(1).parts, tour.length)
+    const target = sample.phase === "part" ? tour[sample.partIndex] : undefined
+    const camera = cameraAt(sample.local, target)
     const setCaption = (node: HTMLElement | null, opacity: number) => {
       if (!node) return
       node.style.opacity = String(opacity)
-      node.style.visibility = opacity > 0.04 ? "visible" : "hidden"
-      node.setAttribute("aria-hidden", opacity > 0.04 ? "false" : "true")
-      node.style.transform = `translateY(calc(-50% + ${(1 - opacity) * 12}px))`
+      node.style.visibility = opacity > 0.02 ? "visible" : "hidden"
+      node.setAttribute("aria-hidden", String(opacity <= 0.02))
+      node.style.translate = `0 ${(1 - opacity) * 12}px`
     }
-    setCaption(captions[0] ?? null, title)
-    setCaption(captions[1] ?? null, turn)
-    setCaption(captions[2] ?? null, burst)
-    components.forEach((_, index) => {
-      const start = map.parts + index * span
-      const end = index === count - 1 ? 1 + edge * 2 : start + span
-      const opacity = windowOpacity(progress, start + edge, end - edge, edge)
-      setCaption(captions[index + 3] ?? null, opacity)
+    setCaption(titleRef.current, windowOpacity(progress, 0, 0.025, 0.03))
+    captionRefs.current.forEach((node, index) => {
+      setCaption(node, target && sample.partIndex === index ? windowOpacity(sample.local, 0.34, 0.68, 0.16) : 0)
     })
 
-    railRefs.current.forEach((button, index) => {
-      if (!button) return
-      const on = sample.phase === "part" && sample.partIndex === index
-      button.classList.toggle("on", on)
-      button.setAttribute("aria-current", on ? "step" : "false")
-    })
-
-    if (barRef.current) barRef.current.style.transform = `scaleX(${progress})`
-    if (plusRef.current) {
-      const show = sample.phase === "burst" ? smooth(sample.local) * (1 - Math.max(0, sample.local - 0.82) / 0.18) : sample.phase === "part" ? 0.35 : 0
-      plusRef.current.style.opacity = String(show)
+    const rotation = rotationRef.current
+    const explosion = explodeRef.current
+    let image: HTMLImageElement | null
+    if (sample.phase === "title" || sample.phase === "turn") {
+      image = nearestReady(rotation, frameIndex(sample.phase === "title" ? 0 : sample.local, rotation.length)) ?? stillsRef.current.hero
+    } else {
+      // Keep the exact final exploded frame for every camera move, including the pullbacks.
+      const index = sample.phase === "burst" ? frameIndex(sample.local, explosion.length) : explosion.length - 1
+      image = nearestReady(explosion, index) ?? stillsRef.current.exploded ?? stillsRef.current.hero
     }
-
-    if (sample.partIndex !== activeRef.current) {
-      activeRef.current = sample.partIndex
-      setActive(sample.partIndex)
-    }
-
-    if (modeRef.current === "frames") {
-      const turnLocal = sample.phase === "title" ? 0 : sample.phase === "turn" ? sample.local : 1
-      const burstLocal = sample.phase === "title" || sample.phase === "turn" ? 0 : sample.phase === "burst" ? sample.local : 1
-      const rotationFrame = frameIndex(turnLocal, rotationCount.current)
-      const explodeFrame = frameIndex(burstLocal, explodeCount.current)
-      const image =
-        burstLocal > 0
-          ? nearestReady(explodeRef.current, explodeFrame)
-          : nearestReady(rotationRef.current, rotationFrame)
-      if (paint(image)) frameRef.current?.setAttribute("data-painted", "true")
-      partRefs.current.forEach((node, index) => {
-        if (!node) return
-        const on = sample.phase === "part" && sample.partIndex === index && node.complete && node.naturalWidth > 0 ? windowOpacity(sample.local, 0.08, index === count - 1 ? 1.08 : 0.92, 0.08) : 0
-        node.style.opacity = String(on)
-      })
-      return
-    }
-
-    const burstLocal = sample.phase === "burst" ? sample.local : sample.phase === "part" ? 1 : 0
-    const burstEase = smooth(burstLocal)
-    if (heroRef.current) {
-      const spin = sample.phase === "turn" ? sample.local : sample.phase === "title" ? 0 : 1
-      heroRef.current.style.opacity = String(1 - burstEase)
-      heroRef.current.style.transform = `perspective(1100px) rotateY(${(-30 + spin * 62).toFixed(2)}deg) translateY(${(16 - spin * 22).toFixed(1)}px) scale(${(0.94 + spin * 0.06).toFixed(3)})`
-    }
-    if (explodedRef.current) {
-      const hold = sample.phase === "part" ? 1 - smooth(Math.min(1, sample.local * 1.4)) * 0.55 : 1
-      explodedRef.current.style.opacity = String(burstEase * hold)
-      explodedRef.current.style.transform = `translateY(${((1 - burstEase) * 36).toFixed(1)}px) scale(${(0.97 + burstEase * 0.03).toFixed(3)})`
-    }
-    partRefs.current.forEach((node, index) => {
-      if (!node) return
-      const on = sample.phase === "part" && sample.partIndex === index && node.complete && node.naturalWidth > 0 ? windowOpacity(sample.local, 0.12, index === count - 1 ? 1.12 : 0.88, 0.12) : 0
-      node.style.opacity = String(on)
-      node.style.transform = `scale(${(0.94 + on * 0.06).toFixed(3)})`
-    })
+    if (image) paint(image, camera)
   }
 
   const applyRef = useRef(apply)
+  useEffect(() => { applyRef.current = apply })
+  const schedule = () => {
+    if (requestRef.current) return
+    requestRef.current = requestAnimationFrame(() => {
+      requestRef.current = 0
+      applyRef.current()
+    })
+  }
+
   useEffect(() => {
-    applyRef.current = apply
-  })
-  useEffect(() => {
-    api.current = { setProgress: (progress) => applyRef.current(progress) }
-    applyRef.current(progressRef.current)
+    api.current = { setProgress: (progress) => { progressRef.current = progress; schedule() } }
+    const canvas = canvasRef.current
+    const observer = new ResizeObserver(schedule)
+    if (canvas) observer.observe(canvas)
+    schedule()
     return () => {
       api.current = null
+      observer.disconnect()
+      cancelAnimationFrame(requestRef.current)
+      requestRef.current = 0
     }
   }, [api])
 
   useEffect(() => {
-    const box = frameRef.current
-    if (!box) return
-    const observer = new ResizeObserver(() => applyRef.current(progressRef.current))
-    observer.observe(box)
-    return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
-    let cancel = false
+    let cancelled = false
     const stops: Array<() => void> = []
-    modeRef.current = "stills"
     rotationRef.current = []
     explodeRef.current = []
-    setLive(false)
-    setReady(false)
+    stillsRef.current = { hero: null, exploded: null }
+    setMotion("loading")
+
+    const loadStill = (kind: "hero" | "exploded", path?: string) => {
+      if (!path) return
+      const image = new Image()
+      image.onload = () => {
+        if (cancelled) return
+        stillsRef.current[kind] = image
+        schedule()
+      }
+      image.src = asset(path)
+      stops.push(() => { image.onload = null })
+    }
+    const rotation = spec.frames?.rotation
+    const explosion = spec.frames?.explode
+    loadStill("hero", rotation && rotation.count > 1 ? frameFile(rotation, 0) : spec.heroImage)
+    loadStill("exploded", explosion && explosion.count > 1 ? frameFile(explosion, explosion.count - 1) : spec.explodedImage)
 
     const arm = (kind: "rotation" | "explode", sequence: FrameSequence) => {
-      const images: Array<HTMLImageElement | null> = Array.from({ length: sequence.count }, () => null)
-      if (kind === "rotation") {
-        rotationRef.current = images
-        rotationCount.current = sequence.count
-      } else {
-        explodeRef.current = images
-        explodeCount.current = sequence.count
-      }
-      const stop = loadFrames(sequenceUrls(sequence), (index, image) => {
-        images[index] = image
-        if (!cancel && index === 0 && kind === "rotation") {
-          modeRef.current = "frames"
-          setLive(true)
-          setReady(true)
-          applyRef.current(progressRef.current)
-        }
-        if (!cancel && modeRef.current === "frames") applyRef.current(progressRef.current)
-      })
-      stops.push(stop)
+      const frames: Array<HTMLImageElement | null> = Array.from({ length: sequence.count }, () => null)
+      if (kind === "rotation") rotationRef.current = frames
+      else explodeRef.current = frames
+      stops.push(loadFrames(sequenceUrls(sequence), (index, image) => {
+        if (cancelled) return
+        frames[index] = image
+        if (kind === "rotation" && index === 0) setMotion("ready")
+        schedule()
+      }))
     }
-
     void (async () => {
-      const [rotation, explode] = await Promise.all([
-        discoverSequence(spec.frames?.rotation),
-        discoverSequence(spec.frames?.explode),
-      ])
-      if (cancel) return
-      if (rotation && explode) {
-        arm("rotation", rotation)
-        arm("explode", explode)
-      } else {
-        modeRef.current = "stills"
-        setReady(true)
-      }
+      const [turn, burst] = await Promise.all([discoverSequence(rotation), discoverSequence(explosion)])
+      if (cancelled) return
+      if (turn && burst) {
+        arm("rotation", turn)
+        arm("explode", burst)
+      } else setMotion("still")
     })()
-
-    const giveUp = window.setTimeout(() => {
-      if (cancel || modeRef.current === "frames") return
-      modeRef.current = "stills"
-      setLive(false)
-      setReady(true)
-      applyRef.current(progressRef.current)
-    }, 2500)
-
+    const timeout = window.setTimeout(() => {
+      if (!cancelled && !rotationRef.current.some(Boolean)) setMotion("still")
+    }, 8000)
     return () => {
-      cancel = true
-      window.clearTimeout(giveUp)
-      for (const stop of stops) stop()
+      cancelled = true
+      window.clearTimeout(timeout)
+      stops.forEach((stop) => stop())
     }
   }, [spec])
 
-  const heroSrc = spec.heroImage ? asset(spec.heroImage) : undefined
-  const explodedSrc = spec.explodedImage ? asset(spec.explodedImage) : undefined
-  const poster =
-    spec.frames?.rotation && spec.frames.rotation.count > 1 ? asset(frameFile(spec.frames.rotation, 0)) : heroSrc
-
   return (
-    <div className="sticky-stage" ref={stageRef} data-phase="title">
-      <div className="stage-heading"><span>An object study</span><span>{spec.item.category} / {String(components.length).padStart(2, "0")} components</span></div>
-      <div className="caption-col">
-        <div className="caption" ref={(node) => { captionRefs.current[0] = node }} data-caption="title">
-          <p className="kicker"><span className="status-dot" />Inside {spec.item.maker}</p>
-          <h1>
-            <Title model={spec.item.model} emphasis={spec.item.emphasis} />
-          </h1>
-          <p className="sub">An ordinary object. An extraordinary amount of thought. Explore what lies beneath the surface.</p>
-          <button className="explore-button" type="button" onClick={() => onJump("@burst")}>Take it apart <span aria-hidden="true">↗</span></button>
-          <p className="reference-line">{spec.item.reference ? `REF. ${spec.item.reference}` : spec.item.category} <span>·</span> {components.length} parts to discover</p>
-        </div>
-        <div className="caption" ref={(node) => { captionRefs.current[1] = node }} data-caption="turn">
-          <p className="kicker">01 / The whole</p>
-          <h2>A closer look.<br /><em>Every angle.</em></h2>
-          <p className="sub">Before the pieces, the whole. Follow the form, the surfaces, and the details that bring it together.</p>
-        </div>
-        <div className="caption" ref={(node) => { captionRefs.current[2] = node }} data-caption="burst">
-          <p className="kicker">02 / Beneath the surface</p>
-          <h2>More than<br /><em>meets the eye.</em></h2>
-          <p className="sub">
-            {components
-              .slice(0, 4)
-              .map((component) => component.name)
-              .join(", ")}
-            . Each piece has a purpose.
-          </p>
-        </div>
-        {components.map((component, index) => (
-          <div className="caption" key={component.id} ref={(node) => { captionRefs.current[index + 3] = node }} data-caption={component.id}>
-            <p className="kicker">
-              {String(index + 1).padStart(2, "0")} / {String(components.length).padStart(2, "0")}
-            </p>
-            <h2>{component.name}</h2>
-            <p className="material">{component.material}</p>
-            <p className="sub">{lead(component.howItsMade)}</p>
-            {active === index ? <Stat component={component} /> : null}
-            <button className="detail-link" type="button" onClick={() => onJump(`detail-${component.id}`)}>Explore this component <span aria-hidden="true">↗</span></button>
-          </div>
-        ))}
+    <div className="object-film">
+      <canvas ref={canvasRef} className="object-canvas" role="img" aria-label={`${spec.item.name}, rotating and separating into its components as you scroll`} />
+      <div className="film-title" ref={titleRef}>
+        <p>{spec.item.maker}</p>
+        <h1>{spec.item.model}</h1>
+        <span>{motion === "loading" ? "Preparing the object" : motion === "still" ? "Still-image study · scroll to explore" : "Scroll to look inside"} <span aria-hidden="true">↓</span></span>
       </div>
-
-      <div className="canvas-col">
-        <div className={`canvas-frame${live ? " is-live" : ""}`} ref={frameRef}>
-          <canvas ref={canvasRef} aria-label={`${spec.item.name}, scroll to turn and open`} />
-          {poster ? <img className="poster" src={poster} alt="" /> : null}
-          <img ref={heroRef} className="still still-hero" src={heroSrc} alt="" />
-          <img ref={explodedRef} className="still still-explode" src={explodedSrc} alt="" />
-          {components.map((component, index) => (
-            <img
-              key={component.id}
-              ref={(node) => { partRefs.current[index] = node }}
-              className="still still-part"
-              onLoad={() => applyRef.current(progressRef.current)}
-              src={component.image ? asset(component.image) : undefined}
-              alt=""
-            />
-          ))}
-          <div className="pluses" ref={plusRef} aria-hidden="true">
-            <span /><span /><span /><span />
-          </div>
-          <div className="edge-fade" />
+      {tour.map((target, index) => (
+        <div key={target.componentId} className="focus-caption" ref={(node) => { captionRefs.current[index] = node }} aria-hidden="true">
+          <p className="kicker">{String(index + 1).padStart(2, "0")} / {String(tour.length).padStart(2, "0")}</p>
+          <h2>{target.component.name}</h2>
+          <p className="focus-material">{target.component.material}</p>
+          <p className="focus-description">{target.component.howItsMade.split(/(?<=[.!?])\s/).slice(0, 2).join(" ")}</p>
         </div>
-        <p className="image-note">{spec.visualMode === "generated" ? "AI-generated study · illustrative imagery" : "Visual study"}</p>
-      </div>
-
-      <ol className="part-rail" aria-label="Explore components">
-        {components.map((component, index) => (
-          <li key={component.id}>
-            <button
-              type="button"
-              ref={(node) => { railRefs.current[index] = node }}
-              onClick={() => onJump(component.id)}
-            >
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              {component.name}
-            </button>
-          </li>
-        ))}
-      </ol>
-      <footer className="stage-footer">
-        <div className="scroll-hint"><span aria-hidden="true">↓</span> {ready ? "Scroll to discover" : "Preparing the film"}</div>
-        <div className="chapter-controls" aria-label="Film chapters">
-          {[{ label: "Overview", target: "film" }, { label: "Rotate", target: "@turn" }, { label: "Explode", target: "@burst" }].map((chapter, index) => (
-            <button key={chapter.target} type="button" ref={(node) => { phaseRefs.current[index] = node }} onClick={() => onJump(chapter.target)} aria-pressed={index === 0}>
-              <span>0{index + 1}</span> {chapter.label}
-            </button>
-          ))}
-        </div>
-        <a className="skip-story" href="#parts" onClick={(event) => { event.preventDefault(); onJump("parts") }}>Browse all parts ↗</a>
-        <div className="timeline">
-          <div className="scrub-bar" aria-hidden="true"><span ref={barRef} /></div>
-          <input ref={seekRef} type="range" min="0" max="1000" defaultValue="0" aria-label="Explore the film" onChange={(event) => onSeek(Number(event.target.value) / 1000)} />
-        </div>
-      </footer>
+      ))}
     </div>
   )
-}
-
-function Stat({ component }: { component: ExplodeSpec["components"][number] }) {
-  const line = component.funFacts[0]
-  if (!line) return null
-  return <p className="fact-line">{line}</p>
 }

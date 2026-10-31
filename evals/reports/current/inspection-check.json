@@ -1,0 +1,775 @@
+{
+  "name": "inspection-check",
+  "results": [
+    {
+      "id": "crystal",
+      "local": 0.2,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "crystal",
+      "local": 0.37,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "crystal",
+      "local": 0.5,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "crystal",
+      "local": 0.63,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "crystal",
+      "local": 0.8,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "hands",
+      "local": 0.2,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "hands",
+      "local": 0.37,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "hands",
+      "local": 0.5,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "hands",
+      "local": 0.63,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "hands",
+      "local": 0.8,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "dial",
+      "local": 0.2,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "dial",
+      "local": 0.37,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "dial",
+      "local": 0.5,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "dial",
+      "local": 0.63,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "dial",
+      "local": 0.8,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "case",
+      "local": 0.2,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "case",
+      "local": 0.37,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "case",
+      "local": 0.5,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "case",
+      "local": 0.63,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "case",
+      "local": 0.8,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "crown",
+      "local": 0.2,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "crown",
+      "local": 0.37,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "crown",
+      "local": 0.5,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "crown",
+      "local": 0.63,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "crown",
+      "local": 0.8,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "seals",
+      "local": 0.2,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "seals",
+      "local": 0.37,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "seals",
+      "local": 0.5,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "seals",
+      "local": 0.63,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "seals",
+      "local": 0.8,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "caseback",
+      "local": 0.2,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "caseback",
+      "local": 0.37,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "caseback",
+      "local": 0.5,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "caseback",
+      "local": 0.63,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "caseback",
+      "local": 0.8,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "rear-window",
+      "local": 0.2,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "rear-window",
+      "local": 0.37,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "rear-window",
+      "local": 0.5,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "rear-window",
+      "local": 0.63,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "rear-window",
+      "local": 0.8,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "rotor",
+      "local": 0.2,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "rotor",
+      "local": 0.37,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "rotor",
+      "local": 0.5,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "rotor",
+      "local": 0.63,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "rotor",
+      "local": 0.8,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "movement",
+      "local": 0.2,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "movement",
+      "local": 0.37,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "movement",
+      "local": 0.5,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "movement",
+      "local": 0.63,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "movement",
+      "local": 0.8,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "winding-train",
+      "local": 0.2,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "winding-train",
+      "local": 0.37,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "winding-train",
+      "local": 0.5,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "winding-train",
+      "local": 0.63,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "winding-train",
+      "local": 0.8,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "barrel",
+      "local": 0.2,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "barrel",
+      "local": 0.37,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "barrel",
+      "local": 0.5,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "barrel",
+      "local": 0.63,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "barrel",
+      "local": 0.8,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "wheel-train",
+      "local": 0.2,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "wheel-train",
+      "local": 0.37,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "wheel-train",
+      "local": 0.5,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "wheel-train",
+      "local": 0.63,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "wheel-train",
+      "local": 0.8,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "escapement",
+      "local": 0.2,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "escapement",
+      "local": 0.37,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "escapement",
+      "local": 0.5,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "escapement",
+      "local": 0.63,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "escapement",
+      "local": 0.8,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "balance",
+      "local": 0.2,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "balance",
+      "local": 0.37,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "balance",
+      "local": 0.5,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "balance",
+      "local": 0.63,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "balance",
+      "local": 0.8,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "strap",
+      "local": 0.2,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "strap",
+      "local": 0.37,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "strap",
+      "local": 0.5,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "strap",
+      "local": 0.63,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    },
+    {
+      "id": "strap",
+      "local": 0.8,
+      "contextInFrame": [],
+      "visible": true,
+      "insideFrame": true
+    }
+  ],
+  "bounds": [
+    {
+      "id": "crystal",
+      "size": [
+        35,
+        35,
+        1.7999999523162842
+      ],
+      "center": [
+        0,
+        0,
+        65.5
+      ]
+    },
+    {
+      "id": "hands",
+      "size": [
+        25.08171382247123,
+        20.86602550496099,
+        0.8174999995902184
+      ],
+      "center": [
+        1.6190233802542213,
+        -2.2193809331850964,
+        19.253750000391154
+      ]
+    },
+    {
+      "id": "dial",
+      "size": [
+        34.7599983215332,
+        34.7599983215332,
+        1.5900000238418581
+      ],
+      "center": [
+        0,
+        0,
+        7.784999988079071
+      ]
+    },
+    {
+      "id": "case",
+      "size": [
+        40.71504592895508,
+        56.35829544067383,
+        10.85342812538147
+      ],
+      "center": [
+        0.0129241943359375,
+        -0.19796371459960938,
+        -2.768504023551941
+      ]
+    },
+    {
+      "id": "crown",
+      "size": [
+        9.089999999552965,
+        6.680000001192093,
+        6.680000001192093
+      ],
+      "center": [
+        29.69499999977648,
+        0,
+        -0.10000000000000009
+      ]
+    },
+    {
+      "id": "seals",
+      "size": [
+        35.599998474121094,
+        35.599998474121094,
+        6.399999999701977
+      ],
+      "center": [
+        0,
+        0,
+        -0.6000000016391278
+      ]
+    },
+    {
+      "id": "caseback",
+      "size": [
+        40.29999923706055,
+        40.29999923706055,
+        1.1599999994039507
+      ],
+      "center": [
+        0,
+        0,
+        -53.52999999970198
+      ]
+    },
+    {
+      "id": "rear-window",
+      "size": [
+        29.959999084472656,
+        29.959999084472656,
+        0.44999998807907104
+      ],
+      "center": [
+        0,
+        0,
+        -44.85
+      ]
+    },
+    {
+      "id": "rotor",
+      "size": [
+        25.213520050048828,
+        16.65251088142395,
+        1.1975000084191585
+      ],
+      "center": [
+        0.00026702880859375,
+        4.368749976158142,
+        -32.08874999586493
+      ]
+    },
+    {
+      "id": "movement",
+      "size": [
+        26.600000381469727,
+        26.600000381469727,
+        2.7200000005960483
+      ],
+      "center": [
+        0,
+        0,
+        -10.870000002682207
+      ]
+    },
+    {
+      "id": "winding-train",
+      "size": [
+        17.922011280059813,
+        15.722298526763916,
+        0.46000001072883734
+      ],
+      "center": [
+        1.7997402191162108,
+        -1.5998838424682615,
+        -11.014999999999999
+      ]
+    },
+    {
+      "id": "barrel",
+      "size": [
+        6.623123645782472,
+        6.624156475067139,
+        0.6977983811497701
+      ],
+      "center": [
+        -5.300000000000001,
+        -6.4,
+        -10.731100808531046
+      ]
+    },
+    {
+      "id": "wheel-train",
+      "size": [
+        8.67308692932129,
+        11.023713898658752,
+        0.5600000107288352
+      ],
+      "center": [
+        0.7749757766723635,
+        0.25028926134109497,
+        -10.784999999999998
+      ]
+    },
+    {
+      "id": "escapement",
+      "size": [
+        3.3329557180404663,
+        2.0198378562927246,
+        0.5600000040233137
+      ],
+      "center": [
+        1.3458767533302307,
+        6.497564315795898,
+        -11.124999996647237
+      ]
+    },
+    {
+      "id": "balance",
+      "size": [
+        13.445012325048447,
+        7.476059818267823,
+        1.9749999974668029
+      ],
+      "center": [
+        2.2325061589479445,
+        7.361970138549805,
+        -11.61750000141561
+      ]
+    },
+    {
+      "id": "strap",
+      "size": [
+        29.534380820649226,
+        117.18585289792571,
+        71.34184082182449
+      ],
+      "center": [
+        0.03312438566650577,
+        -3.4105782039327472,
+        -36.88614053792875
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+/** Review requirements carried through agent/provider handoffs, not a claim
+ * that automatic reconstruction or visual verification has occurred. */
+export const COMPONENT_QUALITY_REQUIREMENTS = [
+  {id:'complete-turn',check:'Inspect every component through 360 degrees under the scene lighting. Reconstruct the reverse, thickness, cavities and interfaces from evidence; mark inferred geometry explicitly.'},
+  {id:'surface-bound-detail',check:'Place printing, inlays and engraving on their physical supporting surfaces. Cutouts remain empty; markings cannot float over holes or appear on an undocumented reverse face.'},
+  {id:'coherent-materials',check:'Render parts together under one fixed lighting rig and exposure. Separate base color, roughness and surface relief; do not bake photographic highlights or shadows into a new material to fake a finish.'},
+  {id:'material-evidence',check:'Separate verified substrate/plating from photo-observed finish. Do not infer an alloy from silver color. Match grain direction and scale, distinguish adjoining finishes, and check their response throughout a turn. Export normal and roughness maps and reopen the exported asset to verify they survive.'},
+  {id:'every-component-material',check:'Complete a material review for every component, including hidden/rear surfaces and small fittings. Compare related materials under the same lighting and backdrop; any difference in tint, grain, roughness, reflection or transparency needs evidence or an explicit approximation. Glass receives consistent optical treatment wherever it occurs; shape and composition may legitimately differ. Do not approve an entire assembly because one hero part passed.'},
+  {id:'reference-detail',check:'Compare identifying silhouettes and details with multiple inspected references, including macro and reverse views. Increasing texture resolution does not repair incorrect geometry.'},
+  {id:'physical-continuity',check:'Clear neighboring parts before a full inspection turn. Use physical separation and camera travel, never opacity fades or visibility toggles. Return to the assembly orientation before reseating; verify both scroll directions.'},
+] as const

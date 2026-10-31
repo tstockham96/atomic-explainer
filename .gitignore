@@ -13,6 +13,7 @@ dist
 dist-ssr
 dist-site
 explode-out
+.explode-jobs
 *.local
 .env
 .env.*
@@ -30,3 +31,7 @@ source.jpg
 *.njsproj
 *.sln
 *.sw?
+
+dist-eval
+playwright-report
+test-results

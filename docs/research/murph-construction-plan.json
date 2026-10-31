@@ -1,0 +1,1280 @@
+{
+  "version": 1,
+  "status": "component-work-required",
+  "issues": [],
+  "learningGoals": [
+    "Explain the difference between stored power, winding and regulation.",
+    "See how independent hands move above a clean stationary dial.",
+    "Understand the front and rear transparent windows, housing and sealing interfaces.",
+    "Connect visible component appearance to supported materials and general making processes."
+  ],
+  "components": [
+    {
+      "componentId": "crystal",
+      "function": "Protect the display while letting light reach and leave it.",
+      "claims": [
+        {
+          "statement": "The front crystal is sapphire.",
+          "basis": "documented",
+          "referenceIds": [
+            "catalog",
+            "macro",
+            "sapphire"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "model-part",
+        "referenceIds": [
+          "catalog",
+          "macro",
+          "laid",
+          "rolled",
+          "sapphire"
+        ],
+        "shape": "Independent shallow domed optical solid with two curved faces and a rounded perimeter, seated on the case gasket. Profile inferred from Hamilton rolled/laid photographs; dimensions are an educational fit, not manufacturer CAD.",
+        "materialBehavior": "Transparent dielectric with an edge, transmission and restrained moving reflections.",
+        "hiddenSurfaces": "Both faces and the perimeter must remain coherent when lifted.",
+        "exclude": [
+          "Hands",
+          "Dial printing",
+          "Baked room reflections"
+        ],
+        "acceptanceChecks": [
+          "Lift the crystal and leave all markings behind on their real components.",
+          "Dial remains legible through it from front and oblique views.",
+          "Side view has a continuous seated perimeter, with no floating gap above the bezel.",
+          "The curved underside clears the longest hand throughout separation and reassembly.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically."
+        ]
+      },
+      "unknowns": [
+        "Edge profile, thickness and coating specification."
+      ]
+    },
+    {
+      "componentId": "hands",
+      "function": "Display the movement’s output on three independently moving indicators.",
+      "claims": [
+        {
+          "statement": "The photos show distinct hour/minute profiles and a slender seconds hand.",
+          "basis": "observed",
+          "referenceIds": [
+            "front",
+            "macro",
+            "hands-process",
+            "lume"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "model-part",
+        "referenceIds": [
+          "front",
+          "macro",
+          "rolled"
+        ],
+        "shape": "Independent thin hour, minute and seconds meshes: a curved petal cathedral hour head with separate luminous cells, a segmented spear minute hand, and a fine seconds needle with diamond tail. Recess the luminous fill into openings in the metal frames and preserve concentric hubs.",
+        "materialBehavior": "Separate metal and luminous inlays; do not make the pale fill metallic.",
+        "hiddenSurfaces": "Model backs and edges; establish vertical clearance between all three hands.",
+        "exclude": [
+          "Dial texture",
+          "Hand-shaped patches on the dial"
+        ],
+        "acceptanceChecks": [
+          "Rotate each hand independently without changing the dial.",
+          "Inspect silhouettes, hub order and clearance from side views.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically.",
+          "Compare petal partitions, spear proportions and narrow metal borders against Hamilton macro and rolled views; verify actual vertices clear the sapphire underside."
+        ]
+      },
+      "unknowns": [
+        "Exact hub heights, thicknesses, luminous grade and manufacturing route."
+      ]
+    },
+    {
+      "componentId": "dial",
+      "function": "Provide a fixed readable scale behind the moving hands.",
+      "claims": [
+        {
+          "statement": "The macro shows a clean dark face under independently raised hands.",
+          "basis": "observed",
+          "referenceIds": [
+            "front",
+            "macro"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "model-part",
+        "referenceIds": [
+          "front",
+          "macro"
+        ],
+        "shape": "A planar thin disc with a central shaft opening and reconstructed crisp markings. Trace independent visible portions across references; rebuild occluded regions explicitly.",
+        "materialBehavior": "Matte/satin nonmetallic face, fine print/lume relief rather than cratered geometry.",
+        "hiddenSurfaces": "Back, rim and mounting details need separate evidence; use a labeled simplified back until documented.",
+        "exclude": [
+          "Hands",
+          "Hand shadows",
+          "Ghosted hands",
+          "Crystal glare",
+          "Duplicate numerals"
+        ],
+        "acceptanceChecks": [
+          "Remove every hand and verify a continuous clean dial face.",
+          "Inspect all numerals and minute marks at close range.",
+          "Rotate light without revealing erased-hand silhouettes.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically."
+        ]
+      },
+      "unknowns": [
+        "Exact dial diameter/thickness, attachment feet, print/lume layering and factory process."
+      ]
+    },
+    {
+      "componentId": "case",
+      "function": "Locate and protect the display and movement and connect them to the strap.",
+      "claims": [
+        {
+          "statement": "Brushed surfaces and a smoother bright bezel are visible.",
+          "basis": "observed",
+          "referenceIds": [
+            "catalog",
+            "macro",
+            "laid"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "model-part",
+        "referenceIds": [
+          "catalog",
+          "macro",
+          "laid"
+        ],
+        "shape": "Rebuild a smooth case with curved lugs, crown opening and genuine internal cavity; use catalog dimensions as exterior scale anchors.",
+        "materialBehavior": "Directional brushed regions and polished regions use different roughness, without baked white streaks.",
+        "hiddenSurfaces": "Rear seat, crystal seat, stem bore and inner wall must exist; detailed threads require evidence.",
+        "exclude": [
+          "Solid metal disc filling the movement cavity",
+          "Wavy highlights from lumpy geometry"
+        ],
+        "acceptanceChecks": [
+          "Look through an empty case from front to back.",
+          "Match silhouette from front and side; fit dial and movement without collisions.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically."
+        ]
+      },
+      "unknowns": [
+        "Internal diameters, seat depths, thread profile, alloy and actual machining sequence."
+      ]
+    },
+    {
+      "componentId": "crown",
+      "function": "Connect the user’s winding and setting input to the movement.",
+      "claims": [
+        {
+          "statement": "The side photographs show a knurled signed crown.",
+          "basis": "observed",
+          "referenceIds": [
+            "macro",
+            "laid",
+            "manual"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "model-part",
+        "referenceIds": [
+          "macro",
+          "laid",
+          "manual"
+        ],
+        "shape": "Crown plus a distinct axial stem, positioned relative to the movement, not a detached decorative knob.",
+        "materialBehavior": "Polished/brushed metal with actual knurl geometry where the closeup needs it.",
+        "hiddenSurfaces": "Stem tip and setting interfaces need mechanism-specific evidence.",
+        "exclude": [
+          "An arbitrary stem ending in empty space"
+        ],
+        "acceptanceChecks": [
+          "Show the crown’s physical connection to the movement.",
+          "Explain winding and setting separately without inventing gearing.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically."
+        ]
+      },
+      "unknowns": [
+        "Stem profile, travel, gasket seats and exact setting-work layout."
+      ]
+    },
+    {
+      "componentId": "caseback",
+      "function": "Retain the rear window and close the case around the movement.",
+      "claims": [
+        {
+          "statement": "The rear photo shows a ring with perimeter tool recesses around a transparent opening.",
+          "basis": "observed",
+          "referenceIds": [
+            "back",
+            "catalog"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "model-part",
+        "referenceIds": [
+          "back",
+          "catalog"
+        ],
+        "shape": "Separate annular part with an open center; reproduce observed contours, omit specimen-specific serial numbers.",
+        "materialBehavior": "Brushed ring with appropriate edge highlights.",
+        "hiddenSurfaces": "Model inner seat and underside as provisional until a disassembled reference is obtained.",
+        "exclude": [
+          "Opaque center",
+          "Movement painted onto the ring",
+          "Copied serial number"
+        ],
+        "acceptanceChecks": [
+          "Remove the ring without taking the rotor with it.",
+          "Ensure the rear window is a separate part.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically."
+        ]
+      },
+      "unknowns": [
+        "Thread dimensions, window retention and sealing arrangement."
+      ]
+    },
+    {
+      "componentId": "rear-window",
+      "function": "Allow observation of the movement while closing the rear opening.",
+      "claims": [
+        {
+          "statement": "The rear photograph shows the rotor through a transparent window.",
+          "basis": "observed",
+          "referenceIds": [
+            "back",
+            "catalog"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "model-part",
+        "referenceIds": [
+          "back",
+          "catalog"
+        ],
+        "shape": "Thin circular optical solid fitted inside the rear ring.",
+        "materialBehavior": "Clear dielectric with the same neutral color, roughness, transmission and reflection environment as the front glass. Flat photo-informed profile with rounded edges; do not copy the curved front. IOR 1.5 is an optical presentation assumption, not a verified composition. Use the same contrasting inspection backdrop for every glass component.",
+        "hiddenSurfaces": "Both faces and edge must be modeled independently of the rotor behind them.",
+        "exclude": [
+          "Rotor texture",
+          "Opaque silver disc"
+        ],
+        "acceptanceChecks": [
+          "Move the rotor behind the fixed window and see real parallax.",
+          "Lift the window and leave the movement in place.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically.",
+          "Compare front and rear glass under matching inspection conditions. Verify moving reflections, edge visibility and transmitted contrast without opacity changes, both live and after export."
+        ]
+      },
+      "unknowns": [
+        "Material, thickness, profile and gasket/retention details."
+      ]
+    },
+    {
+      "componentId": "seals",
+      "function": "Close leakage paths at moving and removable boundaries.",
+      "claims": [
+        {
+          "statement": "Sealing at crystal, crown and rear closure is a general watch-construction requirement.",
+          "basis": "inferred",
+          "referenceIds": [
+            "manual",
+            "catalog"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "defer",
+        "referenceIds": [
+          "manual",
+          "catalog"
+        ],
+        "shape": "Keep seal interfaces in the assembly plan; do not invent an exact count or cross-section.",
+        "materialBehavior": "Elastomer appearance only as an explicitly illustrative representation.",
+        "hiddenSurfaces": "Need exact seats/contact geometry from a service or disassembly reference.",
+        "exclude": [
+          "A fictional production gasket specification"
+        ],
+        "acceptanceChecks": [
+          "Explain where protection depends on interfaces, not glass alone.",
+          "Mark any simplified seals as illustrative.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically."
+        ]
+      },
+      "unknowns": [
+        "Exact count, section, dimensions, compound and seating."
+      ]
+    },
+    {
+      "componentId": "movement",
+      "function": "Hold the mechanism’s pivots and working parts in their intended relationships.",
+      "claims": [
+        {
+          "statement": "The rear/family views show separate plates, screws and jeweled pivot regions.",
+          "basis": "observed",
+          "referenceIds": [
+            "back",
+            "caliber",
+            "manufacturing"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "source-model",
+        "referenceIds": [
+          "back",
+          "caliber",
+          "manufacturing",
+          "sjx-macro-4",
+          "sjx-macro-5",
+          "sjx-macro-7"
+        ],
+        "shape": "Build the visible bridge silhouette from references and keep it separate from the rotor; obtain underside references before claiming a full reconstruction.",
+        "materialBehavior": "Industrial metal finishes with small jewel and screw surfaces.",
+        "hiddenSurfaces": "Hidden supports and dial-side works require more evidence.",
+        "exclude": [
+          "A flat photograph of the whole movement",
+          "Invented engraved lettering"
+        ],
+        "acceptanceChecks": [
+          "Removing the rotor reveals coherent underlying geometry.",
+          "Visible screw/pivot locations correspond to the selected reference.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically."
+        ]
+      },
+      "unknowns": [
+        "Exact movement subtype/year, plate dimensions, hidden layout and jewel count for the target specimen."
+      ]
+    },
+    {
+      "componentId": "rotor",
+      "function": "Convert wrist motion into winding input for the stored-energy system.",
+      "claims": [
+        {
+          "statement": "A signed rotor turns about a central bearing in the rear references.",
+          "basis": "observed",
+          "referenceIds": [
+            "back",
+            "caliber",
+            "mechanism"
+          ]
+        },
+        {
+          "statement": "Exact-model rear macros show fine straight brushing across the rotor face and a contrasting radial finish on the peripheral band. Appearance does not establish substrate or plating.",
+          "basis": "observed",
+          "referenceIds": [
+            "back",
+            "sjx-macro-4"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "model-part",
+        "referenceIds": [
+          "back",
+          "caliber",
+          "mechanism",
+          "sjx-macro-4",
+          "sjx-macro-5",
+          "sjx-macro-7"
+        ],
+        "shape": "Independent weighted sector and central bearing, with pivot aligned to the movement axis.",
+        "materialBehavior": "Silver-colored metal with straight grain on the face and radial grain on the weighted rim. Shallow engraving, grain normals and varying roughness respond to the shared lighting; no painted highlights. Substrate and plating remain unverified. Preserve finish maps in the exported GLB.",
+        "hiddenSurfaces": "Back and edge must stay plausible over a complete turn.",
+        "exclude": [
+          "Bridges welded to the rotor",
+          "Stationary movement texture on its surface"
+        ],
+        "acceptanceChecks": [
+          "Rotate around the bearing without rotating the bridges.",
+          "Show that winding supplies stored energy rather than directly driving the hands.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically.",
+          "Engraving exists only on front cap triangles; no text crosses cutouts or appears on the bare reverse. The weighted outer band has visible depth and a radial finish under the shared scene rig."
+        ]
+      },
+      "unknowns": [
+        "Mass distribution, underside geometry and automatic-winding linkage.",
+        "Exact rotor substrate, peripheral-weight alloy and any plating/coating; these cannot be established from photos or the case-material specification."
+      ]
+    },
+    {
+      "componentId": "winding-train",
+      "function": "Transfer rotor motion to the mainspring winding system.",
+      "claims": [
+        {
+          "statement": "An automatic movement needs a transmission between rotor and mainspring.",
+          "basis": "inferred",
+          "referenceIds": [
+            "mechanism",
+            "caliber"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "defer",
+        "referenceIds": [
+          "mechanism",
+          "caliber",
+          "sjx-macro-4",
+          "sjx-macro-5",
+          "sjx-macro-7"
+        ],
+        "shape": "Use a documented mechanism layout or an explicit educational simplification; do not position guessed gears under the rotor.",
+        "materialBehavior": "Distinct gear bodies and pivots, not decorative moving cogs.",
+        "hiddenSurfaces": "Need reversing/reduction layout and rotor-removed reference.",
+        "exclude": [
+          "Unsupported claims about winding direction or gear ratios"
+        ],
+        "acceptanceChecks": [
+          "Rotor motion follows a physically connected path toward stored energy.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically."
+        ]
+      },
+      "unknowns": [
+        "H-10-specific reversing arrangement, gear positions and tooth counts."
+      ]
+    },
+    {
+      "componentId": "barrel",
+      "function": "Store winding energy and deliver torque to the wheel train.",
+      "claims": [
+        {
+          "statement": "A mainspring housed in a barrel stores mechanical energy.",
+          "basis": "documented",
+          "referenceIds": [
+            "mechanism"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "defer",
+        "referenceIds": [
+          "mechanism"
+        ],
+        "shape": "Separate drum, arbor and coiled spring for an educational cutaway; exact H-10 dimensions remain pending.",
+        "materialBehavior": "Metal surfaces; spring movement should illustrate stored tension rather than act as decoration.",
+        "hiddenSurfaces": "The spring inside the barrel needs a documented or labeled simplified construction.",
+        "exclude": [
+          "A claim that the visible rotor is the energy store"
+        ],
+        "acceptanceChecks": [
+          "Show winding energy accumulating before release.",
+          "Label the cutaway as illustrative until matched to a service reference.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically."
+        ]
+      },
+      "unknowns": [
+        "Spring dimensions/alloy, barrel size and specific extended-reserve changes."
+      ]
+    },
+    {
+      "componentId": "wheel-train",
+      "function": "Carry power between the barrel, escapement and time display.",
+      "claims": [
+        {
+          "statement": "The wheel train transmits power through the mechanism.",
+          "basis": "documented",
+          "referenceIds": [
+            "mechanism"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "defer",
+        "referenceIds": [
+          "mechanism"
+        ],
+        "shape": "Connected wheel-and-pinion system based on a technical reference; schematic spacing is a separate educational mode.",
+        "materialBehavior": "Different metals only where supported; readable tooth contact and axes.",
+        "hiddenSurfaces": "Bridges cannot hide disconnected or intersecting wheels.",
+        "exclude": [
+          "Random gears",
+          "Invented tooth counts"
+        ],
+        "acceptanceChecks": [
+          "Show the direction of power through contacting components.",
+          "Keep exact ratios out of the story until supported.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically."
+        ]
+      },
+      "unknowns": [
+        "Wheel centers, tooth counts, arbor heights and hand-drive arrangement."
+      ]
+    },
+    {
+      "componentId": "escapement",
+      "function": "Release the train in controlled steps and deliver impulses to the oscillator.",
+      "claims": [
+        {
+          "statement": "The general mechanism alternately locks/releases the escape wheel and impulses the balance.",
+          "basis": "documented",
+          "referenceIds": [
+            "mechanism"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "defer",
+        "referenceIds": [
+          "mechanism"
+        ],
+        "shape": "Separate escape wheel and pallet fork in a documented or explicitly schematic arrangement.",
+        "materialBehavior": "Small mechanical contacts; do not imply unseen H-10 geometry is verified.",
+        "hiddenSurfaces": "Pallet contacts and impulse connection require a matched technical reference.",
+        "exclude": [
+          "Unconnected free-spinning decorative gears"
+        ],
+        "acceptanceChecks": [
+          "Explain release and impulse as two linked actions.",
+          "Show the regulator’s connection to the train.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically."
+        ]
+      },
+      "unknowns": [
+        "Variant-specific geometry, materials, tooth count and adjustment."
+      ]
+    },
+    {
+      "componentId": "balance",
+      "function": "Set the rhythm that regulates the escapement.",
+      "claims": [
+        {
+          "statement": "The family photo shows a balance region; the current catalog specifies Nivachron.",
+          "basis": "documented",
+          "referenceIds": [
+            "caliber",
+            "catalog",
+            "spring",
+            "mechanism"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "defer",
+        "referenceIds": [
+          "caliber",
+          "catalog",
+          "spring",
+          "mechanism",
+          "sjx-macro-4",
+          "sjx-macro-5",
+          "sjx-macro-7"
+        ],
+        "shape": "Independent oscillating wheel and fine coiled spring; scale and anchoring must be supported or labeled illustrative.",
+        "materialBehavior": "Fine metal structures, with slow-motion used explicitly for explanation.",
+        "hiddenSurfaces": "Spring attachment and clearance must remain coherent throughout the animation.",
+        "exclude": [
+          "A spring that rotates continuously with the wheel",
+          "Unverified oscillator frequency"
+        ],
+        "acceptanceChecks": [
+          "Distinguish regulating the release from supplying the power.",
+          "Preserve a visibly connected spring during oscillation.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically."
+        ]
+      },
+      "unknowns": [
+        "Spring dimensions, balance geometry and applicability to older specimens."
+      ]
+    },
+    {
+      "componentId": "strap",
+      "function": "Connect the watch case to the wearer.",
+      "claims": [
+        {
+          "statement": "The photographs show a dark textured outer face, pale lining and contrasting stitches.",
+          "basis": "observed",
+          "referenceIds": [
+            "front",
+            "laid",
+            "catalog"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "model-part",
+        "referenceIds": [
+          "front",
+          "laid",
+          "catalog"
+        ],
+        "shape": "Two properly joined strap halves with thickness and lug attachment, regrouping fragments into continuous pieces.",
+        "materialBehavior": "Nonmetallic leather with subtle grain and separate stitch geometry/texture.",
+        "hiddenSurfaces": "Inner lining, edges and attachment ends must survive rotation.",
+        "exclude": [
+          "Metallic leather",
+          "Disconnected arbitrary segmentation fragments"
+        ],
+        "acceptanceChecks": [
+          "Rotate to the lining and inspect complete edges.",
+          "Fit the strap to the lug gap without gaps or penetration.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically."
+        ]
+      },
+      "unknowns": [
+        "Leather treatment, layer build-up, exact stitching and spring-bar specification."
+      ]
+    },
+    {
+      "componentId": "buckle",
+      "function": "Secure the strap at an adjustable length.",
+      "claims": [
+        {
+          "statement": "The catalog identifies a pin buckle.",
+          "basis": "documented",
+          "referenceIds": [
+            "catalog"
+          ]
+        }
+      ],
+      "reconstruction": {
+        "method": "defer",
+        "referenceIds": [
+          "catalog"
+        ],
+        "shape": "Separate frame, tang and strap attachment based on a dedicated reference.",
+        "materialBehavior": "Metal contrasting with the leather.",
+        "hiddenSurfaces": "Underside and tang pivot need references.",
+        "exclude": [
+          "A generated decorative clasp with no working connection"
+        ],
+        "acceptanceChecks": [
+          "Tang and strap-hole relationship is understandable.",
+          "Inspect the full 360-degree surface, including the reverse and cutouts, before reseating; preserve material opacity and clear surrounding parts physically."
+        ]
+      },
+      "unknowns": [
+        "Buckle underside, mark geometry and attachment dimensions."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": "crystal",
+      "to": "hands",
+      "relationship": "covers without containing hand markings",
+      "basis": "observed",
+      "referenceIds": [
+        "macro"
+      ]
+    },
+    {
+      "from": "hands",
+      "to": "dial",
+      "relationship": "moves above a stationary scale",
+      "basis": "observed",
+      "referenceIds": [
+        "macro"
+      ]
+    },
+    {
+      "from": "case",
+      "to": "movement",
+      "relationship": "houses the mechanism",
+      "basis": "observed",
+      "referenceIds": [
+        "back"
+      ]
+    },
+    {
+      "from": "caseback",
+      "to": "rear-window",
+      "relationship": "retains the transparent rear opening",
+      "basis": "observed",
+      "referenceIds": [
+        "back"
+      ]
+    },
+    {
+      "from": "rear-window",
+      "to": "rotor",
+      "relationship": "allows viewing the rotor behind it",
+      "basis": "observed",
+      "referenceIds": [
+        "back"
+      ]
+    },
+    {
+      "from": "rotor",
+      "to": "winding-train",
+      "relationship": "supplies winding input",
+      "basis": "inferred",
+      "referenceIds": [
+        "mechanism"
+      ]
+    },
+    {
+      "from": "winding-train",
+      "to": "barrel",
+      "relationship": "winds the energy store",
+      "basis": "inferred",
+      "referenceIds": [
+        "mechanism"
+      ]
+    },
+    {
+      "from": "crown",
+      "to": "barrel",
+      "relationship": "supplies manual winding input",
+      "basis": "inferred",
+      "referenceIds": [
+        "manual"
+      ]
+    },
+    {
+      "from": "barrel",
+      "to": "wheel-train",
+      "relationship": "supplies torque",
+      "basis": "inferred",
+      "referenceIds": [
+        "mechanism"
+      ]
+    },
+    {
+      "from": "wheel-train",
+      "to": "escapement",
+      "relationship": "transmits stored power",
+      "basis": "inferred",
+      "referenceIds": [
+        "mechanism"
+      ]
+    },
+    {
+      "from": "escapement",
+      "to": "balance",
+      "relationship": "delivers impulses",
+      "basis": "inferred",
+      "referenceIds": [
+        "mechanism"
+      ]
+    },
+    {
+      "from": "balance",
+      "to": "escapement",
+      "relationship": "regulates the release rhythm",
+      "basis": "inferred",
+      "referenceIds": [
+        "mechanism"
+      ]
+    },
+    {
+      "from": "wheel-train",
+      "to": "hands",
+      "relationship": "provides the time-display drive",
+      "basis": "inferred",
+      "referenceIds": [
+        "mechanism"
+      ]
+    },
+    {
+      "from": "movement",
+      "to": "wheel-train",
+      "relationship": "supports the pivots",
+      "basis": "inferred",
+      "referenceIds": [
+        "mechanism"
+      ]
+    },
+    {
+      "from": "case",
+      "to": "strap",
+      "relationship": "connects through the lugs",
+      "basis": "observed",
+      "referenceIds": [
+        "laid"
+      ]
+    },
+    {
+      "from": "strap",
+      "to": "buckle",
+      "relationship": "forms an adjustable wrist attachment",
+      "basis": "inferred",
+      "referenceIds": [
+        "catalog"
+      ]
+    }
+  ],
+  "unresolved": [
+    "Rear-window material is not separately established.",
+    "Exact H-10 subtype and year-specific differences are unresolved; a family photo is not a service drawing.",
+    "The first-hand 2019 article says 23 jewels but its photograph visibly says 25. Do not copy its subtype claim without stronger evidence.",
+    "The ETA PDF candidate could not be retrieved and its applicability is unverified; it is not included as supporting evidence.",
+    "No matched rotor-removed or dial-side teardown has yet established the full internal arrangement.",
+    "Clean dial geometry and lettering must be rebuilt rather than blacking out hands in the input photograph.",
+    "Existing generated watch is a reference draft only; no component is assumed production-accurate."
+  ],
+  "requiredComponentWork": [
+    {
+      "componentId": "crystal",
+      "method": "model-part"
+    },
+    {
+      "componentId": "hands",
+      "method": "model-part"
+    },
+    {
+      "componentId": "dial",
+      "method": "model-part"
+    },
+    {
+      "componentId": "case",
+      "method": "model-part"
+    },
+    {
+      "componentId": "crown",
+      "method": "model-part"
+    },
+    {
+      "componentId": "caseback",
+      "method": "model-part"
+    },
+    {
+      "componentId": "rear-window",
+      "method": "model-part"
+    },
+    {
+      "componentId": "seals",
+      "method": "defer"
+    },
+    {
+      "componentId": "movement",
+      "method": "source-model"
+    },
+    {
+      "componentId": "rotor",
+      "method": "model-part"
+    },
+    {
+      "componentId": "winding-train",
+      "method": "defer"
+    },
+    {
+      "componentId": "barrel",
+      "method": "defer"
+    },
+    {
+      "componentId": "wheel-train",
+      "method": "defer"
+    },
+    {
+      "componentId": "escapement",
+      "method": "defer"
+    },
+    {
+      "componentId": "balance",
+      "method": "defer"
+    },
+    {
+      "componentId": "strap",
+      "method": "model-part"
+    },
+    {
+      "componentId": "buckle",
+      "method": "defer"
+    }
+  ],
+  "requiredVisualReview": [
+    {
+      "id": "complete-turn",
+      "check": "Inspect every component through 360 degrees under the scene lighting. Reconstruct the reverse, thickness, cavities and interfaces from evidence; mark inferred geometry explicitly."
+    },
+    {
+      "id": "surface-bound-detail",
+      "check": "Place printing, inlays and engraving on their physical supporting surfaces. Cutouts remain empty; markings cannot float over holes or appear on an undocumented reverse face."
+    },
+    {
+      "id": "coherent-materials",
+      "check": "Render parts together under one fixed lighting rig and exposure. Separate base color, roughness and surface relief; do not bake photographic highlights or shadows into a new material to fake a finish."
+    },
+    {
+      "id": "material-evidence",
+      "check": "Separate verified substrate/plating from photo-observed finish. Do not infer an alloy from silver color. Match grain direction and scale, distinguish adjoining finishes, and check their response throughout a turn. Export normal and roughness maps and reopen the exported asset to verify they survive."
+    },
+    {
+      "id": "every-component-material",
+      "check": "Complete a material review for every component, including hidden/rear surfaces and small fittings. Compare related materials under the same lighting and backdrop; any difference in tint, grain, roughness, reflection or transparency needs evidence or an explicit approximation. Glass receives consistent optical treatment wherever it occurs; shape and composition may legitimately differ. Do not approve an entire assembly because one hero part passed."
+    },
+    {
+      "id": "reference-detail",
+      "check": "Compare identifying silhouettes and details with multiple inspected references, including macro and reverse views. Increasing texture resolution does not repair incorrect geometry."
+    },
+    {
+      "id": "physical-continuity",
+      "check": "Clear neighboring parts before a full inspection turn. Use physical separation and camera travel, never opacity fades or visibility toggles. Return to the assembly orientation before reseating; verify both scroll directions."
+    }
+  ],
+  "requiredMaterialReview": [
+    {
+      "componentId": "crystal",
+      "status": "pending",
+      "targetBehavior": "Transparent dielectric with an edge, transmission and restrained moving reflections.",
+      "referenceIds": [
+        "catalog",
+        "macro",
+        "laid",
+        "rolled",
+        "sapphire"
+      ],
+      "unknowns": [
+        "Edge profile, thickness and coating specification."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    },
+    {
+      "componentId": "hands",
+      "status": "pending",
+      "targetBehavior": "Separate metal and luminous inlays; do not make the pale fill metallic.",
+      "referenceIds": [
+        "front",
+        "macro",
+        "rolled"
+      ],
+      "unknowns": [
+        "Exact hub heights, thicknesses, luminous grade and manufacturing route."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    },
+    {
+      "componentId": "dial",
+      "status": "pending",
+      "targetBehavior": "Matte/satin nonmetallic face, fine print/lume relief rather than cratered geometry.",
+      "referenceIds": [
+        "front",
+        "macro"
+      ],
+      "unknowns": [
+        "Exact dial diameter/thickness, attachment feet, print/lume layering and factory process."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    },
+    {
+      "componentId": "case",
+      "status": "pending",
+      "targetBehavior": "Directional brushed regions and polished regions use different roughness, without baked white streaks.",
+      "referenceIds": [
+        "catalog",
+        "macro",
+        "laid"
+      ],
+      "unknowns": [
+        "Internal diameters, seat depths, thread profile, alloy and actual machining sequence."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    },
+    {
+      "componentId": "crown",
+      "status": "pending",
+      "targetBehavior": "Polished/brushed metal with actual knurl geometry where the closeup needs it.",
+      "referenceIds": [
+        "macro",
+        "laid",
+        "manual"
+      ],
+      "unknowns": [
+        "Stem profile, travel, gasket seats and exact setting-work layout."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    },
+    {
+      "componentId": "caseback",
+      "status": "pending",
+      "targetBehavior": "Brushed ring with appropriate edge highlights.",
+      "referenceIds": [
+        "back",
+        "catalog"
+      ],
+      "unknowns": [
+        "Thread dimensions, window retention and sealing arrangement."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    },
+    {
+      "componentId": "rear-window",
+      "status": "pending",
+      "targetBehavior": "Clear dielectric with the same neutral color, roughness, transmission and reflection environment as the front glass. Flat photo-informed profile with rounded edges; do not copy the curved front. IOR 1.5 is an optical presentation assumption, not a verified composition. Use the same contrasting inspection backdrop for every glass component.",
+      "referenceIds": [
+        "back",
+        "catalog"
+      ],
+      "unknowns": [
+        "Material, thickness, profile and gasket/retention details."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    },
+    {
+      "componentId": "seals",
+      "status": "pending",
+      "targetBehavior": "Elastomer appearance only as an explicitly illustrative representation.",
+      "referenceIds": [
+        "manual",
+        "catalog"
+      ],
+      "unknowns": [
+        "Exact count, section, dimensions, compound and seating."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    },
+    {
+      "componentId": "movement",
+      "status": "pending",
+      "targetBehavior": "Industrial metal finishes with small jewel and screw surfaces.",
+      "referenceIds": [
+        "back",
+        "caliber",
+        "manufacturing",
+        "sjx-macro-4",
+        "sjx-macro-5",
+        "sjx-macro-7"
+      ],
+      "unknowns": [
+        "Exact movement subtype/year, plate dimensions, hidden layout and jewel count for the target specimen."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    },
+    {
+      "componentId": "rotor",
+      "status": "pending",
+      "targetBehavior": "Silver-colored metal with straight grain on the face and radial grain on the weighted rim. Shallow engraving, grain normals and varying roughness respond to the shared lighting; no painted highlights. Substrate and plating remain unverified. Preserve finish maps in the exported GLB.",
+      "referenceIds": [
+        "back",
+        "caliber",
+        "mechanism",
+        "sjx-macro-4",
+        "sjx-macro-5",
+        "sjx-macro-7"
+      ],
+      "unknowns": [
+        "Mass distribution, underside geometry and automatic-winding linkage.",
+        "Exact rotor substrate, peripheral-weight alloy and any plating/coating; these cannot be established from photos or the case-material specification."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    },
+    {
+      "componentId": "winding-train",
+      "status": "pending",
+      "targetBehavior": "Distinct gear bodies and pivots, not decorative moving cogs.",
+      "referenceIds": [
+        "mechanism",
+        "caliber",
+        "sjx-macro-4",
+        "sjx-macro-5",
+        "sjx-macro-7"
+      ],
+      "unknowns": [
+        "H-10-specific reversing arrangement, gear positions and tooth counts."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    },
+    {
+      "componentId": "barrel",
+      "status": "pending",
+      "targetBehavior": "Metal surfaces; spring movement should illustrate stored tension rather than act as decoration.",
+      "referenceIds": [
+        "mechanism"
+      ],
+      "unknowns": [
+        "Spring dimensions/alloy, barrel size and specific extended-reserve changes."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    },
+    {
+      "componentId": "wheel-train",
+      "status": "pending",
+      "targetBehavior": "Different metals only where supported; readable tooth contact and axes.",
+      "referenceIds": [
+        "mechanism"
+      ],
+      "unknowns": [
+        "Wheel centers, tooth counts, arbor heights and hand-drive arrangement."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    },
+    {
+      "componentId": "escapement",
+      "status": "pending",
+      "targetBehavior": "Small mechanical contacts; do not imply unseen H-10 geometry is verified.",
+      "referenceIds": [
+        "mechanism"
+      ],
+      "unknowns": [
+        "Variant-specific geometry, materials, tooth count and adjustment."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    },
+    {
+      "componentId": "balance",
+      "status": "pending",
+      "targetBehavior": "Fine metal structures, with slow-motion used explicitly for explanation.",
+      "referenceIds": [
+        "caliber",
+        "catalog",
+        "spring",
+        "mechanism",
+        "sjx-macro-4",
+        "sjx-macro-5",
+        "sjx-macro-7"
+      ],
+      "unknowns": [
+        "Spring dimensions, balance geometry and applicability to older specimens."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    },
+    {
+      "componentId": "strap",
+      "status": "pending",
+      "targetBehavior": "Nonmetallic leather with subtle grain and separate stitch geometry/texture.",
+      "referenceIds": [
+        "front",
+        "laid",
+        "catalog"
+      ],
+      "unknowns": [
+        "Leather treatment, layer build-up, exact stitching and spring-bar specification."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    },
+    {
+      "componentId": "buckle",
+      "status": "pending",
+      "targetBehavior": "Metal contrasting with the leather.",
+      "referenceIds": [
+        "catalog"
+      ],
+      "unknowns": [
+        "Buckle underside, mark geometry and attachment dimensions."
+      ],
+      "views": [
+        "assembled",
+        "isolated-front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "note": "Record observed finish separately from verified substrate/coating, compare related surfaces, and record remaining mismatches. This plan entry is not a passed review."
+    }
+  ],
+  "note": "The single-photo Tripo adapter produces an exterior draft. It cannot execute component modeling, sourcing, or hidden-part reconstruction. An exterior draft is not a finished educational assembly."
+}

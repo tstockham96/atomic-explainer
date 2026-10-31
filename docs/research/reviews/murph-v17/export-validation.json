@@ -1,0 +1,11 @@
+{
+  "name": "export-validation",
+  "missing": [],
+  "opticalSolids": 2,
+  "annotatedParts": 16,
+  "portableFinishes": true,
+  "animations": [
+    "Rotor_swing"
+  ],
+  "bytes": 37685380
+}

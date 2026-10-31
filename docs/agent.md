@@ -25,7 +25,7 @@ Pieces, if you want to stop between steps:
 - `generateMotion(spec, outDir, video)` makes the rotation and explode clips, then extracts frames.
 - `extractFrames(videoPath, outDir, { fps, skips })` is ffmpeg only.
 - `renderSite(spec, outDir)`
-- `solid3d` — interface only. `available` is `false`. Calling `reconstruct` throws `TODO(explode-3d)`.
+- `solid3d` — Tripo image-to-model and semantic segmentation adapter. `reconstruct` takes `spec`, `sourcePhoto`, and `outDir`; returns a draft scene spec and writes geometry plus coverage reports. Live visual quality is not yet validated. `explode_run` accepts `three: true`. See [photo-to-3D details](photo-to-3d.md).
 
 ## MCP
 

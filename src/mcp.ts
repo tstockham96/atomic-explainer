@@ -117,7 +117,7 @@ export function createServer() {
       try {
         const raw = JSON.parse(await readFile(specPath, "utf8")) as unknown
         const spec = normalizeSpec(explodeSpecSchema.parse(raw))
-        const index = await renderSite(spec, outDir)
+        const index = await renderSite(spec, outDir, { assetRoot: path.dirname(path.resolve(specPath)) })
         return text({ index, item: spec.item.name, parts: spec.components.length })
       } catch (error) {
         return failure(error)
@@ -136,9 +136,11 @@ export function createServer() {
         outDir: z.string().optional(),
         skipImages: z.boolean().optional(),
         motion: z.boolean().optional().describe("Also generate rotation and explode clips, then extract WebP frames"),
+        planOnly: z.boolean().optional().describe("Save research and a construction plan only; do not generate geometry or images"),
+        three: z.boolean().optional().describe("Generate a textured multipart 3D draft with Tripo instead of images; needs TRIPO_API_KEY and OPENAI_API_KEY"),
       },
     },
-    async ({ imagePath, outDir, skipImages, motion }) => {
+    async ({ imagePath, outDir, skipImages, motion, three, planOnly }) => {
       try {
         const destination = outDir ?? "./explode-out"
         const spec = await runExplode({
@@ -146,10 +148,12 @@ export function createServer() {
           outDir: destination,
           skipImages: skipImages ?? false,
           motion: motion ?? false,
+          three: three ?? false,
+          planOnly: planOnly ?? false,
         })
         return text({
           outDir: path.resolve(destination),
-          index: path.resolve(destination, "index.html"),
+          ...(planOnly ? {plan: path.resolve(destination, "construction-plan.json")} : {index: path.resolve(destination, "index.html")}),
           item: spec.item,
           components: spec.components.map((component) => component.name),
           warnings: spec.generation?.warnings ?? [],

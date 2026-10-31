@@ -1,0 +1,209 @@
+import { isTransmitting, createOpticalBackdrop } from './optics.ts'
+import * as THREE from "three"
+import { createStudioEnvironment, createGlassEnvironment } from "./studio.ts"
+import { cameraShot, poseModel, frameBox, STORY_FOV } from "./choreography.ts"
+import type { ExplodeSpec } from "../../spec/schema.ts"
+import { loadModel } from "./loadModel.ts"
+
+export type Atmosphere = "daylight" | "midnight"
+export interface SceneHandle {
+  setProgress: (value: number) => void
+  setAtmosphere: (value: Atmosphere) => void
+  setPaused: (value: boolean) => void
+  capture: () => string
+  dispose: () => void
+}
+
+export interface PartLabel { id: string; x: number; y: number; visible: boolean }
+
+export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, onError: (message: string) => void, onFrame?: (labels: PartLabel[]) => void, onImages?: (images: Record<string, string>) => void): Promise<SceneHandle> {
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: "high-performance" })
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75))
+  renderer.outputColorSpace = THREE.SRGBColorSpace
+  renderer.toneMapping = THREE.ACESFilmicToneMapping
+  renderer.toneMappingExposure = 1.05
+  const scene = new THREE.Scene()
+  const camera = new THREE.PerspectiveCamera(STORY_FOV, 1, 0.05, 300)
+  camera.position.set(0, 0.25, 16)
+  const environment = createStudioEnvironment(renderer)
+  scene.environment = environment.texture
+  scene.environmentIntensity = 0.9
+  scene.background = new THREE.Color('#e9eeeb')
+  const backdrop = createOpticalBackdrop(scene.background); scene.add(backdrop)
+  const render = () => renderer.render(scene, camera)
+  const sky = new THREE.HemisphereLight(0xeaf4ff, 0x9c8c78, 2.0)
+  const key = new THREE.DirectionalLight(0xfff2db, 3.2)
+  key.position.set(-4, 7, 6)
+  const rim = new THREE.DirectionalLight(0xc3dfff, 2.4)
+  rim.position.set(5, 1, -4)
+  const fill = new THREE.DirectionalLight(0xffffff, 0.8)
+  fill.position.set(-6, -3, 2)
+  scene.add(sky, key, rim, fill)
+
+  let model
+  try { model = await loadModel(spec) } catch (error) {
+    environment.dispose(); backdrop.geometry.dispose(); backdrop.material.dispose(); renderer.dispose()
+    throw error
+  }
+  scene.add(model.root)
+  const glassEnvironment = createGlassEnvironment(renderer)
+  // Preserve material appearance during the story; isolation is physical movement.
+  const originalMaterials = new Set<THREE.Material>()
+  model.parts.forEach((part) => {
+    const copies = new Map<THREE.Material, THREE.Material>()
+    part.group.traverse((node) => {
+      if (!(node instanceof THREE.Mesh)) return
+      const copy = (material: THREE.Material) => {
+        originalMaterials.add(material)
+        if (!copies.has(material)) {
+          const cloned = material.clone()
+          if (isTransmitting(cloned)) { cloned.envMap = glassEnvironment.texture; cloned.envMapIntensity = .7 }
+          if (part.doubleSided) cloned.side = THREE.DoubleSide
+          copies.set(material, cloned)
+        }
+        return copies.get(material)!
+      }
+      node.material = Array.isArray(node.material) ? node.material.map(copy) : copy(node.material)
+    })
+  })
+  const stillUsed = new Set<THREE.Material>()
+  model.root.traverse((node) => { if (node instanceof THREE.Mesh) (Array.isArray(node.material) ? node.material : [node.material]).forEach((material) => stillUsed.add(material)) })
+  originalMaterials.forEach((material) => { if (!stillUsed.has(material)) material.dispose() })
+
+  host.appendChild(renderer.domElement)
+  renderer.domElement.setAttribute("aria-label", `${spec.item.name}: an interactive three-dimensional object. Scroll to explore or drag to rotate.`)
+  renderer.domElement.setAttribute("role", "img")
+
+  let progress = 0, displayed = 0, atmosphere: Atmosphere = "daylight", night = 0
+  let paused = false, visible = true, time = 0, lastTime = 0, disposed = false
+  let pointerX = 0, pointerY = 0, dragX = 0, dragY = 0, dragging = false, previousX = 0, previousY = 0
+  const look = new THREE.Vector3()
+
+  const resize = () => {
+    const width = host.clientWidth, height = host.clientHeight
+    renderer.setSize(width, height)
+    camera.aspect = width / Math.max(1, height)
+    camera.updateProjectionMatrix()
+  }
+  const observer = new ResizeObserver(resize)
+  observer.observe(host)
+  resize()
+
+  const move = (event: PointerEvent) => {
+    if (event.pointerType !== "mouse") return
+    const rect = host.getBoundingClientRect()
+    pointerX = ((event.clientX - rect.left) / rect.width - 0.5) * 2
+    pointerY = ((event.clientY - rect.top) / rect.height - 0.5) * 2
+    if (dragging) {
+      dragX += (event.clientX - previousX) * 0.005
+      dragY = THREE.MathUtils.clamp(dragY + (event.clientY - previousY) * 0.003, -0.7, 0.7)
+      previousX = event.clientX; previousY = event.clientY
+    }
+  }
+  const down = (event: PointerEvent) => {
+    if (event.pointerType !== "mouse" || event.button !== 0) return
+    dragging = true; previousX = event.clientX; previousY = event.clientY
+    renderer.domElement.setPointerCapture(event.pointerId)
+    renderer.domElement.style.cursor = "grabbing"
+  }
+  const up = () => { dragging = false; renderer.domElement.style.cursor = "grab" }
+  const leave = () => { pointerX = 0; pointerY = 0 }
+  const lost = (event: Event) => {
+    event.preventDefault()
+    renderer.setAnimationLoop(null)
+    onError("The 3D graphics context was interrupted. Reload the preview to restore it.")
+  }
+  renderer.domElement.style.cursor = "grab"
+  renderer.domElement.style.touchAction = "pan-y"
+  renderer.domElement.addEventListener("pointermove", move)
+  renderer.domElement.addEventListener("pointerdown", down)
+  renderer.domElement.addEventListener("pointerup", up)
+  renderer.domElement.addEventListener("pointercancel", up)
+  renderer.domElement.addEventListener("pointerleave", leave)
+  renderer.domElement.addEventListener("webglcontextlost", lost)
+
+  const frame = (milliseconds: number) => {
+    if (disposed || !visible || document.hidden) { lastTime = milliseconds; return }
+    const delta = Math.min((milliseconds - lastTime) / 1000 || 1 / 60, 0.05)
+    lastTime = milliseconds
+    if (!paused) time += delta
+    const damp = 1 - Math.exp(-delta * 9)
+    displayed = THREE.MathUtils.lerp(displayed, progress, damp)
+    if (Math.abs(displayed - progress) < 0.00001) displayed = progress
+    night = THREE.MathUtils.lerp(night, atmosphere === "midnight" ? 1 : 0, damp)
+    backdrop.material.color.set('#e9eeeb').lerp(new THREE.Color('#182c32'), night)
+    sky.intensity = THREE.MathUtils.lerp(2.0, 0.5, night)
+    key.intensity = THREE.MathUtils.lerp(3.2, 4.1, night)
+    rim.intensity = THREE.MathUtils.lerp(2.4, 4.8, night)
+    scene.environmentIntensity = THREE.MathUtils.lerp(0.9, 0.65, night)
+    renderer.toneMappingExposure = THREE.MathUtils.lerp(1.05, 0.9, night)
+    if (!dragging) {
+      dragX = THREE.MathUtils.lerp(dragX, 0, delta * 0.6)
+      dragY = THREE.MathUtils.lerp(dragY, 0, delta * 0.6)
+    }
+    const sample = poseModel(model, displayed)
+    model.root.rotation.y += pointerX * 0.015 + dragX
+    model.root.rotation.x += pointerY * 0.01 + dragY
+    model.animate(time)
+    model.root.updateMatrixWorld(true)
+    const shot = cameraShot(model, displayed, camera.aspect)
+    look.lerp(shot.target, damp)
+    camera.position.lerp(shot.position, damp)
+    camera.lookAt(look)
+    camera.updateMatrixWorld()
+    const showLabels = sample.separation > 0.995 && sample.focus < 0.015
+    if (onFrame) onFrame(model.parts.map((part) => {
+      const box = new THREE.Box3().setFromObject(part.group)
+      const projected = box.getCenter(new THREE.Vector3()).project(camera)
+      return { id: part.id, x: (projected.x + 1) * host.clientWidth / 2, y: (1 - projected.y) * host.clientHeight / 2, visible: showLabels && Math.abs(projected.x) < 0.95 && Math.abs(projected.y) < 0.85 }
+    }))
+    render()
+  }
+  if (onImages) {
+    const images: Record<string, string> = {}
+    renderer.setSize(480, 480, false)
+    camera.aspect = 1; camera.updateProjectionMatrix()
+    poseModel(model, 0)
+    const visibleNodes = model.parts.map((part) => part.group.visible)
+    for (const part of model.parts) {
+      model.parts.forEach((other) => { other.group.visible = other === part })
+      const shot = frameBox(new THREE.Box3().setFromObject(part.group), new THREE.Vector3(0.45, 0.3, 1).normalize(), 1, [0.8, 0.8])
+      camera.position.copy(shot.position); camera.lookAt(shot.target)
+      render()
+      images[part.id] = renderer.domElement.toDataURL("image/png")
+    }
+    model.parts.forEach((part, index) => { part.group.visible = visibleNodes[index]! })
+    resize()
+    onImages(images)
+  }
+  poseModel(model, progress)
+  const initialShot = cameraShot(model, progress, camera.aspect)
+  camera.position.copy(initialShot.position); look.copy(initialShot.target); camera.lookAt(look)
+  const visibility = new IntersectionObserver((entries) => {
+    visible = entries.some((entry) => entry.isIntersecting)
+    renderer.setAnimationLoop(visible ? frame : null)
+  })
+  visibility.observe(host)
+  renderer.setAnimationLoop(frame)
+
+  return {
+    setProgress: (value) => { progress = Math.max(0, Math.min(1, value)) },
+    setAtmosphere: (value) => { atmosphere = value },
+    setPaused: (value) => { paused = value },
+    capture: () => { render(); return renderer.domElement.toDataURL("image/png") },
+    dispose: () => {
+      disposed = true
+      renderer.setAnimationLoop(null)
+      observer.disconnect(); visibility.disconnect()
+      renderer.domElement.removeEventListener("pointermove", move)
+      renderer.domElement.removeEventListener("pointerdown", down)
+      renderer.domElement.removeEventListener("pointerup", up)
+      renderer.domElement.removeEventListener("pointercancel", up)
+      renderer.domElement.removeEventListener("pointerleave", leave)
+      renderer.domElement.removeEventListener("webglcontextlost", lost)
+      model.dispose(); glassEnvironment.dispose(); backdrop.geometry.dispose(); backdrop.material.dispose(); environment.dispose()
+      renderer.dispose()
+      renderer.domElement.remove()
+    },
+  }
+}

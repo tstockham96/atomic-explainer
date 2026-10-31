@@ -1,0 +1,586 @@
+{
+  "version": 1,
+  "item": {
+    "name": "iPhone 18 Pro",
+    "maker": "Apple",
+    "model": "iPhone 18 Pro",
+    "category": "smartphone",
+    "year": "2026",
+    "summary": "Research-only cross-object evaluation; no generated phone model is supplied."
+  },
+  "components": [
+    {
+      "id": "display",
+      "name": "Display",
+      "material": "OLED display; Ceramic Shield 2 front",
+      "howItsMade": "Convert electrical signals into visible pixels. Manufacturing details are unresolved.",
+      "funFacts": [
+        "Convert electrical signals into visible pixels."
+      ],
+      "order": 0
+    },
+    {
+      "id": "back-glass",
+      "name": "Back glass",
+      "material": "Ceramic Shield back",
+      "howItsMade": "Close the rear of the enclosure. Manufacturing details are unresolved.",
+      "funFacts": [
+        "Close the rear of the enclosure."
+      ],
+      "order": 1
+    },
+    {
+      "id": "battery",
+      "name": "Battery",
+      "material": "Rechargeable lithium-ion; pack geometry not inspected",
+      "howItsMade": "Store electrical energy for the device. Manufacturing details are unresolved.",
+      "funFacts": [
+        "Store electrical energy for the device."
+      ],
+      "order": 2
+    },
+    {
+      "id": "rear-cameras",
+      "name": "Rear camera assembly",
+      "material": "Optical and electronic assembly; internal materials unverified",
+      "howItsMade": "Convert incoming light into image data. Manufacturing details are unresolved.",
+      "funFacts": [
+        "Convert incoming light into image data."
+      ],
+      "order": 3
+    },
+    {
+      "id": "front-camera",
+      "name": "Front camera",
+      "material": "Internal materials unverified",
+      "howItsMade": "Capture a front-facing image. Manufacturing details are unresolved.",
+      "funFacts": [
+        "Capture a front-facing image."
+      ],
+      "order": 4
+    },
+    {
+      "id": "logic-board",
+      "name": "Logic board",
+      "material": "Board stack and package materials unverified",
+      "howItsMade": "Connect processing, power and peripheral electronics. Manufacturing details are unresolved.",
+      "funFacts": [
+        "Connect processing, power and peripheral electronics."
+      ],
+      "order": 5
+    },
+    {
+      "id": "taptic-engine",
+      "name": "Taptic Engine",
+      "material": "Internal materials unverified",
+      "howItsMade": "Convert electrical input into tactile motion. Manufacturing details are unresolved.",
+      "funFacts": [
+        "Convert electrical input into tactile motion."
+      ],
+      "order": 6
+    },
+    {
+      "id": "top-speaker",
+      "name": "Top speaker",
+      "material": "Internal materials unverified",
+      "howItsMade": "Convert electrical signals into sound. Manufacturing details are unresolved.",
+      "funFacts": [
+        "Convert electrical signals into sound."
+      ],
+      "order": 7
+    },
+    {
+      "id": "bottom-speaker",
+      "name": "Bottom speaker",
+      "material": "Regional variant and internal materials unverified",
+      "howItsMade": "Convert electrical signals into sound. Manufacturing details are unresolved.",
+      "funFacts": [
+        "Convert electrical signals into sound."
+      ],
+      "order": 8
+    },
+    {
+      "id": "usb-c",
+      "name": "USB-C connector",
+      "material": "Contact and housing alloys unverified",
+      "howItsMade": "Provide a wired power and data interface. Manufacturing details are unresolved.",
+      "funFacts": [
+        "Provide a wired power and data interface."
+      ],
+      "order": 9
+    },
+    {
+      "id": "enclosure",
+      "name": "Enclosure",
+      "material": "Aluminum unibody; exact alloy not specified here",
+      "howItsMade": "Support and protect the internal assemblies. Manufacturing details are unresolved.",
+      "funFacts": [
+        "Support and protect the internal assemblies."
+      ],
+      "order": 10
+    }
+  ],
+  "facts": [
+    {
+      "label": "Width",
+      "value": "71.9 mm"
+    },
+    {
+      "label": "Height",
+      "value": "150.0 mm"
+    },
+    {
+      "label": "Depth",
+      "value": "8.75 mm"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Apple iPhone 18 Pro technical specifications",
+      "url": "https://www.apple.com/iphone-18-pro/specs/"
+    },
+    {
+      "title": "Apple iPhone 18 Pro repair manual contents",
+      "url": "https://support.apple.com/en-mide/127388"
+    }
+  ],
+  "understanding": {
+    "version": 1,
+    "identityScope": "iPhone 18 Pro, not Pro Max. eSIM target; regional hardware and internal dimensions require verification. This is a researched description case, not a live photo generation.",
+    "learningGoals": [
+      "Distinguish energy storage, processing and output.",
+      "Explain how light becomes image data.",
+      "Distinguish display, back closure and supporting enclosure."
+    ],
+    "references": [
+      {
+        "id": "specs",
+        "title": "Apple technical specifications",
+        "url": "https://www.apple.com/iphone-18-pro/specs/",
+        "kind": "specification",
+        "scope": "exact-model",
+        "observation": "Read model materials, exterior dimensions, OLED display, cameras, battery and wired connector specifications.",
+        "limitations": "Does not establish exact internal meshes, hidden materials or factory CAD."
+      },
+      {
+        "id": "manual",
+        "title": "Apple repair manual contents",
+        "url": "https://support.apple.com/en-mide/127388",
+        "kind": "manual",
+        "scope": "exact-model",
+        "observation": "Read the component/procedure inventory and regional eSIM/pSIM and antenna distinctions in the table of contents.",
+        "limitations": "Linked internal-view and procedure pages returned HTTP 429 during this audit. Their diagrams were not inspected; do not treat this inventory as observed internal geometry."
+      }
+    ],
+    "components": [
+      {
+        "componentId": "display",
+        "function": "Convert electrical signals into visible pixels.",
+        "claims": [
+          {
+            "statement": "Display is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "defer",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Obtain and inspect exact-model, region-matched views before constructing geometry.",
+          "materialBehavior": "OLED display; Ceramic Shield 2 front. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Not observed. Source additional references before reconstruction.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact internal geometry, finish, hidden surfaces and interfaces not established."
+        ]
+      },
+      {
+        "componentId": "back-glass",
+        "function": "Close the rear of the enclosure.",
+        "claims": [
+          {
+            "statement": "Back glass is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "defer",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Obtain and inspect exact-model, region-matched views before constructing geometry.",
+          "materialBehavior": "Ceramic Shield back. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Not observed. Source additional references before reconstruction.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact internal geometry, finish, hidden surfaces and interfaces not established."
+        ]
+      },
+      {
+        "componentId": "battery",
+        "function": "Store electrical energy for the device.",
+        "claims": [
+          {
+            "statement": "Battery is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "defer",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Obtain and inspect exact-model, region-matched views before constructing geometry.",
+          "materialBehavior": "Rechargeable lithium-ion; pack geometry not inspected. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Not observed. Source additional references before reconstruction.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact internal geometry, finish, hidden surfaces and interfaces not established."
+        ]
+      },
+      {
+        "componentId": "rear-cameras",
+        "function": "Convert incoming light into image data.",
+        "claims": [
+          {
+            "statement": "Rear camera assembly is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "defer",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Obtain and inspect exact-model, region-matched views before constructing geometry.",
+          "materialBehavior": "Optical and electronic assembly; internal materials unverified. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Not observed. Source additional references before reconstruction.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact internal geometry, finish, hidden surfaces and interfaces not established."
+        ]
+      },
+      {
+        "componentId": "front-camera",
+        "function": "Capture a front-facing image.",
+        "claims": [
+          {
+            "statement": "Front camera is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "defer",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Obtain and inspect exact-model, region-matched views before constructing geometry.",
+          "materialBehavior": "Internal materials unverified. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Not observed. Source additional references before reconstruction.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact internal geometry, finish, hidden surfaces and interfaces not established."
+        ]
+      },
+      {
+        "componentId": "logic-board",
+        "function": "Connect processing, power and peripheral electronics.",
+        "claims": [
+          {
+            "statement": "Logic board is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "defer",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Obtain and inspect exact-model, region-matched views before constructing geometry.",
+          "materialBehavior": "Board stack and package materials unverified. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Not observed. Source additional references before reconstruction.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact internal geometry, finish, hidden surfaces and interfaces not established."
+        ]
+      },
+      {
+        "componentId": "taptic-engine",
+        "function": "Convert electrical input into tactile motion.",
+        "claims": [
+          {
+            "statement": "Taptic Engine is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "defer",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Obtain and inspect exact-model, region-matched views before constructing geometry.",
+          "materialBehavior": "Internal materials unverified. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Not observed. Source additional references before reconstruction.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact internal geometry, finish, hidden surfaces and interfaces not established."
+        ]
+      },
+      {
+        "componentId": "top-speaker",
+        "function": "Convert electrical signals into sound.",
+        "claims": [
+          {
+            "statement": "Top speaker is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "defer",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Obtain and inspect exact-model, region-matched views before constructing geometry.",
+          "materialBehavior": "Internal materials unverified. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Not observed. Source additional references before reconstruction.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact internal geometry, finish, hidden surfaces and interfaces not established."
+        ]
+      },
+      {
+        "componentId": "bottom-speaker",
+        "function": "Convert electrical signals into sound.",
+        "claims": [
+          {
+            "statement": "Bottom speaker is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "defer",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Obtain and inspect exact-model, region-matched views before constructing geometry.",
+          "materialBehavior": "Regional variant and internal materials unverified. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Not observed. Source additional references before reconstruction.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact internal geometry, finish, hidden surfaces and interfaces not established."
+        ]
+      },
+      {
+        "componentId": "usb-c",
+        "function": "Provide a wired power and data interface.",
+        "claims": [
+          {
+            "statement": "USB-C connector is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "defer",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Obtain and inspect exact-model, region-matched views before constructing geometry.",
+          "materialBehavior": "Contact and housing alloys unverified. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Not observed. Source additional references before reconstruction.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact internal geometry, finish, hidden surfaces and interfaces not established."
+        ]
+      },
+      {
+        "componentId": "enclosure",
+        "function": "Support and protect the internal assemblies.",
+        "claims": [
+          {
+            "statement": "Enclosure is listed as a component or procedure in the repair manual contents.",
+            "basis": "documented",
+            "referenceIds": [
+              "manual"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "defer",
+          "referenceIds": [
+            "specs",
+            "manual"
+          ],
+          "shape": "Obtain and inspect exact-model, region-matched views before constructing geometry.",
+          "materialBehavior": "Aluminum unibody; exact alloy not specified here. Compare finish to inspected photographs; do not use watch-material presets.",
+          "hiddenSurfaces": "Not observed. Source additional references before reconstruction.",
+          "exclude": [
+            "Watch-specific components or copied watch materials",
+            "Guessed hidden details presented as exact"
+          ],
+          "acceptanceChecks": [
+            "Verify assembled, front, reverse and exported views against exact-model references.",
+            "Explain the component function and its physical interfaces."
+          ]
+        },
+        "unknowns": [
+          "Exact internal geometry, finish, hidden surfaces and interfaces not established."
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "from": "battery",
+        "to": "logic-board",
+        "relationship": "Supplies electrical energy through power circuitry; exact routing not modeled.",
+        "basis": "inferred",
+        "referenceIds": [
+          "specs"
+        ]
+      },
+      {
+        "from": "rear-cameras",
+        "to": "logic-board",
+        "relationship": "Image data is processed electronically; physical connection geometry not inspected.",
+        "basis": "inferred",
+        "referenceIds": [
+          "specs"
+        ]
+      },
+      {
+        "from": "logic-board",
+        "to": "display",
+        "relationship": "Provides processed display information; circuit detail is not reconstructed.",
+        "basis": "inferred",
+        "referenceIds": [
+          "specs"
+        ]
+      }
+    ],
+    "unresolved": [
+      "No input photograph, provider call, generated geometry or rendered phone exists for this case.",
+      "Obtain and inspect exact regional internal views before authoring hidden components.",
+      "Resolve internal dimensions, materials, connector interfaces and redistribution rights for any sourced model."
+    ]
+  }
+}

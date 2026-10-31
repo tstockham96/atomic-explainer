@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises"
+import { mkdir, readFile, writeFile } from "node:fs/promises"
 import path from "node:path"
 import { explodeSpecSchema, type ExplodeSpec, type Identity } from "../spec/schema.ts"
 import { normalizeSpec } from "../spec/normalize.ts"
@@ -11,6 +11,8 @@ import { generateVisuals } from "./visuals.ts"
 import { generateMotion } from "./motion.ts"
 import { resolveVideo } from "./models.ts"
 import type { SkipRange } from "../spec/frames.ts"
+import { reconstruct } from "./solid3d.ts"
+import { buildReconstructionPlan } from './understanding.ts'
 
 export interface RunOptions {
   photo?: string
@@ -19,12 +21,25 @@ export interface RunOptions {
   skipImages?: boolean
   /** Hero photo → rotation clip, hero+exploded → explode clip, then WebP frames. */
   motion?: boolean
+  three?: boolean
+  /** Research/plan only; never calls an image or geometry provider. */
+  planOnly?: boolean
   skips?: SkipRange[]
   log?: (message: string) => void
 }
 
 export async function runExplode(options: RunOptions): Promise<ExplodeSpec> {
   const log = options.log ?? (() => undefined)
+  if (options.planOnly && (options.three || options.motion)) throw new Error('Choose research planning or generation, not both.')
+  if (options.three) {
+    if (!options.photo) throw new Error("3D generation requires a source photo.")
+    const photo = await readPhoto(options.photo)
+    if (!["image/png", "image/jpeg"].includes(photo.mediaType) || photo.bytes.length > 20 * 1024 * 1024) throw new Error("3D generation needs a PNG or JPEG photo under 20 MB.")
+    if (options.motion) throw new Error("Choose 3D generation or video motion, not both.")
+    if (!process.env.TRIPO_API_KEY?.trim()) throw new Error("Set TRIPO_API_KEY in .env before generating 3D geometry.")
+    assertModels()
+    if (!options.specPath && !process.env.OPENAI_API_KEY?.trim()) throw new Error("Set OPENAI_API_KEY in .env for web-backed research.")
+  }
   let spec: ExplodeSpec
 
   if (options.specPath) {
@@ -42,7 +57,19 @@ export async function runExplode(options: RunOptions): Promise<ExplodeSpec> {
     throw new Error("Provide a photo path or --from-spec.")
   }
 
-  if (!options.skipImages) {
+  if (options.planOnly) {
+    await mkdir(options.outDir,{recursive:true})
+    await writeFile(path.join(options.outDir,'research.json'),JSON.stringify(spec,null,2))
+    const plan=buildReconstructionPlan(spec)
+    await writeFile(path.join(options.outDir,'construction-plan.json'),JSON.stringify(plan,null,2))
+    log(`Research plan saved · ${plan.status}. No geometry generated.`)
+    return spec
+  }
+  if (options.three) {
+    await mkdir(options.outDir, { recursive: true })
+    await writeFile(path.join(options.outDir, "research.json"), JSON.stringify(spec, null, 2))
+    spec = await reconstruct({ spec, sourcePhoto: options.photo!, outDir: options.outDir, log })
+  } else if (!options.skipImages) {
     if (!options.photo) {
       throw new Error("Photoreal edits need the uploaded photo as the reference. Pass the image path.")
     }
@@ -62,7 +89,7 @@ export async function runExplode(options: RunOptions): Promise<ExplodeSpec> {
     spec = await generateMotion(spec, options.outDir, video, log, { skips: options.skips })
   }
 
-  await renderSite(spec, options.outDir, { log })
+  await renderSite(spec, options.outDir, { log, assetRoot: options.three ? path.resolve(options.outDir) : options.specPath ? path.dirname(path.resolve(options.specPath)) : undefined })
   return spec
 }
 

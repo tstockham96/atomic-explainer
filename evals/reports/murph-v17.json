@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "object": "Hamilton Khaki Field Murph 42mm",
+  "mode": "authored",
+  "reviewer": "Codex audit against saved v17 front/oblique/reverse comparisons",
+  "independence": "self-review",
+  "status": "not-ready",
+  "scores": {
+    "design": {
+      "reviewed": 6,
+      "total": 6,
+      "mean": 1.3333333333333333
+    },
+    "model": {
+      "reviewed": 6,
+      "total": 6,
+      "mean": 1.6666666666666667
+    }
+  },
+  "gates": [
+    {
+      "id": "research-structure",
+      "status": "pass",
+      "detail": "Component plans and citation links are structurally valid; source entailment still requires review."
+    },
+    {
+      "id": "review-freshness",
+      "status": "pass",
+      "detail": "Review must match this exact spec hash and object."
+    },
+    {
+      "id": "asset-freshness",
+      "status": "unmeasured",
+      "detail": "Visual review must match the exact rendered asset, not only its spec."
+    },
+    {
+      "id": "experience-freshness",
+      "status": "unmeasured",
+      "detail": "Design review must match the exact viewer and layout source."
+    },
+    {
+      "id": "rendered-coverage",
+      "status": "fail",
+      "detail": "Missing actual geometry: buckle."
+    },
+    {
+      "id": "component-review-coverage",
+      "status": "pass",
+      "detail": "Missing reviews: none; duplicate/unknown reviews: 0."
+    },
+    {
+      "id": "complete-surface-review",
+      "status": "fail",
+      "detail": "Incomplete views/evidence: hands, dial, case, crown, caseback, seals, movement, winding-train, barrel, wheel-train, escapement, balance, strap, buckle."
+    },
+    {
+      "id": "reference-fidelity",
+      "status": "fail",
+      "detail": "Still approximate or unreviewed: crystal, hands, dial, case, crown, caseback, rear-window, seals, movement, rotor, winding-train, barrel, wheel-train, escapement, balance, strap, buckle."
+    },
+    {
+      "id": "artifact-evidence",
+      "status": "pass",
+      "detail": "Artifact existence is checked separately from the reviewer’s visual judgment."
+    },
+    {
+      "id": "learning-coverage",
+      "status": "pass",
+      "detail": "Every learning goal needs a question, expected explanation, component IDs and sources. Uncovered goals: none."
+    },
+    {
+      "id": "learner-validation",
+      "status": "unmeasured",
+      "detail": "A written teaching check is not evidence that a learner understood it."
+    },
+    {
+      "id": "learning-depth",
+      "status": "pass",
+      "detail": "Supply beginner identification/function, intermediate causal explanation, and advanced evidence/uncertainty questions. Level labels still require editorial review."
+    },
+    {
+      "id": "model-payload",
+      "status": "unmeasured",
+      "detail": "No model payload measured."
+    },
+    {
+      "id": "physical-continuity",
+      "status": "unmeasured",
+      "detail": "No measured motion run supplied."
+    },
+    {
+      "id": "optical-transmission",
+      "status": "pass",
+      "detail": "8 samples; minimum contrast retention 0.926."
+    },
+    {
+      "id": "rubric-validity",
+      "status": "pass",
+      "detail": "Unknown criteria are rejected. The top anchor requires independent review."
+    },
+    {
+      "id": "design-quality",
+      "status": "fail",
+      "detail": "6/6 anchored criteria reviewed; each must reach 3/4. Missing ratings are not zeroes or passes."
+    },
+    {
+      "id": "model-quality",
+      "status": "fail",
+      "detail": "6/6 anchored criteria reviewed; each must reach 3/4. Missing ratings are not zeroes or passes."
+    }
+  ],
+  "limitations": [
+    "The Murph is manually authored, not a successful unattended upload generation.",
+    "Hidden movement layout, several finishes and reverse faces remain approximate.",
+    "The independent buckle is missing.",
+    "No learner study or independent quality review has been run."
+  ],
+  "note": "Passing unit tests validates the evaluator, not the object. Scores are anchored reviewer judgments, not automatic proof of photorealism or learning."
+}

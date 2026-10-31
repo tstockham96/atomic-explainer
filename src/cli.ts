@@ -14,6 +14,8 @@ interface Flags {
   skipImages: boolean
   images: boolean
   motion: boolean
+  three: boolean
+  plan: boolean
   extract?: string
   framesDir?: string
   fps?: number
@@ -27,6 +29,9 @@ export function formatHelp() {
 Usage
   explode ./photo.jpg
   explode ./photo.jpg --out ./site
+  explode ./photo.jpg --3d --out ./site
+  explode ./photo.jpg --plan --out ./research
+  explode --from-spec ./research.json --plan --out ./research
   explode --from-spec public/spec.json --out ./site
   explode ./photo.jpg --from-spec public/spec.json --images --out ./site
   explode ./photo.jpg --motion --out ./site
@@ -38,6 +43,8 @@ Options
       --skip-images       Research and build, but do not call an image model
       --images            With --from-spec, also generate layer images
       --motion            After stills, make rotation + explode clips and extract WebP frames
+      --plan              Save research and component construction tasks; no geometry generation
+      --3d                Research, generate a textured mesh, segment parts, and build a 3D draft
       --extract <video>   Only extract a clip to WebP frames. No model call
       --frames-dir <dir>  Destination for --extract
       --fps <n>           Frame rate for extraction (default 12)
@@ -49,6 +56,8 @@ Options
 Environment
   AI_GATEWAY_API_KEY      Vercel AI Gateway (preferred)
   OPENAI_API_KEY          Direct OpenAI, used only if the gateway key is unset
+                          Also required for web-backed component research
+  TRIPO_API_KEY           Photo-to-3D and part segmentation with --3d
   FAL_KEY                 Used when EXPLODE_VIDEO_PROVIDER=fal
   EXPLODE_VISION_MODEL    Default google/gemini-2.5-flash
   EXPLODE_RESEARCH_MODEL  Default anthropic/claude-sonnet-4.5
@@ -58,8 +67,9 @@ Environment
   EXPLODE_VIDEO_MODEL     Default klingai/kling-v2.6-i2v
                           Also: google/veo-3.1-fast-generate-001, bytedance/seedance-v1.5-pro
 
-The committed Murph demo does not need a key:
-  npm run dev
+The committed Murph study does not need a key:
+  npm run build && npm run studio
+  Open http://127.0.0.1:4319/murph-study/index.html
 `
 }
 
@@ -73,6 +83,8 @@ export function parseFlags(argv: string[]): Flags {
       "skip-images": { type: "boolean", default: false },
       images: { type: "boolean", default: false },
       motion: { type: "boolean", default: false },
+      "3d": { type: "boolean", default: false },
+      plan: { type: "boolean", default: false },
       extract: { type: "string" },
       "frames-dir": { type: "string" },
       fps: { type: "string" },
@@ -105,6 +117,8 @@ export function parseFlags(argv: string[]): Flags {
     skipImages: values["skip-images"],
     images: values.images,
     motion: values.motion,
+    three: values["3d"],
+    plan: values.plan,
     extract: values.extract,
     framesDir: values["frames-dir"],
     fps,
@@ -147,6 +161,8 @@ export async function main(argv: string[]) {
       outDir: flags.out,
       skipImages: flags.images ? false : flags.fromSpec ? true : flags.skipImages,
       motion: flags.motion,
+      three: flags.three,
+      planOnly: flags.plan,
       skips: flags.skips,
       log: (message) => {
         if (!flags.json) console.error(message)
@@ -156,13 +172,13 @@ export async function main(argv: string[]) {
     if (flags.json) {
       console.log(JSON.stringify(spec, null, 2))
     } else {
-      const index = path.resolve(flags.out, "index.html")
+      const index = path.resolve(flags.out, flags.plan ? 'construction-plan.json' : "index.html")
       console.error("")
       console.error(`  ${spec.item.name}`)
       console.error(`  ${spec.components.length} parts`)
       console.error(`  ${index}`)
       console.error("")
-      console.error("  Serve it with:  npx serve " + path.resolve(flags.out))
+      console.error(flags.plan?'  Research plan only; geometry still needs construction and review.':"  Serve it with:  npx serve " + path.resolve(flags.out))
     }
     return 0
   } catch (error) {

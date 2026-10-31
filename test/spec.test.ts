@@ -114,9 +114,9 @@ describe("normalizeSpec", () => {
   })
 })
 
-describe("solid 3D stub", () => {
-  it("is explicitly unavailable", async () => {
-    expect(solid3d.available).toBe(false)
-    await expect(solid3d.reconstruct({ spec: murph })).rejects.toThrow(/TODO\(explode-3d\)/)
+describe("solid 3D provider", () => {
+  it("has an implemented reconstruction entry point", () => {
+    expect(solid3d.available).toBe(true)
+    expect(typeof solid3d.reconstruct).toBe("function")
   })
 })

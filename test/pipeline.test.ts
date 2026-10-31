@@ -94,6 +94,42 @@ describe("site render", () => {
     expect(written.item.reference).toBe("H70605731")
     expect(await readFile(path.join(out, "app.js"), "utf8")).toContain("viewer")
   })
+
+  it("includes a local multipart model when exporting a portable explainer", async () => {
+    const root = await mkdtemp(path.join(tmpdir(), "explode-model-"))
+    dirs.push(root)
+    const templateDir = path.join(root, "template")
+    const assetRoot = path.join(root, "assets")
+    const out = path.join(root, "site")
+    await mkdir(templateDir)
+    await mkdir(path.join(assetRoot, "models"), { recursive: true })
+    await writeFile(path.join(templateDir, "index.html"), `<script>${SPEC_MARKER}</script>`)
+    const bytes = Buffer.from([0x67, 0x6c, 0x54, 0x46, 2, 0, 0, 0])
+    await writeFile(path.join(assetRoot, "models", "object.glb"), bytes)
+    const spec = explodeSpecSchema.parse({ ...murph, scene3d: {
+      kind: "gltf", url: "models/object.glb",
+      parts: [{ componentId: "crystal", node: "Glass", offset: [0, 2, 0] }],
+    } })
+    await renderSite(spec, out, { templateDir, assetRoot })
+    expect(await readFile(path.join(out, "models", "object.glb"))).toEqual(bytes)
+    expect(JSON.parse(await readFile(path.join(out, "spec.json"), "utf8")).scene3d).toEqual(spec.scene3d)
+
+    await expect(renderSite({ ...spec, scene3d: { ...spec.scene3d!, kind: "gltf", url: "../outside.glb", parts: [] } }, out, { templateDir, assetRoot }))
+      .rejects.toThrow("must stay inside")
+  })
+
+  it("reports a missing local model instead of exporting a broken scene", async () => {
+    const root = await mkdtemp(path.join(tmpdir(), "explode-missing-model-"))
+    dirs.push(root)
+    const templateDir = path.join(root, "template")
+    await mkdir(templateDir)
+    await writeFile(path.join(templateDir, "index.html"), `<script>${SPEC_MARKER}</script>`)
+    const spec = explodeSpecSchema.parse({ ...murph, scene3d: {
+      kind: "gltf", url: "models/missing.glb",
+      parts: [{ componentId: "crystal", node: "Glass", offset: [0, 2, 0] }],
+    } })
+    await expect(renderSite(spec, path.join(root, "site"), { templateDir })).rejects.toThrow("3D model is missing")
+  })
 })
 
 describe("photographic edits", () => {
