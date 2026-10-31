@@ -103,3 +103,7 @@ For imported models, set `scene3d.requireCompleteMapping: true` to reject any re
 An AR model may have only front-facing surfaces. Prefer verified reverse geometry. Where explicitly illustrative backs are acceptable, a part may declare `reverseSurface: {"color":"#171a1c","roughness":0.7,"note":"Reverse construction unverified; neutral visualization only."}`. This adds untextured back-facing surfaces to opaque single-sided geometry, without repeating front artwork. It does not modify transparent/transmissive glass or reconstruct hidden structure. Record this compromise in the study notice and research audit. It cannot pass an internal-geometry fidelity evaluation.
 
 The iPhone `exterior-study.json` maps 92 source meshes into seven exterior groups and documents two rendering helpers. It is a source-specific mapping using the shared renderer, not automatic component recognition. Source geometry is local-only; see the README for the explicit local-asset build.
+
+## Close the continuous story
+
+The shared timeline reserves 90–98% for reassembly and holds the whole object through the remaining 2%, before anatomy enters. Component inspections use `THREE_TIMING.reassemble` as their end boundary; navigation and evaluation hooks must use the same interval. Reassembly restores actual part transforms without fading parts or switching models. The Porsche engine is an original, bundled 29-assembly example of the same viewer, with a separate research/requirements inventory and no API or proprietary-model prerequisite.

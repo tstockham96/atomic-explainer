@@ -1,0 +1,35 @@
+// Original authored geometry; no proprietary source assets or API credentials required.
+import { build } from 'esbuild';
+import { chromium } from '@playwright/test';
+import { createServer } from 'node:http';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+import { renderSite } from '../../src/pipeline/render-site.ts';
+import { explodeSpecSchema } from '../../src/spec/schema.ts';
+const base=path.resolve('examples/porsche-911-engine'),out=path.resolve(process.argv[2]??'dist-site/porsche-study'),template=path.resolve(process.argv[3]??'dist-site');
+
+const result=await build({entryPoints:['tools/porsche-study/export.ts'],bundle:true,format:'esm',write:false});
+const server=createServer(async(req,res)=>{try{
+ const name=new URL(req.url,'http://localhost').pathname;
+ if(name==='/index.html'){res.setHeader('Content-Type','text/html');res.end('<script type="module" src="/model.js"></script>')}
+ else if(name==='/model.js'){res.setHeader('Content-Type','text/javascript');res.end(result.outputFiles[0].contents)}
+
+
+ else {res.statusCode=404;res.end('Not found')}
+ }catch{res.statusCode=500;res.end('Asset unavailable')}});
+await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+let browser;
+try{
+ browser=await chromium.launch({channel:process.env.PLAYWRIGHT_CHANNEL||undefined});
+ const page=await browser.newPage({acceptDownloads:true}),errors=[];
+ page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(`http://127.0.0.1:${server.address().port}/index.html`);
+ await page.waitForFunction(()=>window.ready,null,{timeout:90000});
+ const download=page.waitForEvent('download',{timeout:180000});
+ await page.evaluate(()=>window.exportModel());
+ await(await download).saveAs(path.join(base,'models/engine.glb'));
+ if(errors.length)throw Error(errors.join('\n'));
+}finally{await browser?.close();await new Promise(resolve=>server.close(resolve))}
+const spec=explodeSpecSchema.parse(JSON.parse(await readFile(path.join(base,'research.json'),'utf8')));
+await renderSite(spec,out,{templateDir:template,assetRoot:base,requirementsPath:path.join(base,'requirements.json')});
+console.log(`Built researched internal assembly: ${out}. Inspect fidelity before approval.`);

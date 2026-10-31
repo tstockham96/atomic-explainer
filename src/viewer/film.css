@@ -198,3 +198,6 @@
 .mesh-explode:focus-visible { outline:2px solid currentColor; outline-offset:4px; }
 .mesh-stage { position:absolute; top:79px; left:30px; margin:0; color:var(--scene-muted); font:10px var(--font-mono); letter-spacing:.08em; pointer-events:none; }
 @media (max-width:700px) { .mesh-stage { top:75px; left:18px; font-size:9px; } .mesh-explode { margin-top:10px; font-size:11px; } }
+
+.mesh-closing h2 { margin:0; font:400 clamp(30px,3.3vw,52px)/1.08 var(--font-sans); letter-spacing:-.045em; }
+.mesh-closing a { display:inline-block; pointer-events:auto; margin-top:16px; font-size:12px; color:var(--scene-muted); text-underline-offset:5px; }

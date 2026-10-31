@@ -12,6 +12,7 @@ declare global { interface Window { __explodeAssemblyReview?: { inspect: (id: st
 export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: { current: ReelHandle | null }; onImages?: (images: Record<string, string>) => void }) {
   const host = useRef<HTMLDivElement>(null)
   const title = useRef<HTMLDivElement>(null)
+  const closing = useRef<HTMLDivElement>(null)
   const labels = useRef<Record<string, HTMLDivElement | null>>({})
   const captions = useRef<Array<HTMLDivElement | null>>([])
   const handle = useRef<SceneHandle | null>(null)
@@ -21,7 +22,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
   const [error, setError] = useState<string | null>(null)
   const [ready, setReady] = useState(false)
   const [selected, setSelected] = useState("assembly")
-  const [stage, setStage] = useState("01 / 03 · Rotate")
+  const [stage, setStage] = useState("01 / 04 · Rotate")
   const ids = scenePartIds(spec)
   const components = ids.map((id) => spec.components.find((part) => part.id === id))
   const update = (value: number) => {
@@ -29,7 +30,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
     handle.current?.setProgress(value)
     const sample = sampleScene(value, components.length)
     setSelected(sample.index >= 0 ? ids[sample.index]! : sample.separation > .5 ? "exploded" : "assembly")
-    setStage(sample.index >= 0 ? "03 / 03 · Explore" : sample.separation > 0 ? "02 / 03 · Explode" : "01 / 03 · Rotate")
+    setStage(value >= THREE_TIMING.reassemble ? "04 / 04 · Together again" : sample.index >= 0 ? "03 / 04 · Explore" : sample.separation > 0 ? "02 / 04 · Explode" : "01 / 04 · Rotate")
     const show = (node: HTMLElement | null, opacity: number) => {
       if (!node) return
       node.style.opacity = String(opacity)
@@ -38,6 +39,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
       node.style.translate = `0 ${(1 - opacity) * 12}px`
     }
     show(title.current, windowOpacity(value, 0, 0.025, 0.02))
+    show(closing.current, value > THREE_TIMING.reassemble ? Math.min(1, (value - THREE_TIMING.reassemble) / .05) : 0)
     captions.current.forEach((node, index) => show(node, sample.index === index ? windowOpacity(sample.local, 0.34, 0.68, 0.14) : 0))
   }
   const updateRef = useRef(update)
@@ -64,7 +66,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
           // Only labels are culled; every physical component stays in the scene.
           const r = label.getBoundingClientRect()
           const rect = {left:r.left-8,right:r.right+8,top:r.top-5,bottom:r.top+32}
-          const visible = position.visible && !occupied.some(o => rect.left<o.right && rect.right>o.left && rect.top<o.bottom && rect.bottom>o.top)
+          const visible = ids.length <= 12 && position.visible && !occupied.some(o => rect.left<o.right && rect.right>o.left && rect.top<o.bottom && rect.bottom>o.top)
           if(visible) occupied.push(rect)
           label.style.opacity = visible ? "1" : "0"
           label.setAttribute("aria-hidden", String(!visible))
@@ -77,7 +79,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
       scene.setProgress(progress.current)
       setReady(true)
       if (new URLSearchParams(window.location.search).has('eval')) window.__explodeAssemblyReview = {
-        inspect: (id, local = .5) => { const i = ids.indexOf(id); updateRef.current(i < 0 ? 0 : THREE_TIMING.inspect + (i + local) * (1 - THREE_TIMING.inspect) / ids.length) },
+        inspect: (id, local = .5) => { const i = ids.indexOf(id); updateRef.current(i < 0 ? 0 : THREE_TIMING.inspect + (i + local) * (THREE_TIMING.reassemble - THREE_TIMING.inspect) / ids.length) },
         snapshot: scene.snapshot,
       }
     }).catch((reason: unknown) => {
@@ -105,7 +107,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
       <div ref={host} className="mesh-host" />
       <div className="mesh-navigation"><a href="/create">← Studio</a><label>Explore<select aria-label="Explore a component" value={selected} onChange={event => {
         const index = ids.indexOf(event.target.value)
-        const value = event.target.value === 'exploded' ? THREE_TIMING.inspect - .001 : index < 0 ? 0 : THREE_TIMING.inspect + (index + .5) * (1 - THREE_TIMING.inspect) / ids.length
+        const value = event.target.value === 'exploded' ? THREE_TIMING.inspect - .001 : index < 0 ? 0 : THREE_TIMING.inspect + (index + .5) * (THREE_TIMING.reassemble - THREE_TIMING.inspect) / ids.length
         navigate(value)
       }}><option value="assembly">Whole object</option><option value="exploded">Exploded overview</option>{components.map(c => c && <option key={c.id} value={c.id}>{c.name}</option>)}</select></label></div>
       <p className="mesh-stage" role="status">{stage}</p>
@@ -119,6 +121,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
         <span>{ready ? "Scroll to rotate, explode and explore." : "Loading the object…"}</span>
         <button className="mesh-explode" disabled={!ready} onClick={() => navigate(THREE_TIMING.inspect - .001)}>Explode the object ↓</button>
       </div>
+      <div ref={closing} className="mesh-title mesh-closing" aria-hidden="true" style={{opacity:0,visibility:"hidden"}}><p>Every part has a purpose.</p><h2>Together again.</h2><span>One object. Now you know what makes it work.</span><a href="#parts">Explore the individual stories ↓</a></div>
       <div className="mesh-labels">{components.map((component, index) => component ? <div className="mesh-part-label" key={component.id} ref={(node) => { labels.current[component.id] = node }} aria-hidden="true"><span>{String(index + 1).padStart(2, "0")}</span>{component.name}</div> : null)}</div>
       {components.map((component, index) => component ? (
         <div key={component.id} ref={(node) => { captions.current[index] = node }} className="mesh-caption" aria-hidden="true">

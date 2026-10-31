@@ -5,7 +5,7 @@ description: Build a researched, continuous 3D object explainer with the Explode
 
 # Explode
 
-Produce one convincing object in one continuous 3D scene: an assembled turn, readable separation, close exploration of individual components, and anatomy stories afterward. The purpose is learning: the user should understand how the object works. Research determines the geometry and the story; motion reveals that understanding. The project is https://github.com/tstockham96/explode.
+Produce one convincing object in one continuous 3D scene: an assembled turn, readable separation, close exploration of individual components, a visible closing reassembly, and anatomy stories afterward. The purpose is learning: the user should understand how the object works. Research determines the geometry and the story; motion reveals that understanding. The project is https://github.com/tstockham96/explode.
 
 ## Locate the engine and available capabilities
 
@@ -102,7 +102,7 @@ That route needs the credentials described in `.env.example`; it is an alternati
 
 Inspect the continuous sequence in both scroll directions and at narrow and wide viewport sizes. Check assembled rotation, maximum separation, every component close-up, return transitions, anatomy, and reduced-motion behavior. Preserve spatial continuity; unexplained teleports and overlapping parts fail the review even if tests pass.
 
-Give every component a complete inspection turn after its neighbors have cleared. Separate parts farther or move the camera to focus; do not fade, dissolve or hide story components. Restore each assembly orientation before returning it to its seat. The repository's reusable inspection helpers provide full turns with fixed framing; construction plans carry the corresponding visual-review requirements. These helpers do not supply missing geometry or prove reference fidelity.
+Give every component a complete inspection turn after its neighbors have cleared. Separate parts farther or move the camera to focus; do not fade, dissolve or hide story components. Restore each assembly orientation before returning it to its seat. After the final inspection, visibly reassemble the complete object and hold it before the anatomy section; reverse scrolling must retrace the same positions. The repository's reusable inspection helpers provide full turns with fixed framing; construction plans carry the corresponding visual-review requirements. These helpers do not supply missing geometry or prove reference fidelity.
 
 Deliver the local explainer, reusable spec, source/attribution notes, and a concise account of validation and unresolved quality issues. Distinguish live generation from fixture tests. Leave publication or repository pushes within the user's authorized scope. Never equate successful API responses, mesh counts, or green tests with photorealistic quality.
 

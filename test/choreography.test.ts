@@ -43,7 +43,7 @@ describe("production asset and framing", () => {
   })
 
   it.each([16 / 9, 390 / 844])("keeps every exploded assembly separate on screen at aspect %s", (aspect) => {
-    const camera = cameraAt(1, aspect)
+    const camera = cameraAt(THREE_TIMING.inspect, aspect)
     const boxes = model.parts.map((part) => rect(new THREE.Box3().setFromObject(part.group), camera))
     for (let i = 0; i < boxes.length; i++) {
       const box = boxes[i]!
@@ -61,7 +61,7 @@ describe("production asset and framing", () => {
 
   it.each([16 / 9, 390 / 844])("frames each close-up clear of caption space at aspect %s", (aspect) => {
     model.parts.forEach((part, i) => {
-      const progress = THREE_TIMING.inspect + (i + 0.5) / model.parts.length * (1 - THREE_TIMING.inspect)
+      const progress = THREE_TIMING.inspect + (i + 0.5) / model.parts.length * (THREE_TIMING.reassemble - THREE_TIMING.inspect)
       const camera = cameraAt(progress, aspect)
       const box = rect(new THREE.Box3().setFromObject(part.group), camera)
       expect(box.left).toBeGreaterThan(-0.98)
@@ -78,11 +78,23 @@ describe("production asset and framing", () => {
     model.parts.forEach((p, i) => expect(p.group.matrixWorld.elements).toEqual(matrices[i]!.elements))
   })
 
+  it('seats every component again before the anatomy and reverses without drift', () => {
+    poseModel(model, 0)
+    const homes = model.parts.map(p => p.group.position.clone())
+    for(const progress of [.43, .77, .91, .96, 1, .96, .91, .77, .43, 0]) {
+      poseModel(model, progress)
+      if(progress === 0 || progress === 1) model.parts.forEach((p,i) => {
+        expect(p.group.position.distanceTo(homes[i]!)).toBeLessThan(1e-9)
+        expect(p.group.visible).toBe(true)
+      })
+    }
+  })
+
   it('frames the entire turn of every component, including opaque parts',()=>{
     for(const aspect of [16/9,390/844])for(let i=0;i<model.parts.length;i++){
       const directions:THREE.Vector3[]=[]
       for(const local of [.28,.39,.5,.61,.72]){
-        const p=THREE_TIMING.inspect+(i+local)/model.parts.length*(1-THREE_TIMING.inspect)
+        const p=THREE_TIMING.inspect+(i+local)/model.parts.length*(THREE_TIMING.reassemble-THREE_TIMING.inspect)
         const camera=cameraAt(p,aspect),box=new THREE.Box3().setFromObject(model.parts[i]!.group),r=rect(box,camera)
         expect(Math.max(Math.abs(r.left),Math.abs(r.right),Math.abs(r.top),Math.abs(r.bottom))).toBeLessThan(1)
         directions.push(camera.getWorldDirection(new THREE.Vector3()))
@@ -100,7 +112,7 @@ describe("production asset and framing", () => {
       }
     })
     for (let i = 0; i < model.parts.length; i++) {
-      const p = THREE_TIMING.inspect + (i + .5) / model.parts.length * (1 - THREE_TIMING.inspect)
+      const p = THREE_TIMING.inspect + (i + .5) / model.parts.length * (THREE_TIMING.reassemble - THREE_TIMING.inspect)
       const camera = cameraAt(p, 16 / 9)
       for (let j = 0; j < model.parts.length; j++) {
         const part = model.parts[j]!

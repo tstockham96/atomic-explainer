@@ -17,14 +17,29 @@ describe("three-dimensional story", () => {
     const count = scenePartIds(spec).length
     expect(count).toBe(9)
     for (let i = 0; i < count; i++) {
-      const start = THREE_TIMING.inspect + i * (1 - THREE_TIMING.inspect) / count
+      const start = THREE_TIMING.inspect + i * (THREE_TIMING.reassemble - THREE_TIMING.inspect) / count
       expect(sampleScene(start + 0.000001, count).focus).toBeCloseTo(0, 6)
       expect(sampleScene(start - 0.000001, count).focus).toBeCloseTo(0, 6)
-      const middle = start + (1 - THREE_TIMING.inspect) / count * 0.5
+      const middle = start + (THREE_TIMING.reassemble - THREE_TIMING.inspect) / count * 0.5
       expect(sampleScene(middle, count)).toMatchObject({ index: i, focus: 1, separation: 1 })
     }
     expect(sampleScene(1, count).focus).toBeCloseTo(0, 6)
-    expect(sampleScene(1, count).separation).toBe(1)
+    expect(sampleScene(1, count)).toMatchObject({ separation: 0, index: -1, focus: 0 })
+  })
+
+  it("closes continuously after the last part, then holds the complete assembly", () => {
+    const start = THREE_TIMING.reassemble
+    expect(sampleScene(start - 1e-7, 28).focus).toBeCloseTo(0)
+    expect(sampleScene(start, 28)).toMatchObject({ index: -1, separation: 1, focus: 0 })
+    let last = 1
+    for (let p = start; p <= 1; p += .001) {
+      const next = sampleScene(p, 28)
+      expect(next.separation).toBeLessThanOrEqual(last)
+      expect(next.index).toBe(-1)
+      last = next.separation
+    }
+    expect(sampleScene(THREE_TIMING.settled, 28).separation).toBe(0)
+    expect(sampleScene(1, 0).separation).toBe(0)
   })
 
   it("never leaves the camera focused when entering anatomy, including reverse scrolling", () => {

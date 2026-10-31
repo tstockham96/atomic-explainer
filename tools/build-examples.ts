@@ -20,3 +20,6 @@ if (process.argv.includes('--with-local-assets')) {
   await renderAssetReview(path.join(output, 'iphone-study'), { ...review, description: 'The exploding exterior study requires a separately obtained local source model. This checkout includes the mapping, but does not redistribute Apple geometry.' }, output)
 }
 console.log('Built example routes; local internal assembly requires --with-local-assets.')
+
+const engine = explodeSpecSchema.parse(JSON.parse(await readFile('examples/porsche-911-engine/research.json', 'utf8')))
+await renderSite(engine, path.join(output, 'porsche-study'), { assetRoot: path.resolve('examples/porsche-911-engine'), templateDir: output, requirementsPath: 'examples/porsche-911-engine/requirements.json' })

@@ -1,0 +1,2835 @@
+{
+  "version": 1,
+  "item": {
+    "name": "Porsche 911 flat-six engine",
+    "maker": "Porsche",
+    "model": "911. The flat-six.",
+    "category": "Air-cooled engine",
+    "reference": "Type 901/01 · 2.0 litre · 1965",
+    "year": "1965",
+    "summary": "Six cylinders. One continuous story of air, fuel, force and heat."
+  },
+  "identity": {
+    "confidence": 0.95,
+    "notes": "Chosen exemplar: early 1965 Type 901/01 architecture. Original educational reconstruction, not scanned OEM CAD."
+  },
+  "studio": "light",
+  "visualMode": "mixed",
+  "modelNotice": "1965 flat-six · reference-guided reconstruction · dimensions & hidden details approximate",
+  "artNote": "Original geometry authored for this open-source study from period diagrams and inspected engine photographs. The study includes 29 explorable assemblies. Casting contours, ports, tolerances, finishes and small hardware are approximate; it is not a repair or assembly guide. The external dry-sump tank, fuel supply, vehicle wiring, clutch/transmission and complete heat-exchanger system are outside the engine model. No downloaded Porsche or marketplace geometry is redistributed. Material appearance is inferred where an exact alloy or coating has not been established.",
+  "closing": "Every breath becomes motion. Every part comes home.",
+  "facts": [
+    {
+      "label": "Architecture",
+      "value": "Horizontally opposed six"
+    },
+    {
+      "label": "Engine family",
+      "value": "901/01"
+    },
+    {
+      "label": "Displacement class",
+      "value": "2.0 litres"
+    },
+    {
+      "label": "Cooling",
+      "value": "Air + oil"
+    },
+    {
+      "label": "Original output",
+      "value": "130 PS"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Porsche Classic 911/912 parts catalogue, MY1965–69",
+      "url": "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG"
+    },
+    {
+      "title": "Porsche: first generation 911",
+      "url": "https://newsroom.porsche.com/en/press-kits/60-Years-Porsche-911/1.-Generation-Porsche-911-(Ur-Elfer),-1963-1973.html"
+    },
+    {
+      "title": "Historika: unrestored 1965 901/01 engine",
+      "url": "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+    },
+    {
+      "title": "Restored 901/01: front and top reference photographs",
+      "url": "https://www.ebay.de/itm/166884096972"
+    },
+    {
+      "title": "Porsche 1966 sales brochure (archival scan)",
+      "url": "https://www.no-speedlimit.it/Porsche_Literature_1966_911_EN.html"
+    }
+  ],
+  "components": [
+    {
+      "id": "fan-drive",
+      "name": "Belt & pulleys",
+      "order": 0,
+      "material": "Machined metal pulleys · matte rubber belt",
+      "howItsMade": "The crankshaft turns a belt. That belt drives the cooling fan and alternator, so the running engine provides its own airflow. Two grooved pulleys joined by a continuous belt; exposed hexagonal centre nuts. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Pulley diameters and belt cross-section are reference-fitted, not measured."
+      ],
+      "figureLabel": "Cooling · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Pulley diameters and belt cross-section are reference-fitted, not measured."
+      }
+    },
+    {
+      "id": "fan",
+      "name": "Cooling fan",
+      "order": 1,
+      "material": "Fine cast-metal finish · machined hub",
+      "howItsMade": "The pitched blades accelerate air into the shroud. Cooling needs directed flow across the hot surfaces, not simply an exposed engine. Eleven curved blades, tapered hub, solid blade edges and changing surface normals. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Blade pitch and aerofoil geometry are inferred from photographs."
+      ],
+      "figureLabel": "Cooling · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Blade pitch and aerofoil geometry are inferred from photographs."
+      }
+    },
+    {
+      "id": "fan-housing",
+      "name": "Fan housing",
+      "order": 2,
+      "material": "Cast metal · restrained silver-grey reflection",
+      "howItsMade": "The housing supports the fan and alternator while keeping the blade tips close to the surrounding ring. It forms the inlet to the cooling duct. Open circular casting with lip, cylindrical barrel and rear support spokes. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Exact alloy and casting marks are not established."
+      ],
+      "figureLabel": "Cooling · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Exact alloy and casting marks are not established."
+      }
+    },
+    {
+      "id": "alternator",
+      "name": "Alternator",
+      "order": 3,
+      "material": "Cast housing · steel shaft",
+      "howItsMade": "Behind the fan, an alternator converts shaft rotation into electrical power. It shares the belt drive rather than needing a second motor. Ribbed cylindrical housing nested behind the fan hub. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Internal windings and electrical circuit are outside this engine-mechanism study."
+      ],
+      "figureLabel": "Electrical · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Internal windings and electrical circuit are outside this engine-mechanism study."
+      }
+    },
+    {
+      "id": "cooling-shroud",
+      "name": "Cooling shroud",
+      "order": 4,
+      "material": "Satin black finish · no baked highlights",
+      "howItsMade": "The black shroud guides fan air over both cylinder banks. Without that guidance, air could escape before collecting heat from the fins. Rounded hollow canopy with open underside, rear panel and side ducts. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Duct contours and wall thickness are approximate; coating chemistry is unverified."
+      ],
+      "figureLabel": "Cooling · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Duct contours and wall thickness are approximate; coating chemistry is unverified."
+      }
+    },
+    {
+      "id": "air-cleaner",
+      "name": "Air cleaner",
+      "order": 5,
+      "material": "Satin black housing · bright fasteners",
+      "howItsMade": "The air cleaner feeds the two banks of carburetors. Removing it reveals six separate intake throats beneath. Paired rounded housings with a connecting duct; a simplified early air-cleaner envelope. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Air-cleaner silhouette is less certain than the exposed engine; internal filter media is not reconstructed."
+      ],
+      "figureLabel": "Intake · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Air-cleaner silhouette is less certain than the exposed engine; internal filter media is not reconstructed."
+      }
+    },
+    {
+      "id": "carburetors",
+      "name": "Solex carburetors",
+      "order": 6,
+      "material": "Cast alloy bodies · machined throats · brass fittings",
+      "howItsMade": "The early 901/01 uses Solex carburetion. Air passes through a throat for each cylinder; throttle position changes the flow and the carburetor meters fuel into it. Six open throats, flared entries, throttle discs and shafts, fuel chambers and brass fittings. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Jet passages, calibration, and fuel recirculation plumbing are not reproduced."
+      ],
+      "figureLabel": "Intake · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Jet passages, calibration, and fuel recirculation plumbing are not reproduced."
+      }
+    },
+    {
+      "id": "intake-manifolds",
+      "name": "Intake manifolds",
+      "order": 7,
+      "material": "Cast-metal runners · machined flange faces",
+      "howItsMade": "The intake runners connect the carburetors to the cylinder heads. An intake valve admits the mixture into the chamber at the appropriate part of the cycle. Six curved runners with flange rings and paired mounting studs. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Runner bends and wall thickness are reference-fitted."
+      ],
+      "figureLabel": "Intake · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Runner bends and wall thickness are reference-fitted."
+      }
+    },
+    {
+      "id": "heads-left",
+      "name": "Left cylinder heads",
+      "order": 8,
+      "material": "Cast light alloy · machined sealing faces",
+      "howItsMade": "Each cylinder has its own head. The chamber closes the cylinder while the intake and exhaust valves control what enters and leaves. Three finned heads with chamber-closing faces, separate valve openings, seat rings and perimeter studs. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Combustion-chamber contours and port cross-sections are simplified."
+      ],
+      "figureLabel": "Combustion · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Combustion-chamber contours and port cross-sections are simplified."
+      }
+    },
+    {
+      "id": "heads-right",
+      "name": "Right cylinder heads",
+      "order": 9,
+      "material": "Cast light alloy · machined sealing faces",
+      "howItsMade": "The opposite three cylinders work through the same four-stroke sequence. Their horizontal arrangement gives the flat-six its broad, low form. Second set of three heads, staggered along the crankshaft to match the rods. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Bank spacing is illustrative, not a workshop measurement."
+      ],
+      "figureLabel": "Combustion · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Bank spacing is illustrative, not a workshop measurement."
+      }
+    },
+    {
+      "id": "cylinders-left",
+      "name": "Left cylinder bank",
+      "order": 10,
+      "material": "Dark finned metal · smoother bore surface",
+      "howItsMade": "The bore guides the piston. Outside, thin fins increase the surface exposed to cooling air; the hot cylinder can shed heat as the fan drives air past. Three hollow barrels with thirteen modeled fins each, bore walls and long head studs. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Fin count/spacing and cylinder metallurgy are visual approximations, not a verified part specification."
+      ],
+      "figureLabel": "Combustion · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Fin count/spacing and cylinder metallurgy are visual approximations, not a verified part specification."
+      }
+    },
+    {
+      "id": "cylinders-right",
+      "name": "Right cylinder bank",
+      "order": 11,
+      "material": "Dark finned metal · metallic stud hardware",
+      "howItsMade": "Three cylinders sit on each side of the crankcase. Opposed pistons move toward and away from the centre as their rods follow separate crankpins. Three opposing hollow barrels; no solid caps hiding the pistons. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "This is a static assembly pose, not a running-engine simulation."
+      ],
+      "figureLabel": "Combustion · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. This is a static assembly pose, not a running-engine simulation."
+      }
+    },
+    {
+      "id": "pistons",
+      "name": "Six pistons",
+      "order": 12,
+      "material": "Machined light metal · darker ring bands",
+      "howItsMade": "Combustion pressure pushes on each piston crown. Rings seal against the bore while the hollow skirt and wrist pin connect that force to a rod. Six hollow-skirt pistons with crown discs, three ring bands and wrist pins. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Crown profiles, ring gaps, pin-bore details and clearances are approximate."
+      ],
+      "figureLabel": "Power · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Crown profiles, ring gaps, pin-bore details and clearances are approximate."
+      }
+    },
+    {
+      "id": "connecting-rods",
+      "name": "Connecting rods",
+      "order": 13,
+      "material": "Forged-metal appearance · polished bearing bores",
+      "howItsMade": "Each rod connects a piston pin to its own crankpin. The big end follows a circle while the small end follows the piston, converting reciprocation into rotation. Six rods with open big ends, small-end rings, web sections and cap hardware. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Forging contours and bearing clearances are simplified."
+      ],
+      "figureLabel": "Power · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Forging contours and bearing clearances are simplified."
+      }
+    },
+    {
+      "id": "crankshaft",
+      "name": "Crankshaft",
+      "order": 14,
+      "material": "Steel shaft · polished journals · darker webs",
+      "howItsMade": "Six offset crankpins gather the piston forces into one rotating shaft. Main journals support it inside the case; counterweights help manage the rotating loads. Seven main journals, six separate crankpins, shaped counterweights and drive-end gear. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Throw layout is educational; balance, firing order and dynamic loads are not simulated."
+      ],
+      "figureLabel": "Power · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Throw layout is educational; balance, firing order and dynamic loads are not simulated."
+      }
+    },
+    {
+      "id": "flywheel",
+      "name": "Flywheel",
+      "order": 15,
+      "material": "Machined steel · darker toothed rim",
+      "howItsMade": "The flywheel stores rotational energy between firing impulses and passes torque toward the clutch. Its toothed perimeter also gives the starter a place to engage. Heavy circular disc, machined annulus, bolted hub and separate ring-gear teeth. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Exact tooth count and clutch interface dimensions are illustrative."
+      ],
+      "figureLabel": "Power · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Exact tooth count and clutch interface dimensions are illustrative."
+      }
+    },
+    {
+      "id": "timing-covers",
+      "name": "Timing covers",
+      "order": 16,
+      "material": "Fine cast-metal grain · machined fasteners",
+      "howItsMade": "The front covers enclose the timing drive and retain lubricant. Moving them away reveals the chain route between the central drive and the two camshafts. Two shaped perimeter castings with radiused edges and bolt heads. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Contours and sealing lips are fitted to the diagram, not exact CAD."
+      ],
+      "figureLabel": "Timing · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Contours and sealing lips are fitted to the diagram, not exact CAD."
+      }
+    },
+    {
+      "id": "timing-chains",
+      "name": "Timing chains",
+      "order": 17,
+      "material": "Steel links · bright pins · dark sprocket faces",
+      "howItsMade": "An intermediate drive turns two chains, one for each camshaft. Valve timing coordinates intake and exhaust events with piston travel through the four-stroke cycle. Two duplex linked paths, cam sprockets, guide rails, tensioner/idler assemblies and a longitudinal intermediate shaft. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Chain pitch, tensioner geometry and exact ratio are simplified; not a timing-setting reference."
+      ],
+      "figureLabel": "Timing · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Chain pitch, tensioner geometry and exact ratio are simplified; not a timing-setting reference."
+      }
+    },
+    {
+      "id": "valve-covers",
+      "name": "Valve covers",
+      "order": 18,
+      "material": "Cast-metal covers · machined nuts",
+      "howItsMade": "The ribbed covers seal the valve mechanism. Removing them opens a service view of the rocker and cam assemblies beneath. Four elongated covers with rounded ends, raised ribs and perimeter fasteners. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Rib spacing, markings and gasket profiles are approximate."
+      ],
+      "figureLabel": "Timing · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Rib spacing, markings and gasket profiles are approximate."
+      }
+    },
+    {
+      "id": "cam-carriers",
+      "name": "Cam carriers",
+      "order": 19,
+      "material": "Cast housing · smooth bearing surfaces",
+      "howItsMade": "The carriers support the camshafts and rocker shafts along each bank. Alignment matters: a cam profile is useful only if the moving surfaces meet in the right place. Paired longitudinal structures with open bearing supports and upper/lower rails. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Carrier castings are simplified and not fully oil-tight solids."
+      ],
+      "figureLabel": "Timing · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Carrier castings are simplified and not fully oil-tight solids."
+      }
+    },
+    {
+      "id": "camshafts",
+      "name": "Camshafts",
+      "order": 20,
+      "material": "Steel · polished lobe surfaces",
+      "howItsMade": "One overhead camshaft serves each bank. Its lobes act through rockers to open valves; spring force closes them after the lobe passes. Two shafts with six distinct lobes each; bearing journals remain visible in isolation. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Lobe lift and phase are illustrative rather than verified 901/01 cam profiles."
+      ],
+      "figureLabel": "Timing · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Lobe lift and phase are illustrative rather than verified 901/01 cam profiles."
+      }
+    },
+    {
+      "id": "valvetrain",
+      "name": "Valves & rockers",
+      "order": 21,
+      "material": "Steel stems and springs · cast rocker finish",
+      "howItsMade": "The intake valve admits fresh mixture; the exhaust valve lets spent gases leave. Rockers transmit cam motion, and springs keep the valves returning to their seats. Twelve poppet valves, stems, helical springs, retainers and rocker forms. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Exact rocker ratios and valve angles are not measured."
+      ],
+      "figureLabel": "Timing · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Exact rocker ratios and valve angles are not measured."
+      }
+    },
+    {
+      "id": "ignition",
+      "name": "Ignition system",
+      "order": 22,
+      "material": "Brown insulating cap · black cable · pale ceramic",
+      "howItsMade": "The distributor routes high voltage to six spark plugs. A spark starts combustion in the compressed mixture; the plug is a separate part of each head. Distributor body and cap, six cables, ceramic plug insulators and hexagonal bases. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Wire routing and plug details are representative; no exact firing-order claim."
+      ],
+      "figureLabel": "Electrical · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Wire routing and plug details are representative; no exact firing-order claim."
+      }
+    },
+    {
+      "id": "crankcase-left",
+      "name": "Left crankcase",
+      "order": 23,
+      "material": "Cast light-metal appearance · machined interfaces",
+      "howItsMade": "One half of the split crankcase supports the cylinders and the rotating shaft. The mating surfaces locate the other half and form the enclosed lower engine. Split shell with cylinder apertures, bearing supports, ribs and fastening bosses. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Casting shape and material grade are not established from measured factory data."
+      ],
+      "figureLabel": "Structure · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Casting shape and material grade are not established from measured factory data."
+      }
+    },
+    {
+      "id": "crankcase-right",
+      "name": "Right crankcase",
+      "order": 24,
+      "material": "Cast light-metal appearance · machined interfaces",
+      "howItsMade": "The matching case half completes the main bearing supports. Bolting the halves together fixes the relationship between the crankshaft and both cylinder banks. Opposing shell with separate apertures, mating walls and support details. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Sealing geometry and oil passages are simplified."
+      ],
+      "figureLabel": "Structure · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Sealing geometry and oil passages are simplified."
+      }
+    },
+    {
+      "id": "oil-pump",
+      "name": "Oil pump",
+      "order": 25,
+      "material": "Cast housing · steel gear forms",
+      "howItsMade": "The dry-sump system uses pumping stages to supply pressurized oil and scavenge it back toward a separate reservoir. Oil both lubricates moving interfaces and carries heat away. Sectioned pump housing exposes two paired gear stages; the inspection window is an educational cutaway. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "The permanent housing cutaway is illustrative; gear dimensions and hidden passages are schematic. The external oil tank is vehicle-mounted and not modeled."
+      ],
+      "figureLabel": "Lubrication · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. The permanent housing cutaway is illustrative; gear dimensions and hidden passages are schematic. The external oil tank is vehicle-mounted and not modeled."
+      }
+    },
+    {
+      "id": "oil-cooler",
+      "name": "Oil cooler",
+      "order": 26,
+      "material": "Metal fins · cast end tanks",
+      "howItsMade": "Oil carries heat from loaded surfaces to the cooler. Closely spaced fins give the air another route to remove that heat. Stacked thin cooler fins between end tanks at the rear of the engine. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Internal flow channels and exact fin pitch are unverified."
+      ],
+      "figureLabel": "Lubrication · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Internal flow channels and exact fin pitch are unverified."
+      }
+    },
+    {
+      "id": "oil-lines",
+      "name": "Oil return & lines",
+      "order": 27,
+      "material": "Metal tubing · rubber hoses and seals · warm metal fittings",
+      "howItsMade": "Return tubes carry oil from the heads back toward the case. External connections link the engine to the wider dry-sump circuit in the car. Rigid return tubes, separate seals, hose bends and hexagonal unions. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Routing is representative; the vehicle reservoir and filter are outside the model boundary."
+      ],
+      "figureLabel": "Lubrication · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Routing is representative; the vehicle reservoir and filter are outside the model boundary."
+      }
+    },
+    {
+      "id": "exhaust",
+      "name": "Exhaust system",
+      "order": 28,
+      "material": "Heat-exposed metal · soft reflections",
+      "howItsMade": "Exhaust leaves each head through a runner, collects below the banks, and passes through the silencer. The cycle can then begin again with fresh mixture. Six curved runners, flange rings, transverse silencer, bands and outlet pipe. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "funFacts": [
+        "Heat exchangers, muffler baffles and exhaust wall thickness are simplified."
+      ],
+      "figureLabel": "Exhaust · Reference-guided geometry",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+          "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+        ],
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Heat exchangers, muffler baffles and exhaust wall thickness are simplified."
+      }
+    }
+  ],
+  "understanding": {
+    "version": 1,
+    "identityScope": "1965 Porsche 911 Type 901/01 air-cooled flat-six. Engine-mounted systems; vehicle ancillaries explicitly excluded.",
+    "learningGoals": [
+      "Trace air and fuel into a cylinder, then force from piston to flywheel.",
+      "Explain how opposed cylinders differ from a V engine.",
+      "Distinguish cooling airflow from combustion intake airflow.",
+      "Connect valve timing to camshafts, rockers and chains.",
+      "Explain why an air-cooled engine still needs an oil circuit."
+    ],
+    "references": [
+      {
+        "id": "parts",
+        "title": "Porsche Classic 911/912 parts catalogue, MY1965–69",
+        "url": "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "kind": "manual",
+        "scope": "family",
+        "observation": "Inspected diagrams 102-05 (crank/rods/flywheel), 103-00 (heads/cylinders/pistons), 103-15 (cam/rocker/chain/tensioner), 105-00 (fan/alternator/belt) and case diagram. Text distinguishes 911 from 912 and later variants.",
+        "limitations": "Exploded diagrams are not measured drawings; catalogue spans several variants. Never use 912 parts as flat-six evidence."
+      },
+      {
+        "id": "heritage",
+        "title": "Porsche: first generation 911",
+        "url": "https://newsroom.porsche.com/en/press-kits/60-Years-Porsche-911/1.-Generation-Porsche-911-(Ur-Elfer),-1963-1973.html",
+        "kind": "specification",
+        "scope": "family",
+        "observation": "Early rear-mounted, air-cooled six-cylinder engine and original 130 PS output.",
+        "limitations": "History overview does not specify hidden geometry or manufacturing tolerances."
+      },
+      {
+        "id": "original-photo",
+        "title": "Historika: unrestored 1965 901/01 engine",
+        "url": "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8",
+        "kind": "photograph",
+        "scope": "exact-model",
+        "observation": "Viewed the front oblique engine photo: large front fan, three Solex throats on each bank, broad metal valve covers and dark shrouding.",
+        "limitations": "Used condition; some photographs show the air cleaner removed. Do not copy grime into new metal or infer hidden geometry."
+      },
+      {
+        "id": "restored-photo",
+        "title": "Restored 901/01: front and top reference photographs",
+        "url": "https://www.ebay.de/itm/166884096972",
+        "kind": "photograph",
+        "scope": "family",
+        "observation": "Inspected front and top photographs in Chrome. Silver fan ring and 11 blades, central belt, dark canopy, separated intake stacks, black wires and light grey transverse silencer.",
+        "limitations": "Restoration may change finishes or components; listing identity is not factory verification."
+      },
+      {
+        "id": "brochure",
+        "title": "Porsche 1966 sales brochure (archival scan)",
+        "url": "https://www.no-speedlimit.it/Porsche_Literature_1966_911_EN.html",
+        "kind": "specification",
+        "scope": "family",
+        "observation": "Period manufacturer description of overhead camshaft per bank and dry-sump lubrication with oil cooler.",
+        "limitations": "Archival reproduction, adjacent model year. Does not establish dimensional fidelity."
+      }
+    ],
+    "components": [
+      {
+        "componentId": "fan-drive",
+        "function": "The crankshaft turns a belt. That belt drives the cooling fan and alternator, so the running engine provides its own airflow.",
+        "claims": [
+          {
+            "statement": "The crankshaft turns a belt. That belt drives the cooling fan and alternator, so the running engine provides its own airflow.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Two grooved pulleys joined by a continuous belt; exposed hexagonal centre nuts.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Two grooved pulleys joined by a continuous belt; exposed hexagonal centre nuts.",
+          "materialBehavior": "Machined metal pulleys · matte rubber belt. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Pulley diameters and belt cross-section are reference-fitted, not measured."
+        ]
+      },
+      {
+        "componentId": "fan",
+        "function": "The pitched blades accelerate air into the shroud. Cooling needs directed flow across the hot surfaces, not simply an exposed engine.",
+        "claims": [
+          {
+            "statement": "The pitched blades accelerate air into the shroud. Cooling needs directed flow across the hot surfaces, not simply an exposed engine.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Eleven curved blades, tapered hub, solid blade edges and changing surface normals.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Eleven curved blades, tapered hub, solid blade edges and changing surface normals.",
+          "materialBehavior": "Fine cast-metal finish · machined hub. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Blade pitch and aerofoil geometry are inferred from photographs."
+        ]
+      },
+      {
+        "componentId": "fan-housing",
+        "function": "The housing supports the fan and alternator while keeping the blade tips close to the surrounding ring. It forms the inlet to the cooling duct.",
+        "claims": [
+          {
+            "statement": "The housing supports the fan and alternator while keeping the blade tips close to the surrounding ring. It forms the inlet to the cooling duct.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Open circular casting with lip, cylindrical barrel and rear support spokes.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Open circular casting with lip, cylindrical barrel and rear support spokes.",
+          "materialBehavior": "Cast metal · restrained silver-grey reflection. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Exact alloy and casting marks are not established."
+        ]
+      },
+      {
+        "componentId": "alternator",
+        "function": "Behind the fan, an alternator converts shaft rotation into electrical power. It shares the belt drive rather than needing a second motor.",
+        "claims": [
+          {
+            "statement": "Behind the fan, an alternator converts shaft rotation into electrical power. It shares the belt drive rather than needing a second motor.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Ribbed cylindrical housing nested behind the fan hub.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Ribbed cylindrical housing nested behind the fan hub.",
+          "materialBehavior": "Cast housing · steel shaft. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Internal windings and electrical circuit are outside this engine-mechanism study."
+        ]
+      },
+      {
+        "componentId": "cooling-shroud",
+        "function": "The black shroud guides fan air over both cylinder banks. Without that guidance, air could escape before collecting heat from the fins.",
+        "claims": [
+          {
+            "statement": "The black shroud guides fan air over both cylinder banks. Without that guidance, air could escape before collecting heat from the fins.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Rounded hollow canopy with open underside, rear panel and side ducts.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Rounded hollow canopy with open underside, rear panel and side ducts.",
+          "materialBehavior": "Satin black finish · no baked highlights. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Duct contours and wall thickness are approximate; coating chemistry is unverified."
+        ]
+      },
+      {
+        "componentId": "air-cleaner",
+        "function": "The air cleaner feeds the two banks of carburetors. Removing it reveals six separate intake throats beneath.",
+        "claims": [
+          {
+            "statement": "The air cleaner feeds the two banks of carburetors. Removing it reveals six separate intake throats beneath.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Paired rounded housings with a connecting duct; a simplified early air-cleaner envelope.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Paired rounded housings with a connecting duct; a simplified early air-cleaner envelope.",
+          "materialBehavior": "Satin black housing · bright fasteners. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Air-cleaner silhouette is less certain than the exposed engine; internal filter media is not reconstructed."
+        ]
+      },
+      {
+        "componentId": "carburetors",
+        "function": "The early 901/01 uses Solex carburetion. Air passes through a throat for each cylinder; throttle position changes the flow and the carburetor meters fuel into it.",
+        "claims": [
+          {
+            "statement": "The early 901/01 uses Solex carburetion. Air passes through a throat for each cylinder; throttle position changes the flow and the carburetor meters fuel into it.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Six open throats, flared entries, throttle discs and shafts, fuel chambers and brass fittings.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Six open throats, flared entries, throttle discs and shafts, fuel chambers and brass fittings.",
+          "materialBehavior": "Cast alloy bodies · machined throats · brass fittings. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Jet passages, calibration, and fuel recirculation plumbing are not reproduced."
+        ]
+      },
+      {
+        "componentId": "intake-manifolds",
+        "function": "The intake runners connect the carburetors to the cylinder heads. An intake valve admits the mixture into the chamber at the appropriate part of the cycle.",
+        "claims": [
+          {
+            "statement": "The intake runners connect the carburetors to the cylinder heads. An intake valve admits the mixture into the chamber at the appropriate part of the cycle.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Six curved runners with flange rings and paired mounting studs.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Six curved runners with flange rings and paired mounting studs.",
+          "materialBehavior": "Cast-metal runners · machined flange faces. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Runner bends and wall thickness are reference-fitted."
+        ]
+      },
+      {
+        "componentId": "heads-left",
+        "function": "Each cylinder has its own head. The chamber closes the cylinder while the intake and exhaust valves control what enters and leaves.",
+        "claims": [
+          {
+            "statement": "Each cylinder has its own head. The chamber closes the cylinder while the intake and exhaust valves control what enters and leaves.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Three finned heads with chamber-closing faces, separate valve openings, seat rings and perimeter studs.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Three finned heads with chamber-closing faces, separate valve openings, seat rings and perimeter studs.",
+          "materialBehavior": "Cast light alloy · machined sealing faces. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Combustion-chamber contours and port cross-sections are simplified."
+        ]
+      },
+      {
+        "componentId": "heads-right",
+        "function": "The opposite three cylinders work through the same four-stroke sequence. Their horizontal arrangement gives the flat-six its broad, low form.",
+        "claims": [
+          {
+            "statement": "The opposite three cylinders work through the same four-stroke sequence. Their horizontal arrangement gives the flat-six its broad, low form.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Second set of three heads, staggered along the crankshaft to match the rods.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Second set of three heads, staggered along the crankshaft to match the rods.",
+          "materialBehavior": "Cast light alloy · machined sealing faces. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Bank spacing is illustrative, not a workshop measurement."
+        ]
+      },
+      {
+        "componentId": "cylinders-left",
+        "function": "The bore guides the piston. Outside, thin fins increase the surface exposed to cooling air; the hot cylinder can shed heat as the fan drives air past.",
+        "claims": [
+          {
+            "statement": "The bore guides the piston. Outside, thin fins increase the surface exposed to cooling air; the hot cylinder can shed heat as the fan drives air past.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Three hollow barrels with thirteen modeled fins each, bore walls and long head studs.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Three hollow barrels with thirteen modeled fins each, bore walls and long head studs.",
+          "materialBehavior": "Dark finned metal · smoother bore surface. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Fin count/spacing and cylinder metallurgy are visual approximations, not a verified part specification."
+        ]
+      },
+      {
+        "componentId": "cylinders-right",
+        "function": "Three cylinders sit on each side of the crankcase. Opposed pistons move toward and away from the centre as their rods follow separate crankpins.",
+        "claims": [
+          {
+            "statement": "Three cylinders sit on each side of the crankcase. Opposed pistons move toward and away from the centre as their rods follow separate crankpins.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Three opposing hollow barrels; no solid caps hiding the pistons.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Three opposing hollow barrels; no solid caps hiding the pistons.",
+          "materialBehavior": "Dark finned metal · metallic stud hardware. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "This is a static assembly pose, not a running-engine simulation."
+        ]
+      },
+      {
+        "componentId": "pistons",
+        "function": "Combustion pressure pushes on each piston crown. Rings seal against the bore while the hollow skirt and wrist pin connect that force to a rod.",
+        "claims": [
+          {
+            "statement": "Combustion pressure pushes on each piston crown. Rings seal against the bore while the hollow skirt and wrist pin connect that force to a rod.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Six hollow-skirt pistons with crown discs, three ring bands and wrist pins.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Six hollow-skirt pistons with crown discs, three ring bands and wrist pins.",
+          "materialBehavior": "Machined light metal · darker ring bands. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Crown profiles, ring gaps, pin-bore details and clearances are approximate."
+        ]
+      },
+      {
+        "componentId": "connecting-rods",
+        "function": "Each rod connects a piston pin to its own crankpin. The big end follows a circle while the small end follows the piston, converting reciprocation into rotation.",
+        "claims": [
+          {
+            "statement": "Each rod connects a piston pin to its own crankpin. The big end follows a circle while the small end follows the piston, converting reciprocation into rotation.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Six rods with open big ends, small-end rings, web sections and cap hardware.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Six rods with open big ends, small-end rings, web sections and cap hardware.",
+          "materialBehavior": "Forged-metal appearance · polished bearing bores. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Forging contours and bearing clearances are simplified."
+        ]
+      },
+      {
+        "componentId": "crankshaft",
+        "function": "Six offset crankpins gather the piston forces into one rotating shaft. Main journals support it inside the case; counterweights help manage the rotating loads.",
+        "claims": [
+          {
+            "statement": "Six offset crankpins gather the piston forces into one rotating shaft. Main journals support it inside the case; counterweights help manage the rotating loads.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Seven main journals, six separate crankpins, shaped counterweights and drive-end gear.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Seven main journals, six separate crankpins, shaped counterweights and drive-end gear.",
+          "materialBehavior": "Steel shaft · polished journals · darker webs. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Throw layout is educational; balance, firing order and dynamic loads are not simulated."
+        ]
+      },
+      {
+        "componentId": "flywheel",
+        "function": "The flywheel stores rotational energy between firing impulses and passes torque toward the clutch. Its toothed perimeter also gives the starter a place to engage.",
+        "claims": [
+          {
+            "statement": "The flywheel stores rotational energy between firing impulses and passes torque toward the clutch. Its toothed perimeter also gives the starter a place to engage.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Heavy circular disc, machined annulus, bolted hub and separate ring-gear teeth.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Heavy circular disc, machined annulus, bolted hub and separate ring-gear teeth.",
+          "materialBehavior": "Machined steel · darker toothed rim. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Exact tooth count and clutch interface dimensions are illustrative."
+        ]
+      },
+      {
+        "componentId": "timing-covers",
+        "function": "The front covers enclose the timing drive and retain lubricant. Moving them away reveals the chain route between the central drive and the two camshafts.",
+        "claims": [
+          {
+            "statement": "The front covers enclose the timing drive and retain lubricant. Moving them away reveals the chain route between the central drive and the two camshafts.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Two shaped perimeter castings with radiused edges and bolt heads.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Two shaped perimeter castings with radiused edges and bolt heads.",
+          "materialBehavior": "Fine cast-metal grain · machined fasteners. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Contours and sealing lips are fitted to the diagram, not exact CAD."
+        ]
+      },
+      {
+        "componentId": "timing-chains",
+        "function": "An intermediate drive turns two chains, one for each camshaft. Valve timing coordinates intake and exhaust events with piston travel through the four-stroke cycle.",
+        "claims": [
+          {
+            "statement": "An intermediate drive turns two chains, one for each camshaft. Valve timing coordinates intake and exhaust events with piston travel through the four-stroke cycle.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Two duplex linked paths, cam sprockets, guide rails, tensioner/idler assemblies and a longitudinal intermediate shaft.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Two duplex linked paths, cam sprockets, guide rails, tensioner/idler assemblies and a longitudinal intermediate shaft.",
+          "materialBehavior": "Steel links · bright pins · dark sprocket faces. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Chain pitch, tensioner geometry and exact ratio are simplified; not a timing-setting reference."
+        ]
+      },
+      {
+        "componentId": "valve-covers",
+        "function": "The ribbed covers seal the valve mechanism. Removing them opens a service view of the rocker and cam assemblies beneath.",
+        "claims": [
+          {
+            "statement": "The ribbed covers seal the valve mechanism. Removing them opens a service view of the rocker and cam assemblies beneath.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Four elongated covers with rounded ends, raised ribs and perimeter fasteners.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Four elongated covers with rounded ends, raised ribs and perimeter fasteners.",
+          "materialBehavior": "Cast-metal covers · machined nuts. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Rib spacing, markings and gasket profiles are approximate."
+        ]
+      },
+      {
+        "componentId": "cam-carriers",
+        "function": "The carriers support the camshafts and rocker shafts along each bank. Alignment matters: a cam profile is useful only if the moving surfaces meet in the right place.",
+        "claims": [
+          {
+            "statement": "The carriers support the camshafts and rocker shafts along each bank. Alignment matters: a cam profile is useful only if the moving surfaces meet in the right place.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Paired longitudinal structures with open bearing supports and upper/lower rails.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Paired longitudinal structures with open bearing supports and upper/lower rails.",
+          "materialBehavior": "Cast housing · smooth bearing surfaces. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Carrier castings are simplified and not fully oil-tight solids."
+        ]
+      },
+      {
+        "componentId": "camshafts",
+        "function": "One overhead camshaft serves each bank. Its lobes act through rockers to open valves; spring force closes them after the lobe passes.",
+        "claims": [
+          {
+            "statement": "One overhead camshaft serves each bank. Its lobes act through rockers to open valves; spring force closes them after the lobe passes.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Two shafts with six distinct lobes each; bearing journals remain visible in isolation.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Two shafts with six distinct lobes each; bearing journals remain visible in isolation.",
+          "materialBehavior": "Steel · polished lobe surfaces. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Lobe lift and phase are illustrative rather than verified 901/01 cam profiles."
+        ]
+      },
+      {
+        "componentId": "valvetrain",
+        "function": "The intake valve admits fresh mixture; the exhaust valve lets spent gases leave. Rockers transmit cam motion, and springs keep the valves returning to their seats.",
+        "claims": [
+          {
+            "statement": "The intake valve admits fresh mixture; the exhaust valve lets spent gases leave. Rockers transmit cam motion, and springs keep the valves returning to their seats.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Twelve poppet valves, stems, helical springs, retainers and rocker forms.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Twelve poppet valves, stems, helical springs, retainers and rocker forms.",
+          "materialBehavior": "Steel stems and springs · cast rocker finish. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Exact rocker ratios and valve angles are not measured."
+        ]
+      },
+      {
+        "componentId": "ignition",
+        "function": "The distributor routes high voltage to six spark plugs. A spark starts combustion in the compressed mixture; the plug is a separate part of each head.",
+        "claims": [
+          {
+            "statement": "The distributor routes high voltage to six spark plugs. A spark starts combustion in the compressed mixture; the plug is a separate part of each head.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Distributor body and cap, six cables, ceramic plug insulators and hexagonal bases.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Distributor body and cap, six cables, ceramic plug insulators and hexagonal bases.",
+          "materialBehavior": "Brown insulating cap · black cable · pale ceramic. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Wire routing and plug details are representative; no exact firing-order claim."
+        ]
+      },
+      {
+        "componentId": "crankcase-left",
+        "function": "One half of the split crankcase supports the cylinders and the rotating shaft. The mating surfaces locate the other half and form the enclosed lower engine.",
+        "claims": [
+          {
+            "statement": "One half of the split crankcase supports the cylinders and the rotating shaft. The mating surfaces locate the other half and form the enclosed lower engine.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Split shell with cylinder apertures, bearing supports, ribs and fastening bosses.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Split shell with cylinder apertures, bearing supports, ribs and fastening bosses.",
+          "materialBehavior": "Cast light-metal appearance · machined interfaces. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Casting shape and material grade are not established from measured factory data."
+        ]
+      },
+      {
+        "componentId": "crankcase-right",
+        "function": "The matching case half completes the main bearing supports. Bolting the halves together fixes the relationship between the crankshaft and both cylinder banks.",
+        "claims": [
+          {
+            "statement": "The matching case half completes the main bearing supports. Bolting the halves together fixes the relationship between the crankshaft and both cylinder banks.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Opposing shell with separate apertures, mating walls and support details.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Opposing shell with separate apertures, mating walls and support details.",
+          "materialBehavior": "Cast light-metal appearance · machined interfaces. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Sealing geometry and oil passages are simplified."
+        ]
+      },
+      {
+        "componentId": "oil-pump",
+        "function": "The dry-sump system uses pumping stages to supply pressurized oil and scavenge it back toward a separate reservoir. Oil both lubricates moving interfaces and carries heat away.",
+        "claims": [
+          {
+            "statement": "The dry-sump system uses pumping stages to supply pressurized oil and scavenge it back toward a separate reservoir. Oil both lubricates moving interfaces and carries heat away.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Sectioned pump housing exposes two paired gear stages; the inspection window is an educational cutaway.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Sectioned pump housing exposes two paired gear stages; the inspection window is an educational cutaway.",
+          "materialBehavior": "Cast housing · steel gear forms. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "The permanent housing cutaway is illustrative; gear dimensions and hidden passages are schematic. The external oil tank is vehicle-mounted and not modeled."
+        ]
+      },
+      {
+        "componentId": "oil-cooler",
+        "function": "Oil carries heat from loaded surfaces to the cooler. Closely spaced fins give the air another route to remove that heat.",
+        "claims": [
+          {
+            "statement": "Oil carries heat from loaded surfaces to the cooler. Closely spaced fins give the air another route to remove that heat.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Stacked thin cooler fins between end tanks at the rear of the engine.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Stacked thin cooler fins between end tanks at the rear of the engine.",
+          "materialBehavior": "Metal fins · cast end tanks. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Internal flow channels and exact fin pitch are unverified."
+        ]
+      },
+      {
+        "componentId": "oil-lines",
+        "function": "Return tubes carry oil from the heads back toward the case. External connections link the engine to the wider dry-sump circuit in the car.",
+        "claims": [
+          {
+            "statement": "Return tubes carry oil from the heads back toward the case. External connections link the engine to the wider dry-sump circuit in the car.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Rigid return tubes, separate seals, hose bends and hexagonal unions.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Rigid return tubes, separate seals, hose bends and hexagonal unions.",
+          "materialBehavior": "Metal tubing · rubber hoses and seals · warm metal fittings. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Routing is representative; the vehicle reservoir and filter are outside the model boundary."
+        ]
+      },
+      {
+        "componentId": "exhaust",
+        "function": "Exhaust leaves each head through a runner, collects below the banks, and passes through the silencer. The cycle can then begin again with fresh mixture.",
+        "claims": [
+          {
+            "statement": "Exhaust leaves each head through a runner, collects below the banks, and passes through the silencer. The cycle can then begin again with fresh mixture.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "brochure"
+            ]
+          },
+          {
+            "statement": "Six curved runners, flange rings, transverse silencer, bands and outlet pipe.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "original-photo",
+              "restored-photo"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "parts",
+            "original-photo",
+            "restored-photo"
+          ],
+          "shape": "Six curved runners, flange rings, transverse silencer, bands and outlet pipe.",
+          "materialBehavior": "Heat-exposed metal · soft reflections. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
+          "exclude": [
+            "Photo lighting",
+            "Neighbor silhouettes",
+            "Undocumented precision claims"
+          ],
+          "acceptanceChecks": [
+            "Inspect complete 360 degrees and reverse surface",
+            "Compare assembled silhouette to the front/top reference",
+            "Verify physical separation and final seating",
+            "Confirm the caption describes visible geometry"
+          ]
+        },
+        "unknowns": [
+          "Heat exchangers, muffler baffles and exhaust wall thickness are simplified."
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "from": "carburetors",
+        "to": "intake-manifolds",
+        "relationship": "Meters mixture into the intake runners.",
+        "basis": "inferred",
+        "referenceIds": [
+          "parts",
+          "brochure"
+        ]
+      },
+      {
+        "from": "intake-manifolds",
+        "to": "heads-left",
+        "relationship": "Feeds mixture toward the intake valves.",
+        "basis": "inferred",
+        "referenceIds": [
+          "parts",
+          "brochure"
+        ]
+      },
+      {
+        "from": "heads-left",
+        "to": "pistons",
+        "relationship": "Contains the pressure that pushes the piston crown.",
+        "basis": "inferred",
+        "referenceIds": [
+          "parts",
+          "brochure"
+        ]
+      },
+      {
+        "from": "pistons",
+        "to": "connecting-rods",
+        "relationship": "Transmits force through the wrist pins.",
+        "basis": "inferred",
+        "referenceIds": [
+          "parts",
+          "brochure"
+        ]
+      },
+      {
+        "from": "connecting-rods",
+        "to": "crankshaft",
+        "relationship": "Transfers reciprocating force to offset crankpins.",
+        "basis": "inferred",
+        "referenceIds": [
+          "parts",
+          "brochure"
+        ]
+      },
+      {
+        "from": "crankshaft",
+        "to": "flywheel",
+        "relationship": "Transfers torque to the output end.",
+        "basis": "inferred",
+        "referenceIds": [
+          "parts",
+          "brochure"
+        ]
+      },
+      {
+        "from": "crankshaft",
+        "to": "fan-drive",
+        "relationship": "Provides rotation for the belt drive.",
+        "basis": "inferred",
+        "referenceIds": [
+          "parts",
+          "brochure"
+        ]
+      },
+      {
+        "from": "fan-drive",
+        "to": "fan",
+        "relationship": "Drives airflow as the engine runs.",
+        "basis": "inferred",
+        "referenceIds": [
+          "parts",
+          "brochure"
+        ]
+      },
+      {
+        "from": "fan",
+        "to": "cooling-shroud",
+        "relationship": "Sends air into the shroud.",
+        "basis": "inferred",
+        "referenceIds": [
+          "parts",
+          "brochure"
+        ]
+      },
+      {
+        "from": "cooling-shroud",
+        "to": "cylinders-left",
+        "relationship": "Directs air across the hot fins.",
+        "basis": "inferred",
+        "referenceIds": [
+          "parts",
+          "brochure"
+        ]
+      },
+      {
+        "from": "timing-chains",
+        "to": "camshafts",
+        "relationship": "Coordinates cam rotation with the crankshaft.",
+        "basis": "inferred",
+        "referenceIds": [
+          "parts",
+          "brochure"
+        ]
+      },
+      {
+        "from": "camshafts",
+        "to": "valvetrain",
+        "relationship": "Lobes act through the rockers.",
+        "basis": "inferred",
+        "referenceIds": [
+          "parts",
+          "brochure"
+        ]
+      },
+      {
+        "from": "oil-pump",
+        "to": "oil-cooler",
+        "relationship": "Circulates oil through the lubrication and cooling circuit.",
+        "basis": "inferred",
+        "referenceIds": [
+          "parts",
+          "brochure"
+        ]
+      },
+      {
+        "from": "heads-right",
+        "to": "exhaust",
+        "relationship": "Releases spent gases into the exhaust runners.",
+        "basis": "inferred",
+        "referenceIds": [
+          "parts",
+          "brochure"
+        ]
+      }
+    ],
+    "unresolved": [
+      "This manually authored study does not demonstrate unattended photo-to-engine reconstruction.",
+      "Exact casting topology, clearances, carburetor calibration and finishes need measured references.",
+      "No combustion, thermal, lubrication or running-engine physics simulation.",
+      "Air cleaner and internal carrier/pump geometry need stronger reference fidelity."
+    ]
+  },
+  "scene3d": {
+    "kind": "gltf",
+    "url": "models/engine.glb",
+    "lighting": "studio",
+    "requireCompleteMapping": true,
+    "parts": [
+      {
+        "componentId": "fan-drive",
+        "node": "fan-drive",
+        "offset": [
+          0,
+          0,
+          6.5
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "fan",
+        "node": "fan",
+        "offset": [
+          0,
+          1.5,
+          4.8
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "fan-housing",
+        "node": "fan-housing",
+        "offset": [
+          0,
+          0,
+          3.2
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "alternator",
+        "node": "alternator",
+        "offset": [
+          0,
+          0,
+          1.7
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "cooling-shroud",
+        "node": "cooling-shroud",
+        "offset": [
+          0,
+          3,
+          -1.2
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "air-cleaner",
+        "node": "air-cleaner",
+        "offset": [
+          0,
+          5,
+          0
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "carburetors",
+        "node": "carburetors",
+        "offset": [
+          0,
+          2.4,
+          0
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "intake-manifolds",
+        "node": "intake-manifolds",
+        "offset": [
+          0,
+          1.2,
+          0
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "heads-left",
+        "node": "heads-left",
+        "offset": [
+          -3,
+          0,
+          0
+        ],
+        "shot": {
+          "from": [
+            -1,
+            0.3,
+            0.5
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "heads-right",
+        "node": "heads-right",
+        "offset": [
+          3,
+          0,
+          0
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "cylinders-left",
+        "node": "cylinders-left",
+        "offset": [
+          -1.9,
+          0,
+          0
+        ],
+        "shot": {
+          "from": [
+            -1,
+            0.3,
+            0.5
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "cylinders-right",
+        "node": "cylinders-right",
+        "offset": [
+          1.9,
+          0,
+          0
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "pistons",
+        "node": "pistons",
+        "offset": [
+          0,
+          1,
+          1
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "connecting-rods",
+        "node": "connecting-rods",
+        "offset": [
+          0,
+          -1.1,
+          0
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "crankshaft",
+        "node": "crankshaft",
+        "offset": [
+          0,
+          -2.7,
+          0
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "flywheel",
+        "node": "flywheel",
+        "offset": [
+          0,
+          0,
+          -4.2
+        ],
+        "shot": {
+          "from": [
+            0.35,
+            0.2,
+            -1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "timing-covers",
+        "node": "timing-covers",
+        "offset": [
+          0,
+          -0.5,
+          3
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "timing-chains",
+        "node": "timing-chains",
+        "offset": [
+          0,
+          -1,
+          1.5
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "valve-covers",
+        "node": "valve-covers",
+        "offset": [
+          0,
+          3.7,
+          2.5
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "cam-carriers",
+        "node": "cam-carriers",
+        "offset": [
+          0,
+          2.5,
+          -2.5
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "camshafts",
+        "node": "camshafts",
+        "offset": [
+          0,
+          2.2,
+          1.6
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "valvetrain",
+        "node": "valvetrain",
+        "offset": [
+          0,
+          4,
+          -1
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "ignition",
+        "node": "ignition",
+        "offset": [
+          -3,
+          2,
+          2
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "crankcase-left",
+        "node": "crankcase-left",
+        "offset": [
+          -0.8,
+          0,
+          0
+        ],
+        "shot": {
+          "from": [
+            -1,
+            0.3,
+            0.5
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "crankcase-right",
+        "node": "crankcase-right",
+        "offset": [
+          0.8,
+          0,
+          0
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "oil-pump",
+        "node": "oil-pump",
+        "offset": [
+          0,
+          -4.2,
+          -1
+        ],
+        "shot": {
+          "from": [
+            0.6,
+            1.8,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "oil-cooler",
+        "node": "oil-cooler",
+        "offset": [
+          1.8,
+          1.7,
+          -3.6
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "oil-lines",
+        "node": "oil-lines",
+        "offset": [
+          0,
+          -2.5,
+          -2.4
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      },
+      {
+        "componentId": "exhaust",
+        "node": "exhaust",
+        "offset": [
+          0,
+          -5,
+          1
+        ],
+        "shot": {
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "to": [
+            -0.8,
+            0.3,
+            -1
+          ]
+        }
+      }
+    ]
+  }
+}

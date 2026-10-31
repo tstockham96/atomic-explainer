@@ -77,6 +77,7 @@ export function Create() {
         <div className="create-studies" aria-label="Example studies">
           <a className="create-sample" href="/murph-study/index.html"><strong>Hamilton Murph ↗</strong><span>Authored study · fidelity review incomplete</span></a>
           <a className="create-sample" href="/iphone-study/index.html"><strong>iPhone internal study ↗</strong><span>Scroll exploration · requires local source model</span></a>
+          <a className="create-sample" href="/porsche-study/index.html"><strong>Porsche 911 engine ↗</strong><span>29 assemblies · explore the flat-six inside</span></a>
         </div>
       </section>
       <section className="create-workbench" aria-label="Create a 3D explainer">

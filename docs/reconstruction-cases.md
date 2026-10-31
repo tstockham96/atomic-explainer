@@ -84,3 +84,17 @@ Source AR geometry may include nonphysical occluders and omit reverse faces. Ins
 Failure: the source exterior spec listed only its available surfaces, and validation checked that shortened list. A detailed shell therefore appeared to complete the request while the battery, board and chips vanished from the work queue.
 
 Fix: establish a separate functional requirements inventory from research, preserve it across asset swaps, and compare it against exported geometry plus research/story mappings. Planning saves this inventory; batch asset execution retains missing and failed tasks; exporting an incomplete assembly displays an incomplete notice. The agent continues modeling and fitting within the already-authorized request. A proof sequence and an asset inspector are intermediate checkpoints, not reasons to ask the user whether they still want the internals. Token geometry cannot earn a fidelity pass merely by satisfying coverage.
+
+## A tour has to return the parts to a whole
+
+The iPhone ended at an exploded overview even though the anatomy headline referred to the complete object. Reserve an explicit final reassembly and settled hold in the shared timeline. Test actual final geometry and reverse traversal, not only a closing caption. Every component still gets its full inspection orbit before the return begins.
+
+## Engine variants, materials and dense assemblies
+
+The Porsche trial selects a 1965 901/01; the official catalogue also contains 912 four-cylinder parts and later injection variants. Record diagram scope and do not mix them. Restored photographs establish visible form, not original alloy or factory coating. Separate combustion intake airflow from cooling airflow in the learning narrative. Distinguish engine-mounted lubrication from the external vehicle oil reservoir. An engine model's casting contours and timing details can remain approximate even with all required groups present.
+
+Fine surface bump is sensitive to model normalization: an unscaled bump strength made cast alloy look like pebbled stone. Review the exported model in the actual viewer, not only the author's scene. Dense overviews also need fewer labels; component names remain available in navigation and close-ups. Repeated chain links and fins should share material batches and indexed vertices so mechanical detail does not require a hundred-megabyte download.
+
+## Geometry must support the mechanism being taught
+
+The engine review found head fins surrounding a through-hole instead of a closed combustion chamber, case walls rotated across their intended axis, and two cylinder openings touching the casting perimeter and failing triangulation. A component ID and a nonempty mesh do not catch these failures. Add functional geometry checks where possible: open flow paths, closed pressure boundaries, aligned supports, clear bearing seats and valid cutout margins. The engine tests now probe the cylinder bores and all six case apertures, verify chamber material exists between valve openings, and check case orientation. Its oil pump uses an explicitly documented permanent inspection cutaway, framed from above; this must not be mistaken for a manufactured opening or achieved by opacity animation.

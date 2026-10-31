@@ -209,3 +209,7 @@ npm run explode -- --from-spec spec.json --requirements assembly-requirements.js
 ```
 
 `assembly-progress.json` tracks the remaining asset work. `assembly-completeness.json` checks research, actual exported geometry and story mappings independently. A missing battery cannot disappear from scope simply because an exterior asset lacks one. The site visibly reports incomplete coverage. Coverage-complete is not a visual quality pass. The agent still executes fitting and fidelity review; the upload form is not yet an unattended universal reconstruction service.
+
+### Porsche engine: bundled cross-object study
+
+The [Porsche 911 engine example](examples/porsche-911-engine/README.md) includes original geometry for 29 explorable assemblies and opens at `/porsche-study/index.html` after the normal build. It requires no provider credentials or proprietary source model. Both it and the shared iPhone viewer now close with a visible reassembly before anatomy. The engine's dimensions and detailed castings remain approximate; its review does not claim universal automatic reconstruction.

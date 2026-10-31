@@ -1,0 +1,543 @@
+{
+  "version": 1,
+  "identity": "1965 Porsche 911 Type 901/01 air-cooled flat-six. Engine-mounted systems; vehicle ancillaries explicitly excluded.",
+  "searches": [
+    {
+      "query": "Porsche 911 engine 3d model flat six downloadable CC BY engine",
+      "searchedAt": "2026-10-30T21:40:00Z",
+      "outcome": "Located scan, marketplace SC and 3.2 engine listings. No inspected, downloadable, exact-variant multipart internal asset established."
+    },
+    {
+      "query": "Porsche 911 engine blender model free download internal",
+      "searchedAt": "2026-10-30T21:42:00Z",
+      "outcome": "Whole-car and exterior listings did not establish required engine-internal coverage. Chose original reference-guided authoring."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "library-scan",
+      "url": "https://sketchfab.com/3d-models/porsche-engine-scan-v1-df1e71d1c02941c2ae0643f63bb9d533",
+      "exactVariant": false,
+      "coverage": "unknown",
+      "license": {
+        "name": "Listing states CC Attribution; file not obtained",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "redistribution": "unknown"
+      },
+      "decision": "rejected",
+      "reason": "Web access returned 403; actual mesh and internal segmentation not inspected. A scan cannot be assumed to contain hidden internals."
+    },
+    {
+      "id": "marketplace-32",
+      "url": "https://www.flatpyramid.com/3d-models/vehicles-3d-models/vehicle-parts/automobile-parts/porsche-3-2-liter-engine/",
+      "exactVariant": false,
+      "coverage": "exterior",
+      "license": {
+        "name": "Marketplace terms not established",
+        "url": "https://www.flatpyramid.com",
+        "redistribution": "unknown"
+      },
+      "decision": "rejected",
+      "reason": "Listing explicitly describes exterior detail without internals; different 3.2-litre variant. No model downloaded or purchased."
+    }
+  ],
+  "observations": [
+    {
+      "id": "front",
+      "referenceId": "restored-photo",
+      "componentId": "fan",
+      "view": "front",
+      "imagePath": "../../../work/porsche-research/restored-front.png",
+      "notes": "Fan ring, eleven blades, drive belt, black ducts and transverse silencer.",
+      "origin": "photograph"
+    },
+    {
+      "id": "top",
+      "referenceId": "restored-photo",
+      "componentId": "carburetors",
+      "view": "assembled",
+      "imagePath": "../../../work/porsche-research/restored-top.png",
+      "notes": "Six intake throats, dark canopy and routed ignition wiring.",
+      "origin": "photograph"
+    },
+    {
+      "id": "original",
+      "referenceId": "original-photo",
+      "componentId": "valve-covers",
+      "view": "oblique",
+      "imagePath": "../../../work/porsche-research/historika.png",
+      "notes": "Unrestored 901/01; Solex bodies and ribbed metal valve covers.",
+      "origin": "photograph"
+    },
+    {
+      "id": "internals",
+      "referenceId": "parts",
+      "componentId": "pistons",
+      "view": "disassembled",
+      "imagePath": "../../../work/porsche-research/heads-diagram.png",
+      "notes": "Separate finned head, cylinder, hollow piston, rings, pin and valves.",
+      "origin": "drawing"
+    },
+    {
+      "id": "crank",
+      "referenceId": "parts",
+      "componentId": "crankshaft",
+      "view": "disassembled",
+      "imagePath": "../../../work/porsche-research/crank-diagram.png",
+      "notes": "Separate crankpins/rods, flywheel, pulley and bearing parts.",
+      "origin": "drawing"
+    },
+    {
+      "id": "timing",
+      "referenceId": "parts",
+      "componentId": "timing-chains",
+      "view": "disassembled",
+      "imagePath": "../../../work/porsche-research/timing-diagram.png",
+      "notes": "Duplex chain, camshaft, rocker, guide rails and tensioner.",
+      "origin": "drawing"
+    }
+  ],
+  "tasks": [
+    {
+      "componentId": "fan-drive",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component fan-drive is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "fan",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component fan is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "fan-housing",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component fan-housing is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "alternator",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component alternator is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "cooling-shroud",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component cooling-shroud is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "air-cleaner",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component air-cleaner is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "carburetors",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component carburetors is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "intake-manifolds",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component intake-manifolds is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "heads-left",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component heads-left is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "heads-right",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component heads-right is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "cylinders-left",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component cylinders-left is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "cylinders-right",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component cylinders-right is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "pistons",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component pistons is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "connecting-rods",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component connecting-rods is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "crankshaft",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component crankshaft is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "flywheel",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component flywheel is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "timing-covers",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component timing-covers is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "timing-chains",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component timing-chains is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "valve-covers",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component valve-covers is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "cam-carriers",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component cam-carriers is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "camshafts",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component camshafts is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "valvetrain",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component valvetrain is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "ignition",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component ignition is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "crankcase-left",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component crankcase-left is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "crankcase-right",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component crankcase-right is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "oil-pump",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component oil-pump is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "oil-cooler",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component oil-cooler is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "oil-lines",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component oil-lines is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    },
+    {
+      "componentId": "exhaust",
+      "observationIds": [
+        "front",
+        "top",
+        "original",
+        "internals",
+        "crank",
+        "timing"
+      ],
+      "strategy": {
+        "kind": "defer",
+        "reason": "Provider-adapter handoff resolved by tools/porsche-study/model.ts; actual component exhaust is exported in models/engine.glb. Inspect the authored result rather than generating a replacement shell."
+      }
+    }
+  ],
+  "execution": {
+    "method": "original authored assembly",
+    "builder": "tools/porsche-study/model.ts",
+    "output": "models/engine.glb",
+    "note": "The source/provider adapter is deferred below; every required component was instead authored and exported in the local builder. These are resolved manual handoffs, not missing geometry or paid provider calls."
+  }
+}

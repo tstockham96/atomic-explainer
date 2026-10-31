@@ -30,6 +30,6 @@
     "tools/murph-study/viewer.ts",
     "tools/evals/run.ts",
     "playwright.config.ts",
-    "tools/iphone-study/model.ts"
+    "tools/iphone-study/model.ts", "tools/porsche-study/model.ts", "tools/porsche-study/export.ts"
   ]
 }

@@ -60,6 +60,6 @@ test('agent project import creates a real preview without research credentials',
   await expect(page.getByRole('link', { name: 'Open the 3D draft' })).toBeVisible({ timeout: 30_000 })
   await page.getByRole('link', { name: 'Open the 3D draft' }).click()
   await expect(page).toHaveURL(/\/jobs\/.+\/index.html/)
-  await expect(page.locator('.mesh-title')).toContainText('Scroll to rotate, explode and explore', { timeout: 60_000 })
+  await expect(page.locator('.mesh-title:not(.mesh-closing)')).toContainText('Scroll to rotate, explode and explore', { timeout: 60_000 })
   await expect(page.locator('.mesh-bottom')).toContainText('Assembly prototype')
 })
