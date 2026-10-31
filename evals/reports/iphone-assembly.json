@@ -35,7 +35,7 @@
     },
     {
       "id": "experience-freshness",
-      "status": "pass",
+      "status": "fail",
       "detail": "Design review must match the exact viewer and layout source."
     },
     {

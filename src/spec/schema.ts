@@ -102,6 +102,9 @@ export const explodeSpecSchema = z.object({
     z.object({
       kind: z.literal("gltf"),
       url: z.string().min(1),
+      lighting: z.enum(['studio', 'neutral']).optional(),
+      requireCompleteMapping: z.boolean().optional(),
+      omittedNodes: z.array(z.object({ node: z.string().min(1), reason: z.string().min(1) })).optional(),
       parts: z.array(z.object({
         componentId: z.string().min(1),
         node: z.string().min(1).optional(),
@@ -110,6 +113,11 @@ export const explodeSpecSchema = z.object({
         distance: z.number().min(1).max(50).optional(),
         coverThickness: z.number().positive().max(1).optional(),
         doubleSided: z.boolean().optional(),
+        reverseSurface: z.object({
+          color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
+          roughness: z.number().min(0).max(1),
+          note: z.string().min(1),
+        }).optional(),
         shot: z.object({
           from: z.tuple([z.number(), z.number(), z.number()]),
           to: z.tuple([z.number(), z.number(), z.number()]),

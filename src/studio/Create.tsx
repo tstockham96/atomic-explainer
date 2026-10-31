@@ -76,7 +76,7 @@ export function Create() {
         <ol className="create-steps"><li><span>01</span> Identify the object</li><li><span>02</span> Research its construction</li><li><span>03</span> Get a plan for each component</li><li><span>04</span> Build and review with your agent</li></ol>
         <div className="create-studies" aria-label="Example studies">
           <a className="create-sample" href="/murph-study/index.html"><strong>Hamilton Murph ↗</strong><span>Authored study · fidelity review incomplete</span></a>
-          <a className="create-sample" href="/iphone-study/index.html"><strong>iPhone asset research ↗</strong><span>Source model review · internal reconstruction in progress</span></a>
+          <a className="create-sample" href="/iphone-study/index.html"><strong>iPhone exterior study ↗</strong><span>Scroll exploration · requires local source model</span></a>
         </div>
       </section>
       <section className="create-workbench" aria-label="Create a 3D explainer">

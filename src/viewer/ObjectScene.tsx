@@ -21,13 +21,15 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
   const [error, setError] = useState<string | null>(null)
   const [ready, setReady] = useState(false)
   const [selected, setSelected] = useState("assembly")
+  const [stage, setStage] = useState("01 / 03 · Rotate")
   const ids = scenePartIds(spec)
   const components = ids.map((id) => spec.components.find((part) => part.id === id))
   const update = (value: number) => {
     progress.current = value
     handle.current?.setProgress(value)
     const sample = sampleScene(value, components.length)
-    setSelected(sample.index >= 0 ? ids[sample.index]! : "assembly")
+    setSelected(sample.index >= 0 ? ids[sample.index]! : sample.separation > .5 ? "exploded" : "assembly")
+    setStage(sample.index >= 0 ? "03 / 03 · Explore" : sample.separation > 0 ? "02 / 03 · Explode" : "01 / 03 · Rotate")
     const show = (node: HTMLElement | null, opacity: number) => {
       if (!node) return
       node.style.opacity = String(opacity)
@@ -84,17 +86,22 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
   useEffect(() => { handle.current?.setAtmosphere(atmosphere) }, [atmosphere, ready])
   useEffect(() => { handle.current?.setPaused(paused) }, [paused, ready])
 
+  const navigate = (value: number) => {
+    const pin = host.current?.closest('.pin')?.parentElement
+    const spacer = pin?.parentElement
+    if (spacer) window.scrollTo({ top: spacer.getBoundingClientRect().top + window.scrollY + value * Math.max(0, spacer.offsetHeight - window.innerHeight), behavior: 'instant' })
+    updateRef.current(value)
+  }
+
   return (
     <div className={`mesh-film is-${atmosphere}`}>
       <div ref={host} className="mesh-host" />
       <div className="mesh-navigation"><a href="/create">← Studio</a><label>Explore<select aria-label="Explore a component" value={selected} onChange={event => {
         const index = ids.indexOf(event.target.value)
-        const value = index < 0 ? 0 : THREE_TIMING.inspect + (index + .5) * (1 - THREE_TIMING.inspect) / ids.length
-        const pin = host.current?.closest('.pin')?.parentElement
-        const spacer = pin?.parentElement
-        if (spacer) window.scrollTo({ top: spacer.getBoundingClientRect().top + window.scrollY + value * Math.max(0, spacer.offsetHeight - window.innerHeight), behavior: 'instant' })
-        updateRef.current(value)
-      }}><option value="assembly">Whole object</option>{components.map(c => c && <option key={c.id} value={c.id}>{c.name}</option>)}</select></label></div>
+        const value = event.target.value === 'exploded' ? THREE_TIMING.inspect - .001 : index < 0 ? 0 : THREE_TIMING.inspect + (index + .5) * (1 - THREE_TIMING.inspect) / ids.length
+        navigate(value)
+      }}><option value="assembly">Whole object</option><option value="exploded">Exploded overview</option>{components.map(c => c && <option key={c.id} value={c.id}>{c.name}</option>)}</select></label></div>
+      <p className="mesh-stage" role="status">{stage}</p>
       <div className="atmosphere-switch" aria-label="Atmosphere">
         <button type="button" aria-pressed={atmosphere === "daylight"} onClick={() => setAtmosphere("daylight")}><span aria-hidden="true">☼</span> Daylight</button>
         <button type="button" aria-pressed={atmosphere === "midnight"} onClick={() => setAtmosphere("midnight")}><span aria-hidden="true">☾</span> Midnight</button>
@@ -102,8 +109,8 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
       <div ref={title} className="mesh-title">
         <p>{spec.item.maker}</p>
         <h1>{spec.item.model}</h1>
-        <span>{ready ? "Scroll to look inside. Drag to turn." : "Loading the object…"}</span>
-        <div className="mesh-scroll" aria-hidden="true">↓</div>
+        <span>{ready ? "Scroll to rotate, explode and explore." : "Loading the object…"}</span>
+        <button className="mesh-explode" disabled={!ready} onClick={() => navigate(THREE_TIMING.inspect - .001)}>Explode the object ↓</button>
       </div>
       <div className="mesh-labels">{components.map((component, index) => component ? <div className="mesh-part-label" key={component.id} ref={(node) => { labels.current[component.id] = node }} aria-hidden="true"><span>{String(index + 1).padStart(2, "0")}</span>{component.name}</div> : null)}</div>
       {components.map((component, index) => component ? (

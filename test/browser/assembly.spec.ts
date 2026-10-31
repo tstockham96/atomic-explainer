@@ -4,7 +4,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
   test(`construction fixture parts fit at ${viewport.width}`, async ({ page }, info) => {
     await page.setViewportSize(viewport)
     await page.goto('/create')
-    await page.getByRole('link', { name: /iPhone asset research/ }).click()
+    await page.getByRole('link', { name: /iPhone exterior study/ }).click()
     await expect(page).toHaveURL(/iphone-study/)
     await expect(page.getByRole('heading', { name: 'iPhone 18 Pro.' })).toBeVisible()
     await page.goto('/construction-fixtures/phone/index.html?eval=1')
@@ -16,6 +16,19 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
     expect(hero.model.bottom).toBeLessThan(hero.title.top - 8)
     expect(hero.model.top).toBeGreaterThan(100)
     await page.screenshot({ path: info.outputPath('assembled.png') })
+    const home = await page.evaluate(() => window.__explodeAssemblyReview!.snapshot().partPositions)
+    await page.getByRole('button', { name: 'Explode the object' }).click()
+    await expect.poll(() => page.evaluate(() => window.__explodeAssemblyReview!.snapshot().separation)).toBeGreaterThan(.995)
+    const opened = await page.evaluate(() => window.__explodeAssemblyReview!.snapshot())
+    expect(opened.allVisible).toBe(true)
+    const keys = Object.keys(home)
+    const distance = (a: number[], b: number[]) => Math.hypot(...a.map((v, i) => v - b[i]!))
+    expect(keys.some((id, i) => keys.slice(i + 1).some(other => Math.abs(distance(home[id]!, home[other]!) - distance(opened.partPositions[id]!, opened.partPositions[other]!)) > 1))).toBe(true)
+    // Native scroll must reverse the actual geometry, without an evaluation hook.
+    await page.evaluate(() => window.scrollTo(0, 0))
+    await expect.poll(() => page.evaluate(() => window.__explodeAssemblyReview!.snapshot().separation)).toBe(0)
+    expect(await page.evaluate(() => window.__explodeAssemblyReview!.snapshot().partPositions)).toEqual(home)
+
     for (const id of ['front-glass', 'battery', 'logic-board', 'enclosure']) {
       for (const local of [.3, .5, .7]) {
         await page.evaluate(({ id, local }) => window.__explodeAssemblyReview!.inspect(id, local), { id, local })
@@ -47,6 +60,6 @@ test('agent project import creates a real preview without research credentials',
   await expect(page.getByRole('link', { name: 'Open the 3D draft' })).toBeVisible({ timeout: 30_000 })
   await page.getByRole('link', { name: 'Open the 3D draft' }).click()
   await expect(page).toHaveURL(/\/jobs\/.+\/index.html/)
-  await expect(page.locator('.mesh-title')).toContainText('Scroll to look inside', { timeout: 60_000 })
+  await expect(page.locator('.mesh-title')).toContainText('Scroll to rotate, explode and explore', { timeout: 60_000 })
   await expect(page.locator('.mesh-bottom')).toContainText('Assembly prototype')
 })

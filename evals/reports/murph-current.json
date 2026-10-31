@@ -35,7 +35,7 @@
     },
     {
       "id": "experience-freshness",
-      "status": "pass",
+      "status": "fail",
       "detail": "Design review must match the exact viewer and layout source."
     },
     {
@@ -60,8 +60,8 @@
     },
     {
       "id": "artifact-evidence",
-      "status": "pass",
-      "detail": "Artifact existence is checked separately from the reviewer’s visual judgment."
+      "status": "fail",
+      "detail": "Missing evidence files: Current browser measurements are stale; rerun tools/evals/record.mjs."
     },
     {
       "id": "learning-coverage",
@@ -85,13 +85,13 @@
     },
     {
       "id": "physical-continuity",
-      "status": "pass",
-      "detail": "1001 measured poses; 0 context intrusions."
+      "status": "unmeasured",
+      "detail": "No measured motion run supplied."
     },
     {
       "id": "optical-transmission",
-      "status": "pass",
-      "detail": "8 samples; minimum contrast retention 0.926."
+      "status": "unmeasured",
+      "detail": "No rendered transmission measurements supplied."
     },
     {
       "id": "rubric-validity",

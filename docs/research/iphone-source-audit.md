@@ -23,3 +23,12 @@ npm run explode -- --from-spec examples/iphone-18-pro/source-research.json --ass
 ```
 
 This is an agent-assisted source-selection trial. It is not evidence that an arbitrary upload now produces accurate hidden components automatically.
+
+
+## Scroll assembly follow-up
+
+The local `/iphone-study/` route now uses the shared scroll viewer rather than the source inspector. The inspector remains at `/iphone-source-review/`. Inspected isolated front/reverse groups and mapped all 94 source meshes: 92 belong to seven exterior groups (display, enclosure, rear panel, rear optical surfaces, left/right controls and connector); two black occlusion proxies are explicitly omitted. These are explanatory groupings, not an established disassembly procedure.
+
+Verified the real Explode button changes component-relative positions, native reverse scrolling restores the assembly, and inspection retains all component objects while moving context out of frame. Desktop and mobile captures were inspected. The source lacks many reverse faces; declared neutral, untextured reverse visualizations prevent those opaque surfaces vanishing during an orbit. These are **not verified internal finishes or construction**. Lens fronts retain their source optics; camera-rim artifacts persist.
+
+This fixes the missing explosion. It does not close the internal reconstruction or visual-fidelity evaluation gaps, and does not establish arbitrary-upload reconstruction. Battery, logic board, thermal system and complete camera modules remain absent. The shared strict mapping, explicit omission validation and native-scroll regression now apply to any imported object. No Apple geometry is included in the repository.

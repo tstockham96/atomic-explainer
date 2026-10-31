@@ -17,7 +17,23 @@ export function prepareModel(spec: ExplodeSpec, loaded: Pick<GLTF, "scene" | "an
   if (spec.scene3d?.kind !== "gltf") throw new Error("Expected a multipart model spec.")
   const root = new THREE.Group()
   root.add(loaded.scene)
+  const omitted = new THREE.Group()
   try {
+    const definitions = spec.scene3d.parts
+    const mappedNames = new Set(definitions.flatMap(p => p.nodes ?? [p.node!]).flatMap(name => [name, THREE.PropertyBinding.sanitizeNodeName(name)]))
+    const omissions = spec.scene3d.omittedNodes ?? []
+    if (new Set(omissions.map(o => o.node)).size !== omissions.length) throw new Error('Duplicate omitted model nodes.')
+    for (const exclusion of omissions) {
+      const node = loaded.scene.getObjectByName(exclusion.node) ?? loaded.scene.getObjectByName(THREE.PropertyBinding.sanitizeNodeName(exclusion.node))
+      if (!node) throw new Error(`Omitted node “${exclusion.node}” was not found.`)
+      let conflict = false
+      node.traverse(child => { if (mappedNames.has(child.name)) conflict = true })
+      for (let parent = node.parent; parent; parent = parent.parent) if (mappedNames.has(parent.name)) conflict = true
+      if (conflict) throw new Error('A mapped component cannot also be omitted.')
+      // Documented non-component rendering helpers are removed before the story.
+      // Actual components never disappear or change opacity during the animation.
+      omitted.add(node)
+    }
     const initial = new THREE.Box3().setFromObject(loaded.scene)
     if (initial.isEmpty()) throw new Error("The 3D model contains no visible geometry.")
     const size = initial.getSize(new THREE.Vector3())
@@ -25,7 +41,6 @@ export function prepareModel(spec: ExplodeSpec, loaded: Pick<GLTF, "scene" | "an
     loaded.scene.updateMatrixWorld(true)
     loaded.scene.position.sub(new THREE.Box3().setFromObject(loaded.scene).getCenter(new THREE.Vector3()))
     root.updateMatrixWorld(true)
-    const definitions = spec.scene3d.parts
     if (new Set(definitions.map((part) => part.componentId)).size !== definitions.length) throw new Error("Each component must have one part mapping.")
     const groups = definitions.map((part) => {
       if (!spec.components.some((component) => component.id === part.componentId)) throw new Error(`Unknown component “${part.componentId}”.`)
@@ -43,6 +58,15 @@ export function prepareModel(spec: ExplodeSpec, loaded: Pick<GLTF, "scene" | "an
         if (nodes.includes(parent)) throw new Error("3D parts must not contain other mapped parts.")
       }
     }
+    if (spec.scene3d.requireCompleteMapping) {
+      const uncovered: string[] = []
+      loaded.scene.traverse(object => {
+        if (!(object instanceof THREE.Mesh)) return
+        for (let ancestor: THREE.Object3D | null = object; ancestor; ancestor = ancestor.parent) if (nodes.includes(ancestor)) return
+        uncovered.push(object.name)
+      })
+      if (uncovered.length) throw new Error(`Unmapped model surfaces: ${uncovered.join(', ')}. Map them or document non-component omissions.`)
+    }
     const parts: ExplodablePart[] = definitions.map((part, index) => {
       if (part.coverThickness) {
         for (const node of groups[index]!) node.traverse((object) => {
@@ -58,6 +82,24 @@ export function prepareModel(spec: ExplodeSpec, loaded: Pick<GLTF, "scene" | "an
             material.roughness = 0.015
           }
         })
+      }
+      if (part.reverseSurface) {
+        const reverseDefinition = part.reverseSurface
+        const surfaces: THREE.Mesh[] = []
+        for (const node of groups[index]!) node.traverse(object => { if (object instanceof THREE.Mesh) surfaces.push(object) })
+        let backing: THREE.MeshStandardMaterial | undefined
+        const makeBacking = () => new THREE.MeshStandardMaterial({ color: reverseDefinition.color, roughness: reverseDefinition.roughness, metalness: 0, side: THREE.BackSide })
+        for (const surface of surfaces) {
+          const materials = Array.isArray(surface.material) ? surface.material : [surface.material]
+          // Preserve optical surfaces. Only opaque, single-sided source faces
+          // receive an explicitly declared, untextured reverse visualization.
+          if (materials.some(material => material.side !== THREE.FrontSide || material.opacity < .99 || (material instanceof THREE.MeshPhysicalMaterial && material.transmission > 0))) continue
+          backing ??= makeBacking()
+          const reverse = new THREE.Mesh(surface.geometry, backing)
+          reverse.name = `${surface.name}_unverified_reverse`
+          reverse.userData = { role: 'visualization-backing', evidence: 'unverified', note: part.reverseSurface.note }
+          surface.add(reverse)
+        }
       }
       const bounds = new THREE.Box3()
       for (const node of groups[index]!) bounds.union(new THREE.Box3().setFromObject(node))
@@ -75,7 +117,7 @@ export function prepareModel(spec: ExplodeSpec, loaded: Pick<GLTF, "scene" | "an
     return {
       root, parts,
       animate: (time) => mixer.setTime(time),
-      dispose: () => { mixer.stopAllAction(); mixer.uncacheRoot(root); disposeObject(root) },
+      dispose: () => { mixer.stopAllAction(); mixer.uncacheRoot(root); disposeObject(root); disposeObject(omitted) },
     }
-  } catch (error) { disposeObject(root); throw error }
+  } catch (error) { disposeObject(root); disposeObject(omitted); throw error }
 }

@@ -90,3 +90,16 @@ Every researched component must be represented, references must exist, and defer
 This is a limited dimensional modeling vocabulary, not a universal reconstruction model. Organic surfaces, complex castings, fabric, detailed gear trains and exact hidden interfaces still need appropriate modeling tools or sourced assets. Do not replace a difficult part with a box and call it faithful. Schematic geometry may test navigation and educational structure, but must remain visibly labeled.
 
 The iPhone example deliberately tests this shared construction/export/viewer path. Its overall enclosure envelope uses published dimensions; internal forms, positions and finishes are illustrative. Screws, seals, antennas, wireless charging and thermal assemblies are omitted and recorded as unresolved. It is not evidence that one uploaded photo can reconstruct a phone's internals.
+
+
+## Source models must become actual scroll stories
+
+A source inspector is an intermediate asset review, not an explainer. Accepted tours must rotate the assembly, visibly separate mapped components, inspect them and reassemble correctly when scrolling backward. The shared viewer exposes an **Explode the object** button and an **Exploded overview** navigation option. Browser regression tests use that real button and native reverse scrolling, then compare pairwise component positions; a whole-model zoom cannot pass.
+
+For imported models, set `scene3d.requireCompleteMapping: true` to reject any renderable mesh outside the mapped groups. If a source includes nonphysical occlusion proxies, list their names and evidence-based reasons in `scene3d.omittedNodes`. These are excluded once before the story; mapped components cannot be omitted. Do not use this mechanism to discard difficult physical parts.
+
+`scene3d.lighting: "neutral"` uses a neutral reflection environment without the extra studio key lights. It preserves source material maps; it is not automatic material calibration.
+
+An AR model may have only front-facing surfaces. Prefer verified reverse geometry. Where explicitly illustrative backs are acceptable, a part may declare `reverseSurface: {"color":"#171a1c","roughness":0.7,"note":"Reverse construction unverified; neutral visualization only."}`. This adds untextured back-facing surfaces to opaque single-sided geometry, without repeating front artwork. It does not modify transparent/transmissive glass or reconstruct hidden structure. Record this compromise in the study notice and research audit. It cannot pass an internal-geometry fidelity evaluation.
+
+The iPhone `exterior-study.json` maps 92 source meshes into seven exterior groups and documents two rendering helpers. It is a source-specific mapping using the shared renderer, not automatic component recognition. Source geometry is local-only; see the README for the explicit local-asset build.

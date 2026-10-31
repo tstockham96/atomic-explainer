@@ -1,4 +1,5 @@
 import * as THREE from "three"
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js"
 
 /** A photographic softbox rig: broad highlights describe metal and glass edges. */
 export function createStudioEnvironment(renderer: THREE.WebGLRenderer) {
@@ -38,5 +39,14 @@ export function createGlassEnvironment(renderer: THREE.WebGLRenderer) {
   const environment = generator.fromScene(room,.015)
   generator.dispose()
   for (const panel of panels) { panel.geometry.dispose(); (panel.material as THREE.Material).dispose() }
+  return environment
+}
+
+/** Restrained fixed lighting for imported PBR assets; materials stay authored. */
+export function createNeutralEnvironment(renderer: THREE.WebGLRenderer) {
+  const room = new RoomEnvironment()
+  const generator = new THREE.PMREMGenerator(renderer)
+  const environment = generator.fromScene(room, .04)
+  room.dispose(); generator.dispose()
   return environment
 }

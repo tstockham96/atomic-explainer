@@ -2,7 +2,7 @@ import { sampleScene } from './timeline.ts'
 import { configureRenderBudget } from './renderBudget.ts'
 import { isTransmitting, createOpticalBackdrop } from './optics.ts'
 import * as THREE from "three"
-import { createStudioEnvironment, createGlassEnvironment } from "./studio.ts"
+import { createStudioEnvironment, createGlassEnvironment, createNeutralEnvironment } from "./studio.ts"
 import { cameraShot, poseModel, frameBox, STORY_FOV, corners } from "./choreography.ts"
 import type { ExplodeSpec } from "../../spec/schema.ts"
 import { loadModel } from "./loadModel.ts"
@@ -12,7 +12,7 @@ export interface SceneHandle {
   setProgress: (value: number) => void
   setAtmosphere: (value: Atmosphere) => void
   setPaused: (value: boolean) => void
-  snapshot: () => { selected: string | null; allVisible: boolean; bounds: { left: number; right: number; top: number; bottom: number } | null; progress: number }
+  snapshot: () => { selected: string | null; allVisible: boolean; bounds: { left: number; right: number; top: number; bottom: number } | null; progress: number; separation: number; partPositions: Record<string, number[]> }
   capture: () => string
   dispose: () => void
 }
@@ -28,7 +28,8 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
   const scene = new THREE.Scene()
   const camera = new THREE.PerspectiveCamera(STORY_FOV, 1, 0.05, 300)
   camera.position.set(0, 0.25, 16)
-  const environment = createStudioEnvironment(renderer)
+  const neutral = spec.scene3d?.kind === "gltf" && spec.scene3d.lighting === "neutral"
+  const environment = neutral ? createNeutralEnvironment(renderer) : createStudioEnvironment(renderer)
   scene.environment = environment.texture
   scene.environmentIntensity = 0.9
   scene.background = new THREE.Color('#e9eeeb')
@@ -41,7 +42,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
   rim.position.set(5, 1, -4)
   const fill = new THREE.DirectionalLight(0xffffff, 0.8)
   fill.position.set(-6, -3, 2)
-  scene.add(sky, key, rim, fill)
+  if (!neutral) scene.add(sky, key, rim, fill)
 
   let model
   try { model = await loadModel(spec) } catch (error) {
@@ -141,7 +142,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     sky.intensity = THREE.MathUtils.lerp(2.0, 0.5, night)
     key.intensity = THREE.MathUtils.lerp(3.2, 4.1, night)
     rim.intensity = THREE.MathUtils.lerp(2.4, 4.8, night)
-    scene.environmentIntensity = THREE.MathUtils.lerp(0.9, 0.65, night)
+    scene.environmentIntensity = THREE.MathUtils.lerp(neutral ? 1 : 0.9, 0.65, night)
     renderer.toneMappingExposure = THREE.MathUtils.lerp(1.05, 0.9, night)
     if (!dragging) {
       dragX = THREE.MathUtils.lerp(dragX, 0, delta * 0.6)
@@ -174,7 +175,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     const visibleNodes = model.parts.map((part) => part.group.visible)
     for (const part of model.parts) {
       model.parts.forEach((other) => { other.group.visible = other === part })
-      const shot = frameBox(new THREE.Box3().setFromObject(part.group), new THREE.Vector3(0.45, 0.3, 1).normalize(), 1, [0.8, 0.8])
+      const shot = frameBox(new THREE.Box3().setFromObject(part.group), new THREE.Vector3(...(part.shot?.from ?? [0.45, 0.3, 1])).normalize(), 1, [0.8, 0.8])
       camera.position.copy(shot.position); camera.lookAt(shot.target)
       render()
       images[part.id] = renderer.domElement.toDataURL("image/png")
@@ -201,7 +202,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
       const sample = sampleScene(displayed, model.parts.length), selected = model.parts[sample.index]
       model.root.updateMatrixWorld(true)
       const points = corners(new THREE.Box3().setFromObject(selected?.group ?? model.root)).map(p => p.project(camera))
-      return { selected: selected?.id ?? null, progress: displayed, allVisible: model.parts.every(p => p.group.visible), bounds: { left: Math.min(...points.map(p => (p.x + 1) * host.clientWidth / 2)), right: Math.max(...points.map(p => (p.x + 1) * host.clientWidth / 2)), top: Math.min(...points.map(p => (1 - p.y) * host.clientHeight / 2)), bottom: Math.max(...points.map(p => (1 - p.y) * host.clientHeight / 2)) } }
+      return { selected: selected?.id ?? null, progress: displayed, separation: sample.separation, partPositions: Object.fromEntries(model.parts.map(p => [p.id, p.group.position.toArray()])), allVisible: model.parts.every(p => p.group.visible), bounds: { left: Math.min(...points.map(p => (p.x + 1) * host.clientWidth / 2)), right: Math.max(...points.map(p => (p.x + 1) * host.clientWidth / 2)), top: Math.min(...points.map(p => (1 - p.y) * host.clientHeight / 2)), bottom: Math.max(...points.map(p => (1 - p.y) * host.clientHeight / 2)) } }
     },
     capture: () => { render(); return renderer.domElement.toDataURL("image/png") },
     dispose: () => {

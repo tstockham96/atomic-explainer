@@ -192,3 +192,9 @@
   .mesh-bottom button { min-height:44px; }
   .mesh-connection { font-size:11px; margin-top:12px; padding-top:10px; }
 }
+
+.mesh-explode { pointer-events:auto; display:inline-block; min-height:44px; margin-top:14px; border:1px solid #788b8577; border-radius:24px; padding:10px 20px; background:transparent; color:var(--scene-ink); font:12px var(--font-sans); cursor:pointer; }
+.mesh-explode:disabled { cursor:wait; }
+.mesh-explode:focus-visible { outline:2px solid currentColor; outline-offset:4px; }
+.mesh-stage { position:absolute; top:79px; left:30px; margin:0; color:var(--scene-muted); font:10px var(--font-mono); letter-spacing:.08em; pointer-events:none; }
+@media (max-width:700px) { .mesh-stage { top:75px; left:18px; font-size:9px; } .mesh-explode { margin-top:10px; font-size:11px; } }

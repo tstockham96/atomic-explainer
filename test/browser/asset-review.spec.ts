@@ -4,7 +4,7 @@ for(const width of [1440,390]){
   test(`sourced model inspection preserves a navigable front and reverse at ${width}`,async({page},info)=>{
     await page.setViewportSize({width,height:900})
     const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message))
-    await page.goto('/iphone-study/index.html')
+    await page.goto('/iphone-source-review/index.html')
     await expect(page.getByRole('heading',{name:'iPhone 18 Pro.'})).toBeVisible()
     await page.getByLabel('3D model').setInputFiles('public/models/chronograph/watch.glb')
     await page.waitForFunction(()=>window.__assetReviewReady,null,{timeout:60_000})

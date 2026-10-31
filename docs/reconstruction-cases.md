@@ -70,3 +70,10 @@ The iPhone trial exposed a process failure: a researched description and a rende
 An asset search must inspect actual geometry. One downloadable Sketchfab iPhone listing had eight vertices/four faces and advertised a separately sold model. Apple's AR asset had detailed surfaces but also two display instances, opaque node names and no verified internal assembly. Record these separate questions: exact variant, visible shape, internal coverage, actual file integrity, material conversion and redistribution rights. A strong answer to one does not imply the others pass. See [the source audit](research/iphone-source-audit.md).
 
 Research must reach the provider. The Tripo image routes receive image references; they do not accept a research paragraph. Use inspected multi-view component references or the documented text-to-model route. Preserve the actual sent payload and reference hashes to expose mismatches between the intended brief and the purchased generation.
+
+
+## An inspectable source model is not an explainer
+
+Failure: replacing a poor reconstruction with a detailed static source inspector removed the actual explosion experience. A tour must demonstrate real relative part movement through its public scroll/button controls, full component turns and reverse-scroll reassembly. Compare pairwise part positions so camera movement alone cannot pass. Keep the inspector as a separate intermediate tool.
+
+Source AR geometry may include nonphysical occluders and omit reverse faces. Inspect isolated surfaces before grouping; require complete mesh coverage, documented helper exclusions and no mapped/omitted conflicts. Never copy front artwork onto an unknown back or silently invent electronics. Explicit neutral backs are illustrative, not evidence of successful reconstruction. Apply these rules to every product, including glass and camera surfaces.

@@ -1,0 +1,754 @@
+{
+  "version": 1,
+  "item": {
+    "name": "iPhone 18 Pro",
+    "maker": "Apple",
+    "model": "iPhone 18 Pro",
+    "category": "smartphone",
+    "year": "2026",
+    "summary": "Turn the phone, separate its modeled surfaces, then explore how those parts relate. Internal electronics are not reconstructed in this exterior study."
+  },
+  "components": [
+    {
+      "id": "display",
+      "name": "Front display",
+      "material": "Front display surfaces",
+      "howItsMade": "The front display turns electrical signals into the picture you see. The cover and display stack have different jobs: one protects the surface; the other produces light. These are the manufacturer model\u2019s visible display surfaces, not a complete cross-section of its electronics.",
+      "funFacts": [
+        "This tour separates surfaces present in the sourced model. Missing internals are not inferred from those surfaces."
+      ],
+      "order": 0,
+      "figureLabel": "Source geometry grouped by inspected visible function; unseen construction remains unverified.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/"
+        ],
+        "note": "Visible groups were inspected in front and oblique source-model renders. Functional explanation is general; the source does not establish all hidden construction."
+      }
+    },
+    {
+      "id": "enclosure",
+      "name": "Enclosure",
+      "material": "Coated metal enclosure and exterior fittings",
+      "howItsMade": "The enclosure locates the display, rear panel and optical openings within one rigid structure. Its openings make room for lenses, controls and the connector. The empty interior here reflects what this source model omits; the actual phone contains many additional components.",
+      "funFacts": [
+        "This tour separates surfaces present in the sourced model. Missing internals are not inferred from those surfaces."
+      ],
+      "order": 1,
+      "figureLabel": "Source geometry grouped by inspected visible function; unseen construction remains unverified.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/"
+        ],
+        "note": "Visible groups were inspected in front and oblique source-model renders. Functional explanation is general; the source does not establish all hidden construction."
+      }
+    },
+    {
+      "id": "rear-panel",
+      "name": "Rear panel",
+      "material": "Rear panel with authored finish",
+      "howItsMade": "The rear panel closes this part of the enclosure. Its distinct finish and logo stay attached to the panel as it moves. This source does not expose the charging coil, adhesives or other hardware beneath it.",
+      "funFacts": [
+        "This tour separates surfaces present in the sourced model. Missing internals are not inferred from those surfaces."
+      ],
+      "order": 2,
+      "figureLabel": "Source geometry grouped by inspected visible function; unseen construction remains unverified.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/"
+        ],
+        "note": "Visible groups were inspected in front and oblique source-model renders. Functional explanation is general; the source does not establish all hidden construction."
+      }
+    },
+    {
+      "id": "camera-optics",
+      "name": "Rear camera optics",
+      "material": "Three rear optical groups",
+      "howItsMade": "The lens surfaces gather and guide incoming light. The sensor and electronics behind an optical system turn that light into image data. These three groups preserve the source model\u2019s lens layers and surrounds; they are not complete camera modules with verified sensors or stabilizers.",
+      "funFacts": [
+        "This tour separates surfaces present in the sourced model. Missing internals are not inferred from those surfaces."
+      ],
+      "order": 3,
+      "figureLabel": "Source geometry grouped by inspected visible function; unseen construction remains unverified.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/"
+        ],
+        "note": "Visible groups were inspected in front and oblique source-model renders. Functional explanation is general; the source does not establish all hidden construction."
+      }
+    },
+    {
+      "id": "left-controls",
+      "name": "Left controls",
+      "material": "Left-side control surfaces",
+      "howItsMade": "These physical controls give your fingers distinct targets along the edge. A press becomes an input to the phone. The source includes the outer control surfaces, but not the switches or circuits behind them.",
+      "funFacts": [
+        "This tour separates surfaces present in the sourced model. Missing internals are not inferred from those surfaces."
+      ],
+      "order": 4,
+      "figureLabel": "Source geometry grouped by inspected visible function; unseen construction remains unverified.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/"
+        ],
+        "note": "Visible groups were inspected in front and oblique source-model renders. Functional explanation is general; the source does not establish all hidden construction."
+      }
+    },
+    {
+      "id": "right-controls",
+      "name": "Right controls",
+      "material": "Right-side control surfaces",
+      "howItsMade": "Controls sit proud of, or within, the enclosure so you can find them by touch. Their outer shapes separate here; this visualization does not claim to reconstruct the sensing mechanisms underneath.",
+      "funFacts": [
+        "This tour separates surfaces present in the sourced model. Missing internals are not inferred from those surfaces."
+      ],
+      "order": 5,
+      "figureLabel": "Source geometry grouped by inspected visible function; unseen construction remains unverified.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/"
+        ],
+        "note": "Visible groups were inspected in front and oblique source-model renders. Functional explanation is general; the source does not establish all hidden construction."
+      }
+    },
+    {
+      "id": "connector",
+      "name": "USB-C connector",
+      "material": "USB-C opening and modeled connector surfaces",
+      "howItsMade": "A connector aligns a cable with electrical contacts. It carries power and signals between the phone and external equipment. This model exposes the socket surfaces; its attachment to internal circuitry is not represented.",
+      "funFacts": [
+        "This tour separates surfaces present in the sourced model. Missing internals are not inferred from those surfaces."
+      ],
+      "order": 6,
+      "figureLabel": "Source geometry grouped by inspected visible function; unseen construction remains unverified.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/"
+        ],
+        "note": "Visible groups were inspected in front and oblique source-model renders. Functional explanation is general; the source does not establish all hidden construction."
+      }
+    }
+  ],
+  "facts": [
+    {
+      "label": "Width",
+      "value": "71.9 mm"
+    },
+    {
+      "label": "Height",
+      "value": "150.0 mm"
+    },
+    {
+      "label": "Depth",
+      "value": "8.75 mm"
+    }
+  ],
+  "sources": [
+    {
+      "title": "iFixit iPhone 18 Pro teardown",
+      "url": "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown"
+    },
+    {
+      "title": "Apple iPhone 18 Pro product and AR model",
+      "url": "https://www.apple.com/iphone-18-pro/"
+    }
+  ],
+  "understanding": {
+    "version": 1,
+    "identityScope": "Apple iPhone 18 Pro, eSIM, Burgundy; manufacturer AR exterior asset.",
+    "learningGoals": [
+      "Understand how the enclosure, display, optical surfaces, controls and connector fit together.",
+      "Distinguish modeled exterior assemblies from internal mechanisms that still require reconstruction."
+    ],
+    "references": [
+      {
+        "id": "ifixit-layout",
+        "title": "iFixit iPhone 18 Pro teardown",
+        "url": "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "kind": "teardown",
+        "scope": "exact-model",
+        "observation": "Inspected the full-layout photograph: rounded burgundy housing, three circular camera openings, irregular board assemblies, metal battery enclosure and display reverse. These are not represented by the rejected primitive recipe.",
+        "limitations": "Single teardown view does not establish every hidden surface, dimension or material. Pro and Pro Max share the article; the inspected layout is captioned Pro."
+      },
+      {
+        "id": "apple-model",
+        "title": "Apple iPhone 18 Pro product and AR model",
+        "url": "https://www.apple.com/iphone-18-pro/",
+        "kind": "photograph",
+        "scope": "exact-model",
+        "observation": "Downloaded the manufacturer USDZ linked from this page. Flattened its USD payload and selected one device from the two-device arrangement. Inspected front and reverse renders.",
+        "limitations": "AR is an exterior visualization. Its node names are obfuscated; 94 mesh surfaces are not 94 verified functional parts. Shader conversion still needs comparison."
+      }
+    ],
+    "components": [
+      {
+        "componentId": "display",
+        "function": "The front display turns electrical signals into the picture you see. The cover and display stack have different jobs: one protects the surface; the other produces light. These are the manufacturer model\u2019s visible display surfaces, not a complete cross-section of its electronics.",
+        "claims": [
+          {
+            "statement": "The source contains separately addressable surfaces grouped here as front display surfaces.",
+            "basis": "observed",
+            "referenceIds": [
+              "apple-model"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "source-model",
+          "referenceIds": [
+            "apple-model",
+            "ifixit-layout"
+          ],
+          "shape": "Preserve source geometry and materials. Group only the inspected surfaces listed in the scene mapping.",
+          "materialBehavior": "Keep mapped source finishes under fixed neutral lighting; do not fade component materials for focus.",
+          "hiddenSurfaces": "Some reversed surfaces are absent or simplified in this exterior asset. This tour is not a full internal teardown.",
+          "exclude": [
+            "Unverified battery, logic board and complete camera electronics",
+            "Black source occlusion proxies interpreted as physical parts"
+          ],
+          "acceptanceChecks": [
+            "Assembled surfaces align before and after the scroll sequence.",
+            "Parts visibly separate under ordinary scroll, without material fades.",
+            "Full component turn retains source geometry and states missing reverse-side detail."
+          ]
+        },
+        "unknowns": [
+          "Reverse-side construction and exact material stack are not fully established.",
+          "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+        ]
+      },
+      {
+        "componentId": "enclosure",
+        "function": "The enclosure locates the display, rear panel and optical openings within one rigid structure. Its openings make room for lenses, controls and the connector. The empty interior here reflects what this source model omits; the actual phone contains many additional components.",
+        "claims": [
+          {
+            "statement": "The source contains separately addressable surfaces grouped here as coated metal enclosure and exterior fittings.",
+            "basis": "observed",
+            "referenceIds": [
+              "apple-model"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "source-model",
+          "referenceIds": [
+            "apple-model",
+            "ifixit-layout"
+          ],
+          "shape": "Preserve source geometry and materials. Group only the inspected surfaces listed in the scene mapping.",
+          "materialBehavior": "Keep mapped source finishes under fixed neutral lighting; do not fade component materials for focus.",
+          "hiddenSurfaces": "Some reversed surfaces are absent or simplified in this exterior asset. This tour is not a full internal teardown.",
+          "exclude": [
+            "Unverified battery, logic board and complete camera electronics",
+            "Black source occlusion proxies interpreted as physical parts"
+          ],
+          "acceptanceChecks": [
+            "Assembled surfaces align before and after the scroll sequence.",
+            "Parts visibly separate under ordinary scroll, without material fades.",
+            "Full component turn retains source geometry and states missing reverse-side detail."
+          ]
+        },
+        "unknowns": [
+          "Reverse-side construction and exact material stack are not fully established.",
+          "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+        ]
+      },
+      {
+        "componentId": "rear-panel",
+        "function": "The rear panel closes this part of the enclosure. Its distinct finish and logo stay attached to the panel as it moves. This source does not expose the charging coil, adhesives or other hardware beneath it.",
+        "claims": [
+          {
+            "statement": "The source contains separately addressable surfaces grouped here as rear panel with authored finish.",
+            "basis": "observed",
+            "referenceIds": [
+              "apple-model"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "source-model",
+          "referenceIds": [
+            "apple-model",
+            "ifixit-layout"
+          ],
+          "shape": "Preserve source geometry and materials. Group only the inspected surfaces listed in the scene mapping.",
+          "materialBehavior": "Keep mapped source finishes under fixed neutral lighting; do not fade component materials for focus.",
+          "hiddenSurfaces": "Some reversed surfaces are absent or simplified in this exterior asset. This tour is not a full internal teardown.",
+          "exclude": [
+            "Unverified battery, logic board and complete camera electronics",
+            "Black source occlusion proxies interpreted as physical parts"
+          ],
+          "acceptanceChecks": [
+            "Assembled surfaces align before and after the scroll sequence.",
+            "Parts visibly separate under ordinary scroll, without material fades.",
+            "Full component turn retains source geometry and states missing reverse-side detail."
+          ]
+        },
+        "unknowns": [
+          "Reverse-side construction and exact material stack are not fully established.",
+          "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+        ]
+      },
+      {
+        "componentId": "camera-optics",
+        "function": "The lens surfaces gather and guide incoming light. The sensor and electronics behind an optical system turn that light into image data. These three groups preserve the source model\u2019s lens layers and surrounds; they are not complete camera modules with verified sensors or stabilizers.",
+        "claims": [
+          {
+            "statement": "The source contains separately addressable surfaces grouped here as three rear optical groups.",
+            "basis": "observed",
+            "referenceIds": [
+              "apple-model"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "source-model",
+          "referenceIds": [
+            "apple-model",
+            "ifixit-layout"
+          ],
+          "shape": "Preserve source geometry and materials. Group only the inspected surfaces listed in the scene mapping.",
+          "materialBehavior": "Keep mapped source finishes under fixed neutral lighting; do not fade component materials for focus.",
+          "hiddenSurfaces": "Some reversed surfaces are absent or simplified in this exterior asset. This tour is not a full internal teardown.",
+          "exclude": [
+            "Unverified battery, logic board and complete camera electronics",
+            "Black source occlusion proxies interpreted as physical parts"
+          ],
+          "acceptanceChecks": [
+            "Assembled surfaces align before and after the scroll sequence.",
+            "Parts visibly separate under ordinary scroll, without material fades.",
+            "Full component turn retains source geometry and states missing reverse-side detail."
+          ]
+        },
+        "unknowns": [
+          "Reverse-side construction and exact material stack are not fully established.",
+          "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+        ]
+      },
+      {
+        "componentId": "left-controls",
+        "function": "These physical controls give your fingers distinct targets along the edge. A press becomes an input to the phone. The source includes the outer control surfaces, but not the switches or circuits behind them.",
+        "claims": [
+          {
+            "statement": "The source contains separately addressable surfaces grouped here as left-side control surfaces.",
+            "basis": "observed",
+            "referenceIds": [
+              "apple-model"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "source-model",
+          "referenceIds": [
+            "apple-model",
+            "ifixit-layout"
+          ],
+          "shape": "Preserve source geometry and materials. Group only the inspected surfaces listed in the scene mapping.",
+          "materialBehavior": "Keep mapped source finishes under fixed neutral lighting; do not fade component materials for focus.",
+          "hiddenSurfaces": "Some reversed surfaces are absent or simplified in this exterior asset. This tour is not a full internal teardown.",
+          "exclude": [
+            "Unverified battery, logic board and complete camera electronics",
+            "Black source occlusion proxies interpreted as physical parts"
+          ],
+          "acceptanceChecks": [
+            "Assembled surfaces align before and after the scroll sequence.",
+            "Parts visibly separate under ordinary scroll, without material fades.",
+            "Full component turn retains source geometry and states missing reverse-side detail."
+          ]
+        },
+        "unknowns": [
+          "Reverse-side construction and exact material stack are not fully established.",
+          "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+        ]
+      },
+      {
+        "componentId": "right-controls",
+        "function": "Controls sit proud of, or within, the enclosure so you can find them by touch. Their outer shapes separate here; this visualization does not claim to reconstruct the sensing mechanisms underneath.",
+        "claims": [
+          {
+            "statement": "The source contains separately addressable surfaces grouped here as right-side control surfaces.",
+            "basis": "observed",
+            "referenceIds": [
+              "apple-model"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "source-model",
+          "referenceIds": [
+            "apple-model",
+            "ifixit-layout"
+          ],
+          "shape": "Preserve source geometry and materials. Group only the inspected surfaces listed in the scene mapping.",
+          "materialBehavior": "Keep mapped source finishes under fixed neutral lighting; do not fade component materials for focus.",
+          "hiddenSurfaces": "Some reversed surfaces are absent or simplified in this exterior asset. This tour is not a full internal teardown.",
+          "exclude": [
+            "Unverified battery, logic board and complete camera electronics",
+            "Black source occlusion proxies interpreted as physical parts"
+          ],
+          "acceptanceChecks": [
+            "Assembled surfaces align before and after the scroll sequence.",
+            "Parts visibly separate under ordinary scroll, without material fades.",
+            "Full component turn retains source geometry and states missing reverse-side detail."
+          ]
+        },
+        "unknowns": [
+          "Reverse-side construction and exact material stack are not fully established.",
+          "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+        ]
+      },
+      {
+        "componentId": "connector",
+        "function": "A connector aligns a cable with electrical contacts. It carries power and signals between the phone and external equipment. This model exposes the socket surfaces; its attachment to internal circuitry is not represented.",
+        "claims": [
+          {
+            "statement": "The source contains separately addressable surfaces grouped here as usb-c opening and modeled connector surfaces.",
+            "basis": "observed",
+            "referenceIds": [
+              "apple-model"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "source-model",
+          "referenceIds": [
+            "apple-model",
+            "ifixit-layout"
+          ],
+          "shape": "Preserve source geometry and materials. Group only the inspected surfaces listed in the scene mapping.",
+          "materialBehavior": "Keep mapped source finishes under fixed neutral lighting; do not fade component materials for focus.",
+          "hiddenSurfaces": "Some reversed surfaces are absent or simplified in this exterior asset. This tour is not a full internal teardown.",
+          "exclude": [
+            "Unverified battery, logic board and complete camera electronics",
+            "Black source occlusion proxies interpreted as physical parts"
+          ],
+          "acceptanceChecks": [
+            "Assembled surfaces align before and after the scroll sequence.",
+            "Parts visibly separate under ordinary scroll, without material fades.",
+            "Full component turn retains source geometry and states missing reverse-side detail."
+          ]
+        },
+        "unknowns": [
+          "Reverse-side construction and exact material stack are not fully established.",
+          "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+        ]
+      }
+    ],
+    "relationships": [],
+    "unresolved": [
+      "Battery, logic board, cooling system and complete camera modules have not been reconstructed.",
+      "Some reverse-side surfaces are absent in the manufacturer exterior model.",
+      "Camera-rim conversion artifact remains.",
+      "Source geometry is not cleared for redistribution."
+    ]
+  },
+  "modelNotice": "Exterior assembly study \u00b7 internal electronics not reconstructed",
+  "closing": "This prototype separates functional assemblies. It does not yet reproduce exact internal construction.",
+  "artNote": "Manufacturer exterior model, locally inspected and grouped into seven visual assemblies. Two black occlusion proxies are omitted before rendering; all mapped components remain visible throughout the tour. Some reverse surfaces and the internal electronics are absent. The camera-rim conversion artifact remains. Separation is an explanatory layout, not a service disassembly procedure. Source redistribution rights are not established. Opaque source faces have neutral, untextured reverse visualization surfaces so they remain visible through a full turn. These do not establish actual internal materials or construction, and never repeat display artwork or logos on the reverse.",
+  "scene3d": {
+    "kind": "gltf",
+    "url": "assets.local/apple-reference.glb",
+    "lighting": "neutral",
+    "requireCompleteMapping": true,
+    "omittedNodes": [
+      {
+        "node": "kDyuTBDouFtoKXh",
+        "reason": "Visually inspected black rendering occlusion proxy. Not identified as a physical component; omitted consistently before the tour begins."
+      },
+      {
+        "node": "piknxdJPulwkZlx",
+        "reason": "Visually inspected black rendering occlusion proxy. Not identified as a physical component; omitted consistently before the tour begins."
+      }
+    ],
+    "parts": [
+      {
+        "componentId": "display",
+        "nodes": [
+          "oXwhgMrETYHoWMi",
+          "EHjrGDHNHzgNjtE",
+          "AeQMeAEYCvoXiUK",
+          "ajlSZFAJxVQUboJ",
+          "TbrMzrvsrKQFokG",
+          "dseYgUIxMhSrccR",
+          "xiJLhZQDYgSRrJP",
+          "TSnGjOfascDNZUr",
+          "KNduBXMjGgxuHKf",
+          "rDPYoDHxptvndJc"
+        ],
+        "offset": [
+          0,
+          0,
+          4.8
+        ],
+        "shot": {
+          "from": [
+            0.3,
+            0.1,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        },
+        "reverseSurface": {
+          "color": "#171a1c",
+          "roughness": 0.7,
+          "note": "Neutral untextured reverse visualization for opaque single-sided source faces. Actual reverse construction and finish are not established."
+        }
+      },
+      {
+        "componentId": "enclosure",
+        "nodes": [
+          "ezeCtoGqBgkuXkM",
+          "FzKsPaOIjOtYXyx",
+          "OqjdceRKCgCxebm",
+          "ZdjEdUeNrJlHfPr",
+          "vSUfuJuwHtQnJFM",
+          "DpHZPtCoplKzsmn",
+          "ziSfVvEMEmOVclg",
+          "fTEcTQJusaOoXRx",
+          "eMqbNZEirboZmlk",
+          "NHIflnmDqkYynWz",
+          "FbSppUTjlJPBJxO",
+          "BmSvIMTLRwhIMei",
+          "tOqBbRZfYgrynTi",
+          "AMGhLuACKLHpcxk"
+        ],
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "shot": {
+          "from": [
+            0.35,
+            0.1,
+            -1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        },
+        "reverseSurface": {
+          "color": "#171a1c",
+          "roughness": 0.7,
+          "note": "Neutral untextured reverse visualization for opaque single-sided source faces. Actual reverse construction and finish are not established."
+        }
+      },
+      {
+        "componentId": "rear-panel",
+        "nodes": [
+          "nWyRniYpXOXakrY",
+          "OJBuOCGZCRKIKuX",
+          "tSzbeyqDWPqajtE",
+          "lHgsWfYosJjEHHx"
+        ],
+        "offset": [
+          0,
+          0,
+          -4.8
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.1,
+            -1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        },
+        "reverseSurface": {
+          "color": "#171a1c",
+          "roughness": 0.7,
+          "note": "Neutral untextured reverse visualization for opaque single-sided source faces. Actual reverse construction and finish are not established."
+        }
+      },
+      {
+        "componentId": "camera-optics",
+        "nodes": [
+          "EkkhfjbCuDfHNoj",
+          "SFGqndkrQBwIqsK",
+          "twnDowasmaboaIw",
+          "lrbmLhLqYBEujEb",
+          "aGDqlYEsfzCGKqA",
+          "LkVIMuvQdyqClrs",
+          "AJbyZDmDLCVrWvY",
+          "SboWNzLMbvpgfhq",
+          "kCScuTApzoGVQrQ",
+          "IRrnNxtKFHdCZWz",
+          "MhOjqbUHUmMvuQZ",
+          "ZOyUqCZInmgVPJT",
+          "NCJXNMBvTtlngrK",
+          "vSGwOIJGGmxprMG",
+          "kmWuhWUqzImAxrd",
+          "JLuWQNyAHkVtjBj",
+          "nEDDMHnyqrtPEeH",
+          "jqYpZXBXqpFfXIv",
+          "KbKHXAvAItJHTWJ",
+          "bNGSbuRsrFArgfZ",
+          "KDDAcRirzifkXVk",
+          "aqqmNRByFAadgII",
+          "XGimAjnSRcJdhzQ",
+          "QGoqDZZgcXbKIbb",
+          "SeCquheRYLOWcow",
+          "gUmkfpgRxDiZbQL",
+          "SrhRNGHDcaZbSJB",
+          "tWocoRUXpgSskst",
+          "nwhqxPwnINKaYgS",
+          "rIsmoPBESVrDvLK",
+          "DOcguuJzxMtscKR",
+          "PoIelaJyAzUOVgJ",
+          "npyRsTTZwICTdtT",
+          "LmzPJipNfQiEzkM",
+          "MXLDBLyKcQVjsCH",
+          "NWcSDiJMCdsakCS",
+          "CAVkFyQVOLxtcUA",
+          "KQCZKyqfViJAVro",
+          "hfcfioZGUeFTjpT",
+          "LHSuUSwohmsXVRt",
+          "whMdnAVdLqpcnOU",
+          "gQUUHjPLYDkxyZj",
+          "NcBqtfiyUjLPtgA",
+          "FeJMNHiDNDeGuaS",
+          "KbhwcttHPyPcPky"
+        ],
+        "offset": [
+          0,
+          1.4,
+          -2.6
+        ],
+        "shot": {
+          "from": [
+            0.15,
+            0.1,
+            -1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        },
+        "reverseSurface": {
+          "color": "#171a1c",
+          "roughness": 0.7,
+          "note": "Neutral untextured reverse visualization for opaque single-sided source faces. Actual reverse construction and finish are not established."
+        }
+      },
+      {
+        "componentId": "left-controls",
+        "nodes": [
+          "IhutpDtXiHOXZQQ",
+          "MLXiLvzAcyadwsO",
+          "tGmDwIVAJzsXtCr"
+        ],
+        "offset": [
+          -3.1,
+          0,
+          0
+        ],
+        "shot": {
+          "from": [
+            -1,
+            0.1,
+            0.3
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        },
+        "reverseSurface": {
+          "color": "#171a1c",
+          "roughness": 0.7,
+          "note": "Neutral untextured reverse visualization for opaque single-sided source faces. Actual reverse construction and finish are not established."
+        }
+      },
+      {
+        "componentId": "right-controls",
+        "nodes": [
+          "PiNlHXRokKeMMue",
+          "BBOLhsUzCqVnqIr",
+          "RkmKFSzCSaemljP",
+          "uzPNjLhCsKQHKkA"
+        ],
+        "offset": [
+          3.1,
+          0,
+          0
+        ],
+        "shot": {
+          "from": [
+            1,
+            0.1,
+            0.3
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        },
+        "reverseSurface": {
+          "color": "#171a1c",
+          "roughness": 0.7,
+          "note": "Neutral untextured reverse visualization for opaque single-sided source faces. Actual reverse construction and finish are not established."
+        }
+      },
+      {
+        "componentId": "connector",
+        "nodes": [
+          "OKQXnqqXZBuUUit",
+          "kVoChGBtLBcaCVZ",
+          "AeBMJWvYROmIznQ",
+          "jBMFTYJdkiLEILT",
+          "CkWvqHNVFiGJvpB",
+          "wnKKbrKJSeTpTMG",
+          "gVjDdjCvpxUAQBO",
+          "pJlLctaTZcBoLFq",
+          "QpCUTBrfGeqSJlQ",
+          "OLElVJaUyUAkJTK",
+          "eCqaCdRQIHdBJaT",
+          "XelLsxQxbVjyAEf"
+        ],
+        "offset": [
+          0,
+          -2.5,
+          0
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            -1,
+            0.3
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        },
+        "reverseSurface": {
+          "color": "#171a1c",
+          "roughness": 0.7,
+          "note": "Neutral untextured reverse visualization for opaque single-sided source faces. Actual reverse construction and finish are not established."
+        }
+      }
+    ]
+  }
+}
