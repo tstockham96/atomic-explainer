@@ -29,6 +29,7 @@
     "test",
     "tools/murph-study/viewer.ts",
     "tools/evals/run.ts",
-    "playwright.config.ts"
+    "playwright.config.ts",
+    "tools/iphone-study/model.ts"
   ]
 }

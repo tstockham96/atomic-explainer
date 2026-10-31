@@ -14,9 +14,9 @@ const review = {
 }
 await renderAssetReview(path.join(output, 'iphone-source-review'), review, output)
 if (process.argv.includes('--with-local-assets')) {
-  const spec = explodeSpecSchema.parse(JSON.parse(await readFile('examples/iphone-18-pro/exterior-study.json', 'utf8')))
-  await renderSite(spec, path.join(output, 'iphone-study'), { assetRoot: path.resolve('examples/iphone-18-pro'), templateDir: output })
+  const spec = explodeSpecSchema.parse(JSON.parse(await readFile('examples/iphone-18-pro/internal-study.json', 'utf8')))
+  await renderSite(spec, path.join(output, 'iphone-study'), { assetRoot: path.resolve('examples/iphone-18-pro'), templateDir: output, requirementsPath: 'examples/iphone-18-pro/requirements.json' })
 } else {
   await renderAssetReview(path.join(output, 'iphone-study'), { ...review, description: 'The exploding exterior study requires a separately obtained local source model. This checkout includes the mapping, but does not redistribute Apple geometry.' }, output)
 }
-console.log('Built example routes; local exterior explosion requires --with-local-assets.')
+console.log('Built example routes; local internal assembly requires --with-local-assets.')

@@ -33,3 +33,10 @@ Structural checks reject missing image files, wrong reference links, mismatched 
 The new routes have fixture-based provider contract tests. The source path has been exercised with the downloaded Apple model. No live multi-view/text generation quality success is claimed by those tests. General unattended research, reliable hidden-part reconstruction, assembly fitting and independent visual/learning review remain open work.
 
 Source licenses remain separate from the engine's MIT license. Unknown/restricted rights are recorded in review output; locally inspecting a model is not an authorization to redistribute it. The importer creates a local working review, not a public release. Check rights before using the legacy site exporter or committing an asset.
+
+
+## Whole-assembly continuation
+
+Omit `--component` from `--asset-plan` (or `componentId` from `explode_prepare_asset`) to advance all researched component tasks. The batch preserves provider checkpoints, isolates output folders and records unresolved/deferred/missing tasks in `assembly-progress.json`. It always remains incomplete until assets are reviewed, fitted and integrated. This is not a geometric fitting solver.
+
+Planning saves `assembly-requirements.json`. Pass that original inventory through `--requirements` or MCP `explode_build_site.requirementsPath`. Export checks actual geometry-bearing GLB component nodes and story/research coverage. It also reuses a requirements inventory already saved in the destination and refuses to silently drop required IDs. Missing coverage appears in the rendered notice, not only a hidden report. Do not regenerate the original inventory from the subset of parts returned by a source provider.

@@ -107,11 +107,11 @@ export function createServer() {
     "explode_prepare_asset",
     {
       title: "Source or generate a researched component",
-      description: "Execute one asset-plan task: import an existing GLB or send inspected multi-view images / an explicit construction prompt to Tripo. Requires a source search, exact variant, image observations and component research. Saves original geometry, provenance, request and pending review; never publishes an unreviewed explainer.",
-      inputSchema: { specPath: z.string(), planPath: z.string(), componentId: z.string(), outDir: z.string() },
+      description: "Omit componentId to advance every required component and save an incomplete work queue; supply it for one task. Import an existing GLB or send inspected multi-view images / an explicit construction prompt to Tripo. Requires a source search, exact variant, image observations and component research. Saves original geometry, provenance, request and pending review; never publishes an unreviewed explainer.",
+      inputSchema: { specPath: z.string(), planPath: z.string(), componentId: z.string().optional(), outDir: z.string(), requirementsPath: z.string().optional() },
     },
     async input => {
-      try { const report = await (await import('./pipeline/assets.ts')).prepareAsset(input); return text({...report, index:path.resolve(input.outDir,'index.html')}) }
+      try { const api=await import('./pipeline/assets.ts'); if(!input.componentId)return text(await api.prepareAssets(input)); const report=await api.prepareAsset({...input,componentId:input.componentId}); return text({...report,index:path.resolve(input.outDir,'index.html')}) }
       catch (error) { return failure(error) }
     },
   )
@@ -121,11 +121,11 @@ export function createServer() {
     {
       title: "Build researched component geometry",
       description: "Build an agent-authored dimensional assembly recipe into a multipart GLB, review checklist and explainer. No paid model calls. All parts remain unreviewed until compared with references.",
-      inputSchema: { specPath: z.string(), assemblyPath: z.string(), outDir: z.string() },
+      inputSchema: { specPath: z.string(), assemblyPath: z.string(), outDir: z.string(), requirementsPath: z.string().optional() },
     },
-    async ({ specPath, assemblyPath, outDir }) => {
+    async ({ specPath, assemblyPath, outDir, requirementsPath }) => {
       try {
-        const spec = await (await import('./pipeline/assemble.ts')).assembleStudy(specPath, assemblyPath, path.resolve(outDir))
+        const spec = await (await import('./pipeline/assemble.ts')).assembleStudy(specPath, assemblyPath, path.resolve(outDir), undefined, requirementsPath)
         return text({ index: path.resolve(outDir, 'index.html'), project: path.resolve(outDir, 'assembly-project.json'), item: spec.item.name, status: 'unreviewed' })
       } catch (error) { return failure(error) }
     },
@@ -139,13 +139,14 @@ export function createServer() {
       inputSchema: {
         specPath: z.string(),
         outDir: z.string(),
+        requirementsPath: z.string().optional().describe("Original researched component inventory; prevents an exterior asset from narrowing the scope"),
       },
     },
-    async ({ specPath, outDir }) => {
+    async ({ specPath, outDir, requirementsPath }) => {
       try {
         const raw = JSON.parse(await readFile(specPath, "utf8")) as unknown
         const spec = normalizeSpec(explodeSpecSchema.parse(raw))
-        const index = await renderSite(spec, outDir, { assetRoot: path.dirname(path.resolve(specPath)) })
+        const index = await renderSite(spec, outDir, { assetRoot: path.dirname(path.resolve(specPath)), requirementsPath })
         return text({ index, item: spec.item.name, parts: spec.components.length })
       } catch (error) {
         return failure(error)

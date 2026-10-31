@@ -4,7 +4,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
   test(`construction fixture parts fit at ${viewport.width}`, async ({ page }, info) => {
     await page.setViewportSize(viewport)
     await page.goto('/create')
-    await page.getByRole('link', { name: /iPhone exterior study/ }).click()
+    await page.getByRole('link', { name: /iPhone internal study/ }).click()
     await expect(page).toHaveURL(/iphone-study/)
     await expect(page.getByRole('heading', { name: 'iPhone 18 Pro.' })).toBeVisible()
     await page.goto('/construction-fixtures/phone/index.html?eval=1')

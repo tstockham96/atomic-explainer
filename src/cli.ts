@@ -11,6 +11,7 @@ interface Flags {
   json: boolean
   out: string
   fromSpec?: string
+  requirements?: string
   skipImages: boolean
   images: boolean
   motion: boolean
@@ -45,11 +46,12 @@ Usage
 Options
   -o, --out <dir>         Output folder (default: ./explode-out)
       --from-spec <file>  Render a spec JSON instead of calling models
+      --requirements <file> Audit exported geometry against the original component inventory
       --skip-images       Research and build, but do not call an image model
       --images            With --from-spec, also generate layer images
       --motion            After stills, make rotation + explode clips and extract WebP frames
       --asset-plan <file> Execute a researched sourcing or generation task; saves an asset for review
-      --component <id>    Component to prepare from --asset-plan
+      --component <id>    Prepare one component; omit to advance the whole researched asset queue
       --assemble <file>   Build an agent-authored component recipe into a GLB and reviewable site
       --plan              Save research and component construction tasks; no geometry generation
       --3d                Research, generate a textured mesh, segment parts, and build a 3D draft
@@ -88,6 +90,7 @@ export function parseFlags(argv: string[]): Flags {
     options: {
       out: { type: "string", short: "o", default: "./explode-out" },
       "from-spec": { type: "string" },
+      requirements: { type: "string" },
       "skip-images": { type: "boolean", default: false },
       images: { type: "boolean", default: false },
       motion: { type: "boolean", default: false },
@@ -125,6 +128,7 @@ export function parseFlags(argv: string[]): Flags {
     json: values.json,
     out: values.out ?? "./explode-out",
     fromSpec: values["from-spec"],
+    requirements: values.requirements,
     skipImages: values["skip-images"],
     images: values.images,
     motion: values.motion,
@@ -170,17 +174,22 @@ export async function main(argv: string[]) {
 
   try {
     if (flags.assetPlan) {
-      if (!flags.fromSpec || !flags.component || flags.assemble || flags.three || flags.images || flags.motion || flags.plan) throw Error('--asset-plan requires --from-spec and --component; cannot combine generation modes.')
+      if (!flags.fromSpec || flags.assemble || flags.three || flags.images || flags.motion || flags.plan) throw Error('--asset-plan requires --from-spec; cannot combine generation modes.')
+      if (!flags.component) {
+        const batch = await (await import('./pipeline/assets.ts')).prepareAssets({specPath:flags.fromSpec,planPath:flags.assetPlan,outDir:flags.out,requirementsPath:flags.requirements,log:message=>console.error(message)})
+        console.log(JSON.stringify(batch,null,2)); return 0
+      }
       const report = await (await import('./pipeline/assets.ts')).prepareAsset({specPath: flags.fromSpec, planPath: flags.assetPlan, componentId: flags.component, outDir: flags.out, log: message => console.error(message)})
       console.log(JSON.stringify({status: report.status, index: path.resolve(flags.out, 'index.html'), review: path.resolve(flags.out, 'asset-review.json'), model: path.resolve(flags.out, 'model.glb')}, null, 2))
       return 0
     }
     if (flags.assemble && (!flags.fromSpec || flags.three || flags.plan || flags.motion || flags.images)) throw Error("--assemble requires --from-spec and cannot be combined with generation flags.")
     const spec = flags.assemble
-      ? await (await import("./pipeline/assemble.ts")).assembleStudy(flags.fromSpec!, flags.assemble, flags.out)
+      ? await (await import("./pipeline/assemble.ts")).assembleStudy(flags.fromSpec!, flags.assemble, flags.out, undefined, flags.requirements)
       : await runExplode({
       photo: flags.photo,
       specPath: flags.fromSpec,
+      requirementsPath: flags.requirements,
       outDir: flags.out,
       skipImages: flags.images ? false : flags.fromSpec ? true : flags.skipImages,
       motion: flags.motion,

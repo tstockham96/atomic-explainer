@@ -18,7 +18,7 @@ class BinaryReader {
 
 let exportQueue: Promise<unknown> = Promise.resolve()
 
-export async function assembleStudy(specFile: string, recipeFile: string, out: string, templateDir?: string) {
+export async function assembleStudy(specFile: string, recipeFile: string, out: string, templateDir?: string, requirementsPath?: string) {
   const spec = explodeSpecSchema.parse(JSON.parse(await readFile(specFile, 'utf8')))
   const recipe = assemblySchema.parse(JSON.parse(await readFile(recipeFile, 'utf8')))
   validateAssemblyEvidence(spec, recipe)
@@ -38,7 +38,7 @@ export async function assembleStudy(specFile: string, recipeFile: string, out: s
   spec.modelNotice = "Assembly prototype · approximate or unreviewed geometry"
   spec.artNote = 'Agent-authored assembly prototype. ' + recipe.parts.map(p => `${p.componentId}: ${p.fidelity}; ${p.limitations.join(' ')}`).join(' ')
   spec.generation = { ...spec.generation, warnings: [...new Set([...(spec.generation?.warnings ?? []), 'Geometry built from an authored recipe. Visual fidelity and learning effectiveness have not passed review.'])] }
-  await renderSite(spec, out, { templateDir, assetRoot: out })
+  await renderSite(spec, out, { templateDir, assetRoot: out, requirementsPath })
   await writeFile(path.join(out, 'assembly-project.json'), JSON.stringify({ spec, assembly: recipe }, null, 2))
   await writeFile(path.join(out, 'assembly-review.json'), JSON.stringify({ status: 'unreviewed', units: recipe.units, parts: recipe.parts.map(({ shapes: _shapes, ...p }) => ({ ...p, requiredViews: ['front', 'oblique', 'reverse', 'assembled', 'exported'], verdict: 'pending' })) }, null, 2))
   return spec

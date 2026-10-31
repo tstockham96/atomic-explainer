@@ -67,7 +67,7 @@ export function assetPlanIssues(spec: ExplodeSpec, plan: AssetPlan, componentId:
 /** Executes ONE researched asset task; never publishes an unreviewed explainer. */
 export async function prepareAsset(input: {
   specPath: string; planPath: string; componentId: string; outDir: string;
-  provider?: AssetMeshProvider; templateDir?: string; log?: (message: string) => void;
+  provider?: AssetMeshProvider; templateDir?: string; requirementsPath?: string; log?: (message: string) => void;
 }) {
   const spec = explodeSpecSchema.parse(JSON.parse(await readFile(input.specPath, 'utf8')))
   const plan = assetPlanSchema.parse(JSON.parse(await readFile(input.planPath, 'utf8')))
@@ -125,4 +125,31 @@ export async function prepareAsset(input: {
     limitations: [review.note, ...construction.unknowns, ...inventory.warnings, `Coverage: ${review.coverage}. Redistribution: ${review.redistribution}.`],
   }, input.templateDir)
   return review
+}
+
+/** Advance every researched component, retaining failures and missing tasks in a
+ * durable queue. A successful asset import never means the assembly is done. */
+export async function prepareAssets(input: Omit<Parameters<typeof prepareAsset>[0], 'componentId'>) {
+  const spec = explodeSpecSchema.parse(JSON.parse(await readFile(input.specPath, 'utf8')))
+  const plan = assetPlanSchema.parse(JSON.parse(await readFile(input.planPath, 'utf8')))
+  const requirements = input.requirementsPath ? (await import('../spec/requirements.ts')).assemblyRequirementsSchema.parse(JSON.parse(await readFile(input.requirementsPath,'utf8'))) : undefined
+  const required = requirements?.components ?? spec.components.map(c=>({id:c.id,name:c.name}))
+  const results: {componentId:string;stage:string;detail:string}[] = []
+  await mkdir(input.outDir,{recursive:true})
+  const save = async () => writeFile(path.join(input.outDir,'assembly-progress.json'),JSON.stringify({
+    status:'incomplete',ready:false,identity:plan.identity,requiredComponentIds:required.map(c=>c.id),results,
+    remaining:required.map(c=>({componentId:c.id,next:results.find(r=>r.componentId===c.id)?.stage??'prepare-asset'})),
+    nextStep:'Resolve missing/rejected assets, fit all components into one assembly, export and audit against original requirements, then inspect the actual rendered story.',
+  },null,2))
+  for (const component of required) {
+    const task = plan.tasks.find(t=>t.componentId===component.id)
+    if(!task){results.push({componentId:component.id,stage:'research-and-plan',detail:'Required component has no asset task.'});await save();continue}
+    if(!/^[a-zA-Z0-9_-]+$/.test(component.id))throw Error('Batch component IDs must be safe folder names.')
+    try {
+      const review=await prepareAsset({...input,componentId:component.id,outDir:path.join(input.outDir,component.id)})
+      results.push({componentId:component.id,stage:review.status==='rejected'?'replace-asset':'visual-review-and-fit',detail:review.note})
+    } catch(error) { results.push({componentId:component.id,stage:'resolve-asset',detail:error instanceof Error?error.message:String(error)}) }
+    await save()
+  }
+  return {status:'incomplete',results,progress:path.join(input.outDir,'assembly-progress.json')}
 }

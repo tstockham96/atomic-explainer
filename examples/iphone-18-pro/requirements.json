@@ -1,0 +1,301 @@
+{
+  "version": 1,
+  "identity": "Apple iPhone 18 Pro, eSIM, Burgundy; sourced exterior with research-fitted internal assembly.",
+  "objective": "Explain the complete functional assembly, preserving researched internal requirements even when an imported source contains only exterior surfaces.",
+  "components": [
+    {
+      "id": "display",
+      "name": "Front display",
+      "system": "Exterior",
+      "purpose": "The display presents the result of computation as light. Its front surface is preserved from the source model, with a separate reverse backing added so the story can open the phone and expose the electronics behind it.",
+      "sourceUrls": [
+        "https://www.apple.com/iphone-18-pro/"
+      ]
+    },
+    {
+      "id": "display-seal",
+      "name": "Display perimeter seal",
+      "system": "Protection",
+      "purpose": "A continuous perimeter interface joins the display to the enclosure and helps resist ingress. Separation exposes that otherwise hidden boundary. The strip follows the enclosure contour, but this visualization is not a prediction of sealing performance.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "battery",
+      "name": "Battery",
+      "system": "Power",
+      "purpose": "A rechargeable lithium-ion cell stores chemical energy. Power-management circuits deliver that energy to the processor, display and radios. The cell and its carrier are separate parts: the carrier supports the cell; it does not store charge.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "battery-tray",
+      "name": "Battery carrier",
+      "system": "Structure",
+      "purpose": "The formed carrier supports the battery and provides screw attachment points. Its relief and openings let a thin sheet gain stiffness while fitting around neighboring assemblies. The cell lifts separately here to make their different jobs visible.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "logic-board",
+      "name": "Logic board · upper layer",
+      "system": "Compute",
+      "purpose": "The circuit board connects the phone’s systems through conductive paths, connectors and surface-mounted electronics. The stepped outline fits around the cameras. Separate chip packages lift away to reveal their contact footprints; a circuit board is much more than a green rectangle.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "processor",
+      "name": "Application processor",
+      "system": "Compute",
+      "purpose": "The application processor runs software and coordinates graphics, camera processing and other computation. Its package connects to the board through a dense contact array. The separate cooling assembly carries away heat; the copper-colored surface shown here is a package surface, not a view of individual transistors.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "memory",
+      "name": "Working memory",
+      "system": "Compute",
+      "purpose": "Working memory holds data that active applications need quickly. It is distinct from long-term storage: its contents depend on power. This separate package illustrates that role beside the processor; its precise package outline and placement are approximated.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "logic-board-lower",
+      "name": "Logic board · lower layer",
+      "system": "Compute",
+      "purpose": "The board assembly uses more than one substrate. Connections between layers allow dense packaging within a thin phone. Separating them reveals additional electronics that an exterior model cannot show. The contact pattern is explanatory, not a repair pinout.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "storage",
+      "name": "Flash storage",
+      "system": "Compute",
+      "purpose": "Nonvolatile flash stores apps, photographs and other data when power is off. Storage packages are shown between the board layers. They serve a different purpose from working memory, and this teaching separation is not a normal service operation.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "radio",
+      "name": "Cellular electronics",
+      "system": "Connectivity",
+      "purpose": "The modem and supporting radio circuits turn digital data into signals for a cellular connection and decode incoming signals. Antennas and interconnects complete the path. Package markings here identify a teaching role; internal circuitry is not reconstructed.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "cooling",
+      "name": "Thermal spreader",
+      "system": "Thermal",
+      "purpose": "Electrical computation also produces heat. A contact layer couples the processor to the cooling assembly, which spreads that heat across a larger area. A vapor chamber uses evaporation and condensation internally; its hidden wick and fluid are not depicted as visible geometry here.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "camera-optics",
+      "name": "Rear camera optics",
+      "system": "Exterior",
+      "purpose": "The sourced lens surfaces sit outside the newly modeled camera housings and sensors. Light travels through the optical system before reaching a sensor; the complete lens prescription and stabilizer mechanism are not reconstructed.",
+      "sourceUrls": [
+        "https://www.apple.com/iphone-18-pro/"
+      ]
+    },
+    {
+      "id": "camera-modules",
+      "name": "Camera module housings",
+      "system": "Imaging",
+      "purpose": "The rear optical assemblies need support, alignment and connections as well as a visible lens. These housings sit beneath the sourced exterior optics. Their outlines and clearances are fitted estimates; the small stabilizer mechanisms inside have not been resolved.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "camera-sensors",
+      "name": "Image sensors",
+      "system": "Imaging",
+      "purpose": "A sensor converts arriving light into electrical signals. The processor turns those signals into an image. Each sensor package sits behind an optical axis; the colored sensor surface illustrates the active area, not a reconstructed microscopic pixel layout.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "front-sensors",
+      "name": "Front camera and sensing",
+      "system": "Imaging",
+      "purpose": "The front sensing assembly combines imaging and depth-related functions. Its optical openings must remain aligned with the display’s viewing regions. The modeled packages show where sensing hardware sits; their internal optics and precise hidden construction remain approximate.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "wireless-charging",
+      "name": "Charging coil and alignment",
+      "system": "Power",
+      "purpose": "A changing magnetic field induces electrical energy in the receiving coil. Charging electronics condition that energy before it reaches the battery. The surrounding alignment elements help position the receiver. Turn the part to see the winding thickness and backing.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "haptics",
+      "name": "Taptic Engine",
+      "system": "Feedback",
+      "purpose": "The haptic actuator turns an electrical command into a brief mechanical vibration. Its housing transmits that motion into the enclosure so a tap can be felt. The exterior package is modeled; the concealed moving mass and suspension are not asserted as reconstructed.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "speakers",
+      "name": "Acoustic assemblies",
+      "system": "Feedback",
+      "purpose": "The speaker assemblies turn electrical signals into pressure changes in air. Their housings direct sound toward the phone’s openings. The upper and lower packages share this chapter; the internal diaphragms and acoustic channels are not fully reconstructed.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "interconnects",
+      "name": "Flexible interconnects",
+      "system": "Connectivity",
+      "purpose": "Flexible circuits carry power and signals between modules while fitting along the edges of the enclosure. Their connectors allow assemblies to be attached separately. The routes shown here illustrate the documented connections; fine copper routing and exact bends remain approximate.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "microphones",
+      "name": "Microphones",
+      "system": "Sensing",
+      "purpose": "Microphones turn pressure variations in air into electrical signals. Small package openings couple them to acoustic paths through the enclosure. The visible packages and flex are represented here; the microscopic diaphragm and exact port network remain unresolved.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "antennas",
+      "name": "Antenna interconnects",
+      "system": "Connectivity",
+      "purpose": "Radio electronics need conductive paths to radiating elements at the enclosure. This chapter exposes representative contacts and antenna flex routes. The exact tuned antenna geometry is not established, so this model must not be used as an RF design.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "depth-sensor",
+      "name": "Rear depth sensing",
+      "system": "Sensing",
+      "purpose": "A rear depth-sensing assembly supports spatial measurement alongside the cameras. The optical window and package are represented separately from the imaging sensors. Internal emitters, receivers and their precise optical arrangement are not reconstructed.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "connector",
+      "name": "USB-C connector",
+      "system": "Exterior",
+      "purpose": "A connector aligns a cable with electrical contacts. It carries power and signals between the phone and external equipment. This model exposes the socket surfaces; its attachment to internal circuitry is not represented.",
+      "sourceUrls": [
+        "https://www.apple.com/iphone-18-pro/"
+      ]
+    },
+    {
+      "id": "left-controls",
+      "name": "Left controls",
+      "system": "Exterior",
+      "purpose": "These physical controls give your fingers distinct targets along the edge. A press becomes an input to the phone. The source includes the outer control surfaces, but not the switches or circuits behind them.",
+      "sourceUrls": [
+        "https://www.apple.com/iphone-18-pro/"
+      ]
+    },
+    {
+      "id": "right-controls",
+      "name": "Right controls",
+      "system": "Exterior",
+      "purpose": "Controls sit proud of, or within, the enclosure so you can find them by touch. Their outer shapes separate here; this visualization does not claim to reconstruct the sensing mechanisms underneath.",
+      "sourceUrls": [
+        "https://www.apple.com/iphone-18-pro/"
+      ]
+    },
+    {
+      "id": "fasteners",
+      "name": "Fasteners and mounting",
+      "system": "Structure",
+      "purpose": "Small fasteners hold assemblies against their locating surfaces and retain selected electrical contacts. Mounting holes constrain position; the screws supply clamping force. The displayed set is representative, not an exhaustive service screw map.",
+      "sourceUrls": [
+        "https://support.apple.com/en-us/127388",
+        "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "https://support.apple.com/en-us/127410"
+      ]
+    },
+    {
+      "id": "enclosure",
+      "name": "Enclosure",
+      "system": "Exterior",
+      "purpose": "The enclosure locates the display, rear panel and optical openings within one rigid structure. Its openings make room for lenses, controls and the connector. The empty interior here reflects what this source model omits; the actual phone contains many additional components.",
+      "sourceUrls": [
+        "https://www.apple.com/iphone-18-pro/"
+      ]
+    },
+    {
+      "id": "rear-panel",
+      "name": "Rear panel",
+      "system": "Exterior",
+      "purpose": "The rear panel closes this part of the enclosure. Its distinct finish and logo stay attached to the panel as it moves. This source does not expose the charging coil, adhesives or other hardware beneath it.",
+      "sourceUrls": [
+        "https://www.apple.com/iphone-18-pro/"
+      ]
+    }
+  ]
+}

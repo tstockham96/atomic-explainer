@@ -54,13 +54,20 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
       if (cancelled || !host.current) return undefined
       return createObjectScene(host.current, spec, (message) => { if (!cancelled) setError(message) }, (positions) => {
         if (cancelled) return
+        const occupied: {left:number;right:number;top:number;bottom:number}[] = []
         for (const position of positions) {
           const label = labels.current[position.id]
           if (!label) continue
           label.style.left = `${position.x}px`
           label.style.top = `${position.y}px`
-          label.style.opacity = position.visible ? "1" : "0"
-          label.setAttribute("aria-hidden", String(!position.visible))
+          // Dense assemblies should not turn the overview into overlapping text.
+          // Only labels are culled; every physical component stays in the scene.
+          const r = label.getBoundingClientRect()
+          const rect = {left:r.left-8,right:r.right+8,top:r.top-5,bottom:r.top+32}
+          const visible = position.visible && !occupied.some(o => rect.left<o.right && rect.right>o.left && rect.top<o.bottom && rect.bottom>o.top)
+          if(visible) occupied.push(rect)
+          label.style.opacity = visible ? "1" : "0"
+          label.setAttribute("aria-hidden", String(!visible))
         }
       }, (images) => { if (!cancelled) onImages?.(images) })
     }).then((scene) => {

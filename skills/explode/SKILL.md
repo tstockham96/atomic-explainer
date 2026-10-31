@@ -31,6 +31,16 @@ Write the spec’s `understanding` dossier before choosing geometry. Cover every
 
 A clean isolated component must exclude occluding neighbors, their shadows, and reflected or painted-on mechanisms. For example, removing the hands must expose a clean dial—not blacked-out hand silhouettes. Test front, rear, and isolated views against the research.
 
+## Preserve and complete the original assembly scope
+
+Create `assembly-requirements.json` from the full researched functional inventory before selecting assets. Use `src/spec/requirements.ts`: required IDs, system, purpose and source URLs. Keep this independent of any asset-specific spec. A source model's coverage does not redefine the user's request. An exterior importer must leave the missing battery/board/mechanisms in the work queue.
+
+When the user requests the full explanation, continue through missing-component research, sourcing/modeling/generation, fitting, story integration and visual review without asking them to restate those steps. A small proof sequence is an internal checkpoint, not the final deliverable. Keep advancing independent parts when one asset fails. Stop only for a concrete unavailable capability, missing evidence that prevents a defensible reconstruction, or exhausted authorized budget; identify precisely what remains. Do not silently narrow the task to an exterior study.
+
+`--asset-plan assets.json --requirements assembly-requirements.json` without `--component` advances every researched component and saves `assembly-progress.json`; failed/deferred/unplanned parts remain in the queue. This is asset execution, not an automatic fitting solver. Use the host's modeling tools to resolve the remaining tasks. Preserve source detail and construct missing internals as distinct geometry. Do not fill a requirement with a token box solely to satisfy coverage.
+
+Export with `--requirements assembly-requirements.json`. Inspect `assembly-completeness.json`: it compares the original requirements to actual exported component geometry, research and story mappings. An empty named node or a caption cannot supply missing geometry. Coverage-complete still needs fit, reference fidelity, material, motion and learning review. Never present missing required systems as optional follow-up work.
+
 ## Choose geometry for quality
 
 Use the strongest appropriate source for each assembly:

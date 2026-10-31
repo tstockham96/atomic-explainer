@@ -13,10 +13,12 @@ import { resolveVideo } from "./models.ts"
 import type { SkipRange } from "../spec/frames.ts"
 import { reconstruct } from "./solid3d.ts"
 import { buildReconstructionPlan } from './understanding.ts'
+import { assemblyRequirementsSchema } from '../spec/requirements.ts'
 
 export interface RunOptions {
   photo?: string
   specPath?: string
+  requirementsPath?: string
   outDir: string
   skipImages?: boolean
   /** Hero photo → rotation clip, hero+exploded → explode clip, then WebP frames. */
@@ -62,6 +64,14 @@ export async function runExplode(options: RunOptions): Promise<ExplodeSpec> {
     await writeFile(path.join(options.outDir,'research.json'),JSON.stringify(spec,null,2))
     const plan=buildReconstructionPlan(spec)
     await writeFile(path.join(options.outDir,'construction-plan.json'),JSON.stringify(plan,null,2))
+    const requirements=assemblyRequirementsSchema.parse({version:1,identity:spec.understanding?.identityScope??spec.item.name,objective:spec.understanding?.learningGoals.join(' ')??spec.item.summary,components:spec.components.map(c=>({id:c.id,name:c.name,system:spec.item.category,purpose:spec.understanding?.components.find(p=>p.componentId===c.id)?.function??c.howItsMade,sourceUrls:c.evidence?.sourceUrls.length?c.evidence.sourceUrls:spec.sources.map(s=>s.url)}))})
+    const scopePath=path.join(options.outDir,'assembly-requirements.json')
+    try {
+      const previous=assemblyRequirementsSchema.parse(JSON.parse(await readFile(scopePath,'utf8')))
+      if(previous.components.some(c=>!requirements.components.some(n=>n.id===c.id)))throw Error('Research would drop required components from the original assembly scope.')
+    }catch(error){if((error as NodeJS.ErrnoException).code!=='ENOENT')throw error}
+    await writeFile(scopePath,JSON.stringify(requirements,null,2))
+
     log(`Research plan saved · ${plan.status}. No geometry generated.`)
     return spec
   }
@@ -89,7 +99,7 @@ export async function runExplode(options: RunOptions): Promise<ExplodeSpec> {
     spec = await generateMotion(spec, options.outDir, video, log, { skips: options.skips })
   }
 
-  await renderSite(spec, options.outDir, { log, assetRoot: options.three ? path.resolve(options.outDir) : options.specPath ? path.dirname(path.resolve(options.specPath)) : undefined })
+  await renderSite(spec, options.outDir, { log, requirementsPath: options.requirementsPath, assetRoot: options.three ? path.resolve(options.outDir) : options.specPath ? path.dirname(path.resolve(options.specPath)) : undefined })
   return spec
 }
 

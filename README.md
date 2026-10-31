@@ -189,9 +189,23 @@ Explode code is MIT. Third-party software and model assets retain their own term
 After `npm run build && npm run studio`, open:
 
 - Murph: <http://127.0.0.1:4319/murph-study/index.html>
-- iPhone exterior study: <http://127.0.0.1:4319/iphone-study/index.html>
+- iPhone internal study: <http://127.0.0.1:4319/iphone-study/index.html>
 - Studio and example links: <http://127.0.0.1:4319/create>
 
-The primitive phone was rejected for fidelity. It now lives at `/construction-fixtures/phone/index.html` only as a construction regression test. The local iPhone study rotates, separates seven mapped exterior groups and inspects each in 360°. The standalone source inspector is at `/iphone-source-review/index.html`. The local development study uses an inspected manufacturer exterior; Apple geometry is **not bundled or licensed under MIT**. Fresh checkouts show an explicit missing-model notice. With a permitted converted single-device model at `examples/iphone-18-pro/assets.local/apple-reference.glb`, run `npm run build:examples -- dist-site --with-local-assets` after building to enable the scroll study. This command copies the local asset into that output: do not redistribute that output without the necessary rights. Internal reconstruction remains incomplete. See [the asset workflow](docs/asset-workflow.md) and [the actual source audit](docs/research/iphone-source-audit.md).
+The primitive phone was rejected for fidelity. It now lives at `/construction-fixtures/phone/index.html` only as a construction regression test. The local iPhone study preserves the sourced exterior and adds 21 reference-fitted internal groups, including the battery, board layers, processor, memory, storage, cooling, camera hardware and supporting systems. Its 28 chapters are approximations under visual review, not manufacturer internal CAD. The standalone source inspector is at `/iphone-source-review/index.html`. The local development study uses an inspected manufacturer exterior; Apple geometry is **not bundled or licensed under MIT**. Fresh checkouts show an explicit missing-model notice. With a permitted converted single-device model at `examples/iphone-18-pro/assets.local/apple-reference.glb`, run `PLAYWRIGHT_CHANNEL=chrome node --import tsx tools/iphone-study/build.mjs` after building to reconstruct and export the internal study. Chrome and the development dependencies are required. Later `npm run build:examples -- dist-site --with-local-assets` reuses that local export. This command copies the local asset into that output: do not redistribute that output without the necessary rights. Exact internal dimensions, concealed micro-mechanisms and reference fidelity remain unresolved. See [the asset workflow](docs/asset-workflow.md) and [the actual source audit](docs/research/iphone-source-audit.md).
 
 An agent can author `research.json` plus `assembly.json`, then use `--assemble` or the `explode_assemble` MCP tool. Open the resulting `assembly-project.json` in the studio to build and review it without API keys. Prefer `--asset-plan` or `explode_prepare_asset` to preserve an existing detailed GLB or generate a component from inspected reference views. These paths create review artifacts and a local inspector, not an automatically approved explainer. See [the construction contract](docs/3d-scenes.md#build-an-agent-authored-component-recipe).
+
+
+### Preserve the whole assembly request
+
+`--plan` now saves `assembly-requirements.json` alongside the research and construction plan. That inventory belongs to the requested object, not whichever asset was easiest to download. Keep it when sourcing or generating parts.
+
+```sh
+# Advance every researched asset task; failures and missing tasks stay in the queue.
+npm run explode -- --from-spec research.json --asset-plan assets.json --requirements assembly-requirements.json --out asset-work
+# After fitting the multipart GLB, audit it against the original inventory.
+npm run explode -- --from-spec spec.json --requirements assembly-requirements.json --out site
+```
+
+`assembly-progress.json` tracks the remaining asset work. `assembly-completeness.json` checks research, actual exported geometry and story mappings independently. A missing battery cannot disappear from scope simply because an exterior asset lacks one. The site visibly reports incomplete coverage. Coverage-complete is not a visual quality pass. The agent still executes fitting and fidelity review; the upload form is not yet an unattended universal reconstruction service.

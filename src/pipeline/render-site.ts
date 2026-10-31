@@ -42,9 +42,10 @@ export async function ensureViewerTemplate(root = packageRoot(), log: (message: 
 export async function renderSite(
   spec: ExplodeSpec,
   outDir: string,
-  options: { templateDir?: string; assetRoot?: string; log?: (message: string) => void } = {},
+  options: { templateDir?: string; assetRoot?: string; requirementsPath?: string; log?: (message: string) => void } = {},
 ) {
   const log = options.log ?? (() => undefined)
+
   const destination = path.resolve(outDir)
   const templateDir = options.templateDir ?? (await ensureViewerTemplate(packageRoot(), log))
   if (path.resolve(templateDir) === destination) {
@@ -52,6 +53,15 @@ export async function renderSite(
   }
 
   await mkdir(destination, { recursive: true })
+  const requirementsPath = options.requirementsPath ?? (existsSync(path.join(destination, 'assembly-requirements.json')) ? path.join(destination, 'assembly-requirements.json') : undefined)
+  if (requirementsPath) {
+    if (spec.scene3d?.kind !== 'gltf' || /^(https?:|data:)/.test(spec.scene3d.url)) throw Error('Completeness checks require the actual local exported GLB.')
+    const assetRoot = path.resolve(options.assetRoot ?? outDir), modelPath = path.resolve(assetRoot, spec.scene3d.url), relative = path.relative(assetRoot, modelPath)
+    if (!relative || relative.startsWith('..') || path.isAbsolute(relative)) throw Error('The 3D model path must stay inside the asset directory.')
+    const report = await (await import('./completeness.ts')).writeCompleteness(requirementsPath, spec, modelPath, outDir)
+    if (report.remaining.length) spec = {...spec, modelNotice:`Assembly incomplete · ${report.remaining.length} required components still need work`}
+  }
+
   const referenced = [spec.heroImage, spec.explodedImage, ...spec.components.map(p => p.image), spec.frames?.rotation?.dir, spec.frames?.explode?.dir, spec.scene3d?.kind === 'gltf' ? spec.scene3d.url : undefined]
     .filter((value): value is string => Boolean(value) && !/^(https?:|data:)/.test(value!))
     .map(value => value.replace(/^\//, ''))

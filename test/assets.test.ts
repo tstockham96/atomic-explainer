@@ -3,7 +3,7 @@ import {mkdtemp, readFile, writeFile, mkdir, rm} from 'node:fs/promises'
 import {tmpdir} from 'node:os'
 import path from 'node:path'
 import {createTripoProvider, type AssetMeshProvider} from '../src/pipeline/three/tripo.ts'
-import {assetPlanIssues, inspectAsset, prepareAsset} from '../src/pipeline/assets.ts'
+import {assetPlanIssues, inspectAsset, prepareAsset, prepareAssets} from '../src/pipeline/assets.ts'
 import {assetPlanSchema} from '../src/spec/assets.ts'
 import {explodeSpecSchema} from '../src/spec/schema.ts'
 import {exteriorStudy} from './helpers/understanding.ts'
@@ -92,4 +92,24 @@ describe('asset evidence and source handoff',()=>{
     const header=Buffer.alloc(20);header.writeUInt32LE(0x46546c67,0);header.writeUInt32LE(2,4);header.writeUInt32LE(20+padded.length,8);header.writeUInt32LE(padded.length,12);header.writeUInt32LE(0x4e4f534a,16)
     expect(inspectAsset(Buffer.concat([header,padded])).warnings[0]).toContain('billboard')
   })
+})
+
+it('batch execution retains missing component tasks after a successful exterior import',async()=>{
+ const {input,spec,componentId}=await fixture()
+ const report=await prepareAssets(input)
+ expect(report.status).toBe('incomplete')
+ expect(report.results).toHaveLength(spec.components.length)
+ expect(report.results.find(r=>r.componentId===componentId)?.stage).toBe('visual-review-and-fit')
+ expect(report.results.some(r=>r.stage==='research-and-plan')).toBe(true)
+ const progress=JSON.parse(await readFile(report.progress,'utf8'))
+ expect(progress.ready).toBe(false)
+ expect(progress.requiredComponentIds).toEqual(spec.components.map(c=>c.id))
+})
+
+it('batch queue preserves original requirements absent from an asset-specific spec',async()=>{
+ const {input,dir}=await fixture()
+ const requirementsPath=path.join(dir,'requirements.json')
+ await writeFile(requirementsPath,JSON.stringify({version:1,identity:'Original object',objective:'Explain the internals',components:[{id:'missing-battery',name:'Battery',system:'Power',purpose:'Store energy',sourceUrls:['https://example.com/manual']}]}))
+ const result=await prepareAssets({...input,requirementsPath})
+ expect(result.results).toEqual([{componentId:'missing-battery',stage:'research-and-plan',detail:'Required component has no asset task.'}])
 })

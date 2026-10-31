@@ -77,3 +77,10 @@ Research must reach the provider. The Tripo image routes receive image reference
 Failure: replacing a poor reconstruction with a detailed static source inspector removed the actual explosion experience. A tour must demonstrate real relative part movement through its public scroll/button controls, full component turns and reverse-scroll reassembly. Compare pairwise part positions so camera movement alone cannot pass. Keep the inspector as a separate intermediate tool.
 
 Source AR geometry may include nonphysical occluders and omit reverse faces. Inspect isolated surfaces before grouping; require complete mesh coverage, documented helper exclusions and no mapped/omitted conflicts. Never copy front artwork onto an unknown back or silently invent electronics. Explicit neutral backs are illustrative, not evidence of successful reconstruction. Apply these rules to every product, including glass and camera surfaces.
+
+
+## Scope collapse after a successful source import
+
+Failure: the source exterior spec listed only its available surfaces, and validation checked that shortened list. A detailed shell therefore appeared to complete the request while the battery, board and chips vanished from the work queue.
+
+Fix: establish a separate functional requirements inventory from research, preserve it across asset swaps, and compare it against exported geometry plus research/story mappings. Planning saves this inventory; batch asset execution retains missing and failed tasks; exporting an incomplete assembly displays an incomplete notice. The agent continues modeling and fitting within the already-authorized request. A proof sequence and an asset inspector are intermediate checkpoints, not reasons to ask the user whether they still want the internals. Token geometry cannot earn a fidelity pass merely by satisfying coverage.

@@ -8,7 +8,7 @@ it('a second product produces a component plan without pretending to generate ge
  const outDir=await mkdtemp(path.join(tmpdir(),'explode-plan-'))
  try{
   await runExplode({specPath:'evals/cases/iphone-18-pro.json',planOnly:true,outDir})
-  expect((await readdir(outDir)).sort()).toEqual(['construction-plan.json','research.json'])
+  expect((await readdir(outDir)).sort()).toEqual(['assembly-requirements.json','construction-plan.json','research.json'])
   const plan=JSON.parse(await readFile(path.join(outDir,'construction-plan.json'),'utf8'))
   expect(plan.components).toHaveLength(11)
   expect(JSON.stringify(plan)).not.toContain('rotor')
