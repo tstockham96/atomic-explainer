@@ -2,6 +2,8 @@
 
 Status: implemented provider integration, with contract/fixture tests and two live watch studies: [the licensed watch](tripo-watch-trial.md) and [the Murph](murph-reconstruction-trial.md). Both returned twelve textured pieces but failed the finished explainer's fidelity and component-quality targets. The studio reports missing credentials rather than displaying simulated progress.
 
+For researched component sourcing and generation, use the newer [asset workflow](asset-workflow.md). It adds existing GLB import, inspected multi-view references and text-to-model requests. The single-photo path below remains an exterior draft adapter.
+
 ## Run locally
 
 For the research-only studio, set `OPENAI_API_KEY` in `.env`, then run `npm run build && npm run studio`. Open `http://127.0.0.1:4319/create`. PNG/JPEG, 20 MB maximum. The server binds to loopback, validates Host/Origin and a session submission token, and never exposes API credentials. It is a local tool, not a multi-user hosted service.

@@ -17,6 +17,8 @@ interface Flags {
   three: boolean
   plan: boolean
   assemble?: string
+  assetPlan?: string
+  component?: string
   extract?: string
   framesDir?: string
   fps?: number
@@ -34,6 +36,7 @@ Usage
   explode ./photo.jpg --plan --out ./research
   explode --from-spec ./research.json --plan --out ./research
   explode --from-spec public/spec.json --out ./site
+  explode --from-spec ./research.json --asset-plan ./assets.json --component battery --out ./battery-review
   explode --from-spec ./research.json --assemble ./assembly.json --out ./site
   explode ./photo.jpg --from-spec public/spec.json --images --out ./site
   explode ./photo.jpg --motion --out ./site
@@ -45,6 +48,8 @@ Options
       --skip-images       Research and build, but do not call an image model
       --images            With --from-spec, also generate layer images
       --motion            After stills, make rotation + explode clips and extract WebP frames
+      --asset-plan <file> Execute a researched sourcing or generation task; saves an asset for review
+      --component <id>    Component to prepare from --asset-plan
       --assemble <file>   Build an agent-authored component recipe into a GLB and reviewable site
       --plan              Save research and component construction tasks; no geometry generation
       --3d                Research, generate a textured mesh, segment parts, and build a 3D draft
@@ -89,6 +94,8 @@ export function parseFlags(argv: string[]): Flags {
       "3d": { type: "boolean", default: false },
       plan: { type: "boolean", default: false },
       assemble: { type: "string" },
+      "asset-plan": { type: "string" },
+      component: { type: "string" },
       extract: { type: "string" },
       "frames-dir": { type: "string" },
       fps: { type: "string" },
@@ -124,6 +131,8 @@ export function parseFlags(argv: string[]): Flags {
     three: values["3d"],
     plan: values.plan,
     assemble: values.assemble,
+    assetPlan: values["asset-plan"],
+    component: values.component,
     extract: values.extract,
     framesDir: values["frames-dir"],
     fps,
@@ -160,6 +169,12 @@ export async function main(argv: string[]) {
   }
 
   try {
+    if (flags.assetPlan) {
+      if (!flags.fromSpec || !flags.component || flags.assemble || flags.three || flags.images || flags.motion || flags.plan) throw Error('--asset-plan requires --from-spec and --component; cannot combine generation modes.')
+      const report = await (await import('./pipeline/assets.ts')).prepareAsset({specPath: flags.fromSpec, planPath: flags.assetPlan, componentId: flags.component, outDir: flags.out, log: message => console.error(message)})
+      console.log(JSON.stringify({status: report.status, index: path.resolve(flags.out, 'index.html'), review: path.resolve(flags.out, 'asset-review.json'), model: path.resolve(flags.out, 'model.glb')}, null, 2))
+      return 0
+    }
     if (flags.assemble && (!flags.fromSpec || flags.three || flags.plan || flags.motion || flags.images)) throw Error("--assemble requires --from-spec and cannot be combined with generation flags.")
     const spec = flags.assemble
       ? await (await import("./pipeline/assemble.ts")).assembleStudy(flags.fromSpec!, flags.assemble, flags.out)

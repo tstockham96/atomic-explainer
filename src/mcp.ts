@@ -104,6 +104,19 @@ export function createServer() {
   )
 
   server.registerTool(
+    "explode_prepare_asset",
+    {
+      title: "Source or generate a researched component",
+      description: "Execute one asset-plan task: import an existing GLB or send inspected multi-view images / an explicit construction prompt to Tripo. Requires a source search, exact variant, image observations and component research. Saves original geometry, provenance, request and pending review; never publishes an unreviewed explainer.",
+      inputSchema: { specPath: z.string(), planPath: z.string(), componentId: z.string(), outDir: z.string() },
+    },
+    async input => {
+      try { const report = await (await import('./pipeline/assets.ts')).prepareAsset(input); return text({...report, index:path.resolve(input.outDir,'index.html')}) }
+      catch (error) { return failure(error) }
+    },
+  )
+
+  server.registerTool(
     "explode_assemble",
     {
       title: "Build researched component geometry",

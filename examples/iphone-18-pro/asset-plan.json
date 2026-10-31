@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "identity": "Apple iPhone 18 Pro, eSIM, Burgundy; manufacturer AR exterior asset.",
+  "searches": [
+    {
+      "query": "iPhone 18 Pro manufacturer AR USDZ and downloadable GLB multipart model",
+      "searchedAt": "2026-10-30T20:00:00Z",
+      "outcome": "Manufacturer USDZ downloaded and visually inspected. Sketchfab listing inspected via API and rejected as billboard. Commercial ArtStation GLB located; file not purchased or inspected."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "apple-ar",
+      "url": "https://www.apple.com/iphone-18-pro/",
+      "exactVariant": true,
+      "coverage": "exterior",
+      "license": {
+        "name": "Apple proprietary asset; redistribution not established",
+        "url": "https://www.apple.com/legal/internet-services/terms/site.html",
+        "redistribution": "unknown"
+      },
+      "decision": "selected",
+      "reason": "Actual manufacturer geometry inspected locally after conversion; strongest obtained exterior candidate. Not cleared for repository redistribution."
+    },
+    {
+      "id": "sketchfab-advert",
+      "url": "https://sketchfab.com/3d-models/apple-iphone-18-collection-v1-120c741535e54620ae9c2d90e6cb43ca",
+      "exactVariant": false,
+      "coverage": "unknown",
+      "license": {
+        "name": "CC BY 4.0 listing; geometry only a billboard",
+        "url": "https://creativecommons.org/licenses/by/4.0/",
+        "redistribution": "allowed"
+      },
+      "decision": "rejected",
+      "reason": "Public asset metadata reports eight vertices and four faces; description advertises a separately sold model. Listing title is not evidence of useful 3D product geometry."
+    },
+    {
+      "id": "artstation-black",
+      "url": "https://www.artstation.com/marketplace/p/vxvWV/apple-iphone-18-pro-black",
+      "exactVariant": false,
+      "coverage": "exterior",
+      "license": {
+        "name": "Commercial standard license, not an open asset grant",
+        "url": "https://www.artstation.com/marketplace/p/vxvWV/apple-iphone-18-pro-black",
+        "redistribution": "restricted"
+      },
+      "decision": "needs-inspection",
+      "reason": "GLB listing located, not purchased or file-inspected. Black finish rather than selected Burgundy; no established internals."
+    }
+  ],
+  "observations": [
+    {
+      "id": "teardown-exterior",
+      "referenceId": "ifixit-layout",
+      "componentId": "exterior",
+      "view": "disassembled",
+      "imagePath": "assets.local/teardown-observation.png",
+      "notes": "Inspected the full-layout photograph: rounded burgundy housing, three circular camera openings, irregular board assemblies, metal battery enclosure and display reverse. These are not represented by the rejected primitive recipe.",
+      "origin": "photograph"
+    }
+  ],
+  "tasks": [
+    {
+      "componentId": "exterior",
+      "observationIds": [
+        "teardown-exterior"
+      ],
+      "strategy": {
+        "kind": "source",
+        "candidateId": "apple-ar",
+        "modelPath": "assets.local/apple-reference.glb"
+      }
+    }
+  ]
+}

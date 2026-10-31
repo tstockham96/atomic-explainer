@@ -8,6 +8,7 @@ export default defineConfig({
   build: {
     outDir: "dist-site",
     emptyOutDir: true,
+    rollupOptions: { input: { main: "index.html", assetReview: "asset-review.html" } },
   },
   server: {
     host: "0.0.0.0",

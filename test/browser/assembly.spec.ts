@@ -1,12 +1,13 @@
 import { test, expect } from '@playwright/test'
 
 for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
-  test(`phone assembly is discoverable and its actual parts fit at ${viewport.width}`, async ({ page }, info) => {
+  test(`construction fixture parts fit at ${viewport.width}`, async ({ page }, info) => {
     await page.setViewportSize(viewport)
     await page.goto('/create')
-    await page.getByRole('link', { name: /iPhone 18 Pro/ }).click()
+    await page.getByRole('link', { name: /iPhone asset research/ }).click()
     await expect(page).toHaveURL(/iphone-study/)
-    await page.goto('/iphone-study/index.html?eval=1')
+    await expect(page.getByRole('heading', { name: 'iPhone 18 Pro.' })).toBeVisible()
+    await page.goto('/construction-fixtures/phone/index.html?eval=1')
     const errors: string[] = []; page.on('pageerror', e => errors.push(e.message))
     await page.waitForFunction(() => Boolean(window.__explodeAssemblyReview), null, { timeout: 60_000 })
     await expect(page.locator('.mesh-bottom')).toContainText('Assembly prototype')
@@ -42,7 +43,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
 
 test('agent project import creates a real preview without research credentials', async ({ page }) => {
   await page.goto('/create')
-  await page.getByLabel('Assembly project').setInputFiles('dist-eval/iphone-study/assembly-project.json')
+  await page.getByLabel('Assembly project').setInputFiles('dist-eval/construction-fixtures/phone/assembly-project.json')
   await expect(page.getByRole('link', { name: 'Open the 3D draft' })).toBeVisible({ timeout: 30_000 })
   await page.getByRole('link', { name: 'Open the 3D draft' }).click()
   await expect(page).toHaveURL(/\/jobs\/.+\/index.html/)

@@ -189,9 +189,9 @@ Explode code is MIT. Third-party software and model assets retain their own term
 After `npm run build && npm run studio`, open:
 
 - Murph: <http://127.0.0.1:4319/murph-study/index.html>
-- iPhone assembly prototype: <http://127.0.0.1:4319/iphone-study/index.html>
+- iPhone source-model inspection: <http://127.0.0.1:4319/iphone-study/index.html>
 - Studio and example links: <http://127.0.0.1:4319/create>
 
-The phone has actual separate 3D parts, built through the reusable recipe exporter. Its internal geometry is **schematic**, not a photorealistic reconstruction or proof of automatic photo-to-internals generation. The original research-only phone evaluation remains a separate negative case.
+The primitive phone was rejected for fidelity. It now lives at `/construction-fixtures/phone/index.html` only as a construction regression test. The iPhone study opens a reusable source-model inspector. The local development study uses an inspected manufacturer exterior; Apple geometry is **not bundled or licensed under MIT**. Fresh checkouts can open a sourced GLB. Internal reconstruction remains incomplete. See [the asset workflow](docs/asset-workflow.md) and [the actual source audit](docs/research/iphone-source-audit.md).
 
-An agent can author `research.json` plus `assembly.json`, then use `--assemble` or the `explode_assemble` MCP tool. Open the resulting `assembly-project.json` in the studio to build and review it without API keys. Existing multipart GLB imports remain the route for detailed/organic geometry beyond the recipe vocabulary. See [the construction contract](docs/3d-scenes.md#build-an-agent-authored-component-recipe).
+An agent can author `research.json` plus `assembly.json`, then use `--assemble` or the `explode_assemble` MCP tool. Open the resulting `assembly-project.json` in the studio to build and review it without API keys. Prefer `--asset-plan` or `explode_prepare_asset` to preserve an existing detailed GLB or generate a component from inspected reference views. These paths create review artifacts and a local inspector, not an automatically approved explainer. See [the construction contract](docs/3d-scenes.md#build-an-agent-authored-component-recipe).

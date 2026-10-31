@@ -6,7 +6,7 @@
   "independence": "self-review",
   "specSha256": "5c3877eb4e010210e3d32968a59c15d39dbc9aed005223c072a49843706f566e",
   "assetSha256": "855280c0398be2e4255065173320c98d1e895ff81bd7353d91427e3e2efd3ed8",
-  "experienceSha256": "c29e053275ba091ece46113a8a2cb3af75a1d44d8e106e34e3716b52de1f9df9",
+  "experienceSha256": "7778d0a74637224396d62b1b98afd62ce245acde7b3023885b9b343585cfe677",
   "components": [
     {
       "componentId": "front-glass",
@@ -249,7 +249,7 @@
     },
     {
       "goalIndex": 1,
-      "question": "Can these public specifications establish the camera module\u2019s hidden geometry?",
+      "question": "Can these public specifications establish the camera module’s hidden geometry?",
       "expectedAnswer": "No. Product specifications and a repair table of contents identify assemblies but do not establish internal dimensions or connections. Inspect exact-model internal references before modeling.",
       "componentIds": [
         "rear-cameras",

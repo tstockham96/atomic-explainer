@@ -595,5 +595,5 @@
     "Software graphics uses lower raster resolution and skips screen-space postprocessing; geometry and material assignments are preserved. Saved visual ratings use the normal hardware path."
   ],
   "assetSha256": "bc05ec5e791e7209557153c4058fb89ae0134e3b1a6ec2e7a3a40c7197ab5fa7",
-  "experienceSha256": "c29e053275ba091ece46113a8a2cb3af75a1d44d8e106e34e3716b52de1f9df9"
+  "experienceSha256": "7778d0a74637224396d62b1b98afd62ce245acde7b3023885b9b343585cfe677"
 }

@@ -24,11 +24,11 @@ for(const item of cases){
  if(item.id==='iphone-assembly'){
   measurements.experienceSha256=await experienceFingerprint()
   try {
-   const project=JSON.parse(await readFile('dist-eval/iphone-study/assembly-project.json','utf8'))
+   const project=JSON.parse(await readFile('dist-eval/construction-fixtures/phone/assembly-project.json','utf8'))
    const recipe=JSON.parse(await readFile('examples/iphone-18-pro/assembly.json','utf8'))
    const {assemblySchema}=await import('../../src/spec/assembly.ts')
    if(JSON.stringify(assemblySchema.parse(project.assembly))!==JSON.stringify(assemblySchema.parse(recipe)))throw Error('Stale recipe output')
-   const model=await readFile('dist-eval/iphone-study/assembly.glb')
+   const model=await readFile('dist-eval/construction-fixtures/phone/assembly.glb')
    measurements.renderedComponentIds=glbComponentIds(model);measurements.assetSha256=createHash('sha256').update(model).digest('hex');measurements.assetBytes=model.byteLength
   }catch{missingEvidenceFiles.push('Build the current phone assembly with npm run build:eval before evaluating its exported geometry.')}
  }

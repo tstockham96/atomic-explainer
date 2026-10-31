@@ -46,6 +46,12 @@ export function buildReconstructionPlan(spec: ExplodeSpec) {
     relationships:spec.understanding?.relationships??[],
     unresolved:spec.understanding?.unresolved??[],
     requiredComponentWork:work.map(part=>({componentId:part.componentId,method:part.reconstruction.method})),
+    assetHandoff: {
+      contract: 'src/spec/assets.ts',
+      nextStep: 'Search existing models, inspect exact-variant candidates and reference images, then execute component tasks with --asset-plan or explode_prepare_asset.',
+      requiredEvidence: ['Actual file geometry and material inventory', 'Inspected component image files linked to construction references', 'Asset coverage and redistribution terms', 'Front, oblique, reverse, assembled and exported comparisons'],
+      noFallback: 'Do not replace missing detailed assets with primitive construction fixtures in a featured preview.',
+    },
     requiredVisualReview:COMPONENT_QUALITY_REQUIREMENTS,
     requiredMaterialReview:components.map(part=>({
       componentId:part.componentId,

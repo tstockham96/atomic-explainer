@@ -62,3 +62,11 @@ See [the evaluation method and current failures](evaluations.md). The Murph and 
 **Observed failure:** photo upload ended at a plan, with no way to bring an agent's constructed parts back into the studio.
 
 **General rule:** provide a reversible, provider-independent construction/import stage. Agent-authored dimensioned recipes now compile to separate geometry and can be imported as a project without keys. Reject missing inventory, unknown references and unresolved deferred parts. Keep every material/fidelity review pending until compared to actual evidence. Record which steps were authored manually so this cannot masquerade as an unattended photo-to-model benchmark.
+
+## Existing assets, false listings and primitive fallbacks
+
+The iPhone trial exposed a process failure: a researched description and a renderable primitive assembly were presented as if they demonstrated reconstruction. Keep dimensional recipes as engineering fixtures unless their rendered fidelity is actually adequate. Source or generate detailed component assets before featuring an example.
+
+An asset search must inspect actual geometry. One downloadable Sketchfab iPhone listing had eight vertices/four faces and advertised a separately sold model. Apple's AR asset had detailed surfaces but also two display instances, opaque node names and no verified internal assembly. Record these separate questions: exact variant, visible shape, internal coverage, actual file integrity, material conversion and redistribution rights. A strong answer to one does not imply the others pass. See [the source audit](research/iphone-source-audit.md).
+
+Research must reach the provider. The Tripo image routes receive image references; they do not accept a research paragraph. Use inspected multi-view component references or the documented text-to-model route. Preserve the actual sent payload and reference hashes to expose mismatches between the intended brief and the purchased generation.

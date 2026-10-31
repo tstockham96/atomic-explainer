@@ -76,7 +76,7 @@ export function Create() {
         <ol className="create-steps"><li><span>01</span> Identify the object</li><li><span>02</span> Research its construction</li><li><span>03</span> Get a plan for each component</li><li><span>04</span> Build and review with your agent</li></ol>
         <div className="create-studies" aria-label="Example studies">
           <a className="create-sample" href="/murph-study/index.html"><strong>Hamilton Murph ↗</strong><span>Authored study · fidelity review incomplete</span></a>
-          <a className="create-sample" href="/iphone-study/index.html"><strong>iPhone 18 Pro ↗</strong><span>3D assembly prototype · schematic internals</span></a>
+          <a className="create-sample" href="/iphone-study/index.html"><strong>iPhone asset research ↗</strong><span>Source model review · internal reconstruction in progress</span></a>
         </div>
       </section>
       <section className="create-workbench" aria-label="Create a 3D explainer">
@@ -88,7 +88,7 @@ export function Create() {
         {config?.missing.length ? <div className="create-setup"><strong>Connect research to begin</strong><p>Add {config.missing.join(" and ")} to the local .env file, then restart the studio. Keys stay on your computer.</p></div> : null}
         <button className="create-submit" disabled={!file || !config || Boolean(config.missing.length) || busy} onClick={() => void submit()}>{busy ? "Researching your object…" : "Research this object"}<span>↗</span></button>
         <p className="create-disclosure">This creates a research and construction plan, not a finished 3D model. Research sends your photo to OpenAI and uses API credits. Your agent then builds or sources the components and checks them against the evidence.</p>
-        <div className="create-import"><strong>Already working with an agent?</strong><p>Open its assembly project to build the separate 3D parts locally. No API key is needed for this step.</p><button disabled={busy || !config} onClick={() => projectInput.current?.click()}>Open agent-built project</button><input ref={projectInput} type="file" accept=".json,application/json" hidden aria-label="Assembly project" onChange={event => void importProject(event.target.files?.[0])} /></div>
+        <div className="create-import"><strong>Already working with an agent?</strong><p>Ask your agent to research and inspect existing models first. Component generation needs inspected reference views. Recipe imports below are construction tests, not a substitute for detailed assets.</p><button disabled={busy || !config} onClick={() => projectInput.current?.click()}>Open construction test</button><input ref={projectInput} type="file" accept=".json,application/json" hidden aria-label="Assembly project" onChange={event => void importProject(event.target.files?.[0])} /></div>
         {error && <p className="create-error" role="alert">{error}</p>}
         {job && <div className="create-job" aria-live="polite"><span className="create-kicker">{job.status === "review" ? "DRAFT READY" : "YOUR EXPLORATION"}</span><h2>{job.stage}</h2>
           {job.error && <p className="create-error">{job.error}</p>}
