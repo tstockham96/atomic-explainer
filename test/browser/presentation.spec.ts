@@ -6,7 +6,7 @@ for(const width of [1440,390])test(`settings preserve component poses, glass and
  await page.waitForFunction(()=>Boolean((window as any).__explodeReview?.ready),null,{timeout:90000})
  const snap=()=>page.evaluate(()=>(window as any).__explodeReview.snapshot())
  await page.evaluate(()=>(window as any).__explodeReview.seek(0));const initial=await snap()
- expect(initial.gridSpacing).toBe(10);expect(initial.partPositions).toEqual(initial.homePositions)
+ expect(initial.cameraDirection[0]).toBeCloseTo(0,8);expect(initial.cameraDirection[1]).toBeLessThan(-.98);expect(initial.cameraDirection[2]).toBeGreaterThan(0);expect(initial.cameraDirection[2]).toBeLessThan(.2);expect(initial.gridSpacing).toBe(10);expect(initial.partPositions).toEqual(initial.homePositions)
  await page.evaluate(()=>(window as any).__explodeReview.inspect('movement-system',.35));const before=await snap()
  for(const setting of ['workbench','studio','sunset','plain']){
   await page.getByLabel('Scene setting').selectOption(setting)
@@ -18,7 +18,7 @@ for(const width of [1440,390])test(`settings preserve component poses, glass and
  await page.getByLabel('Scene setting').selectOption('workbench')
  for(const id of ['crystal','rear-window']){
   await page.evaluate(id=>(window as any).__explodeReview.inspect(id,.3),id)
-  const state=await snap();expect(state.optics).toEqual(initial.optics);expect(state.optics.every((m:any)=>m.opacity===1&&m.transmission===1)).toBe(true);expect(state.allVisible).toBe(true)
+  const state=await snap();state.cameraDirection.forEach((v:number,i:number)=>expect(v).toBeCloseTo(initial.cameraDirection[i],8));expect(state.deskMatrix).toEqual(initial.deskMatrix);expect(state.optics).toEqual(initial.optics);expect(state.optics.every((m:any)=>m.opacity===1&&m.transmission===1)).toBe(true);expect(state.allVisible).toBe(true)
   await page.screenshot({path:info.outputPath(`${id}.png`)})
  }
  await page.evaluate(()=>(window as any).__explodeReview.seek(1));expect((await snap()).partPositions).toEqual(initial.homePositions)

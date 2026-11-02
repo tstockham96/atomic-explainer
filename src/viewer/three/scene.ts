@@ -1,3 +1,4 @@
+import {deskShot,deskWide} from './deskCamera.ts'
 import {createPresentation,presentationSetting,type PresentationSetting} from './presentation.ts'
 import {anatomyStops} from '../../spec/scene3d.ts'
 import {createAssemblyStory} from './assemblyStory.ts'
@@ -56,9 +57,6 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     throw error
   }
   scene.add(model.root)
-  const presentation=createPresentation(scene,renderer,model.root)
-  presentation.set(presentationSetting(new URLSearchParams(location.search).get('setting')))
-  backdrop.visible=presentation.setting==='plain'
   const story=spec.scene3d?.kind==='gltf'&&spec.scene3d.assemblyStory?createAssemblyStory(model.root,Object.fromEntries(model.parts.map(p=>[p.id,p.group])),spec.scene3d.assemblyStory):undefined
   const storyShot=(state:ReturnType<NonNullable<typeof story>['pose']>)=>{
    const narrow=camera.aspect<.85,whole=state.opening?1-state.reveal:ease((state.progress-.92)/.02)
@@ -91,6 +89,10 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
   const stillUsed = new Set<THREE.Material>()
   model.root.traverse((node) => { if (node instanceof THREE.Mesh) (Array.isArray(node.material) ? node.material : [node.material]).forEach((material) => stillUsed.add(material)) })
   originalMaterials.forEach((material) => { if (!stillUsed.has(material)) material.dispose() })
+
+  const presentation=createPresentation(scene,renderer,model.root)
+  presentation.set(presentationSetting(new URLSearchParams(location.search).get('setting')))
+  backdrop.visible=presentation.setting==='plain'
 
   host.appendChild(renderer.domElement)
   renderer.domElement.setAttribute("aria-label", `${spec.item.name}: an interactive three-dimensional object. Scroll to explore or drag to rotate.`)
@@ -175,7 +177,8 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     model.root.rotation.x += pointerY * 0.01 + dragY
     model.animate(time)
     model.root.updateMatrixWorld(true)
-    const shot = assemblyState?storyShot(assemblyState):cameraShot(model, displayed, camera.aspect)
+    let shot = assemblyState?storyShot(assemblyState):cameraShot(model, displayed, camera.aspect)
+    if(presentation.setting==='workbench')shot=deskShot(model.root,shot,assemblyState?(deskWide(assemblyState.opening,assemblyState.reveal,displayed)):1-sample.focus)
     look.lerp(shot.target, damp)
     camera.position.lerp(shot.position, damp)
     camera.lookAt(look)
