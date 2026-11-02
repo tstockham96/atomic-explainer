@@ -1,3 +1,5 @@
+import {createAssemblyStory} from '../../src/viewer/three/assemblyStory.ts'
+import assemblyScript from '../../docs/research/murph-assembly-story.json'
 import { configureRenderBudget } from '../../src/viewer/three/renderBudget.ts'
 import { checkOptics } from './opticsCheck.ts'
 import { createGlassEnvironment } from '../../src/viewer/three/studio.ts'
@@ -23,6 +25,8 @@ import { componentLesson } from '../../src/viewer/three/learning.ts'
 
 const el=(id:string)=>document.getElementById(id)!
 const params=new URLSearchParams(location.search),capture=params.has('capture')
+const assemblyMode=params.get('story')!=='explode'&&!capture
+let assembly:ReturnType<typeof createAssemblyStory>|undefined
 const renderer=new T.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:capture})
 const renderBudget=configureRenderBudget(renderer)
 renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=.95
@@ -87,7 +91,7 @@ const callouts=[{part:'barrel',point:[5.3,-6.4,.3],text:'Mainspring · stores en
  return {...c,label,line}
 })
 const clamp=T.MathUtils.clamp,lerp=T.MathUtils.lerp,smooth=ease
-function resize(){dirty=true;renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);fxaa.uniforms.resolution!.value.set(1/(innerWidth*renderer.getPixelRatio()),1/(innerHeight*renderer.getPixelRatio()));camera.aspect=innerWidth/innerHeight;camera.setViewOffset(innerWidth,innerHeight,innerWidth<700?0:-innerWidth*.16,innerWidth<700?innerHeight*.14:0,innerWidth,innerHeight);camera.updateProjectionMatrix();if(model)fitKeyframes()}
+function resize(){dirty=true;renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);fxaa.uniforms.resolution!.value.set(1/(innerWidth*renderer.getPixelRatio()),1/(innerHeight*renderer.getPixelRatio()));camera.aspect=innerWidth/innerHeight;camera.setViewOffset(innerWidth,innerHeight,innerWidth<700?0:-innerWidth*.16,innerWidth<700?innerHeight*.14:0,innerWidth,innerHeight);camera.updateProjectionMatrix();if(model){fitKeyframes();if(assembly){paintStory(progress);draw()}}}
 addEventListener('resize',resize);resize()
 function placeParts(p:number){
  for(const[id,group]of Object.entries(model.parts)){group.position.copy(home[id]!).addScaledVector(new T.Vector3(...offsets[id] as [number,number,number]),separation(id,p));group.quaternion.copy(orientation[id]!)}
@@ -203,11 +207,36 @@ function pose(p:number,t:number,inspection?:TourSample,overall=p){
   c.label.style.left=`${labelX}px`;c.label.style.top=`${labelY}px`;c.line.setAttribute('x1',String(labelX));c.line.setAttribute('y1',String(labelY+12));c.line.setAttribute('x2',String(x));c.line.setAttribute('y2',String(y))
  }
 }
+function poseAssembly(p:number,t:number){
+ if(!assembly)return
+ model.bridgePack.position.set(0,0,0);model.rotorPivot.rotation.z=0;model.balanceWheel.rotation.z=Math.sin(t*12)*.42;model.seconds.rotation.z=2.43
+ for(const strap of strapHomes)strap.node.position.copy(strap.home)
+ const state=assembly.pose(p),chapter=state.chapter
+ el('title').textContent=state.complete?assembly.story.closing.title:chapter.title
+ el('description').textContent=state.complete?assembly.story.closing.description:state.local>=.76?chapter.joined:chapter.description
+ el('detail').textContent=state.complete?assembly.story.note:chapter.detail??chapter.componentIds.map(id=>dossier.components.find(c=>c.id===id)?.material??'').join(' · ')
+ el('chapter-number').textContent=state.complete?'The complete watch':`${String(state.index+1).padStart(2,'0')} / ${assembly.story.chapters.length} · ${state.local>=.76?'Joining the watch':'How it’s made'}`
+ el('count').textContent=state.complete?'One complete watch':`${state.index+(state.join===1?1:0)} / ${assembly.story.chapters.length} stages built`
+ el('progress').style.transform=`scaleX(${p})`
+ ;(el('component-menu') as HTMLSelectElement).value=state.complete?'':chapter.id
+ el('hint').textContent=free?'Drag to orbit · Scroll to continue':'Scroll to build ↓'
+ for(const c of callouts){c.label.style.display='none';c.line.style.display='none'}
+ const glass=chapter.componentIds.some(id=>hasOptics(model.parts[id]!)),contrast=glass&&!state.complete?state.focus:0
+ ;(scene.background as T.Color).setRGB(2.15,2.05,1.9).lerp(new T.Color('#243b40'),contrast);backdrop.material.color.copy(scene.background as T.Color)
+ el('frame').style.setProperty('--study-ink',new T.Color('#263832').lerp(new T.Color('#f3f0df'),contrast).getStyle());el('frame').style.setProperty('--study-muted',new T.Color('#566960').lerp(new T.Color('#c1d0cf'),contrast).getStyle())
+ const available=Math.max(.16,(el('chapter').getBoundingClientRect().top-115)/innerHeight)
+ const shot=assembly.camera(state,camera.fov,camera.aspect,innerWidth<700?[.76,available]:[.52,.7])
+ if(innerWidth<700){const top=90,bottom=Math.max(180,el('chapter').getBoundingClientRect().top-20);camera.setViewOffset(innerWidth,innerHeight,0,innerHeight/2-(top+bottom)/2,innerWidth,innerHeight)}else camera.setViewOffset(innerWidth,innerHeight,-innerWidth*.16,0,innerWidth,innerHeight)
+ camera.updateProjectionMatrix()
+ if(!free){camera.position.copy(shot.position);controls.target.copy(shot.target);camera.lookAt(shot.target)}
+ model.root.updateMatrixWorld(true)
+}
+function paintStory(p:number){if(assemblyMode)poseAssembly(p,time);else {const sample=tour.sample(p);pose(sample.base,time,sample,p)}}
 const rotate=el('rotate');rotate.onclick=()=>{dirty=true;free=!free;controls.enabled=free;rotate.textContent=free?'Return to story':'Explore freely';rotate.setAttribute('aria-pressed',String(free))}
 el('motion').onclick=()=>{dirty=true;paused=!paused;el('motion').textContent=paused?'Resume motion':'Pause motion';el('motion').setAttribute('aria-pressed',String(paused))}
-function navigate(id:string){free=false;controls.enabled=false;rotate.textContent='Explore freely';rotate.setAttribute('aria-pressed','false');manualProgress=id?tour.progressFor(id,.2):0;progress=manualProgress;if(!reduce)scrollTo({top:progress*(el('journey').offsetHeight-innerHeight),behavior:'instant'});const sample=tour.sample(progress);pose(sample.base,time,sample,progress);pose(sample.base,time,sample,progress);draw()}
+function navigate(id:string){free=false;controls.enabled=false;rotate.textContent='Explore freely';rotate.setAttribute('aria-pressed','false');manualProgress=assemblyMode?(id?assembly!.progressFor(id,.2):1):(id?tour.progressFor(id,.2):0);progress=manualProgress;if(!reduce)scrollTo({top:progress*(el('journey').offsetHeight-innerHeight),behavior:'instant'});paintStory(progress);paintStory(progress);draw()}
 el('component-menu').onchange=event=>navigate((event.target as HTMLSelectElement).value)
-el('next-part').onclick=()=>{const selected=tour.sample(progress).stop?.id,index=tour.intervals.findIndex(s=>s.id===selected);navigate(tour.intervals[(index+1)%tour.intervals.length]!.id)}
+el('next-part').onclick=()=>{if(assemblyMode){const state=assembly!.pose(progress);navigate(state.complete?assembly!.story.chapters[0]!.id:assembly!.story.chapters[state.index+1]?.id??'')}else {const selected=tour.sample(progress).stop?.id,index=tour.intervals.findIndex(s=>s.id===selected);navigate(tour.intervals[(index+1)%tour.intervals.length]!.id)}}
 addEventListener('scroll',()=>{if(free){free=false;controls.enabled=false;rotate.textContent='Explore freely';rotate.setAttribute('aria-pressed','false')}},{passive:true})
 function render(ms:number){
  const dt=Math.min((ms-last)/1000,.05);last=ms
@@ -218,7 +247,7 @@ function render(ms:number){
  if(!dirty&&!moving&&!ambient&&!orbitChanged)return
  if(ambient)time+=dt
  progress=reduce||!moving?goal:lerp(progress,goal,1-Math.exp(-dt*8))
- const sample=tour.sample(progress);pose(sample.base,time,sample,progress);draw()
+ paintStory(progress);draw()
 }
 const send=async(name:string,data:object)=>{const r=await fetch('http://127.0.0.1:4320/capture',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,...data})});if(!r.ok)throw Error('Capture write failed')}
 async function main(){
@@ -247,6 +276,15 @@ async function main(){
  for(const entries of Object.values(finishes))for(const entry of entries)if(isTransmitting(entry.material)){entry.material.envMap=opticalMap.texture;entry.material.envMapIntensity=.7;entry.material.needsUpdate=true}
  for(const node of model.parts.strap!.children){const center=new T.Box3().setFromObject(node).getCenter(new T.Vector3());strapHomes.push({node,home:node.position.clone(),sign:Math.sign(center.y)||1})}
  fitKeyframes()
+ placeParts(0);model.rotorPivot.rotation.z=0;model.bridgePack.position.set(0,0,0)
+ assembly=createAssemblyStory(model.root,model.parts,assemblyScript)
+ if(assemblyMode){
+  document.querySelector('header .eyebrow')!.textContent=assembly.story.title
+  document.querySelector('header h1')!.textContent='Hamilton Khaki Field Murph'
+  const menu=el('component-menu') as HTMLSelectElement;menu.replaceChildren()
+  for(const chapter of assembly.story.chapters){const option=document.createElement('option');option.value=chapter.id;option.textContent=chapter.componentIds.length>1?'H-10 movement':dossier.components.find(c=>c.id===chapter.id)?.name??chapter.title;menu.append(option)}
+  const complete=document.createElement('option');complete.value='';complete.textContent='The complete watch';menu.append(complete)
+ }
  el('status').textContent='Research-led 3D study'
  el('status').dataset.ready='true'
  // Render anatomy images directly from these same meshes.
@@ -341,11 +379,12 @@ async function main(){
    await send('murph-researched',{glb:btoa(binary)})
   }
  }
- pose(0,0);renderer.setAnimationLoop(render)
+ paintStory(0);renderer.setAnimationLoop(render)
  if(params.has('eval'))Object.assign(window,{__explodeReview:{
   ready:true,ids:Object.keys(model.parts),
-  inspect:(id:string,local=.2)=>{renderer.setAnimationLoop(null);progress=tour.progressFor(id,local);const sample=tour.sample(progress);pose(sample.base,0,sample,progress);pose(sample.base,0,sample,progress);draw()},
-  snapshot:()=>{model.root.updateMatrixWorld(true);const sample=tour.sample(progress),part=sample.stop?model.parts[sample.stop.id]:undefined,box=part?new T.Box3().setFromObject(part,true):undefined,points:T.Vector3[]=[];if(box)for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z])points.push(new T.Vector3(x,y,z).project(camera));return {progress,time,drawCount,softwareGraphics:renderBudget.software,selected:sample.stop?.id??null,allVisible:Object.values(model.parts).every(p=>p.visible),bounds:points.length?{left:(Math.min(...points.map(p=>p.x))*.5+.5)*innerWidth,right:(Math.max(...points.map(p=>p.x))*.5+.5)*innerWidth,top:(.5-Math.max(...points.map(p=>p.y))*.5)*innerHeight,bottom:(.5-Math.min(...points.map(p=>p.y))*.5)*innerHeight}:null}},
+  inspect:(id:string,local=.2)=>{renderer.setAnimationLoop(null);progress=assemblyMode?assembly!.progressFor(id,local):tour.progressFor(id,local);paintStory(progress);paintStory(progress);draw()},
+  seek:(p:number)=>{renderer.setAnimationLoop(null);progress=p;paintStory(p);paintStory(p);draw()},
+  snapshot:()=>{model.root.updateMatrixWorld(true);const sample=tour.sample(progress),assemblyState=assemblyMode?assembly!.pose(progress):undefined,selected=assemblyState?(assemblyState.complete?null:assemblyState.chapter.id):sample.stop?.id,part=selected?model.parts[selected]:undefined,box=assemblyState&&!assemblyState.complete?assemblyState.chapter.componentIds.reduce((b,id)=>b.union(new T.Box3().setFromObject(model.parts[id]!,true)),new T.Box3()):part?new T.Box3().setFromObject(part,true):undefined,points:T.Vector3[]=[];if(box)for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z])points.push(new T.Vector3(x,y,z).project(camera));return {progress,time,drawCount,softwareGraphics:renderBudget.software,selected:selected??null,mode:assemblyMode?'assembly':'explode',builtIds:assemblyState?.builtIds??[],partPositions:Object.fromEntries(Object.entries(model.parts).map(([id,g])=>[id,g.position.toArray()])),homePositions:Object.fromEntries(Object.entries(home).map(([id,p])=>[id,p.toArray()])),allVisible:Object.values(model.parts).every(p=>p.visible),bounds:points.length?{left:(Math.min(...points.map(p=>p.x))*.5+.5)*innerWidth,right:(Math.max(...points.map(p=>p.x))*.5+.5)*innerWidth,top:(.5-Math.max(...points.map(p=>p.y))*.5)*innerHeight,bottom:(.5-Math.min(...points.map(p=>p.y))*.5)*innerHeight}:null}},
  }})
 }
 main().catch(error=>{el('status').textContent='Study could not load';el('error').style.display='block';el('error').textContent='The 3D model could not load. You can still read the component explanations below. '+error.message;console.error(error);if(capture)void send('error',{error:error.message,stack:error.stack})})

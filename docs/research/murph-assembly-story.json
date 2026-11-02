@@ -1,0 +1,160 @@
+{
+  "title": "Explode / How it\u2019s made",
+  "note": "Educational assembly order \u00b7 H-10 internals approximate \u00b7 Not a factory assembly guide",
+  "closing": {
+    "title": "A movement becomes a watch.",
+    "description": "Stored energy, a steady rhythm, a readable display and a protective case. Every layer now has a place\u2014and a reason to be here."
+  },
+  "chapters": [
+    {
+      "id": "movement",
+      "componentIds": [
+        "movement",
+        "barrel",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "winding-train"
+      ],
+      "title": "Start with the movement.",
+      "description": "The H-10 movement gives the watch its rhythm. A mainspring stores energy, gears transmit it, and the escapement and balance regulate its release. Explore this small mechanism before building the watch around it.",
+      "joined": "The movement is the foundation. Next, connect it to the motion of your wrist.",
+      "from": [
+        0.25,
+        0.2,
+        -1
+      ],
+      "approach": [
+        0,
+        0,
+        -1
+      ],
+      "detail": "H-10 automatic \u00b7 Family-informed internal reconstruction"
+    },
+    {
+      "id": "rotor",
+      "componentIds": [
+        "rotor"
+      ],
+      "title": "Let your wrist supply the energy.",
+      "description": "The weighted rotor swings around its bearing as the watch moves. Beneath it, the winding train replenishes the mainspring. Its openings let you glimpse the mechanism it serves.",
+      "joined": "The automatic movement is together. Turn toward the side that will tell the time.",
+      "from": [
+        0.25,
+        0.2,
+        -1
+      ],
+      "approach": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "id": "dial",
+      "componentIds": [
+        "dial"
+      ],
+      "title": "Turn motion into something readable.",
+      "description": "The matte dial gives time a fixed scale: hour numerals and fine minute divisions. It stays still while the hands move above it.",
+      "joined": "The scale is in place. Add the pointers that make it useful."
+    },
+    {
+      "id": "hands",
+      "componentIds": [
+        "hands"
+      ],
+      "title": "Give time its pointers.",
+      "description": "Three hands share a center at different heights. The cathedral outlines frame luminous inserts; the hour, minute and seconds hands make different timescales visible.",
+      "joined": "The mechanism now has a readable face. It still needs protection."
+    },
+    {
+      "id": "case",
+      "componentIds": [
+        "case"
+      ],
+      "title": "Build a home around it.",
+      "description": "The steel case surrounds the movement and display. Its openings and supports connect the internal assembly to the crown, windows and strap.",
+      "joined": "The case brings the layers into one object. Now connect the controls."
+    },
+    {
+      "id": "crown",
+      "componentIds": [
+        "crown"
+      ],
+      "title": "Put control within reach.",
+      "description": "The crown provides the wearer\u2019s connection to setting and winding. Its gripped edge makes a small mechanical control usable by hand.",
+      "joined": "The control joins the case. Next, attend to its boundaries.",
+      "approach": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "seals",
+      "componentIds": [
+        "seals"
+      ],
+      "title": "Pay attention to the joins.",
+      "description": "Gaskets belong at interfaces between case parts. Their placement matters as much as the visible metal; this illustrative model does not establish actual sealing performance.",
+      "joined": "The interfaces are represented. Close the back while keeping the mechanism visible."
+    },
+    {
+      "id": "caseback",
+      "componentIds": [
+        "caseback"
+      ],
+      "title": "Frame a view from behind.",
+      "description": "The metal caseback ring retains the rear window and closes around the movement. The back is an assembly with its own structure, not a painted surface.",
+      "joined": "The retaining ring is in place. Its opening still needs a window.",
+      "from": [
+        0.25,
+        0.2,
+        -1
+      ],
+      "approach": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "id": "rear-window",
+      "componentIds": [
+        "rear-window"
+      ],
+      "title": "Keep the mechanism in view.",
+      "description": "The transparent rear window lets you see the rotor beneath it. Its material composition is unverified in our references, so we do not label it sapphire.",
+      "joined": "The rear is closed and still transparent. Protect the display on the other side.",
+      "from": [
+        0.25,
+        0.2,
+        -1
+      ],
+      "approach": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "id": "crystal",
+      "componentIds": [
+        "crystal"
+      ],
+      "title": "Protect the face without hiding it.",
+      "description": "The front sapphire sits above the hands. Its curved edge and moving reflections reveal a clear protective surface while preserving the view of the dial.",
+      "joined": "The display is protected. One last connection makes the watch wearable."
+    },
+    {
+      "id": "strap",
+      "componentIds": [
+        "strap"
+      ],
+      "title": "Bring it back to the wrist.",
+      "description": "The leather strap connects the case to the wearer. That closes the story: the wrist carries the watch, and its motion helps wind the mechanism inside.",
+      "joined": "The layers have become one watch. Scroll a little farther to see it together."
+    }
+  ]
+}

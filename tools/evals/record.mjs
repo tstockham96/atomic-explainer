@@ -19,7 +19,7 @@ try{
   }
   await route.fulfill({status:200,headers:{'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'Content-Type'},body:'ok'});
  });
- await page.goto(`${base}/murph-study/index.html?eval=1&capture=1&turns=1&motion=1&optics=1&no-export=1`);
+ await page.goto(`${base}/murph-study/index.html?eval=1&story=explode&capture=1&turns=1&motion=1&optics=1&no-export=1`);
  await page.waitForFunction(()=>window.__explodeReview?.ready,{},{timeout:120000});
  if(errors.length)throw Error(errors.join('\n'));
  await page.locator('#motion').click();

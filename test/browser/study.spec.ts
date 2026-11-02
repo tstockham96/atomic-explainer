@@ -4,7 +4,7 @@ type Review={ready:boolean;ids:string[];inspect:(id:string,local?:number)=>void;
 declare global{interface Window{__explodeReview:Review}}
 async function load(page:Page){
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message))
- await page.goto('/murph-study/index.html?eval=1')
+ await page.goto('/murph-study/index.html?eval=1&story=explode')
  await page.waitForFunction(()=>window.__explodeReview?.ready,{},{timeout:90_000})
  expect(errors).toEqual([])
 }

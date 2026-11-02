@@ -77,6 +77,10 @@ Before building the full tour, render the assembled object and a short separatio
 
 Repair or replace the deficient asset before polishing the larger experience. If the available tools cannot reach the required fidelity, say what failed and what additional asset or modeling work is needed. Do not substitute another photo-zoom animation or a crude procedural object and claim the quality target was met.
 
+## Give the assembly a throughline
+
+For a “how it’s made” experience, read `docs/assembly-stories.md`. Research a functional core and the capabilities each subsequent layer adds. Write connected inspection and seated captions. Use the reusable assembly-story helper to accumulate parts after their full turns, preserving true pairs and physical inventory. Finish with a whole object, then anatomy. Label an educational sequence honestly; do not present an inferred order as a verified factory process. The Hamilton adapter demonstrates this mode; other objects require their own researched scripts and integration.
+
 ## Author and export
 
 Keep source provenance and the component inventory beside the model. Use a self-contained GLB with separately addressable parts, embedded ordinary textures, and compatible geometry. From the skill folder, run `node scripts/inspect-model.mjs /absolute/path/model.glb` to inspect mesh names, hierarchy, and resource requirements. This is a structural inventory, not a visual quality verdict.
