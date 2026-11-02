@@ -86,6 +86,9 @@ describe("site render", () => {
     await mkdir(template)
     await writeFile(path.join(template, "index.html"), `<!doctype html><script>${SPEC_MARKER}</script>`)
     await writeFile(path.join(template, "app.js"), "console.log('viewer')")
+    await mkdir(path.join(template,'presentation/workshop'),{recursive:true})
+    await writeFile(path.join(template,'presentation/workshop/desk.glb'),'portable scenery')
+    await writeFile(path.join(template,'presentation/workshop/ATTRIBUTION.md'),'CC0 provenance')
 
     const index = await renderSite(murph, out, { templateDir: template })
     const html = await readFile(index, "utf8")
@@ -93,6 +96,8 @@ describe("site render", () => {
     expect(html).toContain("H70605731")
     expect(written.item.reference).toBe("H70605731")
     expect(await readFile(path.join(out, "app.js"), "utf8")).toContain("viewer")
+    expect(await readFile(path.join(out,'presentation/workshop/desk.glb'),'utf8')).toBe('portable scenery')
+    expect(await readFile(path.join(out,'presentation/workshop/ATTRIBUTION.md'),'utf8')).toBe('CC0 provenance')
   })
 
   it("includes a local multipart model when exporting a portable explainer", async () => {

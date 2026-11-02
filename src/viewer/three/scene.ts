@@ -2,7 +2,7 @@ import {deskShot,deskWide,deskContext} from './deskCamera.ts'
 import {createPresentation,presentationSetting,type PresentationSetting} from './presentation.ts'
 import {anatomyStops} from '../../spec/scene3d.ts'
 import {createAssemblyStory} from './assemblyStory.ts'
-import {modelStops,stopBounds} from './model.ts'
+import {disposeObject,modelStops,stopBounds} from './model.ts'
 import { sampleScene, THREE_TIMING, ease } from './timeline.ts'
 import { configureRenderBudget } from './renderBudget.ts'
 import { isTransmitting, createOpticalBackdrop } from './optics.ts'
@@ -90,7 +90,10 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
   model.root.traverse((node) => { if (node instanceof THREE.Mesh) (Array.isArray(node.material) ? node.material : [node.material]).forEach((material) => stillUsed.add(material)) })
   originalMaterials.forEach((material) => { if (!stillUsed.has(material)) material.dispose() })
 
-  const presentation=createPresentation(scene,renderer,model.root)
+  let presentation:Awaited<ReturnType<typeof createPresentation>>
+  try{presentation=await createPresentation(scene,renderer,model.root)}catch(error){
+   disposeObject(model.root);glassEnvironment.dispose();environment.dispose();backdrop.geometry.dispose();backdrop.material.dispose();renderer.dispose();throw error
+  }
   presentation.set(presentationSetting(new URLSearchParams(location.search).get('setting')))
   backdrop.visible=presentation.setting==='plain'
 

@@ -25,14 +25,14 @@ export function createStudioEnvironment(renderer: THREE.WebGLRenderer) {
 
 /** Narrow, moderate white strips on a dark surround. Glass needs a restrained
  * reflection rig; the high-output broad softboxes for metal obscure its interior. */
-export function createGlassEnvironment(renderer: THREE.WebGLRenderer, background = '#080c10') {
+export function createGlassEnvironment(renderer: THREE.WebGLRenderer, background = '#080c10', reflectionStrength = 1) {
   const room = new THREE.Scene()
   room.background = new THREE.Color(background)
   const panels: THREE.Mesh[] = []
   // Rear-facing flat windows need a readable strip too. Position it inside
   // their reflected field of view; increasing opacity is not the remedy.
   for (const [x,y,z,w,h,power] of [[-28,14,50,3,65,1.5],[38,-5,30,2,45,1.1],[-12,-6,-50,2,55,1.5]]) {
-    const panel = new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:new THREE.Color().setScalar(power),side:THREE.DoubleSide}))
+    const panel = new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:new THREE.Color().setScalar(power*reflectionStrength),side:THREE.DoubleSide}))
     panel.position.set(x,y,z);panel.lookAt(0,0,0);room.add(panel);panels.push(panel)
   }
   const generator = new THREE.PMREMGenerator(renderer)

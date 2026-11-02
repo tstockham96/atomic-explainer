@@ -68,6 +68,7 @@ export async function renderSite(
   // A new object must not silently ship every other specimen in the template.
   const include = (source: string) => {
     const relative = path.relative(templateDir, source).split(path.sep).join('/')
+    if (relative === 'presentation' || relative.startsWith('presentation/')) return true
     if (!relative || relative === 'assets' || relative.startsWith('assets/')) return true
     if (!relative.includes('/') && /\.(html|js|css|woff2?|txt)$/.test(relative)) return true
     return referenced.some(file => relative === file || relative.startsWith(`${file}/`) || file.startsWith(`${relative}/`))

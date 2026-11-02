@@ -1,0 +1,195 @@
+{
+  "errors": [],
+  "views": [
+    {
+      "width": 390,
+      "id": "opening",
+      "parts": [
+        "crystal",
+        "hands",
+        "dial",
+        "case",
+        "crown",
+        "seals",
+        "caseback",
+        "rear-window",
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "strap"
+      ],
+      "assets": [
+        "workshop_workbench",
+        "workshop_desk-lamp",
+        "workshop_bench-vise",
+        "workshop_vernier-caliper"
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "id": "movement-system",
+      "parts": [
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance"
+      ],
+      "assets": [
+        "workshop_workbench",
+        "workshop_desk-lamp",
+        "workshop_bench-vise",
+        "workshop_vernier-caliper"
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "id": "rear-window",
+      "parts": [
+        "rear-window"
+      ],
+      "assets": [
+        "workshop_workbench",
+        "workshop_desk-lamp",
+        "workshop_bench-vise",
+        "workshop_vernier-caliper"
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "id": "complete",
+      "parts": [
+        "crystal",
+        "hands",
+        "dial",
+        "case",
+        "crown",
+        "seals",
+        "caseback",
+        "rear-window",
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "strap"
+      ],
+      "assets": [
+        "workshop_workbench",
+        "workshop_desk-lamp",
+        "workshop_bench-vise",
+        "workshop_vernier-caliper"
+      ],
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "id": "opening",
+      "parts": [
+        "crystal",
+        "hands",
+        "dial",
+        "case",
+        "crown",
+        "seals",
+        "caseback",
+        "rear-window",
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "strap"
+      ],
+      "assets": [
+        "workshop_workbench",
+        "workshop_desk-lamp",
+        "workshop_bench-vise",
+        "workshop_vernier-caliper"
+      ],
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "id": "movement-system",
+      "parts": [
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance"
+      ],
+      "assets": [
+        "workshop_workbench",
+        "workshop_desk-lamp",
+        "workshop_bench-vise",
+        "workshop_vernier-caliper"
+      ],
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "id": "rear-window",
+      "parts": [
+        "rear-window"
+      ],
+      "assets": [
+        "workshop_workbench",
+        "workshop_desk-lamp",
+        "workshop_bench-vise",
+        "workshop_vernier-caliper"
+      ],
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "id": "complete",
+      "parts": [
+        "crystal",
+        "hands",
+        "dial",
+        "case",
+        "crown",
+        "seals",
+        "caseback",
+        "rear-window",
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "strap"
+      ],
+      "assets": [
+        "workshop_workbench",
+        "workshop_desk-lamp",
+        "workshop_bench-vise",
+        "workshop_vernier-caliper"
+      ],
+      "overflow": false
+    }
+  ]
+}

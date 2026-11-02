@@ -13,3 +13,5 @@ The reference websites supplied for design direction are not included in this di
 - **Murph educational study**: project-authored/generated geometry and textures; not manufacturer CAD. Provenance and limitations are in `public/models/murph/ATTRIBUTION.md`. Hamilton trademarks identify the subject.
 - **Studio Small 09 HDR**: Sergej Majboroda / Poly Haven, CC0, https://polyhaven.com/a/studio_small_09 . Attribution accompanies the Murph model.
 - **Outfit and Fraunces fonts**: SIL Open Font License 1.1. License files are distributed with the corresponding `@fontsource` packages; the study build copies them alongside the fonts.
+
+- **Workshop scenery**: Poly Haven Desk Lamp Arm 01 (Kuutti Siitonen / Yann Kervran) and Grab3D Workbench, Bench Vise and Vernier Caliper; CC0 1.0. Source URLs, origin disclosures, modifications, license text and asset hashes are in `public/presentation/workshop/`. Those notices travel with exported explainers.
