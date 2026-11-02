@@ -1,5 +1,6 @@
+import {anatomyStops} from '../../spec/scene3d.ts'
 import {createAssemblyStory} from './assemblyStory.ts'
-import {modelStops,stopParts,stopBounds} from './model.ts'
+import {modelStops,stopBounds} from './model.ts'
 import { sampleScene, THREE_TIMING, ease } from './timeline.ts'
 import { configureRenderBudget } from './renderBudget.ts'
 import { isTransmitting, createOpticalBackdrop } from './optics.ts'
@@ -187,11 +188,11 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     camera.aspect = 1; camera.updateProjectionMatrix()
     poseModel(model, 0)
     const visibleNodes = model.parts.map((part) => part.group.visible)
-    for (const [index,stop] of modelStops(model).entries()) {
-      const members=stopParts(model,index),part=members[0]!
-      poseModel(model,THREE_TIMING.inspect+(index+.5)*(THREE_TIMING.reassemble-THREE_TIMING.inspect)/modelStops(model).length)
+    for (const [index,stop] of (story?anatomyStops(spec):modelStops(model)).entries()) {
+      const members=model.parts.filter(p=>stop.componentIds.includes(p.id)),part=members[0]!
+      if(story){model.root.rotation.set(0,0,0);story.pose(0)}else poseModel(model,THREE_TIMING.inspect+(index+.5)*(THREE_TIMING.reassemble-THREE_TIMING.inspect)/modelStops(model).length)
       model.parts.forEach((other) => { other.group.visible = members.includes(other) })
-      const shot = frameBox(stopBounds(model,index), new THREE.Vector3(...(part.shot?.from ?? [0.45, 0.3, 1])).normalize(), 1, [0.8, 0.8])
+      const shot = frameBox(members.reduce((b,p)=>b.union(new THREE.Box3().setFromObject(p.group)),new THREE.Box3()), new THREE.Vector3(...(part.shot?.from ?? [0.45, 0.3, 1])).normalize(), 1, [0.8, 0.8])
       camera.position.copy(shot.position); camera.lookAt(shot.target)
       render()
       images[stop.id] = renderer.domElement.toDataURL("image/png")

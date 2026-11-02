@@ -40,3 +40,25 @@ it('shows a complete assembled revolution before revealing the core',()=>{
  expect(front.position.z-front.target.z).toBeGreaterThan(0);expect(rear.position.z-rear.target.z).toBeLessThan(0)
  for(const[id,p]of Object.entries(parts))expect(p.position).toEqual(story.homes[id]!.position)
 })
+
+const milestone={id:'working-core',kind:'milestone',componentIds:['core','left','right'],title:'A system',description:'These parts support each other',joined:'Ready for a cover'}
+it('adds system milestones without consuming, duplicating or reseating physical parts',()=>{
+ const {root,parts}=fixture(),chapters=[...script.chapters.slice(0,2),milestone,script.chapters[2]!],story=createAssemblyStory(root,parts,{...script,chapters})
+ const before=story.pose(story.progressFor('pair',.97)).builtIds
+ for(const local of [0,.2,.4,.55,.97]){
+  const state=story.pose(story.progressFor('working-core',local));expect(state.builtIds).toEqual(before)
+  expect(parts.left!.position.distanceTo(parts.right!.position)).toBeCloseTo(4)
+  for(const p of Object.values(parts))expect(p.visible).toBe(true)
+ }
+ for(const id of before)expect(parts[id]!.position).toEqual(story.homes[id]!.position)
+ const progress=story.progressFor('working-core',.4);story.pose(progress);const positions=Object.values(parts).map(p=>p.position.toArray());story.pose(1);story.pose(progress);expect(Object.values(parts).map(p=>p.position.toArray())).toEqual(positions)
+ for(const boundary of [assemblyProgress(2,0,4),assemblyProgress(3,0,4)]){
+  const a=story.camera(story.pose(boundary-1e-7),33,1.5,[.52,.7]),b=story.camera(story.pose(boundary+1e-7),33,1.5,[.52,.7]);expect(a.position.distanceTo(b.position)).toBeLessThan(.001)
+ }
+ story.pose(1);for(const [id,p]of Object.entries(parts))expect(p.position).toEqual(story.homes[id]!.position)
+})
+it('rejects milestones that skip individual parts or reference future components',()=>{
+ expect(assemblyStorySchema.safeParse({...script,chapters:[milestone,...script.chapters]}).success).toBe(false)
+ expect(assemblyStorySchema.safeParse({...script,chapters:[script.chapters[0],{...milestone,componentIds:['core','cover']},...script.chapters.slice(1)]}).success).toBe(false)
+ expect(assemblyStorySchema.safeParse({...script,chapters:[...script.chapters,milestone,milestone]}).success).toBe(false)
+})

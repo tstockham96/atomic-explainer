@@ -31,5 +31,6 @@ const storyFixture=explodeSpecSchema.parse(JSON.parse(await readFile(path.join(f
 if(storyFixture.scene3d?.kind==='gltf'){
  const ids=['logic-board','battery',...storyFixture.scene3d.parts.map(p=>p.componentId).filter(id=>!['logic-board','battery'].includes(id))]
  storyFixture.scene3d.assemblyStory={title:'Whole to core to whole',note:'Construction fixture · educational order only',opening:{title:'One working object',description:'Explore the core, then build outward.',from:[.25,.2,1]},closing:{title:'A complete assembly',description:'All components are back in their original seats.'},chapters:ids.map(id=>{const c=storyFixture.components.find(c=>c.id===id)!;return {id,componentIds:[id],title:c.name,description:c.howItsMade,joined:c.name+' joins the accumulating assembly.',from:[.25,.2,1],approach:[0,0,1]}})}
+ storyFixture.scene3d.assemblyStory.chapters.splice(2,0,{id:'powered-core',kind:'milestone',componentIds:['logic-board','battery'],title:'A powered computing core',description:'The battery supplies energy and the board processes signals. Both previously explored parts now work as one subsystem.',joined:'The powered core is ready for the display and other interfaces.',from:[.25,.2,1],approach:[0,0,1]})
  await renderSite(storyFixture,path.join(output,'construction-fixtures/assembly-story'),{assetRoot:fixtureDir,templateDir:output})
 }

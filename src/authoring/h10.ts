@@ -78,8 +78,12 @@ export function buildH10(part:(id:string)=>T.Group,m:Finishes){
  gear(winding,4.5,-3.5,2.35,52,.23,false)
  const barrel=assembly('barrel');gear(barrel,5.3,-6.4,3.3,78,-.19,false)
  add(barrel,disc(3.1,.55),m.brass,5.3,-6.4,-.13);ring(barrel,3.1,2.92,.08,5.3,-6.4,.19,m.polish)
- const springPoints=[];for(let i=0;i<=320;i++){const a=i/320*Math.PI*14,r=.3+i/320*2.55;springPoints.push(new T.Vector3(5.3+Math.cos(a)*r,-6.4+Math.sin(a)*r,-.45))}
- add(barrel,new T.TubeGeometry(new T.CatmullRomCurve3(springPoints),640,.022,5,false),m.steel)
+ // A mainspring is a ribbon, not a wire. Its hidden H-10 dimensions are
+ // illustrative; keeping it independent makes the stored-energy lesson visible.
+ const mainspring=assembly('mainspring'),spiral=new T.Shape(),segments=640
+ for(let i=0;i<=segments;i++){const a=i/segments*Math.PI*14,r=.3+i/segments*2.55+.025,x=5.3+Math.cos(a)*r,y=-6.4+Math.sin(a)*r;if(i===0)spiral.moveTo(x,y);else spiral.lineTo(x,y)}
+ for(let i=segments;i>=0;i--){const a=i/segments*Math.PI*14,r=.3+i/segments*2.55-.025;spiral.lineTo(5.3+Math.cos(a)*r,-6.4+Math.sin(a)*r)}
+ spiral.closePath();solid(mainspring,spiral,.28,-.13,m.steel,.004).name='mainspring_ribbon'
  const train=assembly('wheel-train')
  gear(train,.9,-2.6,2.65,68,-.24).name='center_wheel';gear(train,-2.9,.4,2.2,58,-.05).name='third_wheel';gear(train,-1.7,4.1,1.65,45,.05).name='fourth_wheel'
  const escape=assembly('escapement');gear(escape,-2.0,6.5,1.0,15,.1,false,m.steel)

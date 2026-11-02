@@ -134,7 +134,7 @@ export const explodeSpecSchema = z.object({
     }).superRefine((scene,ctx)=>{
       const physical=new Set(scene.parts.map(p=>p.componentId)),seen=new Set<string>(),ids=new Set<string>()
       if(scene.assemblyStory){
-        const members=scene.assemblyStory.chapters.flatMap(c=>c.componentIds)
+        const members=scene.assemblyStory.chapters.filter(c=>c.kind!=='milestone').flatMap(c=>c.componentIds)
         if(members.length!==physical.size||members.some(id=>!physical.has(id)))ctx.addIssue({code:'custom',message:'Assembly story must include every mapped physical component exactly once'})
       }
       for(const g of scene.inspectionGroups??[]){

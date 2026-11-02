@@ -57,7 +57,7 @@ it('does not pull curved-edge normals into planar cap faces',()=>{
 it('exports textured metal on every Murph mechanism group, without legacy bump extensions',()=>{
  const report=auditMaterials(readFileSync('public/models/murph/murph.glb'))
  expect(report.issues).toEqual([])
- for(const id of ['movement','rotor','barrel','wheel-train','winding-train','escapement','balance']){
+ for(const id of ['movement','rotor','mainspring','barrel','wheel-train','winding-train','escapement','balance']){
   const component=report.components.find(c=>c.componentId===id)!
   const finishes=component.materialIndices.map(i=>report.materials[i]!).filter(m=>m.finish)
   expect(finishes.length,id).toBeGreaterThan(0)

@@ -1,24 +1,20 @@
 {
-  "title": "Explode / How it\u2019s made",
-  "note": "Educational assembly order \u00b7 H-10 internals approximate \u00b7 Not a factory assembly guide",
+  "title": "Explode / How it’s made",
+  "note": "Educational assembly order · H-10 internals approximate · Not a factory assembly guide",
   "closing": {
     "title": "A movement becomes a watch.",
-    "description": "Stored energy, a steady rhythm, a readable display and a protective case. Every layer now has a place\u2014and a reason to be here."
+    "description": "Stored energy, a steady rhythm, a readable display and a protective case. Every layer now has a place—and a reason to be here."
   },
   "chapters": [
     {
-      "id": "movement",
+      "id": "mainspring",
       "componentIds": [
-        "movement",
-        "barrel",
-        "wheel-train",
-        "escapement",
-        "balance",
-        "winding-train"
+        "mainspring"
       ],
-      "title": "Start with the movement.",
-      "description": "The H-10 movement gives the watch its rhythm. A mainspring stores energy, gears transmit it, and the escapement and balance regulate its release. Explore this small mechanism before building the watch around it.",
-      "joined": "The movement is the foundation. Next, connect it to the motion of your wrist.",
+      "title": "Begin with stored energy.",
+      "description": "Winding bends a coiled metal ribbon, storing elastic energy. As the mainspring unwinds, it supplies the watch’s power. This is the energy store; the smaller hairspring we meet later controls rhythm.",
+      "joined": "The spring is our starting point. Next, give it a drum that can deliver its energy.",
+      "detail": "Mainspring · Illustrative ribbon geometry; alloy and dimensions unverified",
       "from": [
         0.25,
         0.2,
@@ -28,8 +24,127 @@
         0,
         0,
         -1
+      ]
+    },
+    {
+      "id": "barrel",
+      "componentIds": [
+        "barrel"
       ],
-      "detail": "H-10 automatic \u00b7 Family-informed internal reconstruction"
+      "title": "Give the spring a home.",
+      "description": "The barrel surrounds the mainspring. Its toothed rim passes power into the wheel train. Watch it enclose the spring you just explored: the hidden part still belongs to the working assembly.",
+      "joined": "The spring and barrel now form the energy supply. Add the gears that carry its output.",
+      "detail": "Barrel and arbor · Hidden H-10 geometry approximate",
+      "from": [
+        0.25,
+        0.2,
+        -1
+      ],
+      "approach": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "id": "wheel-train",
+      "componentIds": [
+        "wheel-train"
+      ],
+      "title": "Carry energy through the gears.",
+      "description": "Meshing wheels pass torque from the barrel toward the escapement and display. Different wheel sizes establish different rates of rotation. Their exact tooth counts and placement here are illustrative.",
+      "joined": "The energy now has a path. Without regulation, it would run down too quickly.",
+      "detail": "Wheel train · Power transmission; not a calibrated gear simulation",
+      "from": [
+        0.25,
+        0.2,
+        -1
+      ],
+      "approach": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "id": "escapement",
+      "componentIds": [
+        "escapement"
+      ],
+      "title": "Release it a little at a time.",
+      "description": "The escapement alternately locks and releases the escape wheel. It also gives impulses to the balance, linking the gear train’s energy to the oscillator that controls the pace.",
+      "joined": "The release mechanism is in place. It needs a regular rhythm to follow.",
+      "detail": "Escapement · General operating principle; H-10 geometry approximate",
+      "from": [
+        0.25,
+        0.2,
+        -1
+      ],
+      "approach": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "id": "balance",
+      "componentIds": [
+        "balance"
+      ],
+      "title": "Give the mechanism a rhythm.",
+      "description": "The balance wheel swings back and forth as its fine hairspring supplies a restoring force. Together they regulate the escapement. This hairspring sets the rhythm; the mainspring stores the power.",
+      "joined": "Power and regulation now work together. Their pivots still need a supporting structure.",
+      "detail": "Balance wheel and hairspring · Motion illustrates the principle, not calibrated timing",
+      "from": [
+        0.25,
+        0.2,
+        -1
+      ],
+      "approach": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "id": "movement",
+      "componentIds": [
+        "movement"
+      ],
+      "title": "Hold the working parts in alignment.",
+      "description": "The mainplate and bridges locate the moving parts. Jewel bearings support pivots while separate bridges secure the mechanism. These supports conceal some gears when seated, but do not remove them.",
+      "joined": "The mechanism has its supports. Next, add the route that replenishes the spring.",
+      "detail": "Support plates and bridges · Reference-informed visible forms; hidden details approximate",
+      "from": [
+        0.25,
+        0.2,
+        -1
+      ],
+      "approach": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "id": "winding-train",
+      "componentIds": [
+        "winding-train"
+      ],
+      "title": "Connect motion to winding.",
+      "description": "The automatic winding train transfers rotor motion toward the mainspring. Its wheels make a connection between movement of the watch and the stored energy that drives timekeeping.",
+      "joined": "The winding path is in place. Add the weight that responds to your wrist.",
+      "detail": "Winding train · Exact reversing arrangement and ratios unverified",
+      "from": [
+        0.25,
+        0.2,
+        -1
+      ],
+      "approach": [
+        0,
+        0,
+        -1
+      ]
     },
     {
       "id": "rotor",
@@ -38,7 +153,35 @@
       ],
       "title": "Let your wrist supply the energy.",
       "description": "The weighted rotor swings around its bearing as the watch moves. Beneath it, the winding train replenishes the mainspring. Its openings let you glimpse the mechanism it serves.",
-      "joined": "The automatic movement is together. Turn toward the side that will tell the time.",
+      "joined": "The rotor joins the winding train. Pause here to see how these parts form a complete automatic movement.",
+      "from": [
+        0.25,
+        0.2,
+        -1
+      ],
+      "approach": [
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "id": "movement-system",
+      "kind": "milestone",
+      "componentIds": [
+        "mainspring",
+        "barrel",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "movement",
+        "winding-train",
+        "rotor"
+      ],
+      "title": "The H-10 movement.",
+      "description": "The parts now form one system: the rotor and winding train replenish the mainspring; the barrel and gears transmit its energy; the escapement and balance regulate its release. Plates and bridges hold that chain together.",
+      "joined": "Stored energy now becomes regulated motion. Build the dial and hands onto this movement to make time readable.",
+      "detail": "Milestone · Automatic movement · Educational assembly order",
       "from": [
         0.25,
         0.2,
@@ -83,7 +226,7 @@
         "crown"
       ],
       "title": "Put control within reach.",
-      "description": "The crown provides the wearer\u2019s connection to setting and winding. Its gripped edge makes a small mechanical control usable by hand.",
+      "description": "The crown provides the wearer’s connection to setting and winding. Its gripped edge makes a small mechanical control usable by hand.",
       "joined": "The control joins the case. Next, attend to its boundaries.",
       "approach": [
         1,
@@ -159,7 +302,7 @@
   ],
   "opening": {
     "title": "A whole world on your wrist.",
-    "description": "Start with the complete Murph. Scroll into its movement, then follow each layer back into place to discover how the watch works.",
+    "description": "Start with the complete Murph. Scroll into its mainspring, explore each working part, then build the movement and the watch around it.",
     "from": [
       0.25,
       0.2,

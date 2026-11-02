@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "status": "lesson-coverage-passed",
+  "ready": false,
+  "issues": [],
+  "components": [
+    {
+      "id": "case",
+      "chapterId": "case",
+      "coverage": "individual",
+      "milestones": []
+    },
+    {
+      "id": "crown",
+      "chapterId": "crown",
+      "coverage": "individual",
+      "milestones": []
+    },
+    {
+      "id": "crystal",
+      "chapterId": "crystal",
+      "coverage": "individual",
+      "milestones": []
+    },
+    {
+      "id": "seals",
+      "chapterId": "seals",
+      "coverage": "individual",
+      "milestones": []
+    },
+    {
+      "id": "dial",
+      "chapterId": "dial",
+      "coverage": "individual",
+      "milestones": []
+    },
+    {
+      "id": "hands",
+      "chapterId": "hands",
+      "coverage": "individual",
+      "milestones": []
+    },
+    {
+      "id": "caseback",
+      "chapterId": "caseback",
+      "coverage": "individual",
+      "milestones": []
+    },
+    {
+      "id": "rear-window",
+      "chapterId": "rear-window",
+      "coverage": "individual",
+      "milestones": []
+    },
+    {
+      "id": "movement",
+      "chapterId": "movement",
+      "coverage": "individual",
+      "milestones": [
+        "movement-system"
+      ]
+    },
+    {
+      "id": "winding-train",
+      "chapterId": "winding-train",
+      "coverage": "individual",
+      "milestones": [
+        "movement-system"
+      ]
+    },
+    {
+      "id": "barrel",
+      "chapterId": "barrel",
+      "coverage": "individual",
+      "milestones": [
+        "movement-system"
+      ]
+    },
+    {
+      "id": "mainspring",
+      "chapterId": "mainspring",
+      "coverage": "individual",
+      "milestones": [
+        "movement-system"
+      ]
+    },
+    {
+      "id": "wheel-train",
+      "chapterId": "wheel-train",
+      "coverage": "individual",
+      "milestones": [
+        "movement-system"
+      ]
+    },
+    {
+      "id": "escapement",
+      "chapterId": "escapement",
+      "coverage": "individual",
+      "milestones": [
+        "movement-system"
+      ]
+    },
+    {
+      "id": "balance",
+      "chapterId": "balance",
+      "coverage": "individual",
+      "milestones": [
+        "movement-system"
+      ]
+    },
+    {
+      "id": "rotor",
+      "chapterId": "rotor",
+      "coverage": "individual",
+      "milestones": [
+        "movement-system"
+      ]
+    },
+    {
+      "id": "strap",
+      "chapterId": "strap",
+      "coverage": "individual",
+      "milestones": []
+    }
+  ],
+  "milestones": [
+    {
+      "id": "movement-system",
+      "componentIds": [
+        "mainspring",
+        "barrel",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "movement",
+        "winding-train",
+        "rotor"
+      ]
+    }
+  ],
+  "note": "Coverage does not prove learning quality. Milestones summarize previously explored systems; they never replace component lessons. Declared true pairs may share a lesson. Review the explanation, geometry and evidence together."
+}

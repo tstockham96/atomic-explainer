@@ -6,3 +6,6 @@ export function assemblySample(progress:number,count:number){
  const arrival=index===0?1:ease(local/.18),focus=arrival*(1-ease((local-.58)/.18)),join=ease((local-.76)/.16)
  return {progress:p,index,local,opening,reveal,complete,arrival,focus,join,turn:ease((local-.2)/.36)*Math.PI*2}
 }
+
+/** Preserve reading/inspection room as more lessons and milestones are added. */
+export const assemblyScrollVh=(chapters:number)=>(4+chapters*1.8)*100

@@ -67,3 +67,17 @@ it('validates a generic assembly story against the entire imported inventory',()
  expect(explodeSpecSchema.safeParse(base).success).toBe(true)
  expect(explodeSpecSchema.safeParse({...base,scene3d:{...base.scene3d,assemblyStory:{...base.scene3d.assemblyStory,chapters:base.scene3d.assemblyStory.chapters.slice(1)}}}).success).toBe(false)
 })
+
+it('preserves detailed anatomy when a narrative adds a subsystem milestone',async()=>{
+ const {anatomyComponents,storyComponents}=await import('../src/spec/scene3d.ts')
+ const base=JSON.parse(readFileSync('examples/porsche-911-engine/research.json','utf8'))
+ const chapters=base.scene3d.parts.map((p:{componentId:string})=>({id:p.componentId,componentIds:[p.componentId],title:p.componentId,description:'Individual lesson',joined:'Connected'}))
+ chapters.push({id:'engine-system',kind:'milestone',componentIds:base.scene3d.parts.map((p:{componentId:string})=>p.componentId),title:'Engine system',description:'A system lesson',joined:'Complete'})
+ base.scene3d.assemblyStory={title:'Build',note:'Educational',closing:{title:'Together',description:'Whole'},chapters}
+ const parsed=explodeSpecSchema.parse(base)
+ expect(storyComponents(parsed)).toHaveLength(30)
+ const anatomy=anatomyComponents(parsed)
+ expect(anatomy).toHaveLength(26) // Existing true pairs stay paired, not hidden inside a milestone.
+ expect(anatomy.find(c=>c.id==='crankshaft')?.howItsMade).toBe(base.components.find((c:{id:string})=>c.id==='crankshaft').howItsMade)
+ expect(anatomy.some(c=>c.id==='engine-system')).toBe(false)
+})

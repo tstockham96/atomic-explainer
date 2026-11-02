@@ -8,4 +8,4 @@
 - The exported asset embeds its textures and component metadata. The original photo/generation intermediates are not required to run it; rebuilding those exterior source surfaces requires new source inputs.
 - `studio-small-09.hdr`: **Studio Small 09**, Sergej Majboroda, Poly Haven, **CC0**. https://polyhaven.com/a/studio_small_09 . This is lighting, not watch geometry.
 
-All 16 assemblies can be inspected. The researched buckle has no independent model. Hidden mechanisms, dimensions, hand backs and unknown materials remain educational approximations. Consult the evaluation report before making fidelity claims.
+All 17 assemblies can be inspected. The researched buckle has no independent model. Hidden mechanisms, dimensions, hand backs and unknown materials remain educational approximations. Consult the evaluation report before making fidelity claims.

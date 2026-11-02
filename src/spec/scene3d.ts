@@ -32,3 +32,14 @@ export function storyComponents(spec:ExplodeSpec):ComponentSpec[]{
       evidence:{basis:'inferred' as const,sourceUrls:[...new Set(members.flatMap(m=>m.evidence?.sourceUrls??[]))],note:members.map(m=>m.evidence?.note).filter(Boolean).join(' ')}}
   }).filter(Boolean)
 }
+
+/** Story milestones add system explanations; they never replace the anatomy.
+ * Preserve original paired inspections and also retain unmodeled research. */
+export function anatomyStops(spec:ExplodeSpec){
+ return inspectionStops(spec.scene3d?.kind==='gltf'?{...spec,scene3d:{...spec.scene3d,assemblyStory:undefined}}:spec)
+}
+export function anatomyComponents(spec:ExplodeSpec):ComponentSpec[]{
+ if(spec.scene3d?.kind!=='gltf'||!spec.scene3d.assemblyStory)return storyComponents(spec)
+ const physical=new Set(scenePartIds(spec))
+ return [...storyComponents({...spec,scene3d:{...spec.scene3d,assemblyStory:undefined}}),...spec.components.filter(c=>!physical.has(c.id))]
+}

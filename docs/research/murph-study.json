@@ -226,14 +226,32 @@
       "visualHint": "Use a documented mechanism layout or an explicit educational simplification; do not position guessed gears under the rotor."
     },
     {
+      "id": "mainspring",
+      "name": "Mainspring",
+      "material": "Metal spring ribbon · exact H-10 alloy unverified",
+      "howItsMade": "A coiled ribbon stores elastic energy when wound. Its controlled release powers the wheel train. The rendered coil is an educational reconstruction; exact H-10 dimensions and manufacturing treatment remain unverified.",
+      "funFacts": [
+        "The mainspring stores energy; the much smaller balance hairspring regulates timing."
+      ],
+      "order": 11,
+      "evidence": {
+        "basis": "documented",
+        "sourceUrls": [
+          "https://www.hautehorlogerie.org/en/watches-and-culture/library/how-does-a-mechanical-watch-work"
+        ],
+        "note": "Claim scope is recorded in understanding; modeling directions are not factory specifications."
+      },
+      "visualHint": "Independent coiled ribbon inside the barrel; show it before the barrel encloses it. Do not confuse it with the balance hairspring."
+    },
+    {
       "id": "barrel",
-      "name": "Mainspring and barrel",
-      "material": "Spring and barrel materials unresolved for this reference",
-      "howItsMade": "Store winding energy and deliver torque to the wheel train. Construction/process details beyond the cited evidence remain unverified.",
+      "name": "Mainspring barrel",
+      "material": "Metal barrel and arbor · exact alloys unverified",
+      "howItsMade": "The drum houses the mainspring and delivers torque to the wheel train through its toothed rim. Drum dimensions, arbor details and manufacturing processes are illustrative.",
       "funFacts": [
         "Store winding energy and deliver torque to the wheel train."
       ],
-      "order": 11,
+      "order": 12,
       "evidence": {
         "basis": "documented",
         "sourceUrls": [
@@ -251,7 +269,7 @@
       "funFacts": [
         "Carry power between the barrel, escapement and time display."
       ],
-      "order": 12,
+      "order": 13,
       "evidence": {
         "basis": "documented",
         "sourceUrls": [
@@ -269,7 +287,7 @@
       "funFacts": [
         "Release the train in controlled steps and deliver impulses to the oscillator."
       ],
-      "order": 13,
+      "order": 14,
       "evidence": {
         "basis": "documented",
         "sourceUrls": [
@@ -287,7 +305,7 @@
       "funFacts": [
         "Set the rhythm that regulates the escapement."
       ],
-      "order": 14,
+      "order": 15,
       "evidence": {
         "basis": "documented",
         "sourceUrls": [
@@ -308,7 +326,7 @@
       "funFacts": [
         "Connect the watch case to the wearer."
       ],
-      "order": 15,
+      "order": 16,
       "evidence": {
         "basis": "inferred",
         "sourceUrls": [
@@ -328,7 +346,7 @@
       "funFacts": [
         "Secure the strap at an adjustable length."
       ],
-      "order": 16,
+      "order": 17,
       "evidence": {
         "basis": "documented",
         "sourceUrls": [
@@ -1170,6 +1188,40 @@
         "unknowns": [
           "Buckle underside, mark geometry and attachment dimensions."
         ]
+      },
+      {
+        "componentId": "mainspring",
+        "function": "Store elastic energy supplied by winding, distinct from the timing function of the balance hairspring.",
+        "claims": [
+          {
+            "statement": "A mainspring housed in a barrel stores mechanical energy.",
+            "basis": "documented",
+            "referenceIds": [
+              "mechanism"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "mechanism"
+          ],
+          "shape": "Independent spiral ribbon, about its arbor, contained inside the barrel in the assembled pose. Turns, thickness and dimensions are illustrative.",
+          "materialBehavior": "Metal surfaces; spring movement should illustrate stored tension rather than act as decoration.",
+          "hiddenSurfaces": "Both faces and edges of the ribbon are modeled. The barrel physically encloses it after its individual lesson.",
+          "exclude": [
+            "A claim that the visible rotor is the energy store"
+          ],
+          "acceptanceChecks": [
+            "Inspect the spring before the barrel encloses it.",
+            "Explain energy storage separately from the balance hairspring timing function.",
+            "Return the spring to its seat without copying it at the movement milestone.",
+            "Do not claim a calibrated winding simulation or verified spring alloy."
+          ]
+        },
+        "unknowns": [
+          "Spring dimensions/alloy, barrel size and specific extended-reserve changes."
+        ]
       }
     ],
     "relationships": [
@@ -1315,6 +1367,24 @@
         "basis": "inferred",
         "referenceIds": [
           "catalog"
+        ]
+      },
+      {
+        "from": "winding-train",
+        "to": "mainspring",
+        "relationship": "supplies winding input to the energy store",
+        "basis": "inferred",
+        "referenceIds": [
+          "mechanism"
+        ]
+      },
+      {
+        "from": "mainspring",
+        "to": "barrel",
+        "relationship": "stores winding energy inside the drum",
+        "basis": "documented",
+        "referenceIds": [
+          "mechanism"
         ]
       }
     ],

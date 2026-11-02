@@ -116,7 +116,7 @@ export async function buildMurph(dialUrl: string, strapUrl: string | undefined, 
   for(const[id,p]of Object.entries(parts)){
     const evidence=study.understanding.components.find(c=>c.componentId===id)
     if(!evidence)throw Error(`No researched construction brief for ${id}`)
-    p.userData={componentId:id,function:evidence.function,claims:evidence.claims,referenceIds:evidence.reconstruction.referenceIds,geometryScope:['movement','rotor','winding-train','barrel','wheel-train','escapement','balance','seals'].includes(id)?'illustrative, informed by family/general references':'reconstructed appearance; not CAD',unknowns:evidence.unknowns}
+    p.userData={componentId:id,function:evidence.function,claims:evidence.claims,referenceIds:evidence.reconstruction.referenceIds,geometryScope:['movement','rotor','winding-train','mainspring','barrel','wheel-train','escapement','balance','seals'].includes(id)?'illustrative, informed by family/general references':'reconstructed appearance; not CAD',unknowns:evidence.unknowns}
   }
   root.updateMatrixWorld(true)
   return {root,parts,rotorPivot,balanceWheel,bridgePack,hour,minute,seconds,wheels}

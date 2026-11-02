@@ -12,9 +12,9 @@ for(const viewport of [{width:1440,height:900},{width:390,height:844},{width:360
  test(`all exported components fit without caption collisions at ${viewport.width}×${viewport.height}`,async({page},testInfo)=>{
   await page.setViewportSize(viewport);await load(page)
   const ids=await page.evaluate(()=>window.__explodeReview.ids)
-  expect(ids).toHaveLength(16)
-  expect(await page.locator('#component-menu option').count()).toBe(17)
-  expect(await page.locator('#component-explanations article').count()).toBe(17)
+  expect(ids).toHaveLength(17)
+  expect(await page.locator('#component-menu option').count()).toBe(18)
+  expect(await page.locator('#component-explanations article').count()).toBe(18)
   for(const id of ids){
    // Front, oblique and reverse: one view cannot establish a usable inspection.
    for(const turn of [.2,.37,.5]){
@@ -46,7 +46,7 @@ test('reduced motion keeps every component and keyboard navigation available',as
  await expect(page.locator('#title')).toContainText('rotor')
  await page.locator('.skip-link').focus();await page.keyboard.press('Enter')
  await expect(page.locator('#component-guide')).toBeFocused()
- expect(await page.locator('#component-explanations article').count()).toBe(17)
+ expect(await page.locator('#component-explanations article').count()).toBe(18)
 })
 test('pause stops ambient movement and all buttons have usable touch targets',async({page})=>{
  await load(page);await page.locator('#motion').click()
@@ -63,7 +63,7 @@ test('missing geometry leaves readable learning content and a clear error',async
  await page.goto('/murph-study/index.html')
  await expect(page.locator('#error')).toBeVisible({timeout:90_000})
  await expect(page.locator('#error')).toContainText('component explanations')
- expect(await page.locator('#component-explanations article').count()).toBe(17)
+ expect(await page.locator('#component-explanations article').count()).toBe(18)
 })
 test('upload promises a research plan, with no unattended model-generation claim',async({page})=>{
  await page.goto('/create')

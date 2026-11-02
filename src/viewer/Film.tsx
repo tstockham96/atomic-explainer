@@ -1,3 +1,4 @@
+import {assemblyScrollVh} from './three/assemblyTimeline.ts'
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -9,7 +10,7 @@ import { frameFile, sequenceReady } from "../spec/frames.ts"
 import { focusTour } from "../spec/camera.ts"
 import { asset } from "./asset.ts"
 import { Reel, type ReelHandle } from "./Reel.tsx"
-import { inspectionStops, storyComponents } from "../spec/scene3d.ts"
+import { inspectionStops, anatomyComponents } from "../spec/scene3d.ts"
 import { ObjectScene } from "./ObjectScene.tsx"
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
@@ -51,7 +52,7 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
     <main ref={rootRef} className="reel continuous-reel">
       <a className="skip-film" href="#parts">Skip motion and read the anatomy</a>
       <Scrollytelling.Root callbacks={callbacks}>
-        <Scrollytelling.Pin childHeight="100svh" pinSpacerHeight={`${(4 + tourLength * 1.15) * 100}svh`}>
+        <Scrollytelling.Pin childHeight="100svh" pinSpacerHeight={`${spec.scene3d?.kind==='gltf'&&spec.scene3d.assemblyStory?assemblyScrollVh(tourLength):(4+tourLength*1.15)*100}svh`}>
           <Scrollytelling.Animation tween={tween} />
           <section id="film" className="pin" aria-label={`${spec.item.name}: rotate, explode, and explore`}>
             {spec.scene3d ? <ObjectScene spec={spec} api={api} onImages={setImages} /> : <Reel spec={spec} api={api} />}
@@ -64,7 +65,7 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
 }
 
 function Sheets({ spec, images = {} }: { spec: ExplodeSpec; images?: Record<string, string> }) {
-  const components=storyComponents(spec)
+  const components=anatomyComponents(spec)
   return (
     <>
       <section id="parts" className="sheet">

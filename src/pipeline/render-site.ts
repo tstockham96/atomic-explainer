@@ -110,6 +110,12 @@ export async function renderSite(
     if(report.issues.length) log(`Material review: ${report.issues.length} export issues need attention.`)
   }
 
+  if(spec.scene3d?.kind==='gltf'&&spec.scene3d.assemblyStory){
+    const {auditStory}=await import('../evals/story.ts')
+    const report=auditStory(spec.scene3d.assemblyStory,spec.scene3d.parts.map(p=>p.componentId),spec.scene3d.inspectionGroups)
+    await writeFile(path.join(destination,'story-review.json'),JSON.stringify(report,null,2)+'\n')
+    if(report.issues.length)log(`Story review: ${report.issues.length} component lessons need attention.`)
+  }
   const indexPath = path.join(destination, "index.html")
   const html = await readFile(indexPath, "utf8")
   await writeFile(indexPath, injectSpec(html, spec))

@@ -35,7 +35,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
     const assembly=story?assemblySample(value,story.chapters.length):undefined
     setSelected(sample.index >= 0 ? ids[sample.index]! : sample.separation > .5 ? "exploded" : "assembly")
     setStage(value >= THREE_TIMING.reassemble ? "04 / 04 · Together again" : sample.index >= 0 ? "03 / 04 · Explore" : sample.separation > 0 ? "02 / 04 · Explode" : "01 / 04 · Rotate")
-    if(assembly){setSelected(assembly.opening?'assembly':assembly.complete?'complete':`chapter:${ids[assembly.index]!}`);setStage(assembly.opening?'The whole object':assembly.complete?'Together again':`${assembly.index+1} / ${components.length} · ${assembly.local>=.76?'Building together':'How it’s made'}`)}
+    if(assembly){setSelected(assembly.opening?'assembly':assembly.complete?'complete':`chapter:${ids[assembly.index]!}`);setStage(assembly.opening?'The whole object':assembly.complete?'Together again':`${assembly.index+1} / ${components.length} · ${story!.chapters[assembly.index]!.kind==='milestone'?'Milestone':assembly.local>=.76?'Building together':'How it’s made'}`)}
     const show = (node: HTMLElement | null, opacity: number) => {
       if (!node) return
       node.style.opacity = String(opacity)

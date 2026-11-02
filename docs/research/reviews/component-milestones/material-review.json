@@ -1,0 +1,1315 @@
+{
+  "version": 1,
+  "modelSha256": "048681ad7b1221ec230cf53b2a957ec8aaa19f16ec816ee0064260a8b2c10c11",
+  "status": "export-checks-passed",
+  "ready": false,
+  "issues": [],
+  "materials": [
+    {
+      "index": 0,
+      "name": "Material_tripo_part_0",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": false,
+      "metalness": 0.95,
+      "roughness": 0.29,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 1,
+      "name": "Surface · steel",
+      "finish": {
+        "version": 1,
+        "kind": "steel",
+        "tileMm": 4,
+        "reliefMm": 0.002,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Murph reference photographs: brushed silver steel surfaces; grain is an appearance approximation",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 2,
+      "name": "Material 2",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 0.14,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 3,
+      "name": "Material 3",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 0.14,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 4,
+      "name": "Surface · steel",
+      "finish": {
+        "version": 1,
+        "kind": "steel",
+        "tileMm": 4,
+        "reliefMm": 0.002,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Murph reference photographs: brushed silver steel surfaces; grain is an appearance approximation",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 5,
+      "name": "Material 5",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.02,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 6,
+      "name": "Material 6",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.85,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 7,
+      "name": "Material 7",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.87,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 8,
+      "name": "Material 8",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.87,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 9,
+      "name": "Material 9",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.88,
+      "roughness": 0.3,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 10,
+      "name": "Material 10",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.78,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 11,
+      "name": "Material 11",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 0.32,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 12,
+      "name": "Material 12",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 0.14,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 13,
+      "name": "Material 13",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.7,
+      "roughness": 0.4,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 14,
+      "name": "Material 14",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 0.14,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 15,
+      "name": "Surface · steel",
+      "finish": {
+        "version": 1,
+        "kind": "steel",
+        "tileMm": 4,
+        "reliefMm": 0.002,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Murph reference photographs: brushed silver steel surfaces; grain is an appearance approximation",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 16,
+      "name": "Material 16",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.7,
+      "roughness": 0.4,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 17,
+      "name": "Material 17",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.02,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 18,
+      "name": "Observed brushed metal — linear",
+      "finish": {
+        "version": 1,
+        "kind": "brushed",
+        "tileMm": 26.6,
+        "reliefMm": 0.003,
+        "grain": "linear",
+        "basis": "observed",
+        "evidence": "H-10 rear macros in murph-study dossier: silver satin bridge faces; alloy/plating not established",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 19,
+      "name": "Material 19",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 0.14,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 20,
+      "name": "Surface · steel",
+      "finish": {
+        "version": 1,
+        "kind": "steel",
+        "tileMm": 4,
+        "reliefMm": 0.002,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "H-10 family reference: silver metallic rims and winding wheels; exact alloy unverified",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 21,
+      "name": "Surface · machined",
+      "finish": {
+        "version": 1,
+        "kind": "machined",
+        "tileMm": 4,
+        "reliefMm": 0.0015,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Rear macro references: machined screw heads, slots modeled separately",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 22,
+      "name": "Material 22",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.7,
+      "roughness": 0.4,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 23,
+      "name": "Surface · brass",
+      "finish": {
+        "version": 1,
+        "kind": "brass",
+        "tileMm": 3,
+        "reliefMm": 0.001,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "H-10 rear references: gold-toned wheels; concealed wheel details approximate",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 24,
+      "name": "Material 24",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.35,
+      "roughness": 0.16,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 25,
+      "name": "Surface · steel",
+      "finish": {
+        "version": 1,
+        "kind": "steel",
+        "tileMm": 4,
+        "reliefMm": 0.002,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "H-10 family reference: silver metallic rims and winding wheels; exact alloy unverified",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 26,
+      "name": "Surface · machined",
+      "finish": {
+        "version": 1,
+        "kind": "machined",
+        "tileMm": 4,
+        "reliefMm": 0.0015,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Rear macro references: machined screw heads, slots modeled separately",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 27,
+      "name": "Surface · brass",
+      "finish": {
+        "version": 1,
+        "kind": "brass",
+        "tileMm": 3,
+        "reliefMm": 0.001,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "H-10 rear references: gold-toned wheels; concealed wheel details approximate",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 28,
+      "name": "Material 28",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 0.14,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 29,
+      "name": "Material 29",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.7,
+      "roughness": 0.4,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 30,
+      "name": "Surface · brass",
+      "finish": {
+        "version": 1,
+        "kind": "brass",
+        "tileMm": 3,
+        "reliefMm": 0.001,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "H-10 rear references: gold-toned wheels; concealed wheel details approximate",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 31,
+      "name": "Surface · machined",
+      "finish": {
+        "version": 1,
+        "kind": "machined",
+        "tileMm": 4,
+        "reliefMm": 0.0015,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Rear macro references: machined screw heads, slots modeled separately",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 32,
+      "name": "Material 32",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 0.14,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 33,
+      "name": "Surface · steel",
+      "finish": {
+        "version": 1,
+        "kind": "steel",
+        "tileMm": 4,
+        "reliefMm": 0.002,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "H-10 family reference: silver metallic rims and winding wheels; exact alloy unverified",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 34,
+      "name": "Surface · brass",
+      "finish": {
+        "version": 1,
+        "kind": "brass",
+        "tileMm": 3,
+        "reliefMm": 0.001,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "H-10 rear references: gold-toned wheels; concealed wheel details approximate",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 35,
+      "name": "Surface · machined",
+      "finish": {
+        "version": 1,
+        "kind": "machined",
+        "tileMm": 4,
+        "reliefMm": 0.0015,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Rear macro references: machined screw heads, slots modeled separately",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 36,
+      "name": "Surface · steel",
+      "finish": {
+        "version": 1,
+        "kind": "steel",
+        "tileMm": 4,
+        "reliefMm": 0.002,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "H-10 family reference: silver metallic rims and winding wheels; exact alloy unverified",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 37,
+      "name": "Surface · machined",
+      "finish": {
+        "version": 1,
+        "kind": "machined",
+        "tileMm": 4,
+        "reliefMm": 0.0015,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Rear macro references: machined screw heads, slots modeled separately",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 38,
+      "name": "Material 38",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 0.14,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 39,
+      "name": "Surface · brass",
+      "finish": {
+        "version": 1,
+        "kind": "brass",
+        "tileMm": 3,
+        "reliefMm": 0.001,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "H-10 rear references: gold-toned wheels; concealed wheel details approximate",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 40,
+      "name": "Material 40",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.35,
+      "roughness": 0.16,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 41,
+      "name": "Material 41",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.7,
+      "roughness": 0.4,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 42,
+      "name": "Surface · brass",
+      "finish": {
+        "version": 1,
+        "kind": "brass",
+        "tileMm": 3,
+        "reliefMm": 0.001,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "H-10 rear references: gold-toned wheels; concealed wheel details approximate",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 43,
+      "name": "Material 43",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 0.14,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 44,
+      "name": "Surface · machined",
+      "finish": {
+        "version": 1,
+        "kind": "machined",
+        "tileMm": 4,
+        "reliefMm": 0.0015,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Rear macro references: machined screw heads, slots modeled separately",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 45,
+      "name": "Material 45",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.7,
+      "roughness": 0.4,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 46,
+      "name": "Surface · steel",
+      "finish": {
+        "version": 1,
+        "kind": "steel",
+        "tileMm": 4,
+        "reliefMm": 0.002,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "H-10 family reference: silver metallic rims and winding wheels; exact alloy unverified",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 47,
+      "name": "Observed brushed metal — linear",
+      "finish": {
+        "version": 1,
+        "kind": "brushed",
+        "tileMm": 26.6,
+        "reliefMm": 0.003,
+        "grain": "linear",
+        "basis": "observed",
+        "evidence": "H-10 rear macros in murph-study dossier: silver satin bridge faces; alloy/plating not established",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 48,
+      "name": "Material 48",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.35,
+      "roughness": 0.16,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 49,
+      "name": "Observed brushed metal — linear",
+      "finish": {
+        "version": 1,
+        "kind": "brushed",
+        "tileMm": 25.3,
+        "reliefMm": 0.022,
+        "grain": "linear",
+        "basis": "observed",
+        "evidence": "Murph rear macros: directional satin appearance; exact substrate and plating unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 50,
+      "name": "Observed brushed metal — linear",
+      "finish": {
+        "version": 1,
+        "kind": "brushed",
+        "tileMm": 25.3,
+        "reliefMm": 0.022,
+        "grain": "linear",
+        "basis": "observed",
+        "evidence": "Murph rear macros: directional satin appearance; exact substrate and plating unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 51,
+      "name": "Material 51",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 0.14,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 52,
+      "name": "Observed brushed metal — radial",
+      "finish": {
+        "version": 1,
+        "kind": "brushed",
+        "tileMm": 25.3,
+        "reliefMm": 0.022,
+        "grain": "radial",
+        "basis": "observed",
+        "evidence": "Murph rear macros: directional satin appearance; exact substrate and plating unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 53,
+      "name": "Surface · steel",
+      "finish": {
+        "version": 1,
+        "kind": "steel",
+        "tileMm": 4,
+        "reliefMm": 0.002,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "H-10 family reference: silver metallic rims and winding wheels; exact alloy unverified",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 54,
+      "name": "Surface · brass",
+      "finish": {
+        "version": 1,
+        "kind": "brass",
+        "tileMm": 3,
+        "reliefMm": 0.001,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "H-10 rear references: gold-toned wheels; concealed wheel details approximate",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 55,
+      "name": "Surface · machined",
+      "finish": {
+        "version": 1,
+        "kind": "machined",
+        "tileMm": 4,
+        "reliefMm": 0.0015,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Rear macro references: machined screw heads, slots modeled separately",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 56,
+      "name": "Material 56",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.7,
+      "roughness": 0.4,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 57,
+      "name": "Material_tripo_part_1",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.7,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 58,
+      "name": "Material_tripo_part_2",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.7,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 59,
+      "name": "Material_tripo_part_4",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.7,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 60,
+      "name": "Material_tripo_part_5",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.7,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 61,
+      "name": "Material_tripo_part_7",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.7,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 62,
+      "name": "Material_tripo_part_10",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.7,
+      "visualStatus": "pending"
+    }
+  ],
+  "components": [
+    {
+      "componentId": "case",
+      "materialIndices": [
+        0,
+        1,
+        2
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    },
+    {
+      "componentId": "crown",
+      "materialIndices": [
+        3,
+        4
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    },
+    {
+      "componentId": "crystal",
+      "materialIndices": [
+        5
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    },
+    {
+      "componentId": "seals",
+      "materialIndices": [
+        6
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    },
+    {
+      "componentId": "dial",
+      "materialIndices": [
+        7,
+        8,
+        9
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    },
+    {
+      "componentId": "hands",
+      "materialIndices": [
+        10,
+        11,
+        12,
+        13
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    },
+    {
+      "componentId": "caseback",
+      "materialIndices": [
+        14,
+        15,
+        16
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    },
+    {
+      "componentId": "rear-window",
+      "materialIndices": [
+        17
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    },
+    {
+      "componentId": "movement",
+      "materialIndices": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    },
+    {
+      "componentId": "winding-train",
+      "materialIndices": [
+        25,
+        26,
+        27,
+        28,
+        29
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    },
+    {
+      "componentId": "barrel",
+      "materialIndices": [
+        30,
+        31,
+        32
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    },
+    {
+      "componentId": "mainspring",
+      "materialIndices": [
+        33
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    },
+    {
+      "componentId": "wheel-train",
+      "materialIndices": [
+        34,
+        35
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    },
+    {
+      "componentId": "escapement",
+      "materialIndices": [
+        36,
+        37,
+        38,
+        39,
+        40,
+        41
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    },
+    {
+      "componentId": "balance",
+      "materialIndices": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    },
+    {
+      "componentId": "rotor",
+      "materialIndices": [
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    },
+    {
+      "componentId": "strap",
+      "materialIndices": [
+        57,
+        58,
+        59,
+        60,
+        61,
+        62
+      ],
+      "visualStatus": "pending",
+      "requiredViews": [
+        "assembled",
+        "front",
+        "grazing",
+        "reverse"
+      ],
+      "requiredLighting": [
+        "neutral-daylight",
+        "midnight"
+      ]
+    }
+  ],
+  "note": "Structural checks do not establish the correct alloy, finish, UV density or visual fidelity. Compare exported renders with references for every component. Untagged source materials require evidence too."
+}

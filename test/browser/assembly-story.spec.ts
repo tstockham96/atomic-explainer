@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test'
-const chapterIds=['movement','rotor','dial','hands','case','crown','seals','caseback','rear-window','crystal','strap']
+const chapterIds=['mainspring','barrel','wheel-train','escapement','balance','movement','winding-train','rotor','movement-system','dial','hands','case','crown','seals','caseback','rear-window','crystal','strap']
 // Kept separate from the historical explode-mode visual benchmark.
 for(const viewport of [{width:1440,height:900},{width:390,height:844},{width:360,height:640}]){
  test(`how-it-is-made accumulates the watch at ${viewport.width}`,async({page},info)=>{
@@ -7,7 +7,7 @@ for(const viewport of [{width:1440,height:900},{width:390,height:844},{width:360
   await page.goto('/murph-study/index.html?eval=1');await page.waitForFunction(()=>Boolean((window as any).__explodeReview?.seek),null,{timeout:90000})
   const snapshot=()=>page.evaluate(()=>(window as any).__explodeReview.snapshot())
   expect((await snapshot()).mode).toBe('assembly');expect((await snapshot()).selected).toBe(null);expect((await snapshot()).builtIds).toEqual([]);expect((await snapshot()).partPositions).toEqual((await snapshot()).homePositions)
-  expect(await page.locator('#component-menu option').count()).toBe(13)
+  expect(await page.locator('#component-menu option').count()).toBe(20)
   await page.screenshot({path:info.outputPath('opening.png')})
   let previousCount=0
   for(const id of chapterIds){
@@ -22,15 +22,16 @@ for(const viewport of [{width:1440,height:900},{width:390,height:844},{width:360
     expect(caption!.y+caption!.height).toBeLessThan(controls!.y-8)
    }
    await page.evaluate(id=>(window as any).__explodeReview.inspect(id,.97),id)
-   const joined=await snapshot();expect(joined.builtIds.length).toBeGreaterThan(previousCount);previousCount=joined.builtIds.length
+   const joined=await snapshot();if(id==='movement-system'){expect(joined.builtIds.length).toBe(previousCount);expect(joined.chapterKind).toBe('milestone');expect(joined.selectedParts).toHaveLength(8)}else expect(joined.builtIds.length).toBeGreaterThan(previousCount);previousCount=joined.builtIds.length
    for(const built of joined.builtIds)expect(joined.partPositions[built],built).toEqual(joined.homePositions[built])
-   if(['rotor','hands','crystal'].includes(id))await page.screenshot({path:info.outputPath(id+'-joined.png')})
+   if(['mainspring','wheel-train','balance','movement-system','rotor','hands','crystal'].includes(id))await page.screenshot({path:info.outputPath(id+'-joined.png')})
   }
+  await expect(page.locator('#component-explanations article')).toHaveCount(18)
   await page.evaluate(()=>(window as any).__explodeReview.seek(1));const end=await snapshot()
-  expect(end.builtIds).toHaveLength(16);expect(end.partPositions).toEqual(end.homePositions)
+  expect(end.builtIds).toHaveLength(17);expect(end.partPositions).toEqual(end.homePositions)
   await expect(page.locator('#title')).toHaveText('A movement becomes a watch.')
   await page.screenshot({path:info.outputPath('complete.png')})
-  await page.evaluate(()=>(window as any).__explodeReview.inspect('hands',.97));expect((await snapshot()).builtIds).toHaveLength(9)
+  await page.evaluate(()=>(window as any).__explodeReview.inspect('hands',.97));expect((await snapshot()).builtIds).toHaveLength(10)
   await page.evaluate(()=>(window as any).__explodeReview.seek(0));expect((await snapshot()).builtIds).toEqual([])
   expect(errors).toEqual([])
  })
@@ -49,10 +50,10 @@ test('public selection and reverse scrolling traverse the progressive build',asy
  await page.mouse.wheel(0,-600)
  await expect.poll(()=>page.evaluate(()=>(window as any).__explodeReview.snapshot().progress)).toBeLessThan(before)
  await page.locator('#component-menu').selectOption('')
- await expect.poll(()=>page.evaluate(()=>(window as any).__explodeReview.snapshot().builtIds.length)).toBe(16)
+ await expect.poll(()=>page.evaluate(()=>(window as any).__explodeReview.snapshot().builtIds.length)).toBe(17)
  const end=await page.evaluate(()=>(window as any).__explodeReview.snapshot());expect(end.partPositions).toEqual(end.homePositions)
  await page.locator('#component-menu').selectOption('rotor')
- await expect.poll(()=>page.evaluate(()=>(window as any).__explodeReview.snapshot().builtIds.length)).toBe(6)
+ await expect.poll(()=>page.evaluate(()=>(window as any).__explodeReview.snapshot().builtIds.length)).toBe(7)
  expect(await page.evaluate(()=>(window as any).__explodeReview.snapshot().allVisible)).toBe(true)
 })
 
@@ -78,6 +79,11 @@ for(const viewport of [{width:1440,height:900},{width:390,height:844}])test(`gen
  await page.evaluate(()=>window.__explodeAssemblyReview!.inspect('battery',.97));await page.waitForTimeout(1600)
  const seated=await page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().partPositions)
  expect(seated['logic-board']).toEqual(home['logic-board']);expect(seated.battery).toEqual(home.battery)
+ await page.getByLabel('Explore a component').selectOption('chapter:powered-core');await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().selected)).toBe('powered-core')
+ expect(await page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().selectedParts)).toEqual(['logic-board','battery'])
+ await expect(page.locator('.mesh-stage')).toContainText('Milestone')
+ await expect(page.locator('#parts .part-grid > li')).toHaveCount(12)
+ await expect(page.locator('#detail-battery')).toContainText('Stored energy')
  await page.getByLabel('Explore a component').selectOption('complete');await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().separation)).toBe(0)
  expect(await page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().partPositions)).toEqual(home)
  await page.getByLabel('Explore a component').selectOption('assembly');await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().progress)).toBe(0)

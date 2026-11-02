@@ -20,6 +20,10 @@ await build({entryPoints:[path.join(here,'viewer.ts')],bundle:true,format:'esm',
 if(packaged){
  const {tsImport}=await import('tsx/esm/api');
  const {auditMaterials}=await tsImport('../../src/evals/materials.ts',import.meta.url);
- await writeFile(path.join(out,'material-review.json'),JSON.stringify(auditMaterials(await readFile(path.join(out,'murph-researched.glb'))),null,2));
+ const {auditStory}=await tsImport('../../src/evals/story.ts',import.meta.url);
+ const script=JSON.parse(await readFile(path.join(here,'../../docs/research/murph-assembly-story.json'),'utf8'));
+ const inventory=auditMaterials(await readFile(path.join(out,'murph-researched.glb')));
+ await writeFile(path.join(out,'story-review.json'),JSON.stringify(auditStory(script,inventory.components.map(c=>c.componentId)),null,2));
+ await writeFile(path.join(out,'material-review.json'),JSON.stringify(inventory,null,2));
 }
 console.log('Research-led Murph study built.');
