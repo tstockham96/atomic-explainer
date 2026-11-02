@@ -31,8 +31,13 @@ export function createAssemblyStory(root:T.Object3D,parts:Record<string,T.Object
    if(s.complete)continue
    if(milestone&&selected.has(id))p.position.addScaledVector(approach,s.focus)
    else if(i<s.index)p.position.x-=parking*s.focus
-   else if(i>s.index)p.position.addScaledVector(new T.Vector3(...c.approach).normalize(),scale*.48).add(new T.Vector3(parking,0,0))
-   else p.position.addScaledVector(approach,1-s.join).add(new T.Vector3(parking*(1-s.arrival),0,0))
+   else if(i>s.index){
+    // Stage the next part while the built object is still in view. At the
+    // chapter boundary it is already waiting in its inspection position.
+    const ready=i===s.index+1?ease((s.local-.84)/.16):0
+    p.position.addScaledVector(new T.Vector3(...c.approach).normalize(),scale*.48).add(new T.Vector3(parking*(1-ready),0,0))
+   }
+   else p.position.addScaledVector(approach,1-s.join)
   }
   const inspectionBox=chapterBoxes[s.index]!.clone().translate(approach),center=inspectionBox.getCenter(new T.Vector3())
   if(!s.complete&&s.local>=.18&&s.local<=.58)for(const id of chapter.componentIds)turnAboutCenter(parts[id]!,s.turn,center)
@@ -44,12 +49,22 @@ export function createAssemblyStory(root:T.Object3D,parts:Record<string,T.Object
  }
  return {story,pose,whole,homes,progressFor:(id:string,local=.4)=>{const exact=chapters.findIndex(c=>c.id===id),i=exact>=0?exact:chapters.findIndex(c=>c.kind!=='milestone'&&c.componentIds.includes(id));if(i<0)throw Error('Unknown assembly chapter '+id);return assemblyProgress(i,local,chapters.length)},
  camera:(state:ReturnType<typeof pose>,fov:number,aspect:number,coverage:[number,number])=>{
-  const inspection=state.inspectionBox.getCenter(new T.Vector3()),overview=state.overviewBox.getCenter(new T.Vector3()),direction=new T.Vector3(...state.chapter.from).normalize(),hero=new T.Vector3(...chapters[state.local<.58?Math.max(0,state.index-1):state.index]!.from).normalize()
+  const viewBox=state.overviewBox.clone()
+  if(!state.opening&&!state.complete&&state.index>0&&state.local<.18&&state.chapter.kind!=='milestone')viewBox.union(state.inspectionBox)
+  let overviewDistance=inspectionDistance(viewBox,fov,aspect,coverage)
+  const overview=viewBox.getCenter(new T.Vector3()),next=chapters[state.index+1]
+  if(!state.opening&&!state.complete&&next&&next.kind!=='milestone'&&state.local>.84){
+   const nextBox=chapterBoxes[state.index+1]!.clone().translate(new T.Vector3(...next.approach).normalize().multiplyScalar(scale*.48))
+   const handoff=viewBox.clone().union(nextBox),ready=ease((state.local-.84)/.16)
+   overview.lerp(handoff.getCenter(new T.Vector3()),ready)
+   overviewDistance=T.MathUtils.lerp(overviewDistance,inspectionDistance(handoff,fov,aspect,coverage),ready)
+  }
+  const inspection=state.inspectionBox.getCenter(new T.Vector3()),direction=new T.Vector3(...state.chapter.from).normalize(),hero=new T.Vector3(...chapters[state.local<.58?Math.max(0,state.index-1):state.index]!.from).normalize()
   // Use a fixed inspection radius through the turn; spherical interpolation
   // prevents a front-to-back camera chord through the accumulating assembly.
   const from=new T.Spherical().setFromVector3(hero),to=new T.Spherical().setFromVector3(direction),delta=T.MathUtils.euclideanModulo(to.theta-from.theta+Math.PI,Math.PI*2)-Math.PI
   const focus=state.complete?0:state.focus,target=overview.lerp(inspection,focus)
-  const distance=T.MathUtils.lerp(inspectionDistance(state.overviewBox,fov,aspect,coverage),inspectionDistance(state.inspectionBox,fov,aspect,coverage),focus)
+  const distance=T.MathUtils.lerp(overviewDistance,inspectionDistance(state.inspectionBox,fov,aspect,coverage),focus)
   const offset=new T.Vector3().setFromSpherical(new T.Spherical(distance,T.MathUtils.lerp(from.phi,to.phi,focus),from.theta+delta*focus))
   if(state.opening){
    const start=new T.Vector3(...story.opening.from).normalize(),a=new T.Spherical().setFromVector3(start),b=new T.Spherical().setFromVector3(direction)

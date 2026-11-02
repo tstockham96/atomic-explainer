@@ -1,4 +1,4 @@
-import {deskShot,deskWide} from '../../src/viewer/three/deskCamera.ts'
+import {deskShot,deskWide,deskContext} from '../../src/viewer/three/deskCamera.ts'
 import {createPresentation,presentationSetting,type PresentationSetting} from '../../src/viewer/three/presentation.ts'
 import {assemblyScrollVh} from '../../src/viewer/three/assemblyTimeline.ts'
 import {createAssemblyStory} from '../../src/viewer/three/assemblyStory.ts'
@@ -33,7 +33,7 @@ let assembly:ReturnType<typeof createAssemblyStory>|undefined
 const renderer=new T.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:capture})
 const renderBudget=configureRenderBudget(renderer)
 let presentation:ReturnType<typeof createPresentation>|undefined
-let setting=presentationSetting(params.get('setting'))
+let setting=capture?'plain' as const:presentationSetting(params.get('setting'))
 renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=.95
 el('stage').append(renderer.domElement)
 renderer.domElement.setAttribute('role','img');renderer.domElement.setAttribute('aria-label','Interactive three-dimensional watch. Choose a component below, or skip to the written explanations.')
@@ -97,7 +97,24 @@ const callouts=[{part:'barrel',point:[5.3,-6.4,.3],text:'Mainspring · stores en
  return {...c,label,line}
 })
 const clamp=T.MathUtils.clamp,lerp=T.MathUtils.lerp,smooth=ease
-function resize(){dirty=true;renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);fxaa.uniforms.resolution!.value.set(1/(innerWidth*renderer.getPixelRatio()),1/(innerHeight*renderer.getPixelRatio()));camera.aspect=innerWidth/innerHeight;camera.setViewOffset(innerWidth,innerHeight,innerWidth<700?0:-innerWidth*.16,innerWidth<700?innerHeight*.14:0,innerWidth,innerHeight);camera.updateProjectionMatrix();if(model){fitKeyframes();if(assembly){paintStory(progress);draw()}}}
+// A stable caption footprint keeps text wrapping from changing the camera fit
+// at chapter boundaries, especially on phones.
+function sizeCaption(){
+ const panel=el('chapter');panel.style.minHeight=''
+ if(setting!=='workbench'||!assembly||innerWidth>=700)return
+ const copy=panel.cloneNode(true) as HTMLElement;copy.removeAttribute('id');copy.querySelectorAll('[id]').forEach(n=>n.removeAttribute('id'));copy.setAttribute('aria-hidden','true')
+ copy.style.cssText='visibility:hidden;pointer-events:none;top:0;bottom:auto;min-height:0';el('frame').append(copy)
+ const variants=[assembly.story.opening,assembly.story.closing,...assembly.story.chapters.flatMap(c=>[c,{...c,description:c.joined}])]
+ let height=0
+ for(const v of variants){copy.querySelector('h2')!.textContent=v.title;copy.querySelector('p')!.textContent=v.description;copy.querySelector('.detail')!.textContent=('detail' in v&&typeof v.detail==='string'?v.detail:assembly.story.note)||assembly.story.note;height=Math.max(height,copy.getBoundingClientRect().height)}
+ copy.remove();panel.style.minHeight=`${Math.ceil(height)}px`
+}
+function partsInView(){
+ camera.updateMatrixWorld(true);model.root.updateMatrixWorld(true)
+ const frustum=new T.Frustum().setFromProjectionMatrix(new T.Matrix4().multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse))
+ return Object.entries(model.parts).filter(([,part])=>{let seen=false;part.traverse(n=>{if(n instanceof T.Mesh&&n.visible&&frustum.intersectsObject(n))seen=true});return seen}).map(([id])=>id)
+}
+function resize(){dirty=true;sizeCaption();renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight);fxaa.uniforms.resolution!.value.set(1/(innerWidth*renderer.getPixelRatio()),1/(innerHeight*renderer.getPixelRatio()));camera.aspect=innerWidth/innerHeight;camera.setViewOffset(innerWidth,innerHeight,innerWidth<700?0:-innerWidth*.16,innerWidth<700?innerHeight*.14:0,innerWidth,innerHeight);camera.updateProjectionMatrix();if(model){fitKeyframes();if(assembly){paintStory(progress);draw()}}}
 addEventListener('resize',resize);resize()
 function placeParts(p:number){
  model.root.position.set(0,0,0);model.root.quaternion.identity()
@@ -180,7 +197,6 @@ function pose(p:number,t:number,inspection?:TourSample,overall=p){
   target.lerp(inspectionCenter,focus);c=target.clone().add(blended)
  }
  const contrast=Math.max(smooth((p-.165)/.065)*(1-smooth((p-.455)/.06)),inspected&&hasOptics(inspected)?focus:0)
- presentation?.focusOptics(contrast)
  if(setting==='plain'){
  // A dark photographic backdrop gives transparent glass and pale hands contrast.
  // Any transmitting component receives the same inspection backdrop. This is
@@ -234,14 +250,13 @@ function poseAssembly(p:number,t:number){
  el('hint').textContent=free?'Drag to orbit · Scroll to continue':'Scroll to build ↓'
  for(const c of callouts){c.label.style.display='none';c.line.style.display='none'}
  const glass=chapter.componentIds.some(id=>hasOptics(model.parts[id]!)),contrast=glass&&!state.complete?state.focus:0
- presentation?.focusOptics(contrast)
  if(setting==='plain'){
  ;(scene.background as T.Color).setRGB(2.15,2.05,1.9).lerp(new T.Color('#243b40'),contrast);backdrop.material.color.copy(scene.background as T.Color)
  el('frame').style.setProperty('--study-ink',new T.Color('#263832').lerp(new T.Color('#f3f0df'),contrast).getStyle());el('frame').style.setProperty('--study-muted',new T.Color('#566960').lerp(new T.Color('#c1d0cf'),contrast).getStyle())
  }
  const available=Math.max(.16,(el('chapter').getBoundingClientRect().top-115)/innerHeight)
  let shot=assembly.camera(state,camera.fov,camera.aspect,innerWidth<700?[.76,available]:[.52,.7])
- if(setting==='workbench')shot=deskShot(model.root,shot,deskWide(state.opening,state.reveal,p))
+ if(setting==='workbench')shot=deskShot(model.root,shot,deskWide(state.opening,state.reveal,p)*deskContext(innerWidth,innerHeight))
  if(innerWidth<700){const top=90,bottom=Math.max(180,el('chapter').getBoundingClientRect().top-20);camera.setViewOffset(innerWidth,innerHeight,0,innerHeight/2-(top+bottom)/2,innerWidth,innerHeight)}else camera.setViewOffset(innerWidth,innerHeight,-innerWidth*.16,0,innerWidth,innerHeight)
  camera.updateProjectionMatrix()
  if(!free){camera.position.copy(shot.position);controls.target.copy(shot.target);camera.lookAt(shot.target)}
@@ -249,10 +264,10 @@ function poseAssembly(p:number,t:number){
 }
 function chooseSetting(value:PresentationSetting){
  setting=value;presentation?.set(value);backdrop.visible=value==='plain'
- el('frame').dataset.setting=value
+ el('frame').dataset.setting=value;sizeCaption()
  ;(el('setting-menu') as HTMLSelectElement).value=value
  if(value!=='plain'){el('frame').style.setProperty('--study-ink','#24342f');el('frame').style.setProperty('--study-muted','#445b51')}
- const url=new URL(location.href);if(value==='plain')url.searchParams.delete('setting');else url.searchParams.set('setting',value);history.replaceState(null,'',url)
+ const url=new URL(location.href);if(value==='workbench')url.searchParams.delete('setting');else url.searchParams.set('setting',value);history.replaceState(null,'',url)
  dirty=true;if(model){paintStory(progress);draw()}
 }
 el('setting-menu').onchange=e=>chooseSetting((e.target as HTMLSelectElement).value as PresentationSetting)
@@ -314,8 +329,11 @@ async function main(){
  }
  el('status').textContent='Research-led 3D study'
  el('status').dataset.ready='true'
+ await document.fonts.ready
+ const requestedSetting=setting;setting='plain'
  // Render anatomy images directly from these same meshes.
  for(const[id,p]of [['crystal',.28],['hands',.43],['rotor',.76]] as const){pose(p,0);camera.clearViewOffset();draw();(el(`story-${id}`) as HTMLImageElement).src=renderer.domElement.toDataURL('image/png');resize()}
+ setting=requestedSetting
  if(!capture){placeParts(0);presentation=createPresentation(scene,renderer,model.root,{millimetersPerUnit:1});chooseSetting(setting)}
  if(capture){
   if(params.has('optics')){await checkOptics(renderer,send);resize()}
@@ -416,7 +434,7 @@ async function main(){
   ready:true,ids:Object.keys(model.parts),
   inspect:(id:string,local=.2)=>{renderer.setAnimationLoop(null);progress=assemblyMode?assembly!.progressFor(id,local):tour.progressFor(id,local);paintStory(progress);paintStory(progress);draw()},
   seek:(p:number)=>{renderer.setAnimationLoop(null);progress=p;paintStory(p);paintStory(p);draw()},
-  snapshot:()=>{model.root.updateMatrixWorld(true);const sample=tour.sample(progress),assemblyState=assemblyMode?assembly!.pose(progress):undefined,selected=assemblyState?(assemblyState.complete||assemblyState.opening?null:assemblyState.chapter.id):sample.stop?.id,part=selected?model.parts[selected]:undefined,box=assemblyState&&!assemblyState.complete&&!assemblyState.opening?assemblyState.chapter.componentIds.reduce((b,id)=>b.union(new T.Box3().setFromObject(model.parts[id]!,true)),new T.Box3()):part?new T.Box3().setFromObject(part,true):undefined,points:T.Vector3[]=[];if(box)for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z])points.push(new T.Vector3(x,y,z).project(camera));return {setting,cameraDirection:camera.position.clone().sub(controls.target).normalize().toArray(),deskMatrix:presentation?.desk.matrixWorld.toArray(),optics:Object.values(finishes).flat().filter(f=>isTransmitting(f.material)).map(f=>({opacity:f.material.opacity,transmission:(f.material as T.MeshPhysicalMaterial).transmission})),pixelRatio:renderer.getPixelRatio(),antialiasSamples:antialiasTarget.samples,gridSpacing:presentation?.gridSpacing,progress,time,drawCount,softwareGraphics:renderBudget.software,selected:selected??null,mode:assemblyMode?'assembly':'explode',chapterKind:assemblyState?.chapter.kind??'component',selectedParts:assemblyState?.chapter.componentIds??[],builtIds:assemblyState?.builtIds??[],partPositions:Object.fromEntries(Object.entries(model.parts).map(([id,g])=>[id,g.position.toArray()])),homePositions:Object.fromEntries(Object.entries(home).map(([id,p])=>[id,p.toArray()])),allVisible:Object.values(model.parts).every(p=>p.visible),bounds:points.length?{left:(Math.min(...points.map(p=>p.x))*.5+.5)*innerWidth,right:(Math.max(...points.map(p=>p.x))*.5+.5)*innerWidth,top:(.5-Math.max(...points.map(p=>p.y))*.5)*innerHeight,bottom:(.5-Math.min(...points.map(p=>p.y))*.5)*innerHeight}:null}},
+  snapshot:()=>{model.root.updateMatrixWorld(true);const sample=tour.sample(progress),assemblyState=assemblyMode?assembly!.pose(progress):undefined,selected=assemblyState?(assemblyState.complete||assemblyState.opening?null:assemblyState.chapter.id):sample.stop?.id,part=selected?model.parts[selected]:undefined,box=assemblyState&&!assemblyState.complete&&!assemblyState.opening?assemblyState.chapter.componentIds.reduce((b,id)=>b.union(new T.Box3().setFromObject(model.parts[id]!,true)),new T.Box3()):part?new T.Box3().setFromObject(part,true):undefined,points:T.Vector3[]=[];if(box)for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z])points.push(new T.Vector3(x,y,z).project(camera));return {setting,partsInView:partsInView(),lighting:presentation?.lighting,cameraPosition:camera.position.toArray(),cameraDirection:camera.position.clone().sub(controls.target).normalize().toArray(),deskMatrix:presentation?.desk.matrixWorld.toArray(),optics:Object.values(finishes).flat().filter(f=>isTransmitting(f.material)).map(f=>({opacity:f.material.opacity,transmission:(f.material as T.MeshPhysicalMaterial).transmission})),pixelRatio:renderer.getPixelRatio(),antialiasSamples:antialiasTarget.samples,gridSpacing:presentation?.gridSpacing,progress,time,drawCount,softwareGraphics:renderBudget.software,selected:selected??null,mode:assemblyMode?'assembly':'explode',chapterKind:assemblyState?.chapter.kind??'component',selectedParts:assemblyState?.chapter.componentIds??[],builtIds:assemblyState?.builtIds??[],partPositions:Object.fromEntries(Object.entries(model.parts).map(([id,g])=>[id,g.position.toArray()])),homePositions:Object.fromEntries(Object.entries(home).map(([id,p])=>[id,p.toArray()])),allVisible:Object.values(model.parts).every(p=>p.visible),bounds:points.length?{left:(Math.min(...points.map(p=>p.x))*.5+.5)*innerWidth,right:(Math.max(...points.map(p=>p.x))*.5+.5)*innerWidth,top:(.5-Math.max(...points.map(p=>p.y))*.5)*innerHeight,bottom:(.5-Math.min(...points.map(p=>p.y))*.5)*innerHeight}:null}},
  }})
 }
 main().catch(error=>{el('status').textContent='Study could not load';el('error').style.display='block';el('error').textContent='The 3D model could not load. You can still read the component explanations below. '+error.message;console.error(error);if(capture)void send('error',{error:error.message,stack:error.stack})})

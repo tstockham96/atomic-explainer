@@ -22,7 +22,7 @@ The default demo uses **Chronograph Watch**, a detailed, textured multipart asse
 
 For other objects, supply a multipart GLB and map its named nodes to the explainer's components. See [the 3D authoring guide](docs/3d-scenes.md). A new photo-to-3D draft pipeline integrates Tripo generation and semantic segmentation. It has contract/fixture tests and two completed live watch trials; both assets failed the intended visual/component quality target. See [the first trial findings](docs/tripo-watch-trial.md) and [the Murph study](docs/murph-reconstruction-trial.md). Accurate hidden-part reconstruction remains unsolved. The existing photograph pipeline and frame-sequence viewer remain available for specs without `scene3d`.
 
-Scroll choreography uses [Basement Scrollytelling](https://github.com/basementstudio/scrollytelling) (MIT), GSAP ScrollTrigger, and Lenis. Three.js renders the model using a photographic softbox environment. Camera framing uses actual geometry bounds, including portrait layouts; neighboring parts recede while a component is being inspected.
+Scroll choreography uses [Basement Scrollytelling](https://github.com/basementstudio/scrollytelling) (MIT), GSAP ScrollTrigger, and Lenis. Three.js renders the model in a seated, stylized workbench with an overhead bench light. Workbench is the default; Original keeps the uncluttered presentation. [Presentation and lighting rules](docs/presentation-settings.md). Camera framing uses actual geometry bounds, including portrait layouts; neighboring parts recede while a component is being inspected.
 
 ```bash
 npm install

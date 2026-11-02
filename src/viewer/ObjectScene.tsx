@@ -124,7 +124,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
       }}><option value="assembly">Whole object</option>{story?<option value="complete">Complete build</option>:<option value="exploded">Exploded overview</option>}{components.map(c => c && <option key={c.id} value={story?`chapter:${c.id}`:c.id}>{c.name}</option>)}</select></label></div>
       <p className="mesh-stage" role="status">{stage}</p>
       <div className="atmosphere-switch" aria-label="Atmosphere">
-        <select aria-label="Scene setting" value={setting} onChange={e=>{const value=e.target.value as PresentationSetting;setSetting(value);const url=new URL(location.href);if(value==='plain')url.searchParams.delete('setting');else url.searchParams.set('setting',value);history.replaceState(null,'',url)}}><option value="plain">Original</option><option value="workbench">Workbench</option><option value="studio">Studio</option><option value="sunset">Sunset</option></select>
+        <select aria-label="Scene setting" value={setting} onChange={e=>{const value=e.target.value as PresentationSetting;setSetting(value);const url=new URL(location.href);if(value==='workbench')url.searchParams.delete('setting');else url.searchParams.set('setting',value);history.replaceState(null,'',url)}}><option value="workbench">Workbench</option><option value="plain">Original</option></select>
         {setting==='plain'&&<><button type="button" aria-pressed={atmosphere === "daylight"} onClick={() => setAtmosphere("daylight")}><span aria-hidden="true">☼</span> Daylight</button>
         <button type="button" aria-pressed={atmosphere === "midnight"} onClick={() => setAtmosphere("midnight")}><span aria-hidden="true">☾</span> Midnight</button></>}
       </div>

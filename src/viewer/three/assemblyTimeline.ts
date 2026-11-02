@@ -8,4 +8,4 @@ export function assemblySample(progress:number,count:number){
 }
 
 /** Preserve reading/inspection room as more lessons and milestones are added. */
-export const assemblyScrollVh=(chapters:number)=>(4+chapters*1.8)*100
+export const assemblyScrollVh=(chapters:number)=>(3+chapters*1.25)*100

@@ -42,9 +42,30 @@ export function createWorkdesk(renderer:T.WebGLRenderer,span:number,millimetersP
  const shadeProfile=[new T.Vector2(0,18),new T.Vector2(6,18),new T.Vector2(11,14),new T.Vector2(17,7),new T.Vector2(24,0)]
  add(new T.LatheGeometry(shadeProfile,64).rotateX(Math.PI/2),new T.MeshStandardMaterial({color:'#ed744e',roughness:.7,side:T.DoubleSide}),30,-20,104,lamp)
  add(new T.CircleGeometry(22,64),new T.MeshStandardMaterial({color:'#fff0ce',emissive:'#ffcf84',emissiveIntensity:1.3,side:T.DoubleSide}),30,-20,104.2,lamp)
- const lampLight=new T.SpotLight('#ffdca7',9000*scale*scale,400*scale,.66,.7,2);lampLight.position.set(-146*scale,84*scale,(floor+103)*scale);lampLight.target.position.set(-20*scale,0,floor*scale);lampLight.castShadow=false
+ const lampLight=new T.SpotLight('#ffdca7',1800*scale*scale,400*scale,.66,.7,2);lampLight.position.set(-146*scale,84*scale,(floor+103)*scale);lampLight.target.position.set(-20*scale,0,floor*scale);lampLight.castShadow=false
  // root is scaled; keep this source in its parent's coordinates too.
  lampLight.position.divideScalar(scale);lampLight.target.position.divideScalar(scale);root.add(lampLight,lampLight.target)
+ // The overhead bench fixture is the principal scene light. Its emitter and
+ // shadow-casting source share a position, with inverse-square world-unit falloff.
+ const fixture=new T.Group();fixture.name='overhead_bench_light';fixture.position.set(0,-50,floor+130);root.add(fixture)
+ box(194,18,8,3,graphite,0,0,0,fixture)
+ const emitterMaterial=new T.MeshStandardMaterial({color:'#fff0d1',emissive:'#fff0d1',emissiveIntensity:3,roughness:.8})
+ box(182,13,1,1,emitterMaterial,0,-1,-4.4,fixture)
+ for(const x of [-103,103]){
+  box(5,6,128,1.5,graphite,x,164,floor+64)
+  rod(new T.Vector3(x,164,floor+127),new T.Vector3(x,-50,floor+130),2.5,graphite,root)
+ }
+ const overhead=new T.SpotLight('#ffedcc',65000*scale*scale,450*scale,.74,.9,2)
+ overhead.name='bench_key';overhead.position.set(0,-51,floor+124);overhead.target.position.set(0,-34,floor+12)
+ overhead.castShadow=true;overhead.shadow.mapSize.set(2048,2048);overhead.shadow.camera.near=scale*2;overhead.shadow.camera.far=450*scale
+ overhead.shadow.bias=-.00012;overhead.shadow.normalBias=.08*scale;overhead.shadow.radius=4;overhead.shadow.blurSamples=8
+ root.add(overhead,overhead.target)
+ // A dark reflection room with the same overhead strip, rather than an even HDR wash.
+ const reflectionRoom=new T.Scene();reflectionRoom.background=new T.Color('#697779')
+ const strip=new T.Mesh(new T.PlaneGeometry(182*scale,13*scale),new T.MeshBasicMaterial({color:new T.Color().setScalar(5),side:T.DoubleSide}))
+ strip.position.set(0,-51*scale,(floor+124)*scale);strip.lookAt(0,0,0);reflectionRoom.add(strip)
+ const pmrem=new T.PMREMGenerator(renderer),environment=pmrem.fromScene(reflectionRoom,.04)
+ pmrem.dispose();strip.geometry.dispose();(strip.material as T.Material).dispose()
  // Tools have recognizable handles, shafts and polished tips. They remain on the desk.
  for(const [x,y,color] of [[-113,-43,'#805944'],[-98,-48,'#203b48'],[-83,-53,'#546052']] as const){
   const tool=new T.Group();tool.name='precision_screwdriver';tool.position.set(x,y,floor+5);tool.rotation.z=-.22;root.add(tool)
@@ -90,6 +111,7 @@ export function createWorkdesk(renderer:T.WebGLRenderer,span:number,millimetersP
  box(11,11,36,5,green,0,0,34,plant);box(8,8,19,3.8,green,-11,0,34,plant);box(17,7,7,3,green,-6,0,27,plant)
  box(27,24,34,4,blue,-104,116,floor+18)
  for(let i=0;i<3;i++)rod(new T.Vector3(-112+i*8,116,floor+21),new T.Vector3(-115+i*11,116,floor+61+i*4),2.5,[coral,mustard,graphite][i]!,root)
+ root.traverse(node=>{if(node instanceof T.Mesh)for(const m of Array.isArray(node.material)?node.material:[node.material])if(m instanceof T.MeshStandardMaterial){m.envMap=environment.texture;m.envMapIntensity=.22}})
  root.userData.staticScenery=true
- return {root,floorZ:floor*scale,scale,gridSpacing:10*scale,dispose:()=>{lampLight.dispose()}}
+ return {root,environment,overhead,floorZ:floor*scale,scale,gridSpacing:10*scale,dispose:()=>{lampLight.dispose();overhead.dispose();environment.dispose()}}
 }

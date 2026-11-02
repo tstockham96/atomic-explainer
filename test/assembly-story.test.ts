@@ -62,3 +62,16 @@ it('rejects milestones that skip individual parts or reference future components
  expect(assemblyStorySchema.safeParse({...script,chapters:[script.chapters[0],{...milestone,componentIds:['core','cover']},...script.chapters.slice(1)]}).success).toBe(false)
  expect(assemblyStorySchema.safeParse({...script,chapters:[...script.chapters,milestone,milestone]}).success).toBe(false)
 })
+
+it('stages the next part before the current context clears, with continuous component positions',()=>{
+ const {root,parts}=fixture(),story=createAssemblyStory(root,parts,script)
+ for(const id of ['pair','cover']){
+  const boundary=story.progressFor(id,0)
+  story.pose(boundary-1e-7);const before=Object.fromEntries(Object.entries(parts).map(([key,p])=>[key,p.position.clone()]))
+  const state=story.pose(boundary+1e-7)
+  for(const [key,p]of Object.entries(parts))expect(p.position.distanceTo(before[key]!)).toBeLessThan(.001)
+  // Incoming lesson already sits at its inspection location while context is present.
+  const box=new T.Box3();state.chapter.componentIds.forEach(key=>box.union(new T.Box3().setFromObject(parts[key]!)))
+  expect(box.getCenter(new T.Vector3()).distanceTo(state.inspectionBox.getCenter(new T.Vector3()))).toBeLessThan(.001)
+ }
+})

@@ -209,3 +209,12 @@
 @media(max-width:700px){.mesh-film[data-setting]:not([data-setting=plain]) .mesh-caption{padding:16px}}
 
 .mesh-film[data-setting]:not([data-setting=plain]) .mesh-navigation,.mesh-film[data-setting]:not([data-setting=plain]) .mesh-stage{background:#f5f2e9ed;border-radius:6px}
+
+/* Match the workshop's friendly surfaces while keeping the research readable. */
+.mesh-film[data-setting=workbench] .mesh-caption{background:#fff2dff5;border:2px solid #354458;border-radius:18px;box-shadow:5px 6px 0 #354458}
+.mesh-film[data-setting=workbench] .mesh-title{background:#fff2dfed;border-radius:16px;padding:16px 22px;left:50%;transform:translateX(-50%);width:max-content;max-width:86%}
+.mesh-film[data-setting=workbench] .mesh-title h1{font-size:clamp(28px,2.5vw,40px)}
+.mesh-film[data-setting=workbench] .mesh-title>span{margin-top:10px}
+.mesh-film[data-setting=workbench] .mesh-navigation{padding:0 10px;border-radius:12px}
+.mesh-film[data-setting=workbench] .mesh-stage{padding:5px 8px;border-radius:8px}
+.atmosphere-switch select{min-height:44px}

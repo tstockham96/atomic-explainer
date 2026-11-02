@@ -25,9 +25,9 @@ export function createStudioEnvironment(renderer: THREE.WebGLRenderer) {
 
 /** Narrow, moderate white strips on a dark surround. Glass needs a restrained
  * reflection rig; the high-output broad softboxes for metal obscure its interior. */
-export function createGlassEnvironment(renderer: THREE.WebGLRenderer) {
+export function createGlassEnvironment(renderer: THREE.WebGLRenderer, background = '#080c10') {
   const room = new THREE.Scene()
-  room.background = new THREE.Color('#080c10')
+  room.background = new THREE.Color(background)
   const panels: THREE.Mesh[] = []
   // Rear-facing flat windows need a readable strip too. Position it inside
   // their reflected field of view; increasing opacity is not the remedy.

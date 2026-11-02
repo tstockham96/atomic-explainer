@@ -2,6 +2,8 @@ import * as T from 'three'
 
 // Seated, centered eye line. Z is the desk's vertical axis; no sideward orbit.
 export const DESK_DIRECTION=new T.Vector3(0,-1,.18).normalize()
+// Reserve enough object size when the phone's controls leave a short stage.
+export const deskContext=(width:number,height:number)=>width<700?(height<700?0:.45):1
 export function deskWide(opening:boolean,reveal:number,progress:number){
  return opening?1-reveal:T.MathUtils.smoothstep(progress,.94,1)
 }

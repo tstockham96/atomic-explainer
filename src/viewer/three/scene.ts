@@ -1,11 +1,11 @@
-import {deskShot,deskWide} from './deskCamera.ts'
+import {deskShot,deskWide,deskContext} from './deskCamera.ts'
 import {createPresentation,presentationSetting,type PresentationSetting} from './presentation.ts'
 import {anatomyStops} from '../../spec/scene3d.ts'
 import {createAssemblyStory} from './assemblyStory.ts'
 import {modelStops,stopBounds} from './model.ts'
 import { sampleScene, THREE_TIMING, ease } from './timeline.ts'
 import { configureRenderBudget } from './renderBudget.ts'
-import { isTransmitting, hasOptics, createOpticalBackdrop } from './optics.ts'
+import { isTransmitting, createOpticalBackdrop } from './optics.ts'
 import * as THREE from "three"
 import { createStudioEnvironment, createGlassEnvironment, createNeutralEnvironment, createProductEnvironment } from "./studio.ts"
 import { cameraShot, poseModel, frameBox, STORY_FOV, corners } from "./choreography.ts"
@@ -164,6 +164,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     rim.intensity = THREE.MathUtils.lerp(2.4, 4.8, night)
     scene.environmentIntensity = THREE.MathUtils.lerp(neutral ? 1 : 0.9, 0.65, night)
     renderer.toneMappingExposure = THREE.MathUtils.lerp(1.05, 0.9, night)
+    presentation.updateLighting()
     if (!dragging) {
       dragX = THREE.MathUtils.lerp(dragX, 0, delta * 0.6)
       dragY = THREE.MathUtils.lerp(dragY, 0, delta * 0.6)
@@ -171,14 +172,12 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     if(story){model.root.rotation.set(0,0,0);model.root.position.set(0,0,0)}
     const assemblyState=story?.pose(displayed)
     const sample = assemblyState?{separation:assemblyState.opening?assemblyState.reveal:assemblyState.complete?0:1,focus:assemblyState.focus}:poseModel(model, displayed)
-    const opticalIds=assemblyState&&!assemblyState.opening&&!assemblyState.complete?assemblyState.chapter.componentIds:!story?modelStops(model)[sampleScene(displayed,modelStops(model).length).index]?.componentIds:[]
-    presentation.focusOptics(opticalIds?.some(id=>hasOptics(model.parts.find(p=>p.id===id)!.group))?sample.focus:0)
     model.root.rotation.y += pointerX * 0.015 + dragX
     model.root.rotation.x += pointerY * 0.01 + dragY
     model.animate(time)
     model.root.updateMatrixWorld(true)
     let shot = assemblyState?storyShot(assemblyState):cameraShot(model, displayed, camera.aspect)
-    if(presentation.setting==='workbench')shot=deskShot(model.root,shot,assemblyState?(deskWide(assemblyState.opening,assemblyState.reveal,displayed)):1-sample.focus)
+    if(presentation.setting==='workbench')shot=deskShot(model.root,shot,(assemblyState?deskWide(assemblyState.opening,assemblyState.reveal,displayed):1-sample.focus)*deskContext(host.clientWidth,host.clientHeight))
     look.lerp(shot.target, damp)
     camera.position.lerp(shot.position, damp)
     camera.lookAt(look)
@@ -189,10 +188,11 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
       const projected = box.getCenter(new THREE.Vector3()).project(camera)
       return { id: stop.id, x: (projected.x + 1) * host.clientWidth / 2, y: (1 - projected.y) * host.clientHeight / 2, visible: showLabels && Math.abs(projected.x) < 0.95 && Math.abs(projected.y) < 0.85 }
     }))
-    dirty = Math.abs(displayed-progress)>.00001 || Math.abs(night-(atmosphere==='midnight'?1:0))>.0001 || Math.abs(dragX)+Math.abs(dragY)>.0001 || camera.position.distanceTo(shot.position)>.0001 || look.distanceTo(shot.target)>.0001
+    dirty = Math.abs(displayed-progress)>.00001 || Math.abs(night-(presentation.setting==='plain'&&atmosphere==='midnight'?1:0))>.0001 || Math.abs(dragX)+Math.abs(dragY)>.0001 || camera.position.distanceTo(shot.position)>.0001 || look.distanceTo(shot.target)>.0001
     render()
   }
   if (onImages) {
+    const requestedSetting=presentation.setting;presentation.set('plain');backdrop.visible=true
     const images: Record<string, string> = {}
     renderer.setSize(480, 480, false)
     camera.aspect = 1; camera.updateProjectionMatrix()
@@ -210,6 +210,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     model.parts.forEach((part, index) => { part.group.visible = visibleNodes[index]! })
     resize()
     onImages(images)
+    presentation.set(requestedSetting);backdrop.visible=requestedSetting==='plain'
   }
   model.root.rotation.set(0,0,0)
   if(!story)poseModel(model,progress)
