@@ -1,3 +1,4 @@
+import {unobscuredSubjects} from './visibility.ts'
 import {deskShot,deskWide,deskContext} from './deskCamera.ts'
 import {createPresentation,presentationSetting,type PresentationSetting} from './presentation.ts'
 import {anatomyStops} from '../../spec/scene3d.ts'
@@ -18,7 +19,7 @@ export interface SceneHandle {
   setAtmosphere: (value: Atmosphere) => void
   setPresentation: (value: PresentationSetting) => void
   setPaused: (value: boolean) => void
-  snapshot: () => { setting:PresentationSetting; selected: string | null; selectedParts: string[]; allVisible: boolean; bounds: { left: number; right: number; top: number; bottom: number } | null; progress: number; separation: number; partPositions: Record<string, number[]> }
+  snapshot: () => { unobscuredParts:string[]; setting:PresentationSetting; selected: string | null; selectedParts: string[]; allVisible: boolean; bounds: { left: number; right: number; top: number; bottom: number } | null; progress: number; separation: number; partPositions: Record<string, number[]> }
   capture: () => string
   dispose: () => void
 }
@@ -235,7 +236,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
       const state=story?.pose(displayed),sample=sampleScene(displayed, modelStops(model).length),index=state?(state.opening||state.complete?-1:state.index):sample.index,selected=modelStops(model)[index]
       model.root.updateMatrixWorld(true)
       const points = corners(selected ? stopBounds(model,index) : new THREE.Box3().setFromObject(model.root)).map(p => p.project(camera))
-      return { setting:presentation.setting,selected: selected?.id ?? null, selectedParts:selected?.componentIds??[], progress: displayed, separation: state?(state.opening?state.reveal:state.complete?0:1):sample.separation, partPositions: Object.fromEntries(model.parts.map(p => [p.id, p.group.position.toArray()])), allVisible: model.parts.every(p => p.group.visible), bounds: { left: Math.min(...points.map(p => (p.x + 1) * host.clientWidth / 2)), right: Math.max(...points.map(p => (p.x + 1) * host.clientWidth / 2)), top: Math.min(...points.map(p => (1 - p.y) * host.clientHeight / 2)), bottom: Math.max(...points.map(p => (1 - p.y) * host.clientHeight / 2)) } }
+      return { unobscuredParts:unobscuredSubjects(camera,Object.fromEntries(model.parts.map(p=>[p.id,p.group])),presentation.group),setting:presentation.setting,selected: selected?.id ?? null, selectedParts:selected?.componentIds??[], progress: displayed, separation: state?(state.opening?state.reveal:state.complete?0:1):sample.separation, partPositions: Object.fromEntries(model.parts.map(p => [p.id, p.group.position.toArray()])), allVisible: model.parts.every(p => p.group.visible), bounds: { left: Math.min(...points.map(p => (p.x + 1) * host.clientWidth / 2)), right: Math.max(...points.map(p => (p.x + 1) * host.clientWidth / 2)), top: Math.min(...points.map(p => (1 - p.y) * host.clientHeight / 2)), bottom: Math.max(...points.map(p => (1 - p.y) * host.clientHeight / 2)) } }
     },
     capture: () => { render(); return renderer.domElement.toDataURL("image/png") },
     dispose: () => {

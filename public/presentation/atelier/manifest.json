@@ -1,0 +1,17 @@
+{
+  "authoring": "Blender 4.5 / Cycles",
+  "atlasCount": 4,
+  "atlasSize": 2048,
+  "files": [
+    {
+      "file": "workshop.glb",
+      "bytes": 3383876,
+      "sha256": "07b65c82267d04904228f98e949c5772026e28fa82b5df89138fb21c9090e8e3"
+    },
+    {
+      "file": "workshop-probe.hdr",
+      "bytes": 1111967,
+      "sha256": "bc57b36a97a1ef07ad95ba8bf08e3dc084caf278763267307f49e571f7bac085"
+    }
+  ]
+}

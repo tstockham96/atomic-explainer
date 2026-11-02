@@ -5,6 +5,7 @@ for(const viewport of [{width:1440,height:900},{width:390,height:844}]){
   await page.goto('/porsche-study/index.html?eval=1')
   await page.waitForFunction(()=>Boolean(window.__explodeAssemblyReview),null,{timeout:60_000})
   await page.waitForTimeout(1400)
+  expect((await page.evaluate(()=>window.__explodeAssemblyReview!.snapshot())).unobscuredParts.length,'opening anatomy must not be hidden by scenery').toBeGreaterThan(0)
   const home=await page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().partPositions)
   await page.screenshot({path:info.outputPath('assembled.png')})
   await page.getByRole('button',{name:'Explode the object'}).click()

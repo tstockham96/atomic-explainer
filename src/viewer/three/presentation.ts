@@ -19,7 +19,7 @@ export async function createPresentation(scene:T.Scene,renderer:T.WebGLRenderer,
  const originalEnvironment=scene.environment,originalIntensity=scene.environmentIntensity,originalRotation=scene.environmentRotation.clone()
  const originalShadows=renderer.shadowMap.enabled,originalShadowType=renderer.shadowMap.type
  const workdesk=await createWorkdesk(renderer,span,unit),group=workdesk.root;scene.add(group)
- const glassEnvironment=createGlassEnvironment(renderer,'#2d3437',3)
+ const glassEnvironment=createGlassEnvironment(renderer,'#2d3437',4.5)
  const casts=new Map<T.Mesh,boolean>(),opticalRotations=new Map<T.MeshPhysicalMaterial,{rotation:T.Euler;map:T.Texture|null;intensity:number}>()
  object.traverse(node=>{if(node instanceof T.Mesh){casts.set(node,node.castShadow);for(const m of Array.isArray(node.material)?node.material:[node.material])if(isTransmitting(m))opticalRotations.set(m,{rotation:m.envMapRotation.clone(),map:m.envMap,intensity:m.envMapIntensity})}})
  const seatedRotation=new T.Quaternion().setFromRotationMatrix(new T.Matrix4().lookAt(DESK_DIRECTION,new T.Vector3(),new T.Vector3(0,1,0)))
@@ -27,7 +27,7 @@ export async function createPresentation(scene:T.Scene,renderer:T.WebGLRenderer,
  function updateLighting(){
   if(setting!=='workbench')return
   fillLights.forEach((intensity,light)=>{light.intensity=intensity*.24})
-  scene.environment=workdesk.environment.texture;scene.environmentIntensity=.75;scene.environmentRotation.set(0,0,0)
+  scene.environment=workdesk.environment.texture;scene.environmentIntensity=1.6;scene.environmentRotation.copy(workdesk.environmentRotation)
  }
  function set(next:PresentationSetting){
   setting=next;group.visible=next==='workbench'

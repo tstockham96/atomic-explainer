@@ -35,3 +35,7 @@ source.jpg
 dist-eval
 playwright-report
 test-results
+
+# Blender authoring backups
+*.blend1
+.workshop-build/

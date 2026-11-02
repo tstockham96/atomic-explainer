@@ -15,3 +15,7 @@ The reference websites supplied for design direction are not included in this di
 - **Outfit and Fraunces fonts**: SIL Open Font License 1.1. License files are distributed with the corresponding `@fontsource` packages; the study build copies them alongside the fonts.
 
 - **Workshop scenery**: Poly Haven Desk Lamp Arm 01 (Kuutti Siitonen / Yann Kervran) and Grab3D Workbench, Bench Vise and Vernier Caliper; CC0 1.0. Source URLs, origin disclosures, modifications, license text and asset hashes are in `public/presentation/workshop/`. Those notices travel with exported explainers.
+
+## Blender-authored workshop derivative
+
+`public/presentation/atelier/workshop.glb` incorporates the CC0 workshop sources listed above into an authored room. The source textures, materials and lighting are baked into four atlases. `workshop-probe.hdr` is rendered from that scene. Attribution and license records are retained beside the packaged presentation assets; editable Blender source and reproducible authoring instructions are in `tools/workshop-scene/`. No Bruno Simon or Spline scene assets are redistributed.

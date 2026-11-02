@@ -5,7 +5,7 @@ for(const width of [1440,390])test(`settings preserve component poses, glass and
  await page.goto('/murph-study/index.html?eval=1')
  await page.waitForFunction(()=>Boolean((window as any).__explodeReview?.ready),null,{timeout:90000})
  const snap=()=>page.evaluate(()=>(window as any).__explodeReview.snapshot())
- await page.evaluate(()=>(window as any).__explodeReview.seek(0));const initial=await snap();expect(initial.setting).toBe('workbench');expect(initial.workshopAssets).toHaveLength(4);await expect(page.getByLabel('Scene setting').locator('option')).toHaveCount(2)
+ await page.evaluate(()=>(window as any).__explodeReview.seek(0));const initial=await snap();expect(initial.setting).toBe('workbench');expect(initial.unobscuredParts.length,'opening subject must not be behind scenery').toBeGreaterThan(0);expect(initial.workshopAssets).toEqual(['atelier/workshop.glb','atelier/workshop-probe.hdr']);await expect(page.getByLabel('Scene setting').locator('option')).toHaveCount(2)
  expect(initial.cameraDirection[0]).toBeCloseTo(0,8);expect(initial.cameraDirection[1]).toBeLessThan(-.98);expect(initial.cameraDirection[2]).toBeGreaterThan(0);expect(initial.cameraDirection[2]).toBeLessThan(.2);expect(initial.gridSpacing).toBe(10);expect(initial.partPositions).toEqual(initial.homePositions)
  await page.evaluate(()=>(window as any).__explodeReview.inspect('movement-system',.35));const before=await snap()
  for(const setting of ['workbench','plain']){

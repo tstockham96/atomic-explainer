@@ -1,0 +1,599 @@
+{
+  "errors": [],
+  "views": [
+    {
+      "width": 1440,
+      "id": "opening",
+      "parts": [
+        "crystal",
+        "hands",
+        "dial",
+        "case",
+        "crown",
+        "seals",
+        "caseback",
+        "rear-window",
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "strap"
+      ],
+      "unobscured": [
+        "crystal",
+        "case"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "id": "mainspring",
+      "parts": [
+        "mainspring"
+      ],
+      "unobscured": [
+        "mainspring"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "id": "movement-system",
+      "parts": [
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance"
+      ],
+      "unobscured": [
+        "rotor",
+        "movement"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "id": "crystal",
+      "parts": [
+        "crystal"
+      ],
+      "unobscured": [
+        "crystal"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "id": "rear-window",
+      "parts": [
+        "rear-window"
+      ],
+      "unobscured": [
+        "rear-window"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "id": "complete",
+      "parts": [
+        "crystal",
+        "hands",
+        "dial",
+        "case",
+        "crown",
+        "seals",
+        "caseback",
+        "rear-window",
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "strap"
+      ],
+      "unobscured": [
+        "crystal",
+        "case"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "id": "opening",
+      "parts": [
+        "crystal",
+        "hands",
+        "dial",
+        "case",
+        "crown",
+        "seals",
+        "caseback",
+        "rear-window",
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "strap"
+      ],
+      "unobscured": [
+        "crystal",
+        "case"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "id": "mainspring",
+      "parts": [
+        "mainspring"
+      ],
+      "unobscured": [
+        "mainspring"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "id": "movement-system",
+      "parts": [
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance"
+      ],
+      "unobscured": [
+        "rotor",
+        "movement"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "id": "crystal",
+      "parts": [
+        "crystal"
+      ],
+      "unobscured": [
+        "crystal"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "id": "rear-window",
+      "parts": [
+        "rear-window"
+      ],
+      "unobscured": [
+        "rear-window"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "id": "complete",
+      "parts": [
+        "crystal",
+        "hands",
+        "dial",
+        "case",
+        "crown",
+        "seals",
+        "caseback",
+        "rear-window",
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "strap"
+      ],
+      "unobscured": [
+        "crystal",
+        "case"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "id": "opening",
+      "parts": [
+        "crystal",
+        "hands",
+        "dial",
+        "case",
+        "crown",
+        "seals",
+        "caseback",
+        "rear-window",
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "strap"
+      ],
+      "unobscured": [
+        "crystal",
+        "case"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "id": "mainspring",
+      "parts": [
+        "mainspring"
+      ],
+      "unobscured": [
+        "mainspring"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "id": "movement-system",
+      "parts": [
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance"
+      ],
+      "unobscured": [
+        "rotor",
+        "movement"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "id": "crystal",
+      "parts": [
+        "crystal"
+      ],
+      "unobscured": [
+        "crystal"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "id": "rear-window",
+      "parts": [
+        "rear-window"
+      ],
+      "unobscured": [
+        "rear-window"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "id": "complete",
+      "parts": [
+        "crystal",
+        "hands",
+        "dial",
+        "case",
+        "crown",
+        "seals",
+        "caseback",
+        "rear-window",
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "strap"
+      ],
+      "unobscured": [
+        "crystal",
+        "case"
+      ],
+      "assets": [
+        "atelier/workshop.glb",
+        "atelier/workshop-probe.hdr"
+      ],
+      "allVisible": true,
+      "optics": [
+        {
+          "opacity": 1,
+          "transmission": 1
+        },
+        {
+          "opacity": 1,
+          "transmission": 1
+        }
+      ],
+      "overflow": false
+    }
+  ]
+}
