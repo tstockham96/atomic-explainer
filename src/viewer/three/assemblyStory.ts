@@ -1,19 +1,12 @@
 import * as T from 'three'
-import {z} from 'zod'
 import {ease} from './timeline.ts'
 import {inspectionDistance,turnAboutCenter} from './inspection.ts'
 
-export const assemblyStorySchema=z.object({
- title:z.string().min(1),note:z.string().min(1),closing:z.object({title:z.string(),description:z.string()}),
- chapters:z.array(z.object({id:z.string().min(1),componentIds:z.array(z.string()).min(1),title:z.string().min(1),description:z.string().min(1),joined:z.string().min(1),detail:z.string().optional(),from:z.tuple([z.number(),z.number(),z.number()]).default([.25,.15,1]),approach:z.tuple([z.number(),z.number(),z.number()]).default([0,0,1])})).min(1)
-}).superRefine((story,ctx)=>{const ids=new Set<string>(),members=new Set<string>();for(const c of story.chapters){if(ids.has(c.id))ctx.addIssue({code:'custom',message:'Duplicate story chapter'});ids.add(c.id);for(const id of c.componentIds){if(members.has(id))ctx.addIssue({code:'custom',message:'A component can join only once'});members.add(id)}if(Math.hypot(...c.from)<.001||Math.hypot(...c.approach)<.001)ctx.addIssue({code:'custom',message:'Story directions must be nonzero'})}})
-export type AssemblyStory=z.infer<typeof assemblyStorySchema>
-export const ASSEMBLY_END=.94
-export function assemblySample(progress:number,count:number){
- const p=T.MathUtils.clamp(progress,0,1),complete=p>=ASSEMBLY_END,index=complete?count-1:Math.min(count-1,Math.floor(p/ASSEMBLY_END*count)),local=complete?1:p/ASSEMBLY_END*count-index
- const arrival=index===0?1:ease(local/.18),focus=arrival*(1-ease((local-.58)/.18)),join=ease((local-.76)/.16)
- return {index,local,complete,arrival,focus,join,turn:ease((local-.2)/.36)*Math.PI*2}
-}
+import {assemblyStorySchema} from '../../spec/assembly-story.ts'
+export {assemblyStorySchema} from '../../spec/assembly-story.ts'
+export type {AssemblyStory} from '../../spec/assembly-story.ts'
+import {assemblySample,assemblyProgress} from './assemblyTimeline.ts'
+export {assemblySample,assemblyProgress,ASSEMBLY_START,ASSEMBLY_END} from './assemblyTimeline.ts'
 
 /** Object-independent, scroll-reversible accumulation. Every physical node stays
  * present. Future/context parts travel outside the frame, never change opacity.
@@ -39,12 +32,13 @@ export function createAssemblyStory(root:T.Object3D,parts:Record<string,T.Object
   }
   const inspectionBox=chapterBoxes[s.index]!.clone().translate(approach),center=inspectionBox.getCenter(new T.Vector3())
   if(!s.complete&&s.local>=.18&&s.local<=.58)for(const id of chapter.componentIds)turnAboutCenter(parts[id]!,s.turn,center)
+  if(s.opening)for(const id of ids)parts[id]!.position.lerpVectors(homes[id]!.position,parts[id]!.position,s.reveal)
   root.updateMatrixWorld(true)
   const overviewBox=(s.index?builtBoxes[s.index-1]!:chapterBoxes[0]!).clone()
   if(s.local>=.58)overviewBox.union(chapterBoxes[s.index]!.clone().translate(approach.clone().multiplyScalar(1-s.join)))
   return {...s,chapter,inspectionBox,overviewBox:s.complete?whole.clone():overviewBox,builtIds:chapters.slice(0,s.complete?chapters.length:s.index+(s.join===1?1:0)).flatMap(c=>c.componentIds)}
  }
- return {story,pose,whole,homes,progressFor:(id:string,local=.4)=>{const i=chapters.findIndex(c=>c.id===id||c.componentIds.includes(id));if(i<0)throw Error('Unknown assembly chapter '+id);return (i+local)/chapters.length*ASSEMBLY_END},
+ return {story,pose,whole,homes,progressFor:(id:string,local=.4)=>{const i=chapters.findIndex(c=>c.id===id||c.componentIds.includes(id));if(i<0)throw Error('Unknown assembly chapter '+id);return assemblyProgress(i,local,chapters.length)},
  camera:(state:ReturnType<typeof pose>,fov:number,aspect:number,coverage:[number,number])=>{
   const inspection=state.inspectionBox.getCenter(new T.Vector3()),overview=state.overviewBox.getCenter(new T.Vector3()),direction=new T.Vector3(...state.chapter.from).normalize(),hero=new T.Vector3(...chapters[state.local<.58?Math.max(0,state.index-1):state.index]!.from).normalize()
   // Use a fixed inspection radius through the turn; spherical interpolation
@@ -53,6 +47,12 @@ export function createAssemblyStory(root:T.Object3D,parts:Record<string,T.Object
   const focus=state.complete?0:state.focus,target=overview.lerp(inspection,focus)
   const distance=T.MathUtils.lerp(inspectionDistance(state.overviewBox,fov,aspect,coverage),inspectionDistance(state.inspectionBox,fov,aspect,coverage),focus)
   const offset=new T.Vector3().setFromSpherical(new T.Spherical(distance,T.MathUtils.lerp(from.phi,to.phi,focus),from.theta+delta*focus))
+  if(state.opening){
+   const start=new T.Vector3(...story.opening.from).normalize(),a=new T.Spherical().setFromVector3(start),b=new T.Spherical().setFromVector3(direction)
+   const theta=T.MathUtils.euclideanModulo(b.theta-a.theta+Math.PI,Math.PI*2)-Math.PI,k=state.reveal
+   target.lerpVectors(whole.getCenter(new T.Vector3()),inspection,k)
+   offset.setFromSpherical(new T.Spherical(T.MathUtils.lerp(inspectionDistance(whole,fov,aspect,coverage),inspectionDistance(state.inspectionBox,fov,aspect,coverage),k),T.MathUtils.lerp(a.phi,b.phi,k),a.theta+Math.PI*2*ease(state.progress/.035)+theta*k))
+  }
   return {target,position:target.clone().add(offset)}
  }
  }

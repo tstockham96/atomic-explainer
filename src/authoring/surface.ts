@@ -24,11 +24,11 @@ export function frontSurfaceGroups(geometry:T.BufferGeometry, backMaterial=1) {
 /** Photo-observed finish, not a claim about substrate alloy or plating.
  * Grain spacing and relief use mm. Normal/roughness maps survive glTF export;
  * photographic highlights never enter the color map. */
-export function engravedSatin(width:number, draw:(ctx:CanvasRenderingContext2D)=>void=()=>{}, grain:'linear'|'radial'='linear') {
+export function engravedSatin(width:number, draw:(ctx:CanvasRenderingContext2D)=>void=()=>{}, grain:'linear'|'radial'='linear', options:{reliefMm?:number;roughness?:number;variation?:number;color?:string;evidence?:string}={}) {
   const make=()=>{const c=document.createElement('canvas');c.width=c.height=2048;return c}
   const color=make(),relief=make(),normal=make(),roughness=make(),direction=make()
   const c=color.getContext('2d')!,b=relief.getContext('2d')!,n=normal.getContext('2d')!,r=roughness.getContext('2d')!,a=direction.getContext('2d')!
-  c.fillStyle='#c3c4bd';c.fillRect(0,0,2048,2048);b.fillStyle='#808080';b.fillRect(0,0,2048,2048)
+  c.fillStyle=options.color??'#c3c4bd';c.fillRect(0,0,2048,2048);b.fillStyle='#808080';b.fillRect(0,0,2048,2048)
   let seed=19;const random=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}
   const height=b.createImageData(2048,2048),rough=r.createImageData(2048,2048),axis=a.createImageData(2048,2048)
   // Correlated lines at several scales remain legible in a close inspection
@@ -42,7 +42,7 @@ export function engravedSatin(width:number, draw:(ctx:CanvasRenderingContext2D)=
     const g=.8*sample(across/.032+Math.sin(along*.7)*.12)+.14*sample(across/.085)+.06*sample(across/.014)
     const i=(y*2048+x)*4,h=102+g*52
     height.data.set([h,h,h,255],i)
-    const roughValue=(grain==='linear'?.35:.29)+g*.14
+    const roughValue=(options.roughness??(grain==='linear'?.35:.29))+g*(options.variation??.14)
     rough.data.set([255,roughValue*255,255,255],i)
     const angle=grain==='linear'?Math.PI/2:theta
     axis.data.set([(Math.cos(angle)*.5+.5)*255,(Math.sin(angle)*.5+.5)*255,255,255],i)
@@ -54,7 +54,7 @@ export function engravedSatin(width:number, draw:(ctx:CanvasRenderingContext2D)=
   const heights=b.getImageData(0,0,2048,2048).data,normals=n.createImageData(2048,2048),spacing=width/2048
   const at=(x:number,y:number)=>heights[(Math.max(0,Math.min(2047,y))*2048+Math.max(0,Math.min(2047,x)))*4]!/255
   for(let y=0;y<2048;y++)for(let x=0;x<2048;x++){
-    const dx=-(at(x+1,y)-at(x-1,y))*.022/(2*spacing),dy=(at(x,y+1)-at(x,y-1))*.022/(2*spacing),length=Math.hypot(dx,dy,1)
+    const dx=-(at(x+1,y)-at(x-1,y))*(options.reliefMm??.022)/(2*spacing),dy=(at(x,y+1)-at(x,y-1))*(options.reliefMm??.022)/(2*spacing),length=Math.hypot(dx,dy,1)
     normals.data.set([(dx/length*.5+.5)*255,(dy/length*.5+.5)*255,(1/length*.5+.5)*255,255],(y*2048+x)*4)
   }
   n.putImageData(normals,0,0)
@@ -62,6 +62,7 @@ export function engravedSatin(width:number, draw:(ctx:CanvasRenderingContext2D)=
   const map=new T.CanvasTexture(color);map.colorSpace=T.SRGBColorSpace;map.anisotropy=8
   const material=new T.MeshPhysicalMaterial({map,normalMap:texture(normal),roughnessMap:texture(roughness),metalness:1,roughness:1,anisotropy:.4,anisotropyMap:texture(direction),color:'#ffffff'})
   material.name=`Observed brushed metal — ${grain}`
-  material.userData.finishEvidence={basis:'observed',grain,substrate:'unverified',plating:'unverified',reliefScaleMm:.022}
+  material.userData.finishEvidence={basis:'observed',grain,substrate:'unverified',plating:'unverified',reliefScaleMm:options.reliefMm??.022}
+  material.userData.surfaceFinish={version:1,kind:'brushed',tileMm:width,reliefMm:options.reliefMm??.022,grain,basis:'observed',evidence:options.evidence??'Murph rear macros: directional satin appearance; exact substrate and plating unverified',uvUnits:'millimetres'}
   return material
 }

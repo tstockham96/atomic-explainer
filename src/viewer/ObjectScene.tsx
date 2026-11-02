@@ -1,3 +1,4 @@
+import {assemblySample,assemblyProgress} from './three/assemblyTimeline.ts'
 import { useEffect, useRef, useState } from "react"
 import type { ExplodeSpec } from "../spec/schema.ts"
 import type { ReelHandle } from "./Reel.tsx"
@@ -23,6 +24,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
   const [ready, setReady] = useState(false)
   const [selected, setSelected] = useState("assembly")
   const [stage, setStage] = useState("01 / 04 · Rotate")
+  const story=spec.scene3d?.kind==='gltf'?spec.scene3d.assemblyStory:undefined
   const stops = inspectionStops(spec)
   const ids = stops.map(s=>s.id)
   const components = storyComponents(spec)
@@ -30,14 +32,20 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
     progress.current = value
     handle.current?.setProgress(value)
     const sample = sampleScene(value, components.length)
+    const assembly=story?assemblySample(value,story.chapters.length):undefined
     setSelected(sample.index >= 0 ? ids[sample.index]! : sample.separation > .5 ? "exploded" : "assembly")
     setStage(value >= THREE_TIMING.reassemble ? "04 / 04 · Together again" : sample.index >= 0 ? "03 / 04 · Explore" : sample.separation > 0 ? "02 / 04 · Explode" : "01 / 04 · Rotate")
+    if(assembly){setSelected(assembly.opening?'assembly':assembly.complete?'complete':`chapter:${ids[assembly.index]!}`);setStage(assembly.opening?'The whole object':assembly.complete?'Together again':`${assembly.index+1} / ${components.length} · ${assembly.local>=.76?'Building together':'How it’s made'}`)}
     const show = (node: HTMLElement | null, opacity: number) => {
       if (!node) return
       node.style.opacity = String(opacity)
       node.style.visibility = opacity > 0.02 ? "visible" : "hidden"
       node.setAttribute("aria-hidden", String(opacity <= 0.02))
       node.style.translate = `0 ${(1 - opacity) * 12}px`
+    }
+    if(assembly){
+     show(title.current,assembly.opening?1-assembly.reveal:0);show(closing.current,assembly.complete?1:0)
+     captions.current.forEach((node,index)=>{show(node,!assembly.opening&&!assembly.complete&&assembly.index===index?1:0);const description=node?.querySelector('.mesh-description');if(description)description.textContent=assembly.local>=.76?story!.chapters[index]!.joined:story!.chapters[index]!.description});return
     }
     show(title.current, windowOpacity(value, 0, 0.025, 0.02))
     show(closing.current, value > THREE_TIMING.reassemble ? Math.min(1, (value - THREE_TIMING.reassemble) / .05) : 0)
@@ -80,7 +88,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
       scene.setProgress(progress.current)
       setReady(true)
       if (new URLSearchParams(window.location.search).has('eval')) window.__explodeAssemblyReview = {
-        inspect: (id, local = .5) => { const i = stops.findIndex(s=>s.id===id||s.componentIds.includes(id)); updateRef.current(i < 0 ? 0 : THREE_TIMING.inspect + (i + local) * (THREE_TIMING.reassemble - THREE_TIMING.inspect) / ids.length) },
+        inspect: (id, local = .5) => { const i = stops.findIndex(s=>s.id===id||s.componentIds.includes(id)); updateRef.current(i < 0 ? 0 : story?assemblyProgress(i,local,ids.length):THREE_TIMING.inspect + (i + local) * (THREE_TIMING.reassemble - THREE_TIMING.inspect) / ids.length) },
         snapshot: scene.snapshot,
       }
     }).catch((reason: unknown) => {
@@ -107,10 +115,10 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
     <div className={`mesh-film is-${atmosphere}`}>
       <div ref={host} className="mesh-host" />
       <div className="mesh-navigation"><a href="/create">← Studio</a><label>Explore<select aria-label="Explore a component" value={selected} onChange={event => {
-        const index = ids.indexOf(event.target.value)
-        const value = event.target.value === 'exploded' ? THREE_TIMING.inspect - .001 : index < 0 ? 0 : THREE_TIMING.inspect + (index + .5) * (THREE_TIMING.reassemble - THREE_TIMING.inspect) / ids.length
+        const index = ids.indexOf(story?event.target.value.replace(/^chapter:/,''):event.target.value)
+        const value = story?(event.target.value==='complete'?1:index<0?0:assemblyProgress(index,.2,ids.length)):event.target.value === 'exploded' ? THREE_TIMING.inspect - .001 : index < 0 ? 0 : THREE_TIMING.inspect + (index + .5) * (THREE_TIMING.reassemble - THREE_TIMING.inspect) / ids.length
         navigate(value)
-      }}><option value="assembly">Whole object</option><option value="exploded">Exploded overview</option>{components.map(c => c && <option key={c.id} value={c.id}>{c.name}</option>)}</select></label></div>
+      }}><option value="assembly">Whole object</option>{story?<option value="complete">Complete build</option>:<option value="exploded">Exploded overview</option>}{components.map(c => c && <option key={c.id} value={story?`chapter:${c.id}`:c.id}>{c.name}</option>)}</select></label></div>
       <p className="mesh-stage" role="status">{stage}</p>
       <div className="atmosphere-switch" aria-label="Atmosphere">
         <button type="button" aria-pressed={atmosphere === "daylight"} onClick={() => setAtmosphere("daylight")}><span aria-hidden="true">☼</span> Daylight</button>
@@ -119,10 +127,10 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
       <div ref={title} className="mesh-title">
         <p>{spec.item.maker}</p>
         <h1>{spec.item.model}</h1>
-        <span>{ready ? "Scroll to rotate, explode and explore." : "Loading the object…"}</span>
-        <button className="mesh-explode" disabled={!ready} onClick={() => navigate(THREE_TIMING.inspect - .001)}>Explode the object ↓</button>
+        <span>{ready ? story?story.opening.description:"Scroll to rotate, explode and explore." : "Loading the object…"}</span>
+        <button className="mesh-explode" disabled={!ready} onClick={() => navigate(story?assemblyProgress(0,.2,ids.length):THREE_TIMING.inspect - .001)}>{story?'Discover how it’s made ↓':'Explode the object ↓'}</button>
       </div>
-      <div ref={closing} className="mesh-title mesh-closing" aria-hidden="true" style={{opacity:0,visibility:"hidden"}}><p>Every part has a purpose.</p><h2>Together again.</h2><span>One object. Now you know what makes it work.</span><a href="#parts">Explore the individual stories ↓</a></div>
+      <div ref={closing} className="mesh-title mesh-closing" aria-hidden="true" style={{opacity:0,visibility:"hidden"}}><p>Every part has a purpose.</p><h2>{story?.closing.title??'Together again.'}</h2><span>{story?.closing.description??'One object. Now you know what makes it work.'}</span><a href="#parts">Explore the individual stories ↓</a></div>
       <div className="mesh-labels">{components.map((component, index) => component ? <div className="mesh-part-label" key={component.id} ref={(node) => { labels.current[component.id] = node }} aria-hidden="true"><span>{String(index + 1).padStart(2, "0")}</span>{component.name}</div> : null)}</div>
       {components.map((component, index) => component ? (
         <div key={component.id} ref={(node) => { captions.current[index] = node }} className="mesh-caption" aria-hidden="true">

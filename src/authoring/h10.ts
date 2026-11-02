@@ -1,4 +1,5 @@
 import * as T from 'three'
+import {surfaceFinish,finishUV} from './finishes.ts'
 import { engravedSatin, planarSurfaceUV, frontSurfaceGroups } from './surface.ts'
 
 type Finishes={steel:T.Material;polish:T.Material;nickel:T.Material;brass:T.Material;dark:T.Material;ruby:T.Material}
@@ -8,8 +9,15 @@ type Finishes={steel:T.Material;polish:T.Material;nickel:T.Material;brass:T.Mate
  * Coordinates are an estimated rear view in mm, with the crown to the left.
  */
 export function buildH10(part:(id:string)=>T.Group,m:Finishes){
- const headFinish=new T.MeshStandardMaterial({color:'#c1c6c5',metalness:.72,roughness:.36})
- const add=(p:T.Object3D,g:T.BufferGeometry,mat:T.Material|T.Material[],x=0,y=0,z=0)=>{const o=new T.Mesh(g,mat);o.position.set(x,y,z);p.add(o);return o}
+ // Carry the observed surface finish into core glTF textures, as on the rotor.
+ // Satin caps and polished cut edges are different surfaces, not one grey shader.
+ const satin=engravedSatin(26.6,()=>{},'linear',{reliefMm:.003,roughness:.34,variation:.06,color:'#bfc1bd',evidence:'H-10 rear macros in murph-study dossier: silver satin bridge faces; alloy/plating not established'})
+ m={...m,nickel:satin,steel:surfaceFinish('steel',{evidence:'H-10 family reference: silver metallic rims and winding wheels; exact alloy unverified'}),brass:surfaceFinish('brass',{evidence:'H-10 rear references: gold-toned wheels; concealed wheel details approximate'})}
+ const headFinish=surfaceFinish('machined',{evidence:'Rear macro references: machined screw heads, slots modeled separately'})
+ const add=(p:T.Object3D,g:T.BufferGeometry,mat:T.Material|T.Material[],x=0,y=0,z=0)=>{let geometry=g,material=mat
+  if(mat===satin){geometry=frontSurfaceGroups(planarSurfaceUV(g,26.6),0);material=[satin,m.polish]}
+  else if(!Array.isArray(mat)&&mat.userData.surfaceFinish)geometry=finishUV(g,mat.userData.surfaceFinish.tileMm)
+  const o=new T.Mesh(geometry,material);o.position.set(x,y,z);p.add(o);return o}
  const disc=(r:number,h:number)=>new T.CylinderGeometry(r,r,h,96).rotateX(Math.PI/2)
  const ring=(p:T.Object3D,r:number,inner:number,h:number,x=0,y=0,z=0,mat=m.polish)=>{
   const b=Math.min(.055,h/4,(r-inner)/4),pts=[[inner+b,-h/2],[r-b,-h/2],[r,-h/2+b],[r,h/2-b],[r-b,h/2],[inner+b,h/2],[inner,h/2-b],[inner,-h/2+b],[inner+b,-h/2]]
@@ -106,13 +114,13 @@ export function buildH10(part:(id:string)=>T.Group,m:Finishes){
   arcText('SWISS',3.25,.65,.43,false,Math.PI)
  })
  const rotorReverse=engravedSatin(25.3)
- const rotorFace=solid(rotorPivot,rotorShape,.55,0,[rotorFinish,m.nickel,rotorReverse],.045)
+ const rotorFace=solid(rotorPivot,rotorShape,.55,0,[rotorFinish,m.polish,rotorReverse],.045)
  rotorFace.name='rotor_engraved_solid';frontSurfaceGroups(planarSurfaceUV(rotorFace.geometry,25.3),2)
  rotorFace.userData.surfaceArtwork='UV-bound to cap triangles; cutouts remain empty'
 
  const weight=new T.Shape();weight.absarc(0,0,12.65,.12,Math.PI-.12,false);weight.absarc(0,0,11.15,Math.PI-.12,.12,true);weight.closePath()
  const weightFinish=engravedSatin(25.3,()=>{},'radial')
- const weightSolid=solid(rotorPivot,weight,.85,0,[weightFinish,m.steel],.035)
+ const weightSolid=solid(rotorPivot,weight,.85,0,[weightFinish,m.polish],.035)
  weightSolid.name='rotor_weight';frontSurfaceGroups(planarSurfaceUV(weightSolid.geometry,25.3),0)
  ring(rotorPivot,2.0,1.37,.18,0,0,.39,m.steel);ring(rotorPivot,1.58,1.1,.21,0,0,.49,m.brass)
  ring(rotorPivot,1.65,1.1,.12,0,0,-.34,m.steel)

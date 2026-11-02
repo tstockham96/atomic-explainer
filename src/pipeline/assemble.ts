@@ -33,7 +33,9 @@ export async function assembleStudy(specFile: string, recipeFile: string, out: s
   const bytes = await task
   await mkdir(out, { recursive: true })
   await writeFile(path.join(out, 'assembly.glb'), Buffer.from(bytes))
-  spec.scene3d = { kind: 'gltf', url: 'assembly.glb', parts: recipe.parts.map(p => ({ componentId: p.componentId, node: p.componentId, offset: p.offset })) }
+  const assemblyStory=spec.scene3d?.kind==='gltf'?spec.scene3d.assemblyStory:undefined
+  spec.scene3d = { kind: 'gltf', assemblyStory, url: 'assembly.glb', parts: recipe.parts.map(p => ({ componentId: p.componentId, node: p.componentId, offset: p.offset })) }
+  explodeSpecSchema.parse(spec) // Revalidate narrative coverage against the actual recipe inventory.
   // All generated geometry starts unreviewed, including self-labelled reference-matched parts.
   spec.modelNotice = "Assembly prototype · approximate or unreviewed geometry"
   spec.artNote = 'Agent-authored assembly prototype. ' + recipe.parts.map(p => `${p.componentId}: ${p.fidelity}; ${p.limitations.join(' ')}`).join(' ')

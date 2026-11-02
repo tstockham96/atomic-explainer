@@ -1,5 +1,6 @@
+import {createAssemblyStory} from './assemblyStory.ts'
 import {modelStops,stopParts,stopBounds} from './model.ts'
-import { sampleScene, THREE_TIMING } from './timeline.ts'
+import { sampleScene, THREE_TIMING, ease } from './timeline.ts'
 import { configureRenderBudget } from './renderBudget.ts'
 import { isTransmitting, createOpticalBackdrop } from './optics.ts'
 import * as THREE from "three"
@@ -52,6 +53,15 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     throw error
   }
   scene.add(model.root)
+  const story=spec.scene3d?.kind==='gltf'&&spec.scene3d.assemblyStory?createAssemblyStory(model.root,Object.fromEntries(model.parts.map(p=>[p.id,p.group])),spec.scene3d.assemblyStory):undefined
+  const storyShot=(state:ReturnType<NonNullable<typeof story>['pose']>)=>{
+   const narrow=camera.aspect<.85,whole=state.opening?1-state.reveal:ease((state.progress-.92)/.02)
+   const shot=story!.camera(state,STORY_FOV,camera.aspect,narrow?[.76,.35]:[THREE.MathUtils.lerp(.49,.8,whole),THREE.MathUtils.lerp(.68,.47,whole)])
+   // Reserve the lower caption area on phones, right column on desktop.
+   const direction=shot.position.clone().sub(shot.target),right=new THREE.Vector3().crossVectors(camera.up,direction).normalize(),up=new THREE.Vector3().crossVectors(direction,right).normalize(),d=direction.length()*Math.tan(THREE.MathUtils.degToRad(STORY_FOV/2))
+   const shift=narrow?up.multiplyScalar(-d*.32):right.multiplyScalar(d*camera.aspect*.40*(1-whole)).add(up.multiplyScalar(-d*.16*whole))
+   shot.position.add(shift);shot.target.add(shift);return shot
+  }
   const glassEnvironment = createGlassEnvironment(renderer)
   // Preserve material appearance during the story; isolation is physical movement.
   const originalMaterials = new Set<THREE.Material>()
@@ -150,17 +160,19 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
       dragX = THREE.MathUtils.lerp(dragX, 0, delta * 0.6)
       dragY = THREE.MathUtils.lerp(dragY, 0, delta * 0.6)
     }
-    const sample = poseModel(model, displayed)
+    if(story){model.root.rotation.set(0,0,0);model.root.position.set(0,0,0)}
+    const assemblyState=story?.pose(displayed)
+    const sample = assemblyState?{separation:assemblyState.opening?assemblyState.reveal:assemblyState.complete?0:1,focus:assemblyState.focus}:poseModel(model, displayed)
     model.root.rotation.y += pointerX * 0.015 + dragX
     model.root.rotation.x += pointerY * 0.01 + dragY
     model.animate(time)
     model.root.updateMatrixWorld(true)
-    const shot = cameraShot(model, displayed, camera.aspect)
+    const shot = assemblyState?storyShot(assemblyState):cameraShot(model, displayed, camera.aspect)
     look.lerp(shot.target, damp)
     camera.position.lerp(shot.position, damp)
     camera.lookAt(look)
     camera.updateMatrixWorld()
-    const showLabels = sample.separation > 0.995 && sample.focus < 0.015
+    const showLabels = !story && sample.separation > 0.995 && sample.focus < 0.015
     if (onFrame) onFrame(modelStops(model).map((stop,index) => {
       const box = stopBounds(model,index)
       const projected = box.getCenter(new THREE.Vector3()).project(camera)
@@ -188,8 +200,9 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     resize()
     onImages(images)
   }
-  poseModel(model, progress)
-  const initialShot = cameraShot(model, progress, camera.aspect)
+  model.root.rotation.set(0,0,0)
+  if(!story)poseModel(model,progress)
+  const initialShot = story?storyShot(story.pose(progress)):cameraShot(model, progress, camera.aspect)
   camera.position.copy(initialShot.position); look.copy(initialShot.target); camera.lookAt(look)
   const visibility = new IntersectionObserver((entries) => {
     visible = entries.some((entry) => entry.isIntersecting)
@@ -203,10 +216,10 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     setAtmosphere: (value) => { dirty = true; atmosphere = value },
     setPaused: (value) => { dirty = true; paused = value },
     snapshot: () => {
-      const sample = sampleScene(displayed, modelStops(model).length), selected = modelStops(model)[sample.index]
+      const state=story?.pose(displayed),sample=sampleScene(displayed, modelStops(model).length),index=state?(state.opening||state.complete?-1:state.index):sample.index,selected=modelStops(model)[index]
       model.root.updateMatrixWorld(true)
-      const points = corners(selected ? stopBounds(model,sample.index) : new THREE.Box3().setFromObject(model.root)).map(p => p.project(camera))
-      return { selected: selected?.id ?? null, selectedParts:selected?.componentIds??[], progress: displayed, separation: sample.separation, partPositions: Object.fromEntries(model.parts.map(p => [p.id, p.group.position.toArray()])), allVisible: model.parts.every(p => p.group.visible), bounds: { left: Math.min(...points.map(p => (p.x + 1) * host.clientWidth / 2)), right: Math.max(...points.map(p => (p.x + 1) * host.clientWidth / 2)), top: Math.min(...points.map(p => (1 - p.y) * host.clientHeight / 2)), bottom: Math.max(...points.map(p => (1 - p.y) * host.clientHeight / 2)) } }
+      const points = corners(selected ? stopBounds(model,index) : new THREE.Box3().setFromObject(model.root)).map(p => p.project(camera))
+      return { selected: selected?.id ?? null, selectedParts:selected?.componentIds??[], progress: displayed, separation: state?(state.opening?state.reveal:state.complete?0:1):sample.separation, partPositions: Object.fromEntries(model.parts.map(p => [p.id, p.group.position.toArray()])), allVisible: model.parts.every(p => p.group.visible), bounds: { left: Math.min(...points.map(p => (p.x + 1) * host.clientWidth / 2)), right: Math.max(...points.map(p => (p.x + 1) * host.clientWidth / 2)), top: Math.min(...points.map(p => (1 - p.y) * host.clientHeight / 2)), bottom: Math.max(...points.map(p => (1 - p.y) * host.clientHeight / 2)) } }
     },
     capture: () => { render(); return renderer.domElement.toDataURL("image/png") },
     dispose: () => {

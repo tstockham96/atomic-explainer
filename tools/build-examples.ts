@@ -23,3 +23,13 @@ console.log('Built example routes; local internal assembly requires --with-local
 
 const engine = explodeSpecSchema.parse(JSON.parse(await readFile('examples/porsche-911-engine/research.json', 'utf8')))
 await renderSite(engine, path.join(output, 'porsche-study'), { assetRoot: path.resolve('examples/porsche-911-engine'), templateDir: output, requirementsPath: 'examples/porsche-911-engine/requirements.json' })
+
+// A second-object integration fixture for the reusable story contract. Its
+// simple geometry is a construction test, never presented as a fidelity demo.
+const fixtureDir=path.join(output,'construction-fixtures/phone')
+const storyFixture=explodeSpecSchema.parse(JSON.parse(await readFile(path.join(fixtureDir,'spec.json'),'utf8')))
+if(storyFixture.scene3d?.kind==='gltf'){
+ const ids=['logic-board','battery',...storyFixture.scene3d.parts.map(p=>p.componentId).filter(id=>!['logic-board','battery'].includes(id))]
+ storyFixture.scene3d.assemblyStory={title:'Whole to core to whole',note:'Construction fixture · educational order only',opening:{title:'One working object',description:'Explore the core, then build outward.',from:[.25,.2,1]},closing:{title:'A complete assembly',description:'All components are back in their original seats.'},chapters:ids.map(id=>{const c=storyFixture.components.find(c=>c.id===id)!;return {id,componentIds:[id],title:c.name,description:c.howItsMade,joined:c.name+' joins the accumulating assembly.',from:[.25,.2,1],approach:[0,0,1]}})}
+ await renderSite(storyFixture,path.join(output,'construction-fixtures/assembly-story'),{assetRoot:fixtureDir,templateDir:output})
+}

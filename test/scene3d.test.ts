@@ -61,3 +61,9 @@ describe("three-dimensional story", () => {
     expect(scenePartIds({ ...spec, scene3d: undefined })).toEqual([])
   })
 })
+
+it('validates a generic assembly story against the entire imported inventory',()=>{
+ const base={...spec,scene3d:{kind:'gltf',url:'camera.glb',parts:[{componentId:'lens',node:'Lens',offset:[0,0,1]},{componentId:'housing',node:'Case',offset:[0,0,-1]}],assemblyStory:{title:'Build a camera',note:'Educational order',closing:{title:'Ready',description:'Together'},chapters:[{id:'optics',componentIds:['lens'],title:'Gather light',description:'Lens',joined:'Focus'},{id:'housing',componentIds:['housing'],title:'Protect',description:'Case',joined:'Ready'}]}}}
+ expect(explodeSpecSchema.safeParse(base).success).toBe(true)
+ expect(explodeSpecSchema.safeParse({...base,scene3d:{...base.scene3d,assemblyStory:{...base.scene3d.assemblyStory,chapters:base.scene3d.assemblyStory.chapters.slice(1)}}}).success).toBe(false)
+})

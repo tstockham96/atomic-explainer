@@ -212,13 +212,13 @@ function poseAssembly(p:number,t:number){
  model.bridgePack.position.set(0,0,0);model.rotorPivot.rotation.z=0;model.balanceWheel.rotation.z=Math.sin(t*12)*.42;model.seconds.rotation.z=2.43
  for(const strap of strapHomes)strap.node.position.copy(strap.home)
  const state=assembly.pose(p),chapter=state.chapter
- el('title').textContent=state.complete?assembly.story.closing.title:chapter.title
- el('description').textContent=state.complete?assembly.story.closing.description:state.local>=.76?chapter.joined:chapter.description
- el('detail').textContent=state.complete?assembly.story.note:chapter.detail??chapter.componentIds.map(id=>dossier.components.find(c=>c.id===id)?.material??'').join(' · ')
- el('chapter-number').textContent=state.complete?'The complete watch':`${String(state.index+1).padStart(2,'0')} / ${assembly.story.chapters.length} · ${state.local>=.76?'Joining the watch':'How it’s made'}`
- el('count').textContent=state.complete?'One complete watch':`${state.index+(state.join===1?1:0)} / ${assembly.story.chapters.length} stages built`
+ el('title').textContent=state.opening?assembly.story.opening.title:state.complete?assembly.story.closing.title:chapter.title
+ el('description').textContent=state.opening?assembly.story.opening.description:state.complete?assembly.story.closing.description:state.local>=.76?chapter.joined:chapter.description
+ el('detail').textContent=state.opening||state.complete?assembly.story.note:chapter.detail??chapter.componentIds.map(id=>dossier.components.find(c=>c.id===id)?.material??'').join(' · ')
+ el('chapter-number').textContent=state.opening?'The whole object':state.complete?'The complete watch':`${String(state.index+1).padStart(2,'0')} / ${assembly.story.chapters.length} · ${state.local>=.76?'Joining the watch':'How it’s made'}`
+ el('count').textContent=state.opening?'Scroll inside, then build outward':state.complete?'One complete watch':`${state.index+(state.join===1?1:0)} / ${assembly.story.chapters.length} stages built`
  el('progress').style.transform=`scaleX(${p})`
- ;(el('component-menu') as HTMLSelectElement).value=state.complete?'':chapter.id
+ ;(el('component-menu') as HTMLSelectElement).value=state.opening?'opening':state.complete?'':chapter.id
  el('hint').textContent=free?'Drag to orbit · Scroll to continue':'Scroll to build ↓'
  for(const c of callouts){c.label.style.display='none';c.line.style.display='none'}
  const glass=chapter.componentIds.some(id=>hasOptics(model.parts[id]!)),contrast=glass&&!state.complete?state.focus:0
@@ -234,9 +234,9 @@ function poseAssembly(p:number,t:number){
 function paintStory(p:number){if(assemblyMode)poseAssembly(p,time);else {const sample=tour.sample(p);pose(sample.base,time,sample,p)}}
 const rotate=el('rotate');rotate.onclick=()=>{dirty=true;free=!free;controls.enabled=free;rotate.textContent=free?'Return to story':'Explore freely';rotate.setAttribute('aria-pressed',String(free))}
 el('motion').onclick=()=>{dirty=true;paused=!paused;el('motion').textContent=paused?'Resume motion':'Pause motion';el('motion').setAttribute('aria-pressed',String(paused))}
-function navigate(id:string){free=false;controls.enabled=false;rotate.textContent='Explore freely';rotate.setAttribute('aria-pressed','false');manualProgress=assemblyMode?(id?assembly!.progressFor(id,.2):1):(id?tour.progressFor(id,.2):0);progress=manualProgress;if(!reduce)scrollTo({top:progress*(el('journey').offsetHeight-innerHeight),behavior:'instant'});paintStory(progress);paintStory(progress);draw()}
+function navigate(id:string){free=false;controls.enabled=false;rotate.textContent='Explore freely';rotate.setAttribute('aria-pressed','false');manualProgress=assemblyMode?(id==='opening'?0:id?assembly!.progressFor(id,.2):1):(id?tour.progressFor(id,.2):0);progress=manualProgress;if(!reduce)scrollTo({top:progress*(el('journey').offsetHeight-innerHeight),behavior:'instant'});paintStory(progress);paintStory(progress);draw()}
 el('component-menu').onchange=event=>navigate((event.target as HTMLSelectElement).value)
-el('next-part').onclick=()=>{if(assemblyMode){const state=assembly!.pose(progress);navigate(state.complete?assembly!.story.chapters[0]!.id:assembly!.story.chapters[state.index+1]?.id??'')}else {const selected=tour.sample(progress).stop?.id,index=tour.intervals.findIndex(s=>s.id===selected);navigate(tour.intervals[(index+1)%tour.intervals.length]!.id)}}
+el('next-part').onclick=()=>{if(assemblyMode){const state=assembly!.pose(progress);navigate(state.opening||state.complete?assembly!.story.chapters[0]!.id:assembly!.story.chapters[state.index+1]?.id??'')}else {const selected=tour.sample(progress).stop?.id,index=tour.intervals.findIndex(s=>s.id===selected);navigate(tour.intervals[(index+1)%tour.intervals.length]!.id)}}
 addEventListener('scroll',()=>{if(free){free=false;controls.enabled=false;rotate.textContent='Explore freely';rotate.setAttribute('aria-pressed','false')}},{passive:true})
 function render(ms:number){
  const dt=Math.min((ms-last)/1000,.05);last=ms
@@ -282,6 +282,7 @@ async function main(){
   document.querySelector('header .eyebrow')!.textContent=assembly.story.title
   document.querySelector('header h1')!.textContent='Hamilton Khaki Field Murph'
   const menu=el('component-menu') as HTMLSelectElement;menu.replaceChildren()
+  const opening=document.createElement('option');opening.value='opening';opening.textContent='Whole object · start here';menu.append(opening)
   for(const chapter of assembly.story.chapters){const option=document.createElement('option');option.value=chapter.id;option.textContent=chapter.componentIds.length>1?'H-10 movement':dossier.components.find(c=>c.id===chapter.id)?.name??chapter.title;menu.append(option)}
   const complete=document.createElement('option');complete.value='';complete.textContent='The complete watch';menu.append(complete)
  }
@@ -357,9 +358,13 @@ async function main(){
    }).length
    const finishMaterials=new Set<T.MeshPhysicalMaterial>()
    loaded.scene.getObjectByName('rotor')?.traverse(o=>{if(o instanceof T.Mesh)for(const m of (Array.isArray(o.material)?o.material:[o.material]))if(m.userData.finishEvidence)finishMaterials.add(m as T.MeshPhysicalMaterial)})
-   const portableFinishes=finishMaterials.size===3&&[...finishMaterials].every(m=>m.normalMap&&m.roughnessMap&&m.anisotropyMap&&m.metalness===1)
+   const portableFinishes=finishMaterials.size>=3&&[...finishMaterials].every(m=>m.normalMap&&m.roughnessMap&&m.anisotropyMap&&m.metalness===1)
+   const movementFinishes=new Set<T.MeshStandardMaterial>()
+   for(const id of mechanisms)loaded.scene.getObjectByName(id)?.traverse(o=>{if(o instanceof T.Mesh)for(const m of Array.isArray(o.material)?o.material:[o.material])if(m.userData.surfaceFinish)movementFinishes.add(m as T.MeshStandardMaterial)})
+   const portableMovement=movementFinishes.size>=4&&[...movementFinishes].every(m=>m.normalMap&&m.roughnessMap&&m.metalness===1)
+   if(!portableMovement)throw Error('Movement lost its portable metal finishes')
    if(missing.length||opticalSolids!==2||annotatedParts!==16||loaded.animations.length!==1||!portableFinishes)throw Error('Export validation failed: '+JSON.stringify({missing,opticalSolids,annotatedParts,portableFinishes}))
-   await send('export-validation',{missing,opticalSolids,annotatedParts,portableFinishes,animations:loaded.animations.map(c=>c.name),bytes:glb.byteLength})
+   await send('export-validation',{missing,opticalSolids,annotatedParts,portableFinishes,portableMovement,animations:loaded.animations.map(c=>c.name),bytes:glb.byteLength})
    if(params.has('materials')){
     // Re-render the exported surfaces under the unchanged rig and inspection
     // camera. Do not judge portability from texture presence alone.
@@ -384,7 +389,7 @@ async function main(){
   ready:true,ids:Object.keys(model.parts),
   inspect:(id:string,local=.2)=>{renderer.setAnimationLoop(null);progress=assemblyMode?assembly!.progressFor(id,local):tour.progressFor(id,local);paintStory(progress);paintStory(progress);draw()},
   seek:(p:number)=>{renderer.setAnimationLoop(null);progress=p;paintStory(p);paintStory(p);draw()},
-  snapshot:()=>{model.root.updateMatrixWorld(true);const sample=tour.sample(progress),assemblyState=assemblyMode?assembly!.pose(progress):undefined,selected=assemblyState?(assemblyState.complete?null:assemblyState.chapter.id):sample.stop?.id,part=selected?model.parts[selected]:undefined,box=assemblyState&&!assemblyState.complete?assemblyState.chapter.componentIds.reduce((b,id)=>b.union(new T.Box3().setFromObject(model.parts[id]!,true)),new T.Box3()):part?new T.Box3().setFromObject(part,true):undefined,points:T.Vector3[]=[];if(box)for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z])points.push(new T.Vector3(x,y,z).project(camera));return {progress,time,drawCount,softwareGraphics:renderBudget.software,selected:selected??null,mode:assemblyMode?'assembly':'explode',builtIds:assemblyState?.builtIds??[],partPositions:Object.fromEntries(Object.entries(model.parts).map(([id,g])=>[id,g.position.toArray()])),homePositions:Object.fromEntries(Object.entries(home).map(([id,p])=>[id,p.toArray()])),allVisible:Object.values(model.parts).every(p=>p.visible),bounds:points.length?{left:(Math.min(...points.map(p=>p.x))*.5+.5)*innerWidth,right:(Math.max(...points.map(p=>p.x))*.5+.5)*innerWidth,top:(.5-Math.max(...points.map(p=>p.y))*.5)*innerHeight,bottom:(.5-Math.min(...points.map(p=>p.y))*.5)*innerHeight}:null}},
+  snapshot:()=>{model.root.updateMatrixWorld(true);const sample=tour.sample(progress),assemblyState=assemblyMode?assembly!.pose(progress):undefined,selected=assemblyState?(assemblyState.complete||assemblyState.opening?null:assemblyState.chapter.id):sample.stop?.id,part=selected?model.parts[selected]:undefined,box=assemblyState&&!assemblyState.complete&&!assemblyState.opening?assemblyState.chapter.componentIds.reduce((b,id)=>b.union(new T.Box3().setFromObject(model.parts[id]!,true)),new T.Box3()):part?new T.Box3().setFromObject(part,true):undefined,points:T.Vector3[]=[];if(box)for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z])points.push(new T.Vector3(x,y,z).project(camera));return {progress,time,drawCount,softwareGraphics:renderBudget.software,selected:selected??null,mode:assemblyMode?'assembly':'explode',builtIds:assemblyState?.builtIds??[],partPositions:Object.fromEntries(Object.entries(model.parts).map(([id,g])=>[id,g.position.toArray()])),homePositions:Object.fromEntries(Object.entries(home).map(([id,p])=>[id,p.toArray()])),allVisible:Object.values(model.parts).every(p=>p.visible),bounds:points.length?{left:(Math.min(...points.map(p=>p.x))*.5+.5)*innerWidth,right:(Math.max(...points.map(p=>p.x))*.5+.5)*innerWidth,top:(.5-Math.max(...points.map(p=>p.y))*.5)*innerHeight,bottom:(.5-Math.min(...points.map(p=>p.y))*.5)*innerHeight}:null}},
  }})
 }
 main().catch(error=>{el('status').textContent='Study could not load';el('error').style.display='block';el('error').textContent='The 3D model could not load. You can still read the component explanations below. '+error.message;console.error(error);if(capture)void send('error',{error:error.message,stack:error.stack})})

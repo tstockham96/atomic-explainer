@@ -1,3 +1,4 @@
+import {assemblyStorySchema} from './assembly-story.ts'
 import { z } from "zod"
 import { understandingSchema } from "./understanding.ts"
 
@@ -102,6 +103,7 @@ export const explodeSpecSchema = z.object({
     z.object({
       kind: z.literal("gltf"),
       url: z.string().min(1),
+      assemblyStory: assemblyStorySchema.optional(),
       lighting: z.enum(['studio', 'neutral', 'product']).optional(),
       inspectionGroups: z.array(z.object({
         id: z.string().min(1), name: z.string().min(1),
@@ -131,6 +133,10 @@ export const explodeSpecSchema = z.object({
       }).refine((part) => Boolean(part.node) !== Boolean(part.nodes), "Supply either node or nodes for each part.")).min(1),
     }).superRefine((scene,ctx)=>{
       const physical=new Set(scene.parts.map(p=>p.componentId)),seen=new Set<string>(),ids=new Set<string>()
+      if(scene.assemblyStory){
+        const members=scene.assemblyStory.chapters.flatMap(c=>c.componentIds)
+        if(members.length!==physical.size||members.some(id=>!physical.has(id)))ctx.addIssue({code:'custom',message:'Assembly story must include every mapped physical component exactly once'})
+      }
       for(const g of scene.inspectionGroups??[]){
         if(physical.has(g.id)||ids.has(g.id))ctx.addIssue({code:'custom',message:'Inspection group IDs must be unique and distinct from physical parts'})
         ids.add(g.id)

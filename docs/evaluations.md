@@ -133,3 +133,9 @@ The material follow-up adds contrasting neutral reflections and restrained multi
 ### Cumulative how-it’s-made story
 
 The Hamilton defaults to a new movement-first assembly story, with eleven chapters covering sixteen physical groups. Historical outside-in benchmark captures explicitly use `?story=explode`; their scores have not been raised. The new [story review](research/reviews/murph-assembly-story/review.json) binds its script, choreography, viewer and model hashes to desktop/mobile evidence. It records 99 inspection-framing checks, cumulative seating, exact final transforms, reverse traversal, public controls and reduced-motion behavior. A full 19-test browser run and the five final story checks passed, alongside 143 unit/integration tests. Narrative coherence was self-reviewed, not measured with learners. Educational sequence and factory process remain distinct.
+
+## Whole-object opening and movement surface regression
+
+`docs/research/reviews/whole-core-materials/review.json` records the completed-object opening, reversible inward reveal, cumulative build, and final seating. The shared story is available to any mapped GLB through `scene3d.assemblyStory`; a second-object construction fixture exercises that integration on desktop and phone. This is a behavior test, not approval of that fixture's appearance.
+
+The watch's exported material audit now runs during packaged study builds. A regression checks portable normal/roughness finishes across all seven mechanism groups, rather than accepting the rotor as representative. New screenshots compare the movement and rotor under the same rig, including an edge and reverse view. All 16 groups pass export/UV integrity checks. Remaining reverse geometry, artwork, substrate identification and visual fidelity gaps are explicitly retained in the report; no score increase or photorealism release is claimed.

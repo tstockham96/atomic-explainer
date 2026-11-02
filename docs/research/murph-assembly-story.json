@@ -156,5 +156,14 @@
       "description": "The leather strap connects the case to the wearer. That closes the story: the wrist carries the watch, and its motion helps wind the mechanism inside.",
       "joined": "The layers have become one watch. Scroll a little farther to see it together."
     }
-  ]
+  ],
+  "opening": {
+    "title": "A whole world on your wrist.",
+    "description": "Start with the complete Murph. Scroll into its movement, then follow each layer back into place to discover how the watch works.",
+    "from": [
+      0.25,
+      0.2,
+      1
+    ]
+  }
 }

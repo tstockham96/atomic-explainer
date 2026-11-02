@@ -73,13 +73,13 @@ Before building the full tour, render the assembled object and a short separatio
 - Parts fit when assembled and separate without unreadable overlap in the chosen camera view.
 - Every visible component has an explanation that matches its geometry and evidence.
 - Inspect each component through a full turn, including its reverse, openings and thickness. Engraving, printing and inlays must belong to supporting geometry; no artwork planes spanning holes or copying front markings onto an undocumented back.
-- Compare all finishes under the same fixed lighting and exposure. Preserve material differences through roughness, metalness and surface relief, with moving reflections rather than photographic highlights baked into new textures.
+- Compare every component against its siblings under the same fixed lighting and exposure; a successful hero material never approves the rest of an assembly. Check the exported model, not only the authoring scene. Preserve material differences through roughness, metalness and surface relief, with moving reflections rather than photographic highlights baked into new textures.
 
 Repair or replace the deficient asset before polishing the larger experience. If the available tools cannot reach the required fidelity, say what failed and what additional asset or modeling work is needed. Do not substitute another photo-zoom animation or a crude procedural object and claim the quality target was met.
 
 ## Give the assembly a throughline
 
-For a “how it’s made” experience, read `docs/assembly-stories.md`. Research a functional core and the capabilities each subsequent layer adds. Write connected inspection and seated captions. Use the reusable assembly-story helper to accumulate parts after their full turns, preserving true pairs and physical inventory. Finish with a whole object, then anatomy. Label an educational sequence honestly; do not present an inferred order as a verified factory process. The Hamilton adapter demonstrates this mode; other objects require their own researched scripts and integration.
+For a “how it’s made” experience, read `docs/assembly-stories.md`. Establish the complete object first, then reveal a researched functional core and the capabilities each subsequent layer adds. Write connected inspection and seated captions. Use the reusable assembly-story helper to accumulate parts after their full turns, preserving true pairs and physical inventory. Finish with a whole object, then anatomy. Label an educational sequence honestly; do not present an inferred order as a verified factory process. Author `scene3d.assemblyStory` with the opening, ordered chapters, seating transitions and closing for any imported object. The generic GLB viewer and export/import paths support it directly. Other objects need their own researched narrative and clearance review, not a new viewer adapter.
 
 ## Author and export
 

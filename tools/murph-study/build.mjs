@@ -1,5 +1,5 @@
 import {build} from 'esbuild';
-import {mkdir,copyFile,writeFile} from 'node:fs/promises';
+import {mkdir,copyFile,writeFile,readFile} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 const here=path.dirname(fileURLToPath(import.meta.url));
@@ -16,4 +16,10 @@ await copyFile(hdr,path.join(out,'studio-small-09.hdr'));
 await copyFile(path.join(here,'../../docs/research/murph-study.json'),path.join(out,'study.json'));
 await copyFile(path.join(here,'index.html'),path.join(out,'index.html'));
 await build({entryPoints:[path.join(here,'viewer.ts')],bundle:true,format:'esm',outfile:path.join(out,'study.js')});
+// Audit the shipped GLB, not the authoring scene; keep structural and visual verdicts separate.
+if(packaged){
+ const {tsImport}=await import('tsx/esm/api');
+ const {auditMaterials}=await tsImport('../../src/evals/materials.ts',import.meta.url);
+ await writeFile(path.join(out,'material-review.json'),JSON.stringify(auditMaterials(await readFile(path.join(out,'murph-researched.glb'))),null,2));
+}
 console.log('Research-led Murph study built.');

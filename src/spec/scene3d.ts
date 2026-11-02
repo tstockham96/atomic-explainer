@@ -11,6 +11,7 @@ export function scenePartIds(spec: ExplodeSpec): string[] {
 /** Physical inventory remains independent of presentation grouping. No name
  * heuristics: matching functions and evidence must justify each authored group. */
 export function inspectionStops(spec:ExplodeSpec){
+  if(spec.scene3d?.kind==='gltf'&&spec.scene3d.assemblyStory)return spec.scene3d.assemblyStory.chapters.map(c=>({id:c.id,componentIds:c.componentIds,name:c.title,description:c.description,material:c.detail??c.componentIds.map(id=>spec.components.find(p=>p.id===id)?.material??'').join(' · ')}))
   const groups=spec.scene3d?.kind==='gltf'?spec.scene3d.inspectionGroups??[]:[]
   const seen=new Set<string>()
   return scenePartIds(spec).flatMap(id=>{

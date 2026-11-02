@@ -1,3 +1,4 @@
+import {surfaceFinish,finishUV} from './finishes.ts'
 import * as T from 'three'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { mergeVertices } from 'three/addons/utils/BufferGeometryUtils.js'
@@ -17,14 +18,9 @@ export async function buildMurph(dialUrl: string, strapUrl: string | undefined, 
   const root = new T.Group(); root.name = 'Murph_researched_assembly'
   const parts: Record<string, T.Group> = {}
   const part = (id: string) => { const p = new T.Group(); p.name = id; root.add(p); parts[id] = p; return p }
-  // Deterministic machining finish, in physical units rather than photographed highlights.
-  const grain=new Uint8Array(512*512*4);let seed=42
-  const random=()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296}
-  for(let y=0;y<512;y++){const line=random()*45;for(let x=0;x<512;x++){const i=(y*512+x)*4;const v=100+line+random()*16;grain[i]=grain[i+1]=grain[i+2]=v;grain[i+3]=255}}
-  const brush=new T.DataTexture(grain,512,512);brush.wrapS=brush.wrapT=T.RepeatWrapping;brush.repeat.set(.085,.085);brush.needsUpdate=true
-  const steel = new T.MeshPhysicalMaterial({ color: '#c3c7c9', metalness: 1, roughness: .3, bumpMap:brush,bumpScale:.012,anisotropy:.45 })
+  const steel=surfaceFinish('steel',{color:'#c3c7c9',evidence:'Murph reference photographs: brushed silver steel surfaces; grain is an appearance approximation'})
   const polish = new T.MeshPhysicalMaterial({ color: '#e0e3e5', metalness: 1, roughness: .14, clearcoat: .2 })
-  const nickel = new T.MeshPhysicalMaterial({ color: '#c6c8c3', metalness: 1, roughness: .38,bumpMap:brush,bumpScale:.003,anisotropy:.35 })
+  const nickel=surfaceFinish('machined',{color:'#c6c8c3',evidence:'Silver movement supports; plating and substrate not established'})
   const brass = new T.MeshStandardMaterial({ color: '#b59b60', metalness: .88, roughness: .3 })
   const dark = new T.MeshStandardMaterial({ color: '#171b1d', metalness: .7, roughness: .4 })
   const lume = new T.MeshStandardMaterial({ color: '#d9caa6', roughness: .78 })
@@ -35,7 +31,8 @@ export async function buildMurph(dialUrl: string, strapUrl: string | undefined, 
   glass.userData.opticalEvidence={composition:'sapphire',basis:'documented',profile:'photo-informed curved reconstruction'}
   rearGlass.userData.opticalEvidence={composition:'unverified',basis:'observed transparent window',ior:'1.5 is a presentation assumption, not a composition claim',profile:'photo-informed flat reconstruction'}
   const add = (p: T.Object3D, g: T.BufferGeometry, m: T.Material | T.Material[], x = 0, y = 0, z = 0, name = '') => {
-    const o = new T.Mesh(g, m); o.position.set(x,y,z); o.name = name; p.add(o); return o
+    const geometry=!Array.isArray(m)&&m.userData.surfaceFinish?finishUV(g,m.userData.surfaceFinish.tileMm):g
+    const o = new T.Mesh(geometry, m); o.position.set(x,y,z); o.name = name; p.add(o); return o
   }
   const disc = (r: number, h: number, n = 128) => new T.CylinderGeometry(r,r,h,n).rotateX(Math.PI/2)
   const ring = (p: T.Object3D, outer: number, inner: number, z: number, h: number, m: T.Material, bevel = .045) => {

@@ -53,3 +53,15 @@ it('does not pull curved-edge normals into planar cap faces',()=>{
  const after=mesh.geometry.getAttribute('normal')
  for(let i=0;i<before.count;i++)if(Math.abs(before.getZ(i))>.99999)expect(after.getZ(i)).toBe(before.getZ(i))
 })
+
+it('exports textured metal on every Murph mechanism group, without legacy bump extensions',()=>{
+ const report=auditMaterials(readFileSync('public/models/murph/murph.glb'))
+ expect(report.issues).toEqual([])
+ for(const id of ['movement','rotor','barrel','wheel-train','winding-train','escapement','balance']){
+  const component=report.components.find(c=>c.componentId===id)!
+  const finishes=component.materialIndices.map(i=>report.materials[i]!).filter(m=>m.finish)
+  expect(finishes.length,id).toBeGreaterThan(0)
+  for(const finish of finishes){expect(finish.normalMap,id).toBe(true);expect(finish.roughnessMap,id).toBe(true);expect(finish.metalness,id).toBe(1)}
+ }
+ expect(report.ready).toBe(false) // Texture presence never grants a visual pass.
+})

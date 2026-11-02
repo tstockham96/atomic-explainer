@@ -6,8 +6,8 @@ for(const viewport of [{width:1440,height:900},{width:390,height:844},{width:360
   const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.setViewportSize(viewport)
   await page.goto('/murph-study/index.html?eval=1');await page.waitForFunction(()=>Boolean((window as any).__explodeReview?.seek),null,{timeout:90000})
   const snapshot=()=>page.evaluate(()=>(window as any).__explodeReview.snapshot())
-  expect((await snapshot()).mode).toBe('assembly');expect((await snapshot()).selected).toBe('movement');expect((await snapshot()).builtIds).toEqual([])
-  expect(await page.locator('#component-menu option').count()).toBe(12)
+  expect((await snapshot()).mode).toBe('assembly');expect((await snapshot()).selected).toBe(null);expect((await snapshot()).builtIds).toEqual([]);expect((await snapshot()).partPositions).toEqual((await snapshot()).homePositions)
+  expect(await page.locator('#component-menu option').count()).toBe(13)
   await page.screenshot({path:info.outputPath('opening.png')})
   let previousCount=0
   for(const id of chapterIds){
@@ -54,4 +54,32 @@ test('public selection and reverse scrolling traverse the progressive build',asy
  await page.locator('#component-menu').selectOption('rotor')
  await expect.poll(()=>page.evaluate(()=>(window as any).__explodeReview.snapshot().builtIds.length)).toBe(6)
  expect(await page.evaluate(()=>(window as any).__explodeReview.snapshot().allVisible)).toBe(true)
+})
+
+for(const viewport of [{width:1440,height:900},{width:390,height:844}])test(`generic imported model uses the same whole/core/build story at ${viewport.width}`,async({page},info)=>{
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.setViewportSize(viewport)
+ await page.goto('/construction-fixtures/assembly-story/index.html?eval=1');await page.waitForFunction(()=>Boolean(window.__explodeAssemblyReview),null,{timeout:60000})
+ await page.waitForTimeout(1000)
+ const home=await page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().partPositions)
+ expect(await page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().selected)).toBe(null)
+ await page.screenshot({path:info.outputPath('generic-whole.png')})
+ await page.getByRole('button',{name:'Discover how it’s made'}).click()
+ await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().selected)).toBe('logic-board')
+ for(const id of ['logic-board','battery','front-glass']){
+  await page.evaluate(id=>window.__explodeAssemblyReview!.inspect(id,.35),id);await page.waitForTimeout(1400)
+  const state=await page.evaluate(()=>window.__explodeAssemblyReview!.snapshot()),caption=await page.locator('.mesh-caption:visible').boundingBox()
+  expect(state.selected).toBe(id);expect(state.allVisible).toBe(true)
+  expect(state.bounds!.left).toBeGreaterThanOrEqual(0);expect(state.bounds!.top).toBeGreaterThan(90)
+  if(viewport.width<700)expect(state.bounds!.bottom).toBeLessThan(caption!.y-8)
+  else expect(state.bounds!.right).toBeLessThan(caption!.x-8)
+  if(id==='logic-board')await page.screenshot({path:info.outputPath('generic-core.png')})
+ }
+ await page.getByLabel('Explore a component').selectOption('chapter:battery');await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().selected)).toBe('battery')
+ await page.evaluate(()=>window.__explodeAssemblyReview!.inspect('battery',.97));await page.waitForTimeout(1600)
+ const seated=await page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().partPositions)
+ expect(seated['logic-board']).toEqual(home['logic-board']);expect(seated.battery).toEqual(home.battery)
+ await page.getByLabel('Explore a component').selectOption('complete');await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().separation)).toBe(0)
+ expect(await page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().partPositions)).toEqual(home)
+ await page.getByLabel('Explore a component').selectOption('assembly');await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().progress)).toBe(0)
+ expect(await page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().partPositions)).toEqual(home);expect(errors).toEqual([])
 })

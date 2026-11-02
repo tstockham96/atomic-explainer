@@ -1,0 +1,78 @@
+{
+  "date": "2026-11-02",
+  "status": "behavior-and-export-checks-passed; visual fidelity still requires review",
+  "sha256": {
+    "src/spec/assembly-story.ts": "9fe0cba82ca09204c40912ecb4d763f90dde520208741cbef8c092ff0571a542",
+    "src/viewer/three/assemblyTimeline.ts": "54891c474bb78e64436df4bb1f81cba6899e015bc53fb3f03a0e5b1b53393c2a",
+    "src/viewer/three/assemblyStory.ts": "ed581eac92cf2b8f643df65d2442a644de9ff06aa726231c44e8587bd672ba8a",
+    "src/viewer/three/scene.ts": "4a9acc8335e2e515ce90838dbb04393c3765bb2f8a5095d8c0c6625f1a3e8e9e",
+    "src/viewer/ObjectScene.tsx": "bf2b46408173daa2ae77c8bf8b703eda35a1bb552c4482b65dfe59845cd75dee",
+    "tools/murph-study/viewer.ts": "f1fcb843474bea84691db3c34327001ae143c0e32249d3d74d16fd5b48eb6306",
+    "tools/murph-study/index.html": "11ee5518f9f6ece0b0db2d4135c8136ed765c50cc1f34bf0e8a3c7ed21179dae",
+    "docs/research/murph-assembly-story.json": "f114d68595010c254cd9f45ee62a57585bcec0c07a8da3c595d836c20e0fd972",
+    "src/authoring/h10.ts": "1ff5f9b63a828fa60173561d48add64ec11c8272cccce5e61b54c430970a2008",
+    "src/authoring/surface.ts": "23fbacbd45a0397e4320877e85d245c2d4dcccc842ca2a4ec224f5609374218c",
+    "src/authoring/murph.ts": "51487aabbcaa5438f75ea8b304f1f706eefb595e7e42e9dff359a011a563a6ab",
+    "public/models/murph/murph.glb": "4696ff1f6ff410fb03c98c007fb8f7f40044a80f12c194b7dcabd4cb30b613fd"
+  },
+  "checks": {
+    "unitAndIntegrationTests": 147,
+    "finalAssemblyBrowserTests": 7,
+    "otherBrowserChecksPassedInEarlierFullRun": 15,
+    "materialAuditIssues": [],
+    "materialAuditComponents": 16,
+    "wholeAtStartAndEnd": true,
+    "fullInitialRevolution": true,
+    "reversibleWithoutOpacityChanges": true,
+    "genericStorySpecIntegration": true,
+    "nativeChapterNavigation": true,
+    "viewports": [
+      [
+        1440,
+        900
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        360,
+        640
+      ]
+    ]
+  },
+  "visualEvidence": [
+    "complete-1440.png",
+    "complete-390.png",
+    "generic-core-1440.png",
+    "generic-core-390.png",
+    "generic-whole-1440.png",
+    "generic-whole-390.png",
+    "movement-0.2.png",
+    "movement-0.31.png",
+    "movement-0.38.png",
+    "movement-before.png",
+    "opening-1440.png",
+    "opening-390.png",
+    "rotor-0.2.png",
+    "rotor-0.31.png",
+    "rotor-0.38.png"
+  ],
+  "findings": [
+    "Completed watch establishes context before the inward reveal.",
+    "All seven mechanism groups carry portable textured metallic finishes in the exported GLB.",
+    "Satin relief was reduced after an initial comparison showed excessive grain.",
+    "Plate faces, edges, screw heads and gold-toned wheels now have separate responses under one lighting rig.",
+    "General GLB viewer supports authored assembly stories without a watch adapter. The phone construction fixture verifies mechanics and layout only."
+  ],
+  "limits": [
+    "This is an educational sequence, not a verified factory process.",
+    "Hidden H-10 geometry and the plain dial-side support plate remain simplified.",
+    "Alloys and plating remain unverified where the dossier does not establish them.",
+    "Case/strap source approximation and dial artwork errors persist.",
+    "A single photo still cannot establish all hidden geometry or guarantee fit. Each new object needs researched narrative, references, geometry and visual review.",
+    "Only movement/rotor comparisons are newly visually reviewed under the presentation rig. Passing map/UV checks does not approve all 16 component appearances.",
+    "The model is about 40 MiB; no fidelity or performance score increase is claimed."
+  ],
+  "readyForPhotorealismRelease": false
+}
