@@ -4,7 +4,7 @@ import {toCreasedNormals} from 'three/addons/utils/BufferGeometryUtils.js'
 /** Starting points for observed finishes, never an automatic material classifier.
  * Values describe appearance; alloy, coating and wear still need object evidence. */
 export const FINISHES = {
-  cast: { color:'#b8bab7', roughness:.64, metalness:1, tileMm:8, reliefMm:.014, grain:'isotropic' },
+  cast: { color:'#afb2ae', roughness:.44, metalness:1, tileMm:12, reliefMm:.04, grain:'isotropic' },
   machined: { color:'#c2c4c2', roughness:.29, metalness:1, tileMm:4, reliefMm:.0015, grain:'linear' },
   steel: { color:'#a0a4a6', roughness:.39, metalness:1, tileMm:4, reliefMm:.002, grain:'linear' },
   iron: { color:'#70726e', roughness:.73, metalness:1, tileMm:6, reliefMm:.012, grain:'isotropic' },
@@ -27,7 +27,7 @@ export type Finish = keyof typeof FINISHES
 // bump extension. Relief/texel spacing are both in mm, so normals remain correct
 // when the viewer normalizes a phone and an engine to the same screen size.
 export function surfaceFinish(kind:Finish, options:{color?:string; evidence?:string}={}) {
-  const f=FINISHES[kind], size=128, height=new Float32Array(size*size)
+  const f=FINISHES[kind], size=kind==='cast'?256:128, height=new Float32Array(size*size)
   let seed=731;const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296}
   const lines=Float32Array.from({length:size},random)
   for(let y=0;y<size;y++)for(let x=0;x<size;x++)height[y*size+x]=f.grain==='linear'?lines[x]!*.85+random()*.15:random()
@@ -36,11 +36,25 @@ export function surfaceFinish(kind:Finish, options:{color?:string; evidence?:str
   const smooth=new Float32Array(height.length)
   for(let y=0;y<size;y++)for(let x=0;x<size;x++)smooth[y*size+x]=(at(x,y)*4+at(x-1,y)+at(x+1,y)+at(x,y-1)+at(x,y+1))/8
   height.set(smooth)
+  // Cast metal has spatial structure at more than one scale. Pure one-texel
+  // noise disappears into mipmaps at assembly scale, leaving a plastic sheet.
+  const broad=new Float32Array(size*size)
+  if(kind==='cast'){
+    const coarse=Float32Array.from({length:32*32},random)
+    const noise=(x:number,y:number)=>{
+      const ix=Math.floor(x)%32,iy=Math.floor(y)%32,fx=x-Math.floor(x),fy=y-Math.floor(y),u=fx*fx*(3-2*fx),v=fy*fy*(3-2*fy)
+      return T.MathUtils.lerp(T.MathUtils.lerp(coarse[iy*32+ix]!,coarse[iy*32+(ix+1)%32]!,u),T.MathUtils.lerp(coarse[((iy+1)%32)*32+ix]!,coarse[((iy+1)%32)*32+(ix+1)%32]!,u),v)
+    }
+    for(let y=0;y<size;y++)for(let x=0;x<size;x++){
+      const i=y*size+x; broad[i]=noise(x*8/size,y*8/size)
+      height[i]=height[i]!*.22+noise(x*32/size,y*32/size)*.55+broad[i]!*.23
+    }
+  }
   const normal=new Uint8Array(size*size*4), packed=new Uint8Array(normal.length),spacing=f.tileMm/size
   for(let y=0;y<size;y++)for(let x=0;x<size;x++){
     const dx=-(at(x+1,y)-at(x-1,y))*f.reliefMm/(2*spacing),dy=-(at(x,y+1)-at(x,y-1))*f.reliefMm/(2*spacing),len=Math.hypot(dx,dy,1),i=(y*size+x)*4
     normal.set([(dx/len*.5+.5)*255,(dy/len*.5+.5)*255,(1/len*.5+.5)*255,255],i)
-    packed.set([255,T.MathUtils.clamp(f.roughness+(at(x,y)-.5)*.16,.08,.96)*255,255,255],i)
+    packed.set([255,T.MathUtils.clamp(f.roughness+(at(x,y)-.5)*(kind==='cast'?.07:.16)+(kind==='cast'?(broad[y*size+x]!-.5)*.03:0),.08,.96)*255,255,255],i)
   }
   const texture=(data:Uint8Array)=>{
     let t:T.Texture

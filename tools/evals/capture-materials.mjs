@@ -19,7 +19,9 @@ try{
  const target=new URL(url);target.searchParams.set('eval','1');target.searchParams.set('materialReview',hash.slice(0,12))
  await page.goto(target.href);await page.waitForFunction(()=>window.__explodeAssemblyReview,null,{timeout:90000})
  await page.waitForTimeout(1500);await page.screenshot({path:path.join(output,'assembled.png')})
- for(const part of spec.components){
+ const declared=spec.scene3d.inspectionGroups??[],seen=new Set();
+ const stops=spec.scene3d.parts.flatMap(p=>{const g=declared.find(g=>g.componentIds.includes(p.componentId)),part=g??spec.components.find(c=>c.id===p.componentId);if(seen.has(part.id))return [];seen.add(part.id);return [part]});
+ for(const part of stops){
   const shots=[]
   for(const [view,local]of [['front',.28],['reverse',.5],['oblique',.61]]){
    await page.evaluate(({id,local})=>window.__explodeAssemblyReview.inspect(id,local),{id:part.id,local});await page.waitForTimeout(1500)

@@ -10,16 +10,21 @@ for(const viewport of [{width:1440,height:900},{width:390,height:844}]){
   await page.getByRole('button',{name:'Explode the object'}).click()
   await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().separation)).toBeGreaterThan(.995)
   await page.waitForTimeout(1400);await page.screenshot({path:info.outputPath('exploded.png')})
-  for(const id of ['pistons','crankshaft','valvetrain','timing-chains']){
+  for(const id of ['pistons','crankshaft','crankcase','cylinder-banks','cylinder-heads']){
    await page.getByLabel('Explore a component').selectOption(id)
    await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().selected)).toBe(id)
    await page.waitForTimeout(1400)
    const state=await page.evaluate(()=>window.__explodeAssemblyReview!.snapshot())
    expect(state.allVisible).toBe(true)
+   if(id==='crankcase')expect(state.selectedParts).toEqual(['crankcase-left','crankcase-right'])
+   if(id==='cylinder-banks')expect(state.selectedParts).toEqual(['cylinders-left','cylinders-right'])
    expect(state.bounds!.left).toBeGreaterThanOrEqual(0);expect(state.bounds!.right).toBeLessThanOrEqual(viewport.width)
    expect(state.bounds!.top).toBeGreaterThan(95);expect(state.bounds!.bottom).toBeLessThan(viewport.height-65)
    await page.screenshot({path:info.outputPath(`${id}.png`)})
   }
+  expect(await page.getByLabel('Explore a component').locator('option').count()).toBe(28)
+  await expect(page.locator('#parts h3').filter({hasText:/Left crankcase|Right crankcase/})).toHaveCount(0)
+  await expect(page.locator('#parts h3').filter({hasText:'Crankcase halves'})).toHaveCount(1)
   // Exercise native scroll to the end; no endpoint override in the review hook.
   await page.evaluate(()=>{const spacer=document.querySelector('.pin')!.parentElement!.parentElement!;window.scrollTo(0,spacer.getBoundingClientRect().top+scrollY+.995*(spacer.offsetHeight-innerHeight))})
   await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().progress)).toBeGreaterThan(.98)

@@ -1,29 +1,36 @@
 {
   "version": 1,
-  "date": "2026-10-31",
+  "date": "2026-11-01",
   "reviewer": "Agent self-review, not independent validation",
   "ready": false,
-  "status": "material-pipeline-improved; reference-fidelity-still-approximate",
-  "modelSha256": "0c702329727c3765989d351c81d3126752f408a61052a6ed5de0ddf06535a489",
-  "specSha256": "47361d048a5cee7552a3500e5c2397ebd627992d5dc93c6b564d85693182a2ec",
+  "status": "paired-inspections-and-cast-cover-improvements; reference-fidelity-still-approximate",
+  "modelSha256": "1e445ac0f0ebb13eda17f09378c797d8679e0e619f3e990e9a0f1c07cd2295e4",
+  "specSha256": "b087228d8d7a09271bad1611b7163d5725095cdd2b7c01c9d812c0d9979a6f55",
   "checks": {
-    "unitAndIntegrationTests": 136,
+    "unitAndIntegrationTests": 140,
     "engineDesktopAndMobileTours": true,
     "iphoneClosingReassembly": true,
     "exportMaterialIssues": [],
-    "componentViews": 87,
+    "componentViews": 78,
     "browserErrors": [],
     "alternateLighting": {
       "component": "exhaust",
       "file": "midnight-sample.png",
       "scope": "One sampled component; not an all-component alternate-lighting review"
-    }
+    },
+    "fullBrowserSuite": 15,
+    "inspectionStops": 26,
+    "physicalComponents": 29
   },
   "changes": [
     "Shared physical-scale normal and roughness finishes for original geometry.",
     "Preserve valid imported textures and UVs; document invalid AO binding repairs.",
     "Smooth curved surfaces without pulling bevel shading into planar caps.",
-    "Every local GLB export receives a material inventory and pending per-component visual checks."
+    "Every local GLB export receives a material inventory and pending per-component visual checks.",
+    "True pairs share one tour stop, combined research/caption, selector entry and anatomy thumbnail. All 29 physical nodes remain; 26 stories.",
+    "Optional inspection gap compacts a pair during focus, preserves physical spacing through the overview, and reversibly returns each member to its seat.",
+    "Neutral product softboxes and restrained multiscale cast relief replace washed-out presentation; imported source materials retain their original rig.",
+    "Timing-cover raised lips, ribs and bosses follow inspected Porsche catalogue 103-10. Early aluminum identification is supplier-supported; exact alloy and dimensions remain unknown."
   ],
   "exportMaterials": [
     {
@@ -74,8 +81,8 @@
       "finish": {
         "version": 1,
         "kind": "cast",
-        "tileMm": 8,
-        "reliefMm": 0.014,
+        "tileMm": 12,
+        "reliefMm": 0.04,
         "grain": "isotropic",
         "basis": "approximation",
         "evidence": "Photo-observed finish family from original/restored engine references; roughness and exact alloy remain estimates",
@@ -270,7 +277,8 @@
       ],
       "unknowns": [
         "Pulley diameters and belt cross-section are reference-fitted, not measured."
-      ]
+      ],
+      "inspectionId": "fan-drive"
     },
     {
       "componentId": "fan",
@@ -283,7 +291,8 @@
       ],
       "unknowns": [
         "Blade pitch and aerofoil geometry are inferred from photographs."
-      ]
+      ],
+      "inspectionId": "fan"
     },
     {
       "componentId": "fan-housing",
@@ -296,7 +305,8 @@
       ],
       "unknowns": [
         "Exact alloy and casting marks are not established."
-      ]
+      ],
+      "inspectionId": "fan-housing"
     },
     {
       "componentId": "alternator",
@@ -309,7 +319,8 @@
       ],
       "unknowns": [
         "Internal windings and electrical circuit are outside this engine-mechanism study."
-      ]
+      ],
+      "inspectionId": "alternator"
     },
     {
       "componentId": "cooling-shroud",
@@ -322,7 +333,8 @@
       ],
       "unknowns": [
         "Duct contours and wall thickness are approximate; coating chemistry is unverified."
-      ]
+      ],
+      "inspectionId": "cooling-shroud"
     },
     {
       "componentId": "air-cleaner",
@@ -335,7 +347,8 @@
       ],
       "unknowns": [
         "Air-cleaner silhouette is less certain than the exposed engine; internal filter media is not reconstructed."
-      ]
+      ],
+      "inspectionId": "air-cleaner"
     },
     {
       "componentId": "carburetors",
@@ -348,7 +361,8 @@
       ],
       "unknowns": [
         "Jet passages, calibration, and fuel recirculation plumbing are not reproduced."
-      ]
+      ],
+      "inspectionId": "carburetors"
     },
     {
       "componentId": "intake-manifolds",
@@ -361,7 +375,8 @@
       ],
       "unknowns": [
         "Runner bends and wall thickness are reference-fitted."
-      ]
+      ],
+      "inspectionId": "intake-manifolds"
     },
     {
       "componentId": "heads-left",
@@ -374,7 +389,8 @@
       ],
       "unknowns": [
         "Combustion-chamber contours and port cross-sections are simplified."
-      ]
+      ],
+      "inspectionId": "cylinder-heads"
     },
     {
       "componentId": "heads-right",
@@ -387,7 +403,8 @@
       ],
       "unknowns": [
         "Bank spacing is illustrative, not a workshop measurement."
-      ]
+      ],
+      "inspectionId": "cylinder-heads"
     },
     {
       "componentId": "cylinders-left",
@@ -400,7 +417,8 @@
       ],
       "unknowns": [
         "Fin count/spacing and cylinder metallurgy are visual approximations, not a verified part specification."
-      ]
+      ],
+      "inspectionId": "cylinder-banks"
     },
     {
       "componentId": "cylinders-right",
@@ -413,12 +431,13 @@
       ],
       "unknowns": [
         "This is a static assembly pose, not a running-engine simulation."
-      ]
+      ],
+      "inspectionId": "cylinder-banks"
     },
     {
       "componentId": "pistons",
       "visualStatus": "self-reviewed; not fidelity-approved",
-      "sheet": "review/surfaces/sheet-4.png",
+      "sheet": "review/surfaces/sheet-3.png",
       "views": [
         "front",
         "reverse",
@@ -426,12 +445,13 @@
       ],
       "unknowns": [
         "Crown profiles, ring gaps, pin-bore details and clearances are approximate."
-      ]
+      ],
+      "inspectionId": "pistons"
     },
     {
       "componentId": "connecting-rods",
       "visualStatus": "self-reviewed; not fidelity-approved",
-      "sheet": "review/surfaces/sheet-4.png",
+      "sheet": "review/surfaces/sheet-3.png",
       "views": [
         "front",
         "reverse",
@@ -439,7 +459,8 @@
       ],
       "unknowns": [
         "Forging contours and bearing clearances are simplified."
-      ]
+      ],
+      "inspectionId": "connecting-rods"
     },
     {
       "componentId": "crankshaft",
@@ -452,7 +473,8 @@
       ],
       "unknowns": [
         "Throw layout is educational; balance, firing order and dynamic loads are not simulated."
-      ]
+      ],
+      "inspectionId": "crankshaft"
     },
     {
       "componentId": "flywheel",
@@ -465,25 +487,27 @@
       ],
       "unknowns": [
         "Exact tooth count and clutch interface dimensions are illustrative."
-      ]
+      ],
+      "inspectionId": "flywheel"
     },
     {
       "componentId": "timing-covers",
       "visualStatus": "self-reviewed; not fidelity-approved",
-      "sheet": "review/surfaces/sheet-5.png",
+      "sheet": "review/surfaces/sheet-4.png",
       "views": [
         "front",
         "reverse",
         "oblique"
       ],
       "unknowns": [
-        "Contours and sealing lips are fitted to the diagram, not exact CAD."
-      ]
+        "Contours, raised ribs and bosses follow catalogue illustration 103-10; dimensions and exact aluminum alloy remain unverified."
+      ],
+      "inspectionId": "timing-covers"
     },
     {
       "componentId": "timing-chains",
       "visualStatus": "self-reviewed; not fidelity-approved",
-      "sheet": "review/surfaces/sheet-5.png",
+      "sheet": "review/surfaces/sheet-4.png",
       "views": [
         "front",
         "reverse",
@@ -491,7 +515,8 @@
       ],
       "unknowns": [
         "Chain pitch, tensioner geometry and exact ratio are simplified; not a timing-setting reference."
-      ]
+      ],
+      "inspectionId": "timing-chains"
     },
     {
       "componentId": "valve-covers",
@@ -504,7 +529,8 @@
       ],
       "unknowns": [
         "Rib spacing, markings and gasket profiles are approximate."
-      ]
+      ],
+      "inspectionId": "valve-covers"
     },
     {
       "componentId": "cam-carriers",
@@ -517,12 +543,13 @@
       ],
       "unknowns": [
         "Carrier castings are simplified and not fully oil-tight solids."
-      ]
+      ],
+      "inspectionId": "cam-carriers"
     },
     {
       "componentId": "camshafts",
       "visualStatus": "self-reviewed; not fidelity-approved",
-      "sheet": "review/surfaces/sheet-6.png",
+      "sheet": "review/surfaces/sheet-5.png",
       "views": [
         "front",
         "reverse",
@@ -530,12 +557,13 @@
       ],
       "unknowns": [
         "Lobe lift and phase are illustrative rather than verified 901/01 cam profiles."
-      ]
+      ],
+      "inspectionId": "camshafts"
     },
     {
       "componentId": "valvetrain",
       "visualStatus": "self-reviewed; not fidelity-approved",
-      "sheet": "review/surfaces/sheet-6.png",
+      "sheet": "review/surfaces/sheet-5.png",
       "views": [
         "front",
         "reverse",
@@ -543,7 +571,8 @@
       ],
       "unknowns": [
         "Exact rocker ratios and valve angles are not measured."
-      ]
+      ],
+      "inspectionId": "valvetrain"
     },
     {
       "componentId": "ignition",
@@ -556,7 +585,8 @@
       ],
       "unknowns": [
         "Wire routing and plug details are representative; no exact firing-order claim."
-      ]
+      ],
+      "inspectionId": "ignition"
     },
     {
       "componentId": "crankcase-left",
@@ -569,12 +599,13 @@
       ],
       "unknowns": [
         "Casting shape and material grade are not established from measured factory data."
-      ]
+      ],
+      "inspectionId": "crankcase"
     },
     {
       "componentId": "crankcase-right",
       "visualStatus": "self-reviewed; not fidelity-approved",
-      "sheet": "review/surfaces/sheet-7.png",
+      "sheet": "review/surfaces/sheet-6.png",
       "views": [
         "front",
         "reverse",
@@ -582,12 +613,13 @@
       ],
       "unknowns": [
         "Sealing geometry and oil passages are simplified."
-      ]
+      ],
+      "inspectionId": "crankcase"
     },
     {
       "componentId": "oil-pump",
       "visualStatus": "self-reviewed; not fidelity-approved",
-      "sheet": "review/surfaces/sheet-7.png",
+      "sheet": "review/surfaces/sheet-6.png",
       "views": [
         "front",
         "reverse",
@@ -595,12 +627,13 @@
       ],
       "unknowns": [
         "The permanent housing cutaway is illustrative; gear dimensions and hidden passages are schematic. The external oil tank is vehicle-mounted and not modeled."
-      ]
+      ],
+      "inspectionId": "oil-pump"
     },
     {
       "componentId": "oil-cooler",
       "visualStatus": "self-reviewed; not fidelity-approved",
-      "sheet": "review/surfaces/sheet-7.png",
+      "sheet": "review/surfaces/sheet-6.png",
       "views": [
         "front",
         "reverse",
@@ -608,7 +641,8 @@
       ],
       "unknowns": [
         "Internal flow channels and exact fin pitch are unverified."
-      ]
+      ],
+      "inspectionId": "oil-cooler"
     },
     {
       "componentId": "oil-lines",
@@ -621,12 +655,13 @@
       ],
       "unknowns": [
         "Routing is representative; the vehicle reservoir and filter are outside the model boundary."
-      ]
+      ],
+      "inspectionId": "oil-lines"
     },
     {
       "componentId": "exhaust",
       "visualStatus": "self-reviewed; not fidelity-approved",
-      "sheet": "review/surfaces/sheet-8.png",
+      "sheet": "review/surfaces/sheet-7.png",
       "views": [
         "front",
         "reverse",
@@ -634,7 +669,8 @@
       ],
       "unknowns": [
         "Heat exchangers, muffler baffles and exhaust wall thickness are simplified."
-      ]
+      ],
+      "inspectionId": "exhaust"
     }
   ],
   "remaining": [
@@ -642,7 +678,14 @@
     "No independent visual approval or learner validation.",
     "Complex curved/directional surfaces may need custom UV unwraps; box projection is a starting point.",
     "Case halves, carriers, alternator and air cleaner remain simplified; textures cannot recover missing casting contours and recesses.",
-    "Neutral illumination can make broad cast faces look too uniform; reference-specific surface variation and cavity shading need further work.",
-    "Exact alloy, coating, wear and restoration state are not established for every surface."
+    "Exact alloy, coating, wear and restoration state are not established for every surface.",
+    "Timing-cover reverse recesses and sealing detail remain simplified; broad planar faces still lack measured surface variation.",
+    "Paired parts can occlude one another at some orbit angles; full turns and opposite-side views reveal both. No swept collision certification."
+  ],
+  "visualFindings": [
+    "Front cover grain is visible without the rejected coarse stone appearance; ribs and perimeter now remain attached to the casting.",
+    "Metal reflections change across the saved angles; coated shroud and rubber remain distinct.",
+    "Compact head/cylinder pairs are readable at phone width. Crankcase halves show their mating relationship in one view.",
+    "Cast faces and rear timing-cover geometry remain simplified and are not awarded a reference-fidelity pass."
   ]
 }

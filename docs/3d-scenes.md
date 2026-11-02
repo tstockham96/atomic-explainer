@@ -34,6 +34,28 @@ npm run explode -- --from-spec ./my-object/spec.json --out ./my-object/site
 
 Local model paths must remain inside the spec directory. The exporter copies self-contained GLBs into the output. External HTTP model URLs require the host to permit cross-origin requests and are not bundled for offline use. Assets must carry a license that allows your intended redistribution; include their attribution with the explainer.
 
+## Inspect true pairs together
+
+Use `scene3d.inspectionGroups` to present a researched pair or repeated functional set once:
+
+```json
+{
+  "inspectionGroups": [{
+    "id": "crankcase",
+    "name": "Crankcase halves",
+    "componentIds": ["crankcase-left", "crankcase-right"],
+    "description": "These mating castings support the crankshaft and close the crankcase.",
+    "material": "Cast light alloy · machined mating faces"
+  }]
+}
+```
+
+Keep both entries in `components`, `scene3d.parts`, the GLB and the requirements inventory. The group replaces their separate tour stops, selector options and anatomy cards, starting at the first member's position in the tour. All members stay visible during one shared 360-degree orbit; the camera fits their combined bounds using the first member's `shot.from` and minimum distance. Optional `gap` packs members closer along their existing separation axis during focus (in normalized scene units), then reversibly restores their exploded spacing. Use it when a pair is otherwise too widely separated to read. Each still explodes and returns to its own assembly position. Member IDs remain valid inspection targets. IDs and group membership must be unique.
+
+Author a combined explanation that preserves meaningful differences. Group from function and research, never just a left/right name match. Inspect separation, occlusion and readability at phone and desktop widths; a fitted bounding box cannot prove both surfaces are readable.
+
+`scene3d.lighting: "product"` provides neutral softboxes with contrasting reflection fields for authored PBR surfaces. This is an alternative presentation rig, not automatic material calibration. Preserve imported maps; do not change glass opacity or roughness during inspection.
+
 ## Current limits
 
 - Per-part orbit directions are authored in `shot`. The entry/hold/return pacing is still shared; arbitrary camera splines and unequal chapter durations are not yet exposed.

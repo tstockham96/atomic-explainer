@@ -130,8 +130,21 @@ export function buildEngine() {
   gear(chains,16,5,9,[s*105,14,z],18)
   cyl(chains,11,30,[s*105,-29,z],m.cast,[0,1,0]);cyl(chains,5,31,[s*105,-1,z],m.machined,[0,1,0])
   const contour:[number,number][]=[[s*5,-95],[s*5,-10],[s*255,66],[s*325,49],[s*345,10],[s*336,-60],[s*270,-77]]
-  const mesh=contourPlate(contour,9,m.cast,[],4);add(chaincase,mesh,[0,0,z+15]);
-  for(const [x,y]of contour)bolt(chaincase,[x,y,z+26],[0,0,1],4)
+  // Catalogue 103-10: raised perimeter, reinforcing rib and separate bosses.
+  // The casting is a shallow lid, not a featureless extruded polygon.
+  const mesh=contourPlate(contour,5,m.cast,[],2);add(chaincase,mesh,[0,0,z+15]);
+  const rimPath=new T.CurvePath<T.Vector3>()
+  for(let i=0;i<contour.length;i++){const a=contour[i]!,b=contour[(i+1)%contour.length]!;rimPath.add(new T.LineCurve3(new T.Vector3(a[0],a[1],z+20),new T.Vector3(b[0],b[1],z+20)))}
+  // Follow the lid boundary exactly: a Catmull-Rom spline overshoots the
+  // long straight edges and falsely creates a detached wire above the casting.
+  chaincase.add(new T.Mesh(new T.TubeGeometry(rimPath,160,2.6,10,true),m.cast))
+  line(chaincase,[s*20,-30,z+22],[s*326,23,z+22],3.2,m.cast)
+  const bosses:V[]=[[s*15,-83,z+21],[s*15,-15,z+21],[s*115,16,z+21],[s*232,53,z+21],[s*319,42,z+21],[s*337,1,z+21],[s*328,-54,z+21],[s*245,-72,z+21],[s*135,-82,z+21]]
+  for(const p of bosses){ring(chaincase,8,3,6,p,m.cast);bolt(chaincase,[p[0],p[1],z+26],[0,0,1],5)}
+  // Raised circular boss and short reinforcing web on each cover; positioning
+  // follows the diagram, not a claim of a measured oil-passage layout.
+  ring(chaincase,12,5,5,[s*185,-31,z+23],m.cast);cyl(chaincase,5,1,[s*185,-31,z+26],m.steel)
+  line(chaincase,[s*115,-73,z+21],[s*124,-22,z+21],3.5,m.cast)
  }
  const fanHousing=group('fan-housing'),fan=group('fan'),alternator=group('alternator'),drive=group('fan-drive'),shroud=group('cooling-shroud')
  ring(fanHousing,125,118,58,[0,155,216],m.cast);ring(fanHousing,128,118,5,[0,155,247],m.machined)

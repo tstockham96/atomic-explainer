@@ -121,3 +121,10 @@ PLAYWRIGHT_CHANNEL=chrome node tools/evals/capture-materials.mjs \
 ```
 
 This checks the report's model hash, captures front/reverse/oblique views of every component, creates labeled contact sheets, and records browser errors. It samples alternate lighting on one component, explicitly recorded separately. Inspect the sheets against references; capture completion leaves visual verdicts pending.
+
+
+### Paired inspections and cast-cover follow-up
+
+The engine retains 29 physical assemblies and now presents 26 inspection stories. Tests check both members of each declared pair, union framing through five orbit positions at two screen ratios, single navigation/anatomy entries, combined research/uncertainty and restoration of all physical transforms. The original requirements inventory is unchanged. Name similarity alone never triggers grouping.
+
+The material follow-up adds contrasting neutral reflections and restrained multiscale casting relief. The timing covers now include diagram-supported perimeter lips, ribs and bosses. Inspect them at assembly scale and across a full turn: white-plastic and over-grained stone appearances both fail regardless of material-map completeness. All 26 stops are recaptured at three angles in the latest engine surface-review record. Paired views must retain both members; edge-on occlusion during an orbit is distinct from removing a member. These are self-reviewed improvements, not an independent fidelity pass.

@@ -1,6 +1,7 @@
 import { inspectionTurn } from './optics.ts'
 import { inspectionDistance } from './inspection.ts'
 import * as THREE from "three"
+import {modelStops,stopParts,stopBounds} from './model.ts'
 import type { ExplodableModel } from "./model.ts"
 import { sampleScene, ease } from "./timeline.ts"
 
@@ -29,7 +30,7 @@ export function frameBox(box: THREE.Box3, direction: THREE.Vector3, aspect: numb
 }
 
 export function poseModel(model: ExplodableModel, progress: number) {
-  const sample = sampleScene(progress, model.parts.length)
+  const sample = sampleScene(progress, modelStops(model).length)
   // One assembled turn; parts retain their orientation when the assembly opens.
   model.root.rotation.set(-0.04, sample.turn * Math.PI * 2, -0.10)
   model.root.position.set(0, 0, 0)
@@ -42,8 +43,26 @@ export function poseModel(model: ExplodableModel, progress: number) {
   model.overviewBounds = new THREE.Box3().setFromObject(model.root)
   if (sample.index >= 0 && sample.focus > 0) {
     const clearance = model.overviewBounds.getSize(new THREE.Vector3()).length() * 2.5
+    const selected=new Set(stopParts(model,sample.index))
+    const gap=modelStops(model)[sample.index]?.gap
+    if(gap!==undefined&&selected.size>1){
+      // Pack an authored set along its existing separation axis. Positions are
+      // derived afresh from opened poses each frame, so reverse scroll retraces
+      // exactly and the original assembly inventory/offsets are untouched.
+      const members=[...selected],axis=members.at(-1)!.opened.clone().sub(members[0]!.opened).normalize()
+      if(axis.lengthSq()<.5)axis.set(1,0,0)
+      const worldAxis=axis.clone().applyQuaternion(model.root.quaternion)
+      const spans=members.map(part=>{
+        const points=corners(new THREE.Box3().setFromObject(part.group)).map(p=>p.dot(worldAxis))
+        const lo=Math.min(...points),hi=Math.max(...points)
+        return {part,center:(lo+hi)/2,width:hi-lo}
+      }).sort((a,b)=>a.center-b.center)
+      const length=spans.reduce((sum,s)=>sum+s.width,0)+gap*(spans.length-1)
+      let cursor=spans.reduce((sum,s)=>sum+s.center,0)/spans.length-length/2
+      for(const s of spans){s.part.group.position.addScaledVector(axis,(cursor+s.width/2-s.center)*sample.focus);cursor+=s.width+gap}
+    }
     for (let i = 0; i < model.parts.length; i++) {
-      if (i !== sample.index) model.parts[i]!.group.position.y -= clearance * sample.focus
+      if (!selected.has(model.parts[i]!)) model.parts[i]!.group.position.y -= clearance * sample.focus
     }
     model.root.updateMatrixWorld(true)
   }
@@ -51,16 +70,16 @@ export function poseModel(model: ExplodableModel, progress: number) {
 }
 
 export function cameraShot(model: ExplodableModel, progress: number, aspect: number) {
-  const sample = sampleScene(progress, model.parts.length)
+  const sample = sampleScene(progress, modelStops(model).length)
   const narrow = aspect < 0.85
   const direction = hero.clone().lerp(overview, ease(sample.separation)).normalize()
   const bounds = model.overviewBounds ?? new THREE.Box3().setFromObject(model.root)
   const shot = frameBox(bounds, direction, aspect, narrow ? [0.85, THREE.MathUtils.lerp(.40, .55, sample.separation)] : [0.85, THREE.MathUtils.lerp(.52, .68, sample.separation)])
   const lift = shot.up.clone().multiplyScalar(-shot.distance * Math.tan(THREE.MathUtils.degToRad(STORY_FOV / 2)) * .16 * (1 - sample.separation))
   shot.target.add(lift); shot.position.add(lift)
-  const selected = model.parts[sample.index]
+  const selected = stopParts(model,sample.index)[0]
   if (selected && sample.focus > 0) {
-    const partBox = new THREE.Box3().setFromObject(selected.group)
+    const partBox = stopBounds(model,sample.index)
     const from = new THREE.Vector3(...(selected.shot?.from ?? [0.55, 0.15, 1]))
     const orbit = from.normalize().applyAxisAngle(up, inspectionTurn(sample.local,.28,.72))
     const coverage: [number, number] = narrow ? [0.76, 0.39] : [0.49, 0.72]

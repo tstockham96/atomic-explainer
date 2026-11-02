@@ -9,7 +9,7 @@ import { frameFile, sequenceReady } from "../spec/frames.ts"
 import { focusTour } from "../spec/camera.ts"
 import { asset } from "./asset.ts"
 import { Reel, type ReelHandle } from "./Reel.tsx"
-import { scenePartIds } from "../spec/scene3d.ts"
+import { inspectionStops, storyComponents } from "../spec/scene3d.ts"
 import { ObjectScene } from "./ObjectScene.tsx"
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
@@ -34,7 +34,7 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
     { progress: 0 }, { progress: 1, ease: "none", onUpdate: () => api.current?.setProgress(driver.current.progress) },
   ] as [gsap.TweenVars, gsap.TweenVars] }), [])
   const callbacks = useMemo(() => ({ onRefresh: (self: ScrollTrigger) => api.current?.setProgress(self.progress) }), [])
-  const tourLength = spec.scene3d ? scenePartIds(spec).length : focusTour(spec).length
+  const tourLength = spec.scene3d ? inspectionStops(spec).length : focusTour(spec).length
 
   useGSAP(() => {
     const lenis = new Lenis({ lerp: 0.09, smoothWheel: true, autoRaf: false, anchors: true })
@@ -64,16 +64,17 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
 }
 
 function Sheets({ spec, images = {} }: { spec: ExplodeSpec; images?: Record<string, string> }) {
+  const components=storyComponents(spec)
   return (
     <>
       <section id="parts" className="sheet">
-        <div className="section-rule"><span>01 / Anatomy</span><span>{String(spec.components.length).padStart(2, "0")} individual stories</span></div>
+        <div className="section-rule"><span>01 / Anatomy</span><span>{String(components.length).padStart(2, "0")} individual stories</span></div>
         <div className="sheet-head">
           <h2>A whole world.<br /><em>In every part.</em></h2>
           <p>Look a little closer. Discover the materials, processes, and small decisions behind each component.</p>
         </div>
         <ol className="part-grid">
-          {spec.components.map((component, index) => (
+          {components.map((component, index) => (
             <li key={component.id} id={`detail-${component.id}`}>
               <div className="part-image">
                 <span className="part-number">{String(index + 1).padStart(2, "0")}</span>

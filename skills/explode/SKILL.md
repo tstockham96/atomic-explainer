@@ -83,6 +83,8 @@ Keep source provenance and the component inventory beside the model. Use a self-
 
 Author `spec.json` using `docs/3d-scenes.md` and `src/spec/schema.ts`. Map named nodes to researched components. Set appropriate separation axes, spacing, and per-part camera directions. The viewer normalizes the longest assembled dimension to seven units. Author offsets in those normalized units; do not assume source millimeters survive normalization.
 
+Identify true pairs and repeated functional sets during research. Declare `scene3d.inspectionGroups` for matching halves or banks so they share one full turn, combined explanation and anatomy entry. Preserve every physical node and requirement. Do not infer pairing from names alone or merge components with different functions. Inspect both members together at narrow and wide sizes and through the full orbit; adjust separation and the first member's starting view when they obscure each other.
+
 Keep the source GLB under `models/` beside the spec. From the repository:
 
 ```sh

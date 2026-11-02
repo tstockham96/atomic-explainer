@@ -8,6 +8,7 @@ import {glbComponentIds} from '../src/evals/inventory.ts'
 import {auditCompleteness} from '../src/pipeline/completeness.ts'
 import {prepareModel} from '../src/viewer/three/loadModel.ts'
 import {poseModel,cameraShot,corners,STORY_FOV} from '../src/viewer/three/choreography.ts'
+import {modelStops,stopBounds} from '../src/viewer/three/model.ts'
 import {THREE_TIMING} from '../src/viewer/three/timeline.ts'
 const base='examples/porsche-911-engine/'
 const spec=explodeSpecSchema.parse(JSON.parse(readFileSync(base+'research.json','utf8')))
@@ -50,12 +51,12 @@ describe('Porsche engine assembly',()=>{
  it('fits every engine part through its complete inspection turn and seats it at the end',()=>{
   const model=prepareModel(spec,{scene:buildEngine(),animations:[]})
   try {
-   for(const aspect of [1440/900,390/844])for(let i=0;i<model.parts.length;i++)for(const local of [.28,.39,.5,.61,.72]){
-    const p=THREE_TIMING.inspect+(i+local)*(THREE_TIMING.reassemble-THREE_TIMING.inspect)/model.parts.length
+   for(const aspect of [1440/900,390/844])for(let i=0;i<modelStops(model).length;i++)for(const local of [.28,.39,.5,.61,.72]){
+    const p=THREE_TIMING.inspect+(i+local)*(THREE_TIMING.reassemble-THREE_TIMING.inspect)/modelStops(model).length
     poseModel(model,p);const shot=cameraShot(model,p,aspect)
     const camera=new T.PerspectiveCamera(STORY_FOV,aspect,.05,300);camera.position.copy(shot.position);camera.lookAt(shot.target);camera.updateMatrixWorld()
-    const points=corners(new T.Box3().setFromObject(model.parts[i]!.group)).map(p=>p.project(camera))
-    expect(points.every(p=>Math.abs(p.x)<1&&Math.abs(p.y)<1),model.parts[i]!.id).toBe(true)
+    const points=corners(stopBounds(model,i)).map(p=>p.project(camera))
+    expect(points.every(p=>Math.abs(p.x)<1&&Math.abs(p.y)<1),modelStops(model)[i]!.id).toBe(true)
    }
    poseModel(model,1)
    model.parts.forEach(p=>expect(p.group.position.distanceTo(p.home)).toBeLessThan(1e-9))

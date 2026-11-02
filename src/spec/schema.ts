@@ -102,7 +102,13 @@ export const explodeSpecSchema = z.object({
     z.object({
       kind: z.literal("gltf"),
       url: z.string().min(1),
-      lighting: z.enum(['studio', 'neutral']).optional(),
+      lighting: z.enum(['studio', 'neutral', 'product']).optional(),
+      inspectionGroups: z.array(z.object({
+        id: z.string().min(1), name: z.string().min(1),
+        componentIds: z.array(z.string().min(1)).min(2),
+        description: z.string().min(1), material: z.string().min(1),
+        gap: z.number().nonnegative().optional(),
+      })).optional(),
       requireCompleteMapping: z.boolean().optional(),
       omittedNodes: z.array(z.object({ node: z.string().min(1), reason: z.string().min(1) })).optional(),
       parts: z.array(z.object({
@@ -123,6 +129,16 @@ export const explodeSpecSchema = z.object({
           to: z.tuple([z.number(), z.number(), z.number()]),
         }).optional(),
       }).refine((part) => Boolean(part.node) !== Boolean(part.nodes), "Supply either node or nodes for each part.")).min(1),
+    }).superRefine((scene,ctx)=>{
+      const physical=new Set(scene.parts.map(p=>p.componentId)),seen=new Set<string>(),ids=new Set<string>()
+      for(const g of scene.inspectionGroups??[]){
+        if(physical.has(g.id)||ids.has(g.id))ctx.addIssue({code:'custom',message:'Inspection group IDs must be unique and distinct from physical parts'})
+        ids.add(g.id)
+        for(const id of g.componentIds){
+          if(!physical.has(id)||seen.has(id))ctx.addIssue({code:'custom',message:'Inspection groups must reference distinct mapped parts'})
+          seen.add(id)
+        }
+      }
     }),
   ]).optional(),
   /** Camera targets on the final exploded frame. Coordinates are normalized image positions. */

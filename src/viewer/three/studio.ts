@@ -50,3 +50,18 @@ export function createNeutralEnvironment(renderer: THREE.WebGLRenderer) {
   room.dispose(); generator.dispose()
   return environment
 }
+
+/** Neutral product photography with dark reflection fields between softboxes.
+ * Metals need reflected contrast, not a brighter diffuse fill. This rig is
+ * shared by evidence-authored products; imported calibrated assets can retain
+ * their neutral RoomEnvironment. No colored light is baked into the material. */
+export function createProductEnvironment(renderer: THREE.WebGLRenderer) {
+  const room=new THREE.Scene();room.background=new THREE.Color('#676d72')
+  const panels:THREE.Mesh[]=[]
+  for(const [x,y,z,w,h,power] of [[-5,5,4,4,8,4],[3,2,6,5,7,2.8],[0,6,-4,5,3,3.5],[-4,-2,-4,3,6,2.5]]){
+    const panel=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:new THREE.Color().setScalar(power),side:THREE.DoubleSide}))
+    panel.position.set(x,y,z);panel.lookAt(0,0,0);room.add(panel);panels.push(panel)
+  }
+  const generator=new THREE.PMREMGenerator(renderer),map=generator.fromScene(room,.015)
+  generator.dispose();panels.forEach(p=>{p.geometry.dispose();(p.material as THREE.Material).dispose()});return map
+}

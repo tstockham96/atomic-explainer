@@ -16,7 +16,7 @@
   "studio": "light",
   "visualMode": "mixed",
   "modelNotice": "1965 flat-six · reference-guided reconstruction · dimensions & hidden details approximate",
-  "artNote": "Original geometry authored for this open-source study from period diagrams and inspected engine photographs. The study includes 29 explorable assemblies. Casting contours, ports, tolerances, finishes and small hardware are approximate; it is not a repair or assembly guide. The external dry-sump tank, fuel supply, vehicle wiring, clutch/transmission and complete heat-exchanger system are outside the engine model. No downloaded Porsche or marketplace geometry is redistributed. Material appearance is inferred where an exact alloy or coating has not been established.",
+  "artNote": "Original geometry authored for this open-source study from period diagrams and inspected engine photographs. The study includes 29 physical assemblies presented in 26 inspection stories; matching crankcase halves, heads and cylinder banks share their views. Casting contours, ports, tolerances, finishes and small hardware are approximate; it is not a repair or assembly guide. The external dry-sump tank, fuel supply, vehicle wiring, clutch/transmission and complete heat-exchanger system are outside the engine model. No downloaded Porsche or marketplace geometry is redistributed. Material appearance is inferred where an exact alloy or coating has not been established.",
   "closing": "Every breath becomes motion. Every part comes home.",
   "facts": [
     {
@@ -41,6 +41,10 @@
     }
   ],
   "sources": [
+    {
+      "title": "MS Road and Race: original 1965 aluminum chain-box covers",
+      "url": "https://msroadrace.com/Porsche-911-SWB-65-911-Aluminium-Chain-Box-Covers-90110506101-90110506201"
+    },
     {
       "title": "Porsche Classic 911/912 parts catalogue, MY1965–69",
       "url": "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG"
@@ -371,10 +375,10 @@
       "id": "timing-covers",
       "name": "Timing covers",
       "order": 16,
-      "material": "Fine cast-metal grain · machined fasteners",
-      "howItsMade": "The front covers enclose the timing drive and retain lubricant. Moving them away reveals the chain route between the central drive and the two camshafts. Two shaped perimeter castings with radiused edges and bolt heads. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
+      "material": "Cast aluminum · granular surface · machined fasteners",
+      "howItsMade": "The front covers enclose the timing drive and retain lubricant. Moving them away reveals the chain route between the central drive and the two camshafts. Paired cast lids with raised perimeter lips, diagonal reinforcing ribs, circular bosses and separate perimeter fasteners. Manufacturing representation is illustrative: cast forms receive machined interfaces, while shafts, fasteners and sealing surfaces have distinct finishes.",
       "funFacts": [
-        "Contours and sealing lips are fitted to the diagram, not exact CAD."
+        "Contours, raised ribs and bosses follow catalogue illustration 103-10; dimensions and exact aluminum alloy remain unverified."
       ],
       "figureLabel": "Timing · Reference-guided geometry",
       "evidence": {
@@ -383,7 +387,7 @@
           "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
           "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
         ],
-        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Contours and sealing lips are fitted to the diagram, not exact CAD."
+        "note": "Function follows the documented architecture; dimensions and detailed contours are inferred. Contours, raised ribs and bosses follow catalogue illustration 103-10; dimensions and exact aluminum alloy remain unverified."
       }
     },
     {
@@ -627,12 +631,21 @@
     ],
     "references": [
       {
+        "id": "cover-material",
+        "title": "MS Road and Race: original 1965 aluminum chain-box covers",
+        "url": "https://msroadrace.com/Porsche-911-SWB-65-911-Aluminium-Chain-Box-Covers-90110506101-90110506201",
+        "kind": "specification",
+        "scope": "exact-model",
+        "observation": "Supplier listing identifies used early 911 chain housings/covers as aluminum. Text evidence; product photos were not inspected.",
+        "limitations": "Supplier identification, not a factory alloy specification. Do not infer alloy grade or original surface treatment."
+      },
+      {
         "id": "parts",
         "title": "Porsche Classic 911/912 parts catalogue, MY1965–69",
         "url": "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
         "kind": "manual",
         "scope": "family",
-        "observation": "Inspected diagrams 102-05 (crank/rods/flywheel), 103-00 (heads/cylinders/pistons), 103-15 (cam/rocker/chain/tensioner), 105-00 (fan/alternator/belt) and case diagram. Text distinguishes 911 from 912 and later variants.",
+        "observation": "Inspected diagrams 102-05 (crank/rods/flywheel), 103-00 (heads/cylinders/pistons), 103-10 (timing-cover raised borders, diagonal ribs and bolt bosses; PDF page 69), 103-15 (cam/rocker/chain/tensioner), 105-00 (fan/alternator/belt) and case diagram. Text distinguishes 911 from 912 and later variants.",
         "limitations": "Exploded diagrams are not measured drawings; catalogue spans several variants. Never use 912 parts as flat-six evidence."
       },
       {
@@ -1446,6 +1459,14 @@
         "function": "The front covers enclose the timing drive and retain lubricant. Moving them away reveals the chain route between the central drive and the two camshafts.",
         "claims": [
           {
+            "statement": "The early timing covers are cast aluminum; exact alloy and original treatment are unverified.",
+            "basis": "inferred",
+            "referenceIds": [
+              "parts",
+              "cover-material"
+            ]
+          },
+          {
             "statement": "The front covers enclose the timing drive and retain lubricant. Moving them away reveals the chain route between the central drive and the two camshafts.",
             "basis": "inferred",
             "referenceIds": [
@@ -1454,7 +1475,7 @@
             ]
           },
           {
-            "statement": "Two shaped perimeter castings with radiused edges and bolt heads.",
+            "statement": "Paired cast lids with raised perimeter lips, diagonal reinforcing ribs, circular bosses and separate perimeter fasteners.",
             "basis": "inferred",
             "referenceIds": [
               "parts",
@@ -1470,8 +1491,8 @@
             "original-photo",
             "restored-photo"
           ],
-          "shape": "Two shaped perimeter castings with radiused edges and bolt heads.",
-          "materialBehavior": "Fine cast-metal grain · machined fasteners. Shared neutral environment, physical roughness and geometry-based highlights.",
+          "shape": "Paired cast lids with raised perimeter lips, diagonal reinforcing ribs, circular bosses and separate perimeter fasteners.",
+          "materialBehavior": "Cast aluminum · granular surface · machined fasteners. Shared neutral environment, physical roughness and geometry-based highlights.",
           "hiddenSurfaces": "Open bores, back surfaces and part thickness authored independently. No photographic shadows or neighboring mechanisms baked into surfaces.",
           "exclude": [
             "Photo lighting",
@@ -1486,7 +1507,7 @@
           ]
         },
         "unknowns": [
-          "Contours and sealing lips are fitted to the diagram, not exact CAD."
+          "Contours, raised ribs and bosses follow catalogue illustration 103-10; dimensions and exact aluminum alloy remain unverified."
         ]
       },
       {
@@ -2218,7 +2239,41 @@
   "scene3d": {
     "kind": "gltf",
     "url": "models/engine.glb",
-    "lighting": "neutral",
+    "lighting": "product",
+    "inspectionGroups": [
+      {
+        "id": "cylinder-heads",
+        "gap": 0.3,
+        "name": "Cylinder heads",
+        "componentIds": [
+          "heads-left",
+          "heads-right"
+        ],
+        "description": "Both banks close their cylinders with finned heads. Intake and exhaust valves control each chamber; the fins transfer heat into the cooling airflow.",
+        "material": "Cast light alloy · machined valve seats"
+      },
+      {
+        "id": "cylinder-banks",
+        "gap": 0.3,
+        "name": "Cylinder banks",
+        "componentIds": [
+          "cylinders-left",
+          "cylinders-right"
+        ],
+        "description": "Three cylinders on each side form the opposed layout. The paired banks guide the six pistons, while their external fins shed heat to the fan-driven airflow.",
+        "material": "Dark finned metal · bright mounting hardware"
+      },
+      {
+        "id": "crankcase",
+        "name": "Crankcase halves",
+        "componentIds": [
+          "crankcase-left",
+          "crankcase-right"
+        ],
+        "description": "These two mating castings form one crankcase. Their bearing supports align around the crankshaft; their machined joint closes the structure beneath both cylinder banks.",
+        "material": "Cast light alloy · machined mating faces"
+      }
+    ],
     "requireCompleteMapping": true,
     "parts": [
       {
@@ -2714,9 +2769,9 @@
         ],
         "shot": {
           "from": [
-            -1,
-            0.3,
-            0.5
+            0.65,
+            0.7,
+            1
           ],
           "to": [
             -0.8,

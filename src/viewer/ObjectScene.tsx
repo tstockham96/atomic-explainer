@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import type { ExplodeSpec } from "../spec/schema.ts"
 import type { ReelHandle } from "./Reel.tsx"
 import { windowOpacity } from "../spec/film.ts"
-import { scenePartIds } from "../spec/scene3d.ts"
+import { inspectionStops, storyComponents } from "../spec/scene3d.ts"
 import { componentLesson } from "./three/learning.ts"
 import { THREE_TIMING, sampleScene } from "./three/timeline.ts"
 import type { Atmosphere, SceneHandle } from "./three/scene.ts"
@@ -23,8 +23,9 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
   const [ready, setReady] = useState(false)
   const [selected, setSelected] = useState("assembly")
   const [stage, setStage] = useState("01 / 04 · Rotate")
-  const ids = scenePartIds(spec)
-  const components = ids.map((id) => spec.components.find((part) => part.id === id))
+  const stops = inspectionStops(spec)
+  const ids = stops.map(s=>s.id)
+  const components = storyComponents(spec)
   const update = (value: number) => {
     progress.current = value
     handle.current?.setProgress(value)
@@ -79,7 +80,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
       scene.setProgress(progress.current)
       setReady(true)
       if (new URLSearchParams(window.location.search).has('eval')) window.__explodeAssemblyReview = {
-        inspect: (id, local = .5) => { const i = ids.indexOf(id); updateRef.current(i < 0 ? 0 : THREE_TIMING.inspect + (i + local) * (THREE_TIMING.reassemble - THREE_TIMING.inspect) / ids.length) },
+        inspect: (id, local = .5) => { const i = stops.findIndex(s=>s.id===id||s.componentIds.includes(id)); updateRef.current(i < 0 ? 0 : THREE_TIMING.inspect + (i + local) * (THREE_TIMING.reassemble - THREE_TIMING.inspect) / ids.length) },
         snapshot: scene.snapshot,
       }
     }).catch((reason: unknown) => {
@@ -128,7 +129,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
           <p className="mesh-counter">{String(index + 1).padStart(2, "0")} <span>/ {String(components.length).padStart(2, "0")}</span></p>
           <h2>{component.name}</h2>
           <p className="mesh-material">{component.material}</p>
-          <p className="mesh-description">{componentLesson(spec, component.id)?.overview}
+          <p className="mesh-description">{componentLesson(spec, component.id)?.overview ?? component.howItsMade}
           {componentLesson(spec, component.id)?.connections[0] && <span className="mesh-connection">{componentLesson(spec, component.id)?.connections[0]}</span>}</p>
         </div>
       ) : null)}

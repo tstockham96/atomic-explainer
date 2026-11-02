@@ -1,8 +1,9 @@
-import { sampleScene } from './timeline.ts'
+import {modelStops,stopParts,stopBounds} from './model.ts'
+import { sampleScene, THREE_TIMING } from './timeline.ts'
 import { configureRenderBudget } from './renderBudget.ts'
 import { isTransmitting, createOpticalBackdrop } from './optics.ts'
 import * as THREE from "three"
-import { createStudioEnvironment, createGlassEnvironment, createNeutralEnvironment } from "./studio.ts"
+import { createStudioEnvironment, createGlassEnvironment, createNeutralEnvironment, createProductEnvironment } from "./studio.ts"
 import { cameraShot, poseModel, frameBox, STORY_FOV, corners } from "./choreography.ts"
 import type { ExplodeSpec } from "../../spec/schema.ts"
 import { loadModel } from "./loadModel.ts"
@@ -12,7 +13,7 @@ export interface SceneHandle {
   setProgress: (value: number) => void
   setAtmosphere: (value: Atmosphere) => void
   setPaused: (value: boolean) => void
-  snapshot: () => { selected: string | null; allVisible: boolean; bounds: { left: number; right: number; top: number; bottom: number } | null; progress: number; separation: number; partPositions: Record<string, number[]> }
+  snapshot: () => { selected: string | null; selectedParts: string[]; allVisible: boolean; bounds: { left: number; right: number; top: number; bottom: number } | null; progress: number; separation: number; partPositions: Record<string, number[]> }
   capture: () => string
   dispose: () => void
 }
@@ -29,7 +30,8 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
   const camera = new THREE.PerspectiveCamera(STORY_FOV, 1, 0.05, 300)
   camera.position.set(0, 0.25, 16)
   const neutral = spec.scene3d?.kind === "gltf" && spec.scene3d.lighting === "neutral"
-  const environment = neutral ? createNeutralEnvironment(renderer) : createStudioEnvironment(renderer)
+  const product = spec.scene3d?.kind === 'gltf' && spec.scene3d.lighting === 'product'
+  const environment = product ? createProductEnvironment(renderer) : neutral ? createNeutralEnvironment(renderer) : createStudioEnvironment(renderer)
   scene.environment = environment.texture
   scene.environmentIntensity = 0.9
   scene.background = new THREE.Color('#e9eeeb')
@@ -42,7 +44,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
   rim.position.set(5, 1, -4)
   const fill = new THREE.DirectionalLight(0xffffff, 0.8)
   fill.position.set(-6, -3, 2)
-  if (!neutral) scene.add(sky, key, rim, fill)
+  if (!neutral && !product) scene.add(sky, key, rim, fill)
 
   let model
   try { model = await loadModel(spec) } catch (error) {
@@ -159,10 +161,10 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     camera.lookAt(look)
     camera.updateMatrixWorld()
     const showLabels = sample.separation > 0.995 && sample.focus < 0.015
-    if (onFrame) onFrame(model.parts.map((part) => {
-      const box = new THREE.Box3().setFromObject(part.group)
+    if (onFrame) onFrame(modelStops(model).map((stop,index) => {
+      const box = stopBounds(model,index)
       const projected = box.getCenter(new THREE.Vector3()).project(camera)
-      return { id: part.id, x: (projected.x + 1) * host.clientWidth / 2, y: (1 - projected.y) * host.clientHeight / 2, visible: showLabels && Math.abs(projected.x) < 0.95 && Math.abs(projected.y) < 0.85 }
+      return { id: stop.id, x: (projected.x + 1) * host.clientWidth / 2, y: (1 - projected.y) * host.clientHeight / 2, visible: showLabels && Math.abs(projected.x) < 0.95 && Math.abs(projected.y) < 0.85 }
     }))
     dirty = Math.abs(displayed-progress)>.00001 || Math.abs(night-(atmosphere==='midnight'?1:0))>.0001 || Math.abs(dragX)+Math.abs(dragY)>.0001 || camera.position.distanceTo(shot.position)>.0001 || look.distanceTo(shot.target)>.0001
     render()
@@ -173,12 +175,14 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     camera.aspect = 1; camera.updateProjectionMatrix()
     poseModel(model, 0)
     const visibleNodes = model.parts.map((part) => part.group.visible)
-    for (const part of model.parts) {
-      model.parts.forEach((other) => { other.group.visible = other === part })
-      const shot = frameBox(new THREE.Box3().setFromObject(part.group), new THREE.Vector3(...(part.shot?.from ?? [0.45, 0.3, 1])).normalize(), 1, [0.8, 0.8])
+    for (const [index,stop] of modelStops(model).entries()) {
+      const members=stopParts(model,index),part=members[0]!
+      poseModel(model,THREE_TIMING.inspect+(index+.5)*(THREE_TIMING.reassemble-THREE_TIMING.inspect)/modelStops(model).length)
+      model.parts.forEach((other) => { other.group.visible = members.includes(other) })
+      const shot = frameBox(stopBounds(model,index), new THREE.Vector3(...(part.shot?.from ?? [0.45, 0.3, 1])).normalize(), 1, [0.8, 0.8])
       camera.position.copy(shot.position); camera.lookAt(shot.target)
       render()
-      images[part.id] = renderer.domElement.toDataURL("image/png")
+      images[stop.id] = renderer.domElement.toDataURL("image/png")
     }
     model.parts.forEach((part, index) => { part.group.visible = visibleNodes[index]! })
     resize()
@@ -199,10 +203,10 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     setAtmosphere: (value) => { dirty = true; atmosphere = value },
     setPaused: (value) => { dirty = true; paused = value },
     snapshot: () => {
-      const sample = sampleScene(displayed, model.parts.length), selected = model.parts[sample.index]
+      const sample = sampleScene(displayed, modelStops(model).length), selected = modelStops(model)[sample.index]
       model.root.updateMatrixWorld(true)
-      const points = corners(new THREE.Box3().setFromObject(selected?.group ?? model.root)).map(p => p.project(camera))
-      return { selected: selected?.id ?? null, progress: displayed, separation: sample.separation, partPositions: Object.fromEntries(model.parts.map(p => [p.id, p.group.position.toArray()])), allVisible: model.parts.every(p => p.group.visible), bounds: { left: Math.min(...points.map(p => (p.x + 1) * host.clientWidth / 2)), right: Math.max(...points.map(p => (p.x + 1) * host.clientWidth / 2)), top: Math.min(...points.map(p => (1 - p.y) * host.clientHeight / 2)), bottom: Math.max(...points.map(p => (1 - p.y) * host.clientHeight / 2)) } }
+      const points = corners(selected ? stopBounds(model,sample.index) : new THREE.Box3().setFromObject(model.root)).map(p => p.project(camera))
+      return { selected: selected?.id ?? null, selectedParts:selected?.componentIds??[], progress: displayed, separation: sample.separation, partPositions: Object.fromEntries(model.parts.map(p => [p.id, p.group.position.toArray()])), allVisible: model.parts.every(p => p.group.visible), bounds: { left: Math.min(...points.map(p => (p.x + 1) * host.clientWidth / 2)), right: Math.max(...points.map(p => (p.x + 1) * host.clientWidth / 2)), top: Math.min(...points.map(p => (1 - p.y) * host.clientHeight / 2)), bottom: Math.max(...points.map(p => (1 - p.y) * host.clientHeight / 2)) } }
     },
     capture: () => { render(); return renderer.domElement.toDataURL("image/png") },
     dispose: () => {

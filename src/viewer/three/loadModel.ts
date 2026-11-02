@@ -1,6 +1,7 @@
 import * as THREE from "three"
 import { GLTFLoader, type GLTF } from "three/addons/loaders/GLTFLoader.js"
 import type { ExplodeSpec } from "../../spec/schema.ts"
+import {inspectionStops} from '../../spec/scene3d.ts'
 import { asset } from "../asset.ts"
 import { disposeObject, type ExplodableModel, type ExplodablePart } from "./model.ts"
 import { createWatch } from "./watch.ts"
@@ -115,7 +116,7 @@ export function prepareModel(spec: ExplodeSpec, loaded: Pick<GLTF, "scene" | "an
     const mixer = new THREE.AnimationMixer(root)
     for (const clip of loaded.animations) mixer.clipAction(clip).play()
     return {
-      root, parts,
+      root, parts, inspections: inspectionStops(spec),
       animate: (time) => mixer.setTime(time),
       dispose: () => { mixer.stopAllAction(); mixer.uncacheRoot(root); disposeObject(root); disposeObject(omitted) },
     }
