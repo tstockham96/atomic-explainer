@@ -1,9 +1,10 @@
+import {createPresentation,presentationSetting,type PresentationSetting} from './presentation.ts'
 import {anatomyStops} from '../../spec/scene3d.ts'
 import {createAssemblyStory} from './assemblyStory.ts'
 import {modelStops,stopBounds} from './model.ts'
 import { sampleScene, THREE_TIMING, ease } from './timeline.ts'
 import { configureRenderBudget } from './renderBudget.ts'
-import { isTransmitting, createOpticalBackdrop } from './optics.ts'
+import { isTransmitting, hasOptics, createOpticalBackdrop } from './optics.ts'
 import * as THREE from "three"
 import { createStudioEnvironment, createGlassEnvironment, createNeutralEnvironment, createProductEnvironment } from "./studio.ts"
 import { cameraShot, poseModel, frameBox, STORY_FOV, corners } from "./choreography.ts"
@@ -14,8 +15,9 @@ export type Atmosphere = "daylight" | "midnight"
 export interface SceneHandle {
   setProgress: (value: number) => void
   setAtmosphere: (value: Atmosphere) => void
+  setPresentation: (value: PresentationSetting) => void
   setPaused: (value: boolean) => void
-  snapshot: () => { selected: string | null; selectedParts: string[]; allVisible: boolean; bounds: { left: number; right: number; top: number; bottom: number } | null; progress: number; separation: number; partPositions: Record<string, number[]> }
+  snapshot: () => { setting:PresentationSetting; selected: string | null; selectedParts: string[]; allVisible: boolean; bounds: { left: number; right: number; top: number; bottom: number } | null; progress: number; separation: number; partPositions: Record<string, number[]> }
   capture: () => string
   dispose: () => void
 }
@@ -54,6 +56,9 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     throw error
   }
   scene.add(model.root)
+  const presentation=createPresentation(scene,renderer,model.root)
+  presentation.set(presentationSetting(new URLSearchParams(location.search).get('setting')))
+  backdrop.visible=presentation.setting==='plain'
   const story=spec.scene3d?.kind==='gltf'&&spec.scene3d.assemblyStory?createAssemblyStory(model.root,Object.fromEntries(model.parts.map(p=>[p.id,p.group])),spec.scene3d.assemblyStory):undefined
   const storyShot=(state:ReturnType<NonNullable<typeof story>['pose']>)=>{
    const narrow=camera.aspect<.85,whole=state.opening?1-state.reveal:ease((state.progress-.92)/.02)
@@ -150,7 +155,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     const damp = 1 - Math.exp(-delta * 9)
     displayed = THREE.MathUtils.lerp(displayed, progress, damp)
     if (Math.abs(displayed - progress) < 0.00001) displayed = progress
-    night = THREE.MathUtils.lerp(night, atmosphere === "midnight" ? 1 : 0, damp)
+    night = THREE.MathUtils.lerp(night, presentation.setting==='plain'&&atmosphere === "midnight" ? 1 : 0, damp)
     backdrop.material.color.set('#e9eeeb').lerp(new THREE.Color('#182c32'), night)
     sky.intensity = THREE.MathUtils.lerp(2.0, 0.5, night)
     key.intensity = THREE.MathUtils.lerp(3.2, 4.1, night)
@@ -164,6 +169,8 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     if(story){model.root.rotation.set(0,0,0);model.root.position.set(0,0,0)}
     const assemblyState=story?.pose(displayed)
     const sample = assemblyState?{separation:assemblyState.opening?assemblyState.reveal:assemblyState.complete?0:1,focus:assemblyState.focus}:poseModel(model, displayed)
+    const opticalIds=assemblyState&&!assemblyState.opening&&!assemblyState.complete?assemblyState.chapter.componentIds:!story?modelStops(model)[sampleScene(displayed,modelStops(model).length).index]?.componentIds:[]
+    presentation.focusOptics(opticalIds?.some(id=>hasOptics(model.parts.find(p=>p.id===id)!.group))?sample.focus:0)
     model.root.rotation.y += pointerX * 0.015 + dragX
     model.root.rotation.x += pointerY * 0.01 + dragY
     model.animate(time)
@@ -214,13 +221,14 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
 
   return {
     setProgress: (value) => { dirty = true; progress = Math.max(0, Math.min(1, value)) },
+    setPresentation:(value)=>{presentation.set(value);backdrop.visible=value==='plain';dirty=true},
     setAtmosphere: (value) => { dirty = true; atmosphere = value },
     setPaused: (value) => { dirty = true; paused = value },
     snapshot: () => {
       const state=story?.pose(displayed),sample=sampleScene(displayed, modelStops(model).length),index=state?(state.opening||state.complete?-1:state.index):sample.index,selected=modelStops(model)[index]
       model.root.updateMatrixWorld(true)
       const points = corners(selected ? stopBounds(model,index) : new THREE.Box3().setFromObject(model.root)).map(p => p.project(camera))
-      return { selected: selected?.id ?? null, selectedParts:selected?.componentIds??[], progress: displayed, separation: state?(state.opening?state.reveal:state.complete?0:1):sample.separation, partPositions: Object.fromEntries(model.parts.map(p => [p.id, p.group.position.toArray()])), allVisible: model.parts.every(p => p.group.visible), bounds: { left: Math.min(...points.map(p => (p.x + 1) * host.clientWidth / 2)), right: Math.max(...points.map(p => (p.x + 1) * host.clientWidth / 2)), top: Math.min(...points.map(p => (1 - p.y) * host.clientHeight / 2)), bottom: Math.max(...points.map(p => (1 - p.y) * host.clientHeight / 2)) } }
+      return { setting:presentation.setting,selected: selected?.id ?? null, selectedParts:selected?.componentIds??[], progress: displayed, separation: state?(state.opening?state.reveal:state.complete?0:1):sample.separation, partPositions: Object.fromEntries(model.parts.map(p => [p.id, p.group.position.toArray()])), allVisible: model.parts.every(p => p.group.visible), bounds: { left: Math.min(...points.map(p => (p.x + 1) * host.clientWidth / 2)), right: Math.max(...points.map(p => (p.x + 1) * host.clientWidth / 2)), top: Math.min(...points.map(p => (1 - p.y) * host.clientHeight / 2)), bottom: Math.max(...points.map(p => (1 - p.y) * host.clientHeight / 2)) } }
     },
     capture: () => { render(); return renderer.domElement.toDataURL("image/png") },
     dispose: () => {
@@ -233,7 +241,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
       renderer.domElement.removeEventListener("pointercancel", up)
       renderer.domElement.removeEventListener("pointerleave", leave)
       renderer.domElement.removeEventListener("webglcontextlost", lost)
-      model.dispose(); glassEnvironment.dispose(); backdrop.geometry.dispose(); backdrop.material.dispose(); environment.dispose()
+      presentation.dispose();model.dispose(); glassEnvironment.dispose(); backdrop.geometry.dispose(); backdrop.material.dispose(); environment.dispose()
       renderer.dispose()
       renderer.domElement.remove()
     },

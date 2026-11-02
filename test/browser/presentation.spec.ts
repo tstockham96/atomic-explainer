@@ -1,0 +1,37 @@
+import {test,expect} from '@playwright/test'
+for(const width of [1440,390])test(`settings preserve component poses, glass and navigation at ${width}`,async({page},info)=>{
+ await page.setViewportSize({width,height:width===1440?900:844})
+ const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message))
+ await page.goto('/murph-study/index.html?eval=1&setting=workbench')
+ await page.waitForFunction(()=>Boolean((window as any).__explodeReview?.ready),null,{timeout:90000})
+ const snap=()=>page.evaluate(()=>(window as any).__explodeReview.snapshot())
+ await page.evaluate(()=>(window as any).__explodeReview.seek(0));const initial=await snap()
+ expect(initial.gridSpacing).toBe(10);expect(initial.partPositions).toEqual(initial.homePositions)
+ await page.evaluate(()=>(window as any).__explodeReview.inspect('movement-system',.35));const before=await snap()
+ for(const setting of ['workbench','studio','sunset','plain']){
+  await page.getByLabel('Scene setting').selectOption(setting)
+  const state=await snap();expect(state.setting).toBe(setting);expect(state.selected).toBe('movement-system');expect(state.partPositions).toEqual(before.partPositions);expect(state.allVisible).toBe(true);expect(state.optics).toEqual(initial.optics)
+  const menu=await page.getByLabel('Scene setting').boundingBox(),header=await page.locator('header').boundingBox()
+  expect(menu!.x+menu!.width).toBeLessThanOrEqual(width);expect(menu!.x).toBeGreaterThan(header!.x+header!.width)
+  if(setting!=='plain')await page.screenshot({path:info.outputPath(`${setting}-movement.png`)})
+ }
+ await page.getByLabel('Scene setting').selectOption('workbench')
+ for(const id of ['crystal','rear-window']){
+  await page.evaluate(id=>(window as any).__explodeReview.inspect(id,.3),id)
+  const state=await snap();expect(state.optics).toEqual(initial.optics);expect(state.optics.every((m:any)=>m.opacity===1&&m.transmission===1)).toBe(true);expect(state.allVisible).toBe(true)
+  await page.screenshot({path:info.outputPath(`${id}.png`)})
+ }
+ await page.evaluate(()=>(window as any).__explodeReview.seek(1));expect((await snap()).partPositions).toEqual(initial.homePositions)
+ await page.getByLabel('Scene setting').selectOption('sunset');await page.getByLabel('Go to component').selectOption('mainspring');expect((await snap()).selected).toBe('mainspring')
+ expect(errors).toEqual([])
+})
+test('the same world-space settings work on a second object',async({page},info)=>{
+ await page.goto('/construction-fixtures/assembly-story/index.html?eval=1&setting=workbench');await page.waitForFunction(()=>Boolean(window.__explodeAssemblyReview),null,{timeout:60000})
+ await page.getByLabel('Explore a component').selectOption('chapter:powered-core')
+ await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().selected)).toBe('powered-core')
+ for(const setting of ['workbench','sunset','studio','plain']){
+  await page.getByLabel('Scene setting').selectOption(setting);await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().setting)).toBe(setting)
+  const state=await page.evaluate(()=>window.__explodeAssemblyReview!.snapshot());expect(state.selectedParts).toEqual(['logic-board','battery']);expect(state.allVisible).toBe(true)
+ }
+ await page.getByLabel('Scene setting').selectOption('workbench');await page.waitForTimeout(1000);await page.screenshot({path:info.outputPath('generic-workbench.png')})
+})

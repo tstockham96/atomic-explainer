@@ -1,3 +1,4 @@
+import {presentationSetting,type PresentationSetting} from './three/presentation.ts'
 import {assemblySample,assemblyProgress} from './three/assemblyTimeline.ts'
 import { useEffect, useRef, useState } from "react"
 import type { ExplodeSpec } from "../spec/schema.ts"
@@ -19,6 +20,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
   const handle = useRef<SceneHandle | null>(null)
   const progress = useRef(0)
   const [atmosphere, setAtmosphere] = useState<Atmosphere>("daylight")
+  const [setting,setSetting]=useState<PresentationSetting>(()=>presentationSetting(new URLSearchParams(location.search).get('setting')))
   const [paused, setPaused] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [ready, setReady] = useState(false)
@@ -102,6 +104,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
     }
   }, [spec, onImages])
   useEffect(() => { handle.current?.setAtmosphere(atmosphere) }, [atmosphere, ready])
+  useEffect(()=>{handle.current?.setPresentation(setting)},[setting,ready])
   useEffect(() => { handle.current?.setPaused(paused) }, [paused, ready])
 
   const navigate = (value: number) => {
@@ -112,7 +115,7 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
   }
 
   return (
-    <div className={`mesh-film is-${atmosphere}`}>
+    <div className={`mesh-film is-${setting==='plain'?atmosphere:'daylight'}`} data-setting={setting}>
       <div ref={host} className="mesh-host" />
       <div className="mesh-navigation"><a href="/create">← Studio</a><label>Explore<select aria-label="Explore a component" value={selected} onChange={event => {
         const index = ids.indexOf(story?event.target.value.replace(/^chapter:/,''):event.target.value)
@@ -121,8 +124,9 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
       }}><option value="assembly">Whole object</option>{story?<option value="complete">Complete build</option>:<option value="exploded">Exploded overview</option>}{components.map(c => c && <option key={c.id} value={story?`chapter:${c.id}`:c.id}>{c.name}</option>)}</select></label></div>
       <p className="mesh-stage" role="status">{stage}</p>
       <div className="atmosphere-switch" aria-label="Atmosphere">
-        <button type="button" aria-pressed={atmosphere === "daylight"} onClick={() => setAtmosphere("daylight")}><span aria-hidden="true">☼</span> Daylight</button>
-        <button type="button" aria-pressed={atmosphere === "midnight"} onClick={() => setAtmosphere("midnight")}><span aria-hidden="true">☾</span> Midnight</button>
+        <select aria-label="Scene setting" value={setting} onChange={e=>{const value=e.target.value as PresentationSetting;setSetting(value);const url=new URL(location.href);if(value==='plain')url.searchParams.delete('setting');else url.searchParams.set('setting',value);history.replaceState(null,'',url)}}><option value="plain">Original</option><option value="workbench">Workbench</option><option value="studio">Studio</option><option value="sunset">Sunset</option></select>
+        {setting==='plain'&&<><button type="button" aria-pressed={atmosphere === "daylight"} onClick={() => setAtmosphere("daylight")}><span aria-hidden="true">☼</span> Daylight</button>
+        <button type="button" aria-pressed={atmosphere === "midnight"} onClick={() => setAtmosphere("midnight")}><span aria-hidden="true">☾</span> Midnight</button></>}
       </div>
       <div ref={title} className="mesh-title">
         <p>{spec.item.maker}</p>

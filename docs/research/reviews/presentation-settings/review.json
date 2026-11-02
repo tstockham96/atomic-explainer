@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-02",
+  "status": "setting-sample-for-user-comparison",
+  "sha256": {
+    "src/viewer/three/presentation.ts": "259bf4c8f1bb0a8307a1d5ec37de7f667e43c2e08e228e43f1c074001f86d2a1",
+    "src/viewer/three/renderBudget.ts": "52129bb86b228d6088e0c3eac3ff96a8c6b02ea3281bda9621f529b14553151f",
+    "src/viewer/three/scene.ts": "edc7b961afa93065b7d65929e2790e476de98225da007f4afd544b3edb1de7ab",
+    "src/viewer/ObjectScene.tsx": "fe71c5b1ba9d7488e9da2fe0baf66c2d25d4dace21e35f483fae12bab15ad07c",
+    "src/viewer/film.css": "1507876ab2b83a227744ca4576a0c99e766e7055cb27e881ca3f791a7e9f9510",
+    "tools/murph-study/viewer.ts": "b55e5b82c3d5e778b10aab1c0d5b9be381af2b488ea895af7e764d8fc3a345be",
+    "tools/murph-study/index.html": "2cef4a9dacf1be208a6eb5231f8950a1adfc136b28ddaf2823747e79be7e8a96",
+    "public/models/murph/murph.glb": "048681ad7b1221ec230cf53b2a957ec8aaa19f16ec816ee0064260a8b2c10c11"
+  },
+  "checks": {
+    "typecheck": "passed",
+    "unitAndIntegrationTests": 153,
+    "targetedHardwareBrowserTests": 10,
+    "softwareMobileBrowserTests": 1,
+    "unchangedPartPosesDuringSettingSwitch": true,
+    "unchangedGlassOpacityAndTransmission": true,
+    "modelToMatMajorGridMillimeters": 10,
+    "genericSettingsOnSecondObject": true,
+    "otherHardwareBrowserTests": 15,
+    "totalHardwareBrowserTests": 25
+  },
+  "visualEvidence": [
+    "studio-opening.png",
+    "sunset-opening.png",
+    "workbench-crystal.png",
+    "workbench-mobile.png",
+    "workbench-opening.png"
+  ],
+  "findings": [
+    "World-space mat and shadows establish depth; original is still the default.",
+    "Studio surround is curved to avoid a hard floor/sky seam.",
+    "Sunset is an atmospheric gradient without a floor.",
+    "The same settings work in the generic GLB viewer.",
+    "Hardware post-processing uses up to 4 MSAA samples, with pixel density capped at 2; software fallback uses native 1x instead of 0.75x."
+  ],
+  "limits": [
+    "These are presentation samples, not a calibrated photographic room. Existing HDR reflections are retained.",
+    "Model geometry and texture artwork were not regenerated.",
+    "Mat dimensions are established only for the authored millimeter-based Murph; normalized unknown objects have no measurement labels.",
+    "Physical screen size remains uncalibrated.",
+    "Glass appearance is angle-dependent; opacity and transmission remain constant.",
+    "No performance, model-fidelity or production-readiness score increase is claimed."
+  ],
+  "readyForRelease": false
+}

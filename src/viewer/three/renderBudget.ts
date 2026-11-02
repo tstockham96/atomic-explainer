@@ -4,7 +4,7 @@ import type {WebGLRenderer} from 'three'
  * This is a device capability policy, not a test-only rendering override. */
 export function renderBudget(rendererName:string,pixelRatio:number){
  const software=/swiftshader|llvmpipe|softpipe|software rasterizer/i.test(rendererName)
- return {software,pixelRatio:Math.min(pixelRatio,software?.75:1.75),transmissionScale:software?.5:1,postprocessing:!software}
+ return {software,pixelRatio:Math.min(pixelRatio,software?1:2),transmissionScale:software?.5:1,postprocessing:!software}
 }
 export function configureRenderBudget(renderer:WebGLRenderer){
  const gl=renderer.getContext(),debug=gl.getExtension('WEBGL_debug_renderer_info')

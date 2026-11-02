@@ -1,3 +1,4 @@
+import {createPresentation,presentationSetting,type PresentationSetting} from '../../src/viewer/three/presentation.ts'
 import {assemblyScrollVh} from '../../src/viewer/three/assemblyTimeline.ts'
 import {createAssemblyStory} from '../../src/viewer/three/assemblyStory.ts'
 import assemblyScript from '../../docs/research/murph-assembly-story.json'
@@ -30,6 +31,8 @@ const assemblyMode=params.get('story')!=='explode'&&!capture
 let assembly:ReturnType<typeof createAssemblyStory>|undefined
 const renderer=new T.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:capture})
 const renderBudget=configureRenderBudget(renderer)
+let presentation:ReturnType<typeof createPresentation>|undefined
+let setting=presentationSetting(params.get('setting'))
 renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=.95
 el('stage').append(renderer.domElement)
 renderer.domElement.setAttribute('role','img');renderer.domElement.setAttribute('aria-label','Interactive three-dimensional watch. Choose a component below, or skip to the written explanations.')
@@ -50,8 +53,9 @@ class OpticalAO extends GTAOPass {
  _overrideVisibility(){visibilityHooks._overrideVisibility.call(this);this.optical=[];scene.traverse(o=>{if(o instanceof T.Mesh&&o.visible){const materials=Array.isArray(o.material)?o.material:[o.material];if(o.userData.opticalBackdrop||materials.some(m=>(m as T.MeshPhysicalMaterial).transmission>0||m.transparent)){this.optical.push(o);o.visible=false}}})}
  _restoreVisibility(){visibilityHooks._restoreVisibility.call(this);for(const o of this.optical)o.visible=true}
 }
-const composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,camera))
-const ao=new OpticalAO(scene,camera,innerWidth,innerHeight);ao.updateGtaoMaterial({radius:2.2,thickness:1,distanceExponent:2,scale:1.1,samples:16});ao.blendIntensity=.8;composer.addPass(ao);composer.addPass(new OutputPass());const fxaa=new ShaderPass(FXAAShader);composer.addPass(fxaa)
+const antialiasTarget=new T.WebGLRenderTarget(1,1,{type:T.HalfFloatType,samples:renderBudget.software?0:Math.min(4,renderer.capabilities.maxSamples)});
+const composer=new EffectComposer(renderer,antialiasTarget);composer.addPass(new RenderPass(scene,camera))
+const ao=new OpticalAO(scene,camera,innerWidth,innerHeight);ao.updateGtaoMaterial({radius:2.2,thickness:1,distanceExponent:2,scale:1.1,samples:16});ao.blendIntensity=.8;composer.addPass(ao);composer.addPass(new OutputPass());const fxaa=new ShaderPass(FXAAShader);fxaa.enabled=antialiasTarget.samples===0;composer.addPass(fxaa)
 let dirty=true,drawCount=0
 const draw=()=>{if(renderBudget.postprocessing)composer.render();else renderer.render(scene,camera);dirty=false;drawCount++}
 const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.enabled=false;controls.enablePan=false;controls.minDistance=30;controls.maxDistance=300
@@ -173,14 +177,17 @@ function pose(p:number,t:number,inspection?:TourSample,overall=p){
   const blended=orbitBetween(offset,inspectionOffset,focus)
   target.lerp(inspectionCenter,focus);c=target.clone().add(blended)
  }
+ const contrast=Math.max(smooth((p-.165)/.065)*(1-smooth((p-.455)/.06)),inspected&&hasOptics(inspected)?focus:0)
+ presentation?.focusOptics(contrast)
+ if(setting==='plain'){
  // A dark photographic backdrop gives transparent glass and pale hands contrast.
  // Any transmitting component receives the same inspection backdrop. This is
  // material-driven, never a special treatment reserved for the front crystal.
- const contrast=Math.max(smooth((p-.165)/.065)*(1-smooth((p-.455)/.06)),inspected&&hasOptics(inspected)?focus:0)
  ;(scene.background as T.Color).setRGB(2.15,2.05,1.9).lerp(new T.Color('#243b40'),contrast)
  backdrop.material.color.copy(scene.background as T.Color)
  el('frame').style.setProperty('--study-ink',new T.Color('#263832').lerp(new T.Color('#f3f0df'),contrast).getStyle())
  el('frame').style.setProperty('--study-muted',new T.Color('#566960').lerp(new T.Color('#c1d0cf'),contrast).getStyle())
+ }
  if(innerWidth<700){const top=90,bottom=Math.max(180,el('chapter').getBoundingClientRect().top-20);camera.setViewOffset(innerWidth,innerHeight,0,innerHeight/2-(top+bottom)/2,innerWidth,innerHeight);camera.updateProjectionMatrix()}
  if(!free){camera.position.copy(c);controls.target.copy(target);camera.lookAt(target)}
  // Smooth independent rotor swing. Winding direction and gear ratios are not simulated.
@@ -223,8 +230,11 @@ function poseAssembly(p:number,t:number){
  el('hint').textContent=free?'Drag to orbit · Scroll to continue':'Scroll to build ↓'
  for(const c of callouts){c.label.style.display='none';c.line.style.display='none'}
  const glass=chapter.componentIds.some(id=>hasOptics(model.parts[id]!)),contrast=glass&&!state.complete?state.focus:0
+ presentation?.focusOptics(contrast)
+ if(setting==='plain'){
  ;(scene.background as T.Color).setRGB(2.15,2.05,1.9).lerp(new T.Color('#243b40'),contrast);backdrop.material.color.copy(scene.background as T.Color)
  el('frame').style.setProperty('--study-ink',new T.Color('#263832').lerp(new T.Color('#f3f0df'),contrast).getStyle());el('frame').style.setProperty('--study-muted',new T.Color('#566960').lerp(new T.Color('#c1d0cf'),contrast).getStyle())
+ }
  const available=Math.max(.16,(el('chapter').getBoundingClientRect().top-115)/innerHeight)
  const shot=assembly.camera(state,camera.fov,camera.aspect,innerWidth<700?[.76,available]:[.52,.7])
  if(innerWidth<700){const top=90,bottom=Math.max(180,el('chapter').getBoundingClientRect().top-20);camera.setViewOffset(innerWidth,innerHeight,0,innerHeight/2-(top+bottom)/2,innerWidth,innerHeight)}else camera.setViewOffset(innerWidth,innerHeight,-innerWidth*.16,0,innerWidth,innerHeight)
@@ -232,6 +242,15 @@ function poseAssembly(p:number,t:number){
  if(!free){camera.position.copy(shot.position);controls.target.copy(shot.target);camera.lookAt(shot.target)}
  model.root.updateMatrixWorld(true)
 }
+function chooseSetting(value:PresentationSetting){
+ setting=value;presentation?.set(value);backdrop.visible=value==='plain'
+ el('frame').dataset.setting=value
+ ;(el('setting-menu') as HTMLSelectElement).value=value
+ if(value!=='plain'){el('frame').style.setProperty('--study-ink','#24342f');el('frame').style.setProperty('--study-muted','#445b51')}
+ const url=new URL(location.href);if(value==='plain')url.searchParams.delete('setting');else url.searchParams.set('setting',value);history.replaceState(null,'',url)
+ dirty=true;if(model){paintStory(progress);draw()}
+}
+el('setting-menu').onchange=e=>chooseSetting((e.target as HTMLSelectElement).value as PresentationSetting)
 function paintStory(p:number){if(assemblyMode)poseAssembly(p,time);else {const sample=tour.sample(p);pose(sample.base,time,sample,p)}}
 const rotate=el('rotate');rotate.onclick=()=>{dirty=true;free=!free;controls.enabled=free;rotate.textContent=free?'Return to story':'Explore freely';rotate.setAttribute('aria-pressed',String(free))}
 el('motion').onclick=()=>{dirty=true;paused=!paused;el('motion').textContent=paused?'Resume motion':'Pause motion';el('motion').setAttribute('aria-pressed',String(paused))}
@@ -292,6 +311,7 @@ async function main(){
  el('status').dataset.ready='true'
  // Render anatomy images directly from these same meshes.
  for(const[id,p]of [['crystal',.28],['hands',.43],['rotor',.76]] as const){pose(p,0);camera.clearViewOffset();draw();(el(`story-${id}`) as HTMLImageElement).src=renderer.domElement.toDataURL('image/png');resize()}
+ if(!capture){placeParts(0);presentation=createPresentation(scene,renderer,model.root,{millimetersPerUnit:1});chooseSetting(setting)}
  if(capture){
   if(params.has('optics')){await checkOptics(renderer,send);resize()}
   for(const[name,p]of [['assembled',0],['separated',.23],['crystal',.28],['hands',.43],['clean-dial',.53],['rear-window',.65],['rotor',.76],['mechanism',.87],['reassembled',1]] as const){pose(p,2);draw();await send(name+(innerWidth<700?'-mobile':''),{image:renderer.domElement.toDataURL('image/png')})}
@@ -391,7 +411,7 @@ async function main(){
   ready:true,ids:Object.keys(model.parts),
   inspect:(id:string,local=.2)=>{renderer.setAnimationLoop(null);progress=assemblyMode?assembly!.progressFor(id,local):tour.progressFor(id,local);paintStory(progress);paintStory(progress);draw()},
   seek:(p:number)=>{renderer.setAnimationLoop(null);progress=p;paintStory(p);paintStory(p);draw()},
-  snapshot:()=>{model.root.updateMatrixWorld(true);const sample=tour.sample(progress),assemblyState=assemblyMode?assembly!.pose(progress):undefined,selected=assemblyState?(assemblyState.complete||assemblyState.opening?null:assemblyState.chapter.id):sample.stop?.id,part=selected?model.parts[selected]:undefined,box=assemblyState&&!assemblyState.complete&&!assemblyState.opening?assemblyState.chapter.componentIds.reduce((b,id)=>b.union(new T.Box3().setFromObject(model.parts[id]!,true)),new T.Box3()):part?new T.Box3().setFromObject(part,true):undefined,points:T.Vector3[]=[];if(box)for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z])points.push(new T.Vector3(x,y,z).project(camera));return {progress,time,drawCount,softwareGraphics:renderBudget.software,selected:selected??null,mode:assemblyMode?'assembly':'explode',chapterKind:assemblyState?.chapter.kind??'component',selectedParts:assemblyState?.chapter.componentIds??[],builtIds:assemblyState?.builtIds??[],partPositions:Object.fromEntries(Object.entries(model.parts).map(([id,g])=>[id,g.position.toArray()])),homePositions:Object.fromEntries(Object.entries(home).map(([id,p])=>[id,p.toArray()])),allVisible:Object.values(model.parts).every(p=>p.visible),bounds:points.length?{left:(Math.min(...points.map(p=>p.x))*.5+.5)*innerWidth,right:(Math.max(...points.map(p=>p.x))*.5+.5)*innerWidth,top:(.5-Math.max(...points.map(p=>p.y))*.5)*innerHeight,bottom:(.5-Math.min(...points.map(p=>p.y))*.5)*innerHeight}:null}},
+  snapshot:()=>{model.root.updateMatrixWorld(true);const sample=tour.sample(progress),assemblyState=assemblyMode?assembly!.pose(progress):undefined,selected=assemblyState?(assemblyState.complete||assemblyState.opening?null:assemblyState.chapter.id):sample.stop?.id,part=selected?model.parts[selected]:undefined,box=assemblyState&&!assemblyState.complete&&!assemblyState.opening?assemblyState.chapter.componentIds.reduce((b,id)=>b.union(new T.Box3().setFromObject(model.parts[id]!,true)),new T.Box3()):part?new T.Box3().setFromObject(part,true):undefined,points:T.Vector3[]=[];if(box)for(const x of [box.min.x,box.max.x])for(const y of [box.min.y,box.max.y])for(const z of [box.min.z,box.max.z])points.push(new T.Vector3(x,y,z).project(camera));return {setting,optics:Object.values(finishes).flat().filter(f=>isTransmitting(f.material)).map(f=>({opacity:f.material.opacity,transmission:(f.material as T.MeshPhysicalMaterial).transmission})),pixelRatio:renderer.getPixelRatio(),antialiasSamples:antialiasTarget.samples,gridSpacing:presentation?.gridSpacing,progress,time,drawCount,softwareGraphics:renderBudget.software,selected:selected??null,mode:assemblyMode?'assembly':'explode',chapterKind:assemblyState?.chapter.kind??'component',selectedParts:assemblyState?.chapter.componentIds??[],builtIds:assemblyState?.builtIds??[],partPositions:Object.fromEntries(Object.entries(model.parts).map(([id,g])=>[id,g.position.toArray()])),homePositions:Object.fromEntries(Object.entries(home).map(([id,p])=>[id,p.toArray()])),allVisible:Object.values(model.parts).every(p=>p.visible),bounds:points.length?{left:(Math.min(...points.map(p=>p.x))*.5+.5)*innerWidth,right:(Math.max(...points.map(p=>p.x))*.5+.5)*innerWidth,top:(.5-Math.max(...points.map(p=>p.y))*.5)*innerHeight,bottom:(.5-Math.min(...points.map(p=>p.y))*.5)*innerHeight}:null}},
  }})
 }
 main().catch(error=>{el('status').textContent='Study could not load';el('error').style.display='block';el('error').textContent='The 3D model could not load. You can still read the component explanations below. '+error.message;console.error(error);if(capture)void send('error',{error:error.message,stack:error.stack})})

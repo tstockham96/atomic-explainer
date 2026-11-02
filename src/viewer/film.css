@@ -201,3 +201,11 @@
 
 .mesh-closing h2 { margin:0; font:400 clamp(30px,3.3vw,52px)/1.08 var(--font-sans); letter-spacing:-.045em; }
 .mesh-closing a { display:inline-block; pointer-events:auto; margin-top:16px; font-size:12px; color:var(--scene-muted); text-underline-offset:5px; }
+
+/* Optional world-space presentation; caption surfaces preserve readable contrast. */
+.atmosphere-switch select{min-height:36px;max-width:130px;border:0;border-radius:24px;background:#f5f2e9;color:#253744;font:11px var(--font-sans);padding:7px 12px;cursor:pointer}
+.mesh-film[data-setting]:not([data-setting=plain]) .mesh-caption{background:#f5f2e9ed;padding:24px;border-radius:6px}
+.mesh-film[data-setting]:not([data-setting=plain]) .mesh-bottom{background:#f5f2e9ed;padding:8px 12px;border-radius:6px}
+@media(max-width:700px){.mesh-film[data-setting]:not([data-setting=plain]) .mesh-caption{padding:16px}}
+
+.mesh-film[data-setting]:not([data-setting=plain]) .mesh-navigation,.mesh-film[data-setting]:not([data-setting=plain]) .mesh-stage{background:#f5f2e9ed;border-radius:6px}
