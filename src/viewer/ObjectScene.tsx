@@ -9,7 +9,7 @@ import { componentLesson } from "./three/learning.ts"
 import { THREE_TIMING, sampleScene } from "./three/timeline.ts"
 import type { Atmosphere, SceneHandle } from "./three/scene.ts"
 
-declare global { interface Window { __explodeAssemblyReview?: { inspect: (id: string, local?: number) => void; snapshot: SceneHandle['snapshot'] } } }
+declare global { interface Window { __explodeAssemblyReview?: { inspect: (id: string, local?: number) => void; settled: SceneHandle['isSettled']; snapshot: SceneHandle['snapshot'] } } }
 
 export function ObjectScene({ spec, api, onImages, scrollTo }: { spec: ExplodeSpec; api: { current: ReelHandle | null }; onImages?: (images: Record<string, string>) => void; scrollTo?: (top:number)=>void }) {
   const host = useRef<HTMLDivElement>(null)
@@ -91,6 +91,7 @@ export function ObjectScene({ spec, api, onImages, scrollTo }: { spec: ExplodeSp
       setReady(true)
       if (new URLSearchParams(window.location.search).has('eval')) window.__explodeAssemblyReview = {
         inspect: (id, local = .5) => { const i = stops.findIndex(s=>s.id===id||s.componentIds.includes(id)); updateRef.current(i < 0 ? 0 : story?assemblyProgress(i,local,ids.length):THREE_TIMING.inspect + (i + local) * (THREE_TIMING.reassemble - THREE_TIMING.inspect) / ids.length) },
+        settled: scene.isSettled,
         snapshot: scene.snapshot,
       }
     }).catch((reason: unknown) => {

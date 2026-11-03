@@ -20,6 +20,7 @@ export interface SceneHandle {
   setPresentation: (value: PresentationSetting) => void
   setPaused: (value: boolean) => void
   snapshot: () => { builtIds:string[]; chapterKind:string|null; homePositions:Record<string,number[]>; unobscuredParts:string[]; setting:PresentationSetting; selected: string | null; selectedParts: string[]; allVisible: boolean; bounds: { left: number; right: number; top: number; bottom: number } | null; progress: number; separation: number; partPositions: Record<string, number[]> }
+  isSettled: () => boolean
   capture: () => string
   dispose: () => void
 }
@@ -243,6 +244,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
       const points = corners(selected ? stopBounds(model,index) : new THREE.Box3().setFromObject(model.root)).map(p => p.project(camera))
       return { builtIds:state?.builtIds??[],chapterKind:state&&!state.opening&&!state.complete?(state.chapter.kind??'component'):null,homePositions:Object.fromEntries(model.parts.map(p=>[p.id,p.home.toArray()])),unobscuredParts:unobscuredSubjects(camera,Object.fromEntries(model.parts.map(p=>[p.id,p.group])),presentation.group),setting:presentation.setting,selected: selected?.id ?? null, selectedParts:selected?.componentIds??[], progress: displayed, separation: state?(state.opening?state.reveal:state.complete?0:1):sample.separation, partPositions: Object.fromEntries(model.parts.map(p => [p.id, p.group.position.toArray()])), allVisible: model.parts.every(p => p.group.visible), bounds: { left: Math.min(...points.map(p => (p.x + 1) * host.clientWidth / 2)), right: Math.max(...points.map(p => (p.x + 1) * host.clientWidth / 2)), top: Math.min(...points.map(p => (1 - p.y) * host.clientHeight / 2)), bottom: Math.max(...points.map(p => (1 - p.y) * host.clientHeight / 2)) } }
     },
+    isSettled: () => !dirty,
     capture: () => { render(); return renderer.domElement.toDataURL("image/png") },
     dispose: () => {
       disposed = true

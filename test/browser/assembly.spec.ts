@@ -11,7 +11,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
     const errors: string[] = []; page.on('pageerror', e => errors.push(e.message))
     await page.waitForFunction(() => Boolean(window.__explodeAssemblyReview), null, { timeout: 60_000 })
     await expect(page.locator('.mesh-bottom')).toContainText('Assembly prototype')
-    await page.waitForTimeout(1200)
+    await page.waitForFunction(()=>window.__explodeAssemblyReview!.settled())
     const hero = await page.evaluate(() => ({ model: window.__explodeAssemblyReview!.snapshot().bounds!, title: document.querySelector('.mesh-title')!.getBoundingClientRect().toJSON() }))
     expect(hero.model.bottom).toBeLessThan(hero.title.top - 8)
     expect(hero.model.top).toBeGreaterThan(100)
@@ -33,7 +33,7 @@ for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 
       for (const local of [.3, .5, .7]) {
         await page.evaluate(({ id, local }) => window.__explodeAssemblyReview!.inspect(id, local), { id, local })
         await expect.poll(() => page.evaluate(() => window.__explodeAssemblyReview!.snapshot().selected)).toBe(id)
-        await page.waitForTimeout(1200)
+        await page.waitForFunction(()=>window.__explodeAssemblyReview!.settled())
         const actual = await page.evaluate(() => {
           const caption = [...document.querySelectorAll('.mesh-caption')].find(n => getComputedStyle(n).visibility === 'visible')!
           return { state: window.__explodeAssemblyReview!.snapshot(), caption: caption.getBoundingClientRect().toJSON(), overflow: document.documentElement.scrollWidth > innerWidth }

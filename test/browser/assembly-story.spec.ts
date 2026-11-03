@@ -69,7 +69,7 @@ for(const viewport of [{width:1440,height:900},{width:390,height:844}])test(`gen
  for(const id of ['logic-board','battery','front-glass']){
   await page.evaluate(id=>window.__explodeAssemblyReview!.inspect(id,.35),id)
   await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().selected)).toBe(id)
-  await page.waitForTimeout(1400)
+  await page.waitForFunction(()=>window.__explodeAssemblyReview!.settled())
   const state=await page.evaluate(()=>window.__explodeAssemblyReview!.snapshot()),caption=await page.locator('.mesh-caption:visible').boundingBox()
   expect(state.selected).toBe(id);expect(state.allVisible).toBe(true)
   expect(state.bounds!.left).toBeGreaterThanOrEqual(0);expect(state.bounds!.top).toBeGreaterThan(90)
@@ -78,7 +78,7 @@ for(const viewport of [{width:1440,height:900},{width:390,height:844}])test(`gen
   if(id==='logic-board')await page.screenshot({path:info.outputPath('generic-core.png')})
  }
  await page.getByLabel('Explore a component').selectOption('chapter:battery');await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().selected)).toBe('battery')
- await page.evaluate(()=>window.__explodeAssemblyReview!.inspect('battery',.97));await page.waitForTimeout(1600)
+ await page.evaluate(()=>window.__explodeAssemblyReview!.inspect('battery',.97));await page.waitForFunction(()=>window.__explodeAssemblyReview!.settled())
  const seated=await page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().partPositions)
  expect(seated['logic-board']).toEqual(home['logic-board']);expect(seated.battery).toEqual(home.battery)
  await page.getByLabel('Explore a component').selectOption('chapter:powered-core');await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().selected)).toBe('powered-core')

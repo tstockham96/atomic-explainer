@@ -27,7 +27,7 @@ for(const study of studies)for(const viewport of [{width:1440,height:900},{width
   for(const chapter of story.chapters){
    for(const local of [.23,.42,.55]){
     await page.evaluate(({id,local})=>window.__explodeAssemblyReview!.inspect(id,local),{id:chapter.id,local})
-    await page.waitForTimeout(1200)
+    await page.waitForFunction(()=>window.__explodeAssemblyReview!.settled())
     const state=await snapshot(),caption=await page.locator('.mesh-caption:visible').boundingBox()
     expect(state.selected).toBe(chapter.id);expect(state.allVisible).toBe(true)
     expect(state.selectedParts).toEqual(chapter.componentIds)
@@ -40,7 +40,7 @@ for(const study of studies)for(const viewport of [{width:1440,height:900},{width
     if(local===.42&&(chapter.kind==='milestone'||['crankshaft','crankcase','pistons','processor','battery','display'].includes(chapter.id)))await page.screenshot({path:info.outputPath(chapter.id+'.png')})
    }
    await page.evaluate(id=>window.__explodeAssemblyReview!.inspect(id,.97),chapter.id)
-   await page.waitForTimeout(1200)
+   await page.waitForFunction(()=>window.__explodeAssemblyReview!.settled())
    const joined=await snapshot();built+=chapter.kind==='milestone'?0:chapter.componentIds.length
    expect(joined.builtIds).toHaveLength(built)
    for(const id of joined.builtIds)expect(joined.partPositions[id],id).toEqual(joined.homePositions[id])

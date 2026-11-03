@@ -37,6 +37,7 @@ test('the same world-space settings work on a second object',async({page},info)=
 })
 
 test('workshop handoffs keep a physical part in view and Original survives reload',async({page},info)=>{
+ test.slow() // 144 rendered handoff positions plus two complete scene reloads.
  await page.goto('/murph-study/index.html?eval=1');await page.waitForFunction(()=>Boolean((window as any).__explodeReview?.ready),null,{timeout:90000})
  const chapters=await page.locator('#component-menu option').evaluateAll(options=>options.map(o=>(o as HTMLOptionElement).value).filter(id=>id&&id!=='opening'))
  for(const [index,id] of chapters.entries()){

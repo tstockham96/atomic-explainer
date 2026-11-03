@@ -35,7 +35,8 @@ for(const viewport of [{width:1440,height:900},{width:390,height:844},{width:360
 }
 test('reduced motion keeps every component and keyboard navigation available',async({page})=>{
  await page.emulateMedia({reducedMotion:'reduce'});await load(page)
- await page.waitForTimeout(100)
+ // Wait for the pending final redraw rather than assuming a 100 ms frame.
+ await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))
  const before=await page.evaluate(()=>window.__explodeReview.snapshot())
  await page.waitForTimeout(300)
  const after=await page.evaluate(()=>window.__explodeReview.snapshot())
@@ -51,7 +52,8 @@ test('reduced motion keeps every component and keyboard navigation available',as
 test('pause stops ambient movement and all buttons have usable touch targets',async({page})=>{
  await load(page);await page.locator('#motion').click()
  await expect(page.locator('#motion')).toHaveAttribute('aria-pressed','true')
- await page.waitForTimeout(100)
+ // Wait for the pending final redraw rather than assuming a 100 ms frame.
+ await page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))))
  const before=await page.evaluate(()=>window.__explodeReview.snapshot())
  await page.waitForTimeout(300)
  const after=await page.evaluate(()=>window.__explodeReview.snapshot())
