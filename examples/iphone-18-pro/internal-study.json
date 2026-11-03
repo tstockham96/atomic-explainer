@@ -502,7 +502,7 @@
       "id": "enclosure",
       "name": "Enclosure",
       "material": "Coated metal enclosure and exterior fittings",
-      "howItsMade": "The enclosure locates the display, rear panel and optical openings within one rigid structure. Its openings make room for lenses, controls and the connector. The empty interior here reflects what this source model omits; the actual phone contains many additional components.",
+      "howItsMade": "The enclosure locates and supports the display, boards, battery and distributed modules. Its openings provide access for controls, connectors and acoustic paths. The sourced outer geometry surrounds reference-fitted internals; precise internal mounting interfaces remain approximate.",
       "funFacts": [
         "This tour separates surfaces present in the sourced model. Missing internals are not inferred from those surfaces."
       ],
@@ -520,7 +520,7 @@
       "id": "rear-panel",
       "name": "Rear panel",
       "material": "Rear panel with authored finish",
-      "howItsMade": "The rear panel closes this part of the enclosure. Its distinct finish and logo stay attached to the panel as it moves. This source does not expose the charging coil, adhesives or other hardware beneath it.",
+      "howItsMade": "The rear panel closes the back of the phone behind the charging and sensing hardware. Its sourced exterior surface is preserved; the underlying interfaces and adhesive construction remain approximate.",
       "funFacts": [
         "This tour separates surfaces present in the sourced model. Missing internals are not inferred from those surfaces."
       ],
@@ -662,7 +662,7 @@
       },
       {
         "componentId": "enclosure",
-        "function": "The enclosure locates the display, rear panel and optical openings within one rigid structure. Its openings make room for lenses, controls and the connector. The empty interior here reflects what this source model omits; the actual phone contains many additional components.",
+        "function": "The enclosure locates and supports the display, boards, battery and distributed modules. Its openings provide access for controls, connectors and acoustic paths. The sourced outer geometry surrounds reference-fitted internals; precise internal mounting interfaces remain approximate.",
         "claims": [
           {
             "statement": "The source contains separately addressable surfaces grouped here as coated metal enclosure and exterior fittings.",
@@ -698,7 +698,7 @@
       },
       {
         "componentId": "rear-panel",
-        "function": "The rear panel closes this part of the enclosure. Its distinct finish and logo stay attached to the panel as it moves. This source does not expose the charging coil, adhesives or other hardware beneath it.",
+        "function": "The rear panel closes the back of the phone behind the charging and sensing hardware. Its sourced exterior surface is preserved; the underlying interfaces and adhesive construction remain approximate.",
         "claims": [
           {
             "statement": "The source contains separately addressable surfaces grouped here as rear panel with authored finish.",
@@ -2618,6 +2618,692 @@
         },
         "node": "rear-panel"
       }
-    ]
+    ],
+    "assemblyStory": {
+      "title": "From stored energy to a connected phone.",
+      "note": "Educational system build, not a repair or factory assembly procedure. The sourced exterior is combined with researched, reference-fitted internals. Hidden mechanisms, exact dimensions and chip microstructure remain unresolved.",
+      "opening": {
+        "title": "A whole world of connected parts.",
+        "description": "Start with the finished phone. Then follow energy into computation, light into information, and information back into sight, sound and touch. Every component joins the growing assembly.",
+        "from": [
+          0.25,
+          0.16,
+          1
+        ]
+      },
+      "closing": {
+        "title": "A whole world, working together.",
+        "description": "Energy powers computation. Sensors and radios bring information in; the display, speakers and haptics return it to you. Cooling, structure and connections let these systems share one compact object."
+      },
+      "chapters": [
+        {
+          "id": "battery",
+          "componentIds": [
+            "battery"
+          ],
+          "title": "Begin with stored energy.",
+          "description": "A rechargeable lithium-ion cell stores chemical energy. Power-management circuits deliver that energy to the processor, display and radios. The cell and its carrier are separate parts: the carrier supports the cell; it does not store charge.",
+          "joined": "The battery establishes the power source for the systems we are about to build.",
+          "detail": "Metallic cell enclosure; finish observed, alloy unverified",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "battery-tray",
+          "componentIds": [
+            "battery-tray"
+          ],
+          "title": "Give the cell a home.",
+          "description": "The formed carrier supports the battery and provides screw attachment points. Its relief and openings let a thin sheet gain stiffness while fitting around neighboring assemblies. The cell lifts separately here to make their different jobs visible.",
+          "joined": "The carrier seats behind the cell. Supporting a battery and storing energy are different jobs.",
+          "detail": "Formed metallic carrier; alloy and thickness estimated",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "logic-board",
+          "componentIds": [
+            "logic-board"
+          ],
+          "title": "Lay down the connections.",
+          "description": "The circuit board connects the phone’s systems through conductive paths, connectors and surface-mounted electronics. The stepped outline fits around the cameras. Separate chip packages lift away to reveal their contact footprints; a circuit board is much more than a green rectangle.",
+          "joined": "The upper board joins the battery assembly. Its conductive paths and connectors will link the electronic packages.",
+          "detail": "Dark solder mask, metallic contacts, ceramic passives",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "processor",
+          "componentIds": [
+            "processor"
+          ],
+          "title": "Add the computing core.",
+          "description": "The application processor runs software and coordinates graphics, camera processing and other computation. Its package connects to the board through a dense contact array. The separate cooling assembly carries away heat; the copper-colored surface shown here is a package surface, not a view of individual transistors.",
+          "joined": "The processor seats on the board. Its package is visible here; its microscopic transistors are not reconstructed.",
+          "detail": "Observed copper-colored package surface; exact lid stack unverified",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "memory",
+          "componentIds": [
+            "memory"
+          ],
+          "title": "Keep active work close.",
+          "description": "Working memory holds data that active applications need quickly. It is distinct from long-term storage: its contents depend on power. This separate package illustrates that role beside the processor; its precise package outline and placement are approximated.",
+          "joined": "Working memory joins the computing assembly. It holds active data while powered.",
+          "detail": "Dark semiconductor package",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "logic-board-lower",
+          "componentIds": [
+            "logic-board-lower"
+          ],
+          "title": "Make room through layered packaging.",
+          "description": "The board assembly uses more than one substrate. Connections between layers allow dense packaging within a thin phone. Separating them reveals additional electronics that an exterior model cannot show. The contact pattern is explanatory, not a repair pinout.",
+          "joined": "The second board layer joins the assembly. Its contacts connect a dense stack; this separation is explanatory, not a service instruction.",
+          "detail": "Dark circuit laminate and metallic inter-board contacts",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "storage",
+          "componentIds": [
+            "storage"
+          ],
+          "title": "Keep information when power is off.",
+          "description": "Nonvolatile flash stores apps, photographs and other data when power is off. Storage packages are shown between the board layers. They serve a different purpose from working memory, and this teaching separation is not a normal service operation.",
+          "joined": "Flash storage joins the board stack. It retains data, unlike working memory.",
+          "detail": "Dark molded chip packages; hidden package details approximate",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "radio",
+          "componentIds": [
+            "radio"
+          ],
+          "title": "Give digital data a radio path.",
+          "description": "The modem and supporting radio circuits turn digital data into signals for a cellular connection and decode incoming signals. Antennas and interconnects complete the path. Package markings here identify a teaching role; internal circuitry is not reconstructed.",
+          "joined": "Cellular packages join the electronics. Their signals will still need connections to the antennas.",
+          "detail": "Semiconductor packages and metal contacts",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "cooling",
+          "componentIds": [
+            "cooling"
+          ],
+          "title": "Spread the heat of computation.",
+          "description": "Electrical computation also produces heat. A contact layer couples the processor to the cooling assembly, which spreads that heat across a larger area. A vapor chamber uses evaporation and condensation internally; its hidden wick and fluid are not depicted as visible geometry here.",
+          "joined": "The thermal assembly seats against the computing region. Its contact path carries heat into a broader area.",
+          "detail": "Metallic thermal assembly and dark contact pad; internal structure unresolved",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "computing-core",
+          "kind": "milestone",
+          "componentIds": [
+            "battery",
+            "battery-tray",
+            "logic-board",
+            "processor",
+            "memory",
+            "logic-board-lower",
+            "storage",
+            "radio",
+            "cooling"
+          ],
+          "title": "Energy becomes useful computation.",
+          "description": "The cell supplies energy, boards connect packages, the processor works with memory and storage, and the thermal assembly spreads heat. These are different roles within one computing system; package outlines and placements are fitted estimates.",
+          "joined": "The computing core returns together. Next connect it to charging, communications and sensing.",
+          "detail": "Milestone · power, board stack, computation and thermal support",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "interconnects",
+          "componentIds": [
+            "interconnects"
+          ],
+          "title": "Connect the distributed modules.",
+          "description": "Flexible circuits carry power and signals between modules while fitting along the edges of the enclosure. Their connectors allow assemblies to be attached separately. The routes shown here illustrate the documented connections; fine copper routing and exact bends remain approximate.",
+          "joined": "Flexible circuits return around the board and battery. Their routes connect systems that cannot all sit on one rigid board.",
+          "detail": "Polymer-covered flexible conductors and metallic contacts",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "connector",
+          "componentIds": [
+            "connector"
+          ],
+          "title": "Bring in wired power and signals.",
+          "description": "A connector aligns a cable with electrical contacts. It carries power and signals between the phone and external equipment. This model exposes the socket surfaces; its attachment to internal circuitry is not represented.",
+          "joined": "The external connector joins the lower edge. Charging electronics condition incoming power before it reaches the cell.",
+          "detail": "USB-C opening and modeled connector surfaces",
+          "from": [
+            0.25,
+            -1,
+            0.3
+          ],
+          "approach": [
+            0,
+            -1,
+            1
+          ]
+        },
+        {
+          "id": "wireless-charging",
+          "componentIds": [
+            "wireless-charging"
+          ],
+          "title": "Receive energy without a cable.",
+          "description": "A changing magnetic field induces electrical energy in the receiving coil. Charging electronics condition that energy before it reaches the battery. The surrounding alignment elements help position the receiver. Turn the part to see the winding thickness and backing.",
+          "joined": "The charging receiver seats behind the internal assembly. Its coil supplies energy through charging electronics, not directly into the cell.",
+          "detail": "Copper-colored winding, dark backing and metallic alignment elements",
+          "from": [
+            0.25,
+            0.16,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "antennas",
+          "componentIds": [
+            "antennas"
+          ],
+          "title": "Connect electronics to the air.",
+          "description": "Radio electronics need conductive paths to radiating elements at the enclosure. This chapter exposes representative contacts and antenna flex routes. The exact tuned antenna geometry is not established, so this model must not be used as an RF design.",
+          "joined": "The antenna contacts and flex return along the enclosure region. The exact tuned conductors remain an approximation.",
+          "detail": "Flexible conductors and metallic contacts",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "connected-core",
+          "kind": "milestone",
+          "componentIds": [
+            "battery",
+            "connector",
+            "wireless-charging",
+            "interconnects",
+            "logic-board",
+            "radio",
+            "antennas"
+          ],
+          "title": "Power and information need complete paths.",
+          "description": "Wired and wireless inputs bring energy through charging electronics to the battery. Flexible circuits link modules, while cellular electronics connect to antenna routes. The diagram-like separation explains relationships without claiming an exact circuit or RF design.",
+          "joined": "The connection system returns around the core. Now add the parts that sense the world.",
+          "detail": "Milestone · charging routes, flex connections and radio path",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "camera-sensors",
+          "componentIds": [
+            "camera-sensors"
+          ],
+          "title": "Turn light into a signal.",
+          "description": "A sensor converts arriving light into electrical signals. The processor turns those signals into an image. Each sensor package sits behind an optical axis; the colored sensor surface illustrates the active area, not a reconstructed microscopic pixel layout.",
+          "joined": "The rear sensors establish the image planes. The next parts will support and align the optical paths.",
+          "detail": "Optical cover over semiconductor package; spectral finish approximate",
+          "from": [
+            0.25,
+            0.16,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "camera-modules",
+          "componentIds": [
+            "camera-modules"
+          ],
+          "title": "Hold each optical path in place.",
+          "description": "The rear optical assemblies need support, alignment and connections as well as a visible lens. These housings sit beneath the sourced exterior optics. Their outlines and clearances are fitted estimates; the small stabilizer mechanisms inside have not been resolved.",
+          "joined": "Camera housings return around the sensing assemblies. The hidden stabilizer mechanisms remain unresolved.",
+          "detail": "Metallic housings and dark optical barrels",
+          "from": [
+            0.25,
+            0.16,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "camera-optics",
+          "componentIds": [
+            "camera-optics"
+          ],
+          "title": "Focus the world onto the sensors.",
+          "description": "The sourced lens surfaces sit outside the newly modeled camera housings and sensors. Light travels through the optical system before reaching a sensor; the complete lens prescription and stabilizer mechanism are not reconstructed.",
+          "joined": "The sourced optical surfaces seat outside the housings and sensors. Visible lenses do not establish the full internal lens prescription.",
+          "detail": "Three rear optical groups",
+          "from": [
+            0.25,
+            0.16,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "rear-imaging",
+          "kind": "milestone",
+          "componentIds": [
+            "camera-sensors",
+            "camera-modules",
+            "camera-optics"
+          ],
+          "title": "An image needs more than a lens.",
+          "description": "Optics direct light, housings maintain alignment, and sensors convert arriving light into electrical signals. The processor then interprets those signals. The microscopic pixel structure, full lens prescription and stabilization mechanism are not reconstructed.",
+          "joined": "The rear imaging assembly returns as a unit. Other sensors will add front-facing images, depth and sound.",
+          "detail": "Milestone · optics, mechanical support and image sensors",
+          "from": [
+            0.25,
+            0.16,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "front-sensors",
+          "componentIds": [
+            "front-sensors"
+          ],
+          "title": "Look back toward the user.",
+          "description": "The front sensing assembly combines imaging and depth-related functions. Its optical openings must remain aligned with the display’s viewing regions. The modeled packages show where sensing hardware sits; their internal optics and precise hidden construction remain approximate.",
+          "joined": "The front sensing package returns to its display-facing position. Its openings must align with the front viewing regions.",
+          "detail": "Dark housings, metallic surrounds and optical windows",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "depth-sensor",
+          "componentIds": [
+            "depth-sensor"
+          ],
+          "title": "Add a sense of distance.",
+          "description": "A rear depth-sensing assembly supports spatial measurement alongside the cameras. The optical window and package are represented separately from the imaging sensors. Internal emitters, receivers and their precise optical arrangement are not reconstructed.",
+          "joined": "The rear depth-sensing package returns beside the cameras. Its internal emitter and receiver arrangement is not reconstructed.",
+          "detail": "Dark package and optical window",
+          "from": [
+            0.25,
+            0.16,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "microphones",
+          "componentIds": [
+            "microphones"
+          ],
+          "title": "Listen to pressure changes.",
+          "description": "Microphones turn pressure variations in air into electrical signals. Small package openings couple them to acoustic paths through the enclosure. The visible packages and flex are represented here; the microscopic diaphragm and exact port network remain unresolved.",
+          "joined": "The microphones return near their acoustic openings. They convert sound into signals, the reverse direction from speakers.",
+          "detail": "Metallic microphone packages and dark acoustic apertures",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "speakers",
+          "componentIds": [
+            "speakers"
+          ],
+          "title": "Turn a signal back into sound.",
+          "description": "The speaker assemblies turn electrical signals into pressure changes in air. Their housings direct sound toward the phone’s openings. The upper and lower packages share this chapter; the internal diaphragms and acoustic channels are not fully reconstructed.",
+          "joined": "The speaker assemblies seat near the output openings. Their housings route acoustic energy toward the outside.",
+          "detail": "Dark molded housings, metal shields and outlet mesh",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "haptics",
+          "componentIds": [
+            "haptics"
+          ],
+          "title": "Let a command become a feeling.",
+          "description": "The haptic actuator turns an electrical command into a brief mechanical vibration. Its housing transmits that motion into the enclosure so a tap can be felt. The exterior package is modeled; the concealed moving mass and suspension are not asserted as reconstructed.",
+          "joined": "The haptic housing rejoins the lower assembly. It transmits vibration into the phone; its concealed moving mechanism is not shown.",
+          "detail": "Metallic actuator housing and dark top surface",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "sense-and-respond",
+          "kind": "milestone",
+          "componentIds": [
+            "camera-sensors",
+            "camera-modules",
+            "camera-optics",
+            "front-sensors",
+            "depth-sensor",
+            "microphones",
+            "speakers",
+            "haptics"
+          ],
+          "title": "A computer that can sense and respond.",
+          "description": "Imaging, depth and microphones bring information into the system. Speakers and the haptic actuator turn electrical commands into physical feedback. Their different roles now fit around the same computing core.",
+          "joined": "The sensing and feedback assemblies return. Next give the complete system its structure and protective surfaces.",
+          "detail": "Milestone · light, spatial sensing, sound and touch",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "enclosure",
+          "componentIds": [
+            "enclosure"
+          ],
+          "title": "Give every system a shared structure.",
+          "description": "The enclosure locates and supports the display, boards, battery and distributed modules. Its openings provide access for controls, connectors and acoustic paths. The sourced outer geometry surrounds reference-fitted internals; precise internal mounting interfaces remain approximate.",
+          "joined": "The enclosure returns around the internal systems. Locating surfaces and mounting points hold their relationships.",
+          "detail": "Coated metal enclosure and exterior fittings",
+          "from": [
+            0.25,
+            0.16,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "left-controls",
+          "componentIds": [
+            "left-controls"
+          ],
+          "title": "Provide inputs at the left edge.",
+          "description": "These physical controls give your fingers distinct targets along the edge. A press becomes an input to the phone. The source includes the outer control surfaces, but not the switches or circuits behind them.",
+          "joined": "The left controls seat in their openings. Their distinct functions remain separate from the controls on the other edge.",
+          "detail": "Left-side control surfaces",
+          "from": [
+            -1,
+            0.1,
+            0.3
+          ],
+          "approach": [
+            -1,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "right-controls",
+          "componentIds": [
+            "right-controls"
+          ],
+          "title": "Complete the edge controls.",
+          "description": "Controls sit proud of, or within, the enclosure so you can find them by touch. Their outer shapes separate here; this visualization does not claim to reconstruct the sensing mechanisms underneath.",
+          "joined": "The right controls return to their openings. The enclosure makes these small input surfaces accessible.",
+          "detail": "Right-side control surfaces",
+          "from": [
+            1,
+            0.1,
+            0.3
+          ],
+          "approach": [
+            1,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "fasteners",
+          "componentIds": [
+            "fasteners"
+          ],
+          "title": "Hold the assembly in place.",
+          "description": "Small fasteners hold assemblies against their locating surfaces and retain selected electrical contacts. Mounting holes constrain position; the screws supply clamping force. The displayed set is representative, not an exhaustive service screw map.",
+          "joined": "The representative fasteners return to mounting points. This is a lesson in clamping and location, not a service screw map.",
+          "detail": "Metallic fasteners; alloy and exact service dimensions unverified",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "rear-panel",
+          "componentIds": [
+            "rear-panel"
+          ],
+          "title": "Close the back of the system.",
+          "description": "The rear panel closes the back of the phone behind the charging and sensing hardware. Its sourced exterior surface is preserved; the underlying interfaces and adhesive construction remain approximate.",
+          "joined": "The rear panel closes behind the charging and sensing hardware. The internals remain available in the detailed anatomy below.",
+          "detail": "Rear panel with authored finish",
+          "from": [
+            0.25,
+            0.16,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "display-seal",
+          "componentIds": [
+            "display-seal"
+          ],
+          "title": "Protect the perimeter interface.",
+          "description": "A continuous perimeter interface joins the display to the enclosure and helps resist ingress. Separation exposes that otherwise hidden boundary. The strip follows the enclosure contour, but this visualization is not a prediction of sealing performance.",
+          "joined": "The sealing interface seats around the display opening. Its visualization does not predict ingress resistance.",
+          "detail": "Dark adhesive/sealing interface; formulation unverified",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "display",
+          "componentIds": [
+            "display"
+          ],
+          "title": "Make the result visible.",
+          "description": "The display presents the result of computation as light. Its front surface is preserved from the source model, with a separate reverse backing added so the story can open the phone and expose the electronics behind it.",
+          "joined": "The display closes the front. Stored energy, computing, sensing and feedback now share a complete enclosure.",
+          "detail": "Front display surfaces",
+          "from": [
+            0.3,
+            0.1,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        }
+      ]
+    }
   }
 }

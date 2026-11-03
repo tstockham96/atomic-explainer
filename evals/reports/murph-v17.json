@@ -25,7 +25,7 @@
     },
     {
       "id": "review-freshness",
-      "status": "pass",
+      "status": "fail",
       "detail": "Review must match this exact spec hash and object."
     },
     {
@@ -41,12 +41,12 @@
     {
       "id": "rendered-coverage",
       "status": "fail",
-      "detail": "Missing actual geometry: buckle."
+      "detail": "Missing actual geometry: mainspring, buckle."
     },
     {
       "id": "component-review-coverage",
-      "status": "pass",
-      "detail": "Missing reviews: none; duplicate/unknown reviews: 0."
+      "status": "fail",
+      "detail": "Missing reviews: mainspring; duplicate/unknown reviews: 0."
     },
     {
       "id": "complete-surface-review",

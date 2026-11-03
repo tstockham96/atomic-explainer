@@ -16,7 +16,7 @@
   "studio": "light",
   "visualMode": "mixed",
   "modelNotice": "1965 flat-six · reference-guided reconstruction · dimensions & hidden details approximate",
-  "artNote": "Original geometry authored for this open-source study from period diagrams and inspected engine photographs. The study includes 29 physical assemblies presented in 26 inspection stories; matching crankcase halves, heads and cylinder banks share their views. Casting contours, ports, tolerances, finishes and small hardware are approximate; it is not a repair or assembly guide. The external dry-sump tank, fuel supply, vehicle wiring, clutch/transmission and complete heat-exchanger system are outside the engine model. No downloaded Porsche or marketplace geometry is redistributed. Material appearance is inferred where an exact alloy or coating has not been established.",
+  "artNote": "Original geometry authored for this open-source study from period diagrams and inspected engine photographs. The study includes 29 physical assemblies presented in 26 component lessons and four subsystem milestones; matching crankcase halves, heads and cylinder banks share their views. Casting contours, ports, tolerances, finishes and small hardware are approximate; it is not a repair or assembly guide. The external dry-sump tank, fuel supply, vehicle wiring, clutch/transmission and complete heat-exchanger system are outside the engine model. No downloaded Porsche or marketplace geometry is redistributed. Material appearance is inferred where an exact alloy or coating has not been established.",
   "closing": "Every breath becomes motion. Every part comes home.",
   "facts": [
     {
@@ -2885,6 +2885,662 @@
           ]
         }
       }
-    ]
+    ],
+    "assemblyStory": {
+      "title": "From pressure to a flat-six.",
+      "note": "Educational build order, not a factory assembly or repair procedure. Geometry, finishes and hidden interfaces remain reference-fitted. Engine-mounted systems only; the external dry-sump tank and vehicle ancillaries are outside this model.",
+      "opening": {
+        "title": "Six cylinders. One engine.",
+        "description": "Meet the finished flat-six. Then follow its core outward: pressure becomes rotation, valves time each breath, and air and oil carry heat away. Each part returns to the growing engine.",
+        "from": [
+          0.65,
+          0.35,
+          1
+        ]
+      },
+      "closing": {
+        "title": "Every breath becomes motion.",
+        "description": "The finished engine brings the systems together: pistons turn the crankshaft, timed valves exchange gases, and cooling and lubrication keep the mechanism working. The external oil tank, fuel supply and vehicle connections complete it beyond this model."
+      },
+      "chapters": [
+        {
+          "id": "crankshaft",
+          "componentIds": [
+            "crankshaft"
+          ],
+          "title": "Start with the turning core.",
+          "description": "Six offset crankpins gather the piston forces into one rotating shaft. Main journals support it inside the case; counterweights help manage the rotating loads.",
+          "joined": "The crankshaft is the reference around which the two opposed banks will grow.",
+          "detail": "Steel shaft · polished journals · darker webs",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "connecting-rods",
+          "componentIds": [
+            "connecting-rods"
+          ],
+          "title": "Give each piston a connection.",
+          "description": "Each rod connects a piston pin to its own crankpin. The big end follows a circle while the small end follows the piston, converting reciprocation into rotation.",
+          "joined": "Six rods now link the crankpins to the future piston positions. Each big end follows the shaft; each small end follows a piston.",
+          "detail": "Forged-metal appearance · polished bearing bores",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "pistons",
+          "componentIds": [
+            "pistons"
+          ],
+          "title": "Let pressure become force.",
+          "description": "Combustion pressure pushes on each piston crown. Rings seal against the bore while the hollow skirt and wrist pin connect that force to a rod.",
+          "joined": "The six pistons join their rods. Follow the load path from crown to wrist pin, rod and crankshaft.",
+          "detail": "Machined light metal · darker ring bands",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "rotating-core",
+          "kind": "milestone",
+          "componentIds": [
+            "crankshaft",
+            "connecting-rods",
+            "pistons"
+          ],
+          "title": "One path from pressure to rotation.",
+          "description": "Seen together, the piston crowns, rods and offset crankpins explain the conversion: a straight push reaches a rotating shaft. This assembly pose shows the relationships; it is not a running simulation.",
+          "joined": "The rotating core is ready for the structure that supports and guides it.",
+          "detail": "Milestone · six piston–rod paths, one crankshaft",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "crankcase",
+          "componentIds": [
+            "crankcase-left",
+            "crankcase-right"
+          ],
+          "title": "Support the core from both sides.",
+          "description": "These two mating castings form one crankcase. Their bearing supports align around the crankshaft; their machined joint closes the structure beneath both cylinder banks.",
+          "joined": "Both case halves seat around the rotating assembly. Their aligned supports give the shaft a stable structure.",
+          "detail": "Cast light alloy · machined mating faces",
+          "from": [
+            0.65,
+            0.7,
+            1
+          ],
+          "approach": [
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "oil-pump",
+          "componentIds": [
+            "oil-pump"
+          ],
+          "title": "Give the bearings an oil supply.",
+          "description": "The dry-sump system uses pumping stages to supply pressurized oil and scavenge it back toward a separate reservoir. Oil both lubricates moving interfaces and carries heat away.",
+          "joined": "The pump joins the core. Its pressure and scavenge roles belong to a dry-sump circuit whose external tank is outside this model.",
+          "detail": "Cast housing · steel gear forms",
+          "from": [
+            0.6,
+            1.8,
+            1
+          ],
+          "approach": [
+            0,
+            -1,
+            1
+          ]
+        },
+        {
+          "id": "cylinder-banks",
+          "componentIds": [
+            "cylinders-left",
+            "cylinders-right"
+          ],
+          "title": "Guide six pistons in opposed banks.",
+          "description": "Three cylinders on each side form the opposed layout. The paired banks guide the six pistons, while their external fins shed heat to the fan-driven airflow.",
+          "joined": "Both banks return together. Bores guide the pistons; the fins will later receive cooling airflow.",
+          "detail": "Dark finned metal · bright mounting hardware",
+          "from": [
+            0.65,
+            0.5,
+            1
+          ],
+          "approach": [
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "cylinder-heads",
+          "componentIds": [
+            "heads-left",
+            "heads-right"
+          ],
+          "title": "Close each combustion chamber.",
+          "description": "Both banks close their cylinders with finned heads. Intake and exhaust valves control each chamber; the fins transfer heat into the cooling airflow.",
+          "joined": "The paired heads close the cylinders. Their valve openings still need the moving parts that control each breath.",
+          "detail": "Cast light alloy · machined valve seats",
+          "from": [
+            0.65,
+            0.5,
+            1
+          ],
+          "approach": [
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "valvetrain",
+          "componentIds": [
+            "valvetrain"
+          ],
+          "title": "Open, close, and seal.",
+          "description": "The intake valve admits fresh mixture; the exhaust valve lets spent gases leave. Rockers transmit cam motion, and springs keep the valves returning to their seats.",
+          "joined": "Valves, springs and rockers take their places. They control gas exchange; the next parts determine when they move.",
+          "detail": "Steel stems and springs · cast rocker finish",
+          "from": [
+            0.65,
+            0.65,
+            1
+          ],
+          "approach": [
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "cam-carriers",
+          "componentIds": [
+            "cam-carriers"
+          ],
+          "title": "Keep the valve gear aligned.",
+          "description": "The carriers support the camshafts and rocker shafts along each bank. Alignment matters: a cam profile is useful only if the moving surfaces meet in the right place.",
+          "joined": "The carriers locate the cam and rocker supports along both banks.",
+          "detail": "Cast housing · smooth bearing surfaces",
+          "from": [
+            0.65,
+            0.65,
+            1
+          ],
+          "approach": [
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "camshafts",
+          "componentIds": [
+            "camshafts"
+          ],
+          "title": "Turn a profile into valve motion.",
+          "description": "One overhead camshaft serves each bank. Its lobes act through rockers to open valves; spring force closes them after the lobe passes.",
+          "joined": "Both camshafts return to their supports. Their lobes act through the rockers; spring force closes the valves.",
+          "detail": "Steel · polished lobe surfaces",
+          "from": [
+            0.65,
+            0.65,
+            1
+          ],
+          "approach": [
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "timing-chains",
+          "componentIds": [
+            "timing-chains"
+          ],
+          "title": "Connect valve events to piston travel.",
+          "description": "An intermediate drive turns two chains, one for each camshaft. Valve timing coordinates intake and exhaust events with piston travel through the four-stroke cycle.",
+          "joined": "The chain drive connects the crankshaft-side drive to both camshafts. These are illustrative positions, not timing marks for engine service.",
+          "detail": "Steel links · bright pins · dark sprocket faces",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "timed-engine",
+          "kind": "milestone",
+          "componentIds": [
+            "crankshaft",
+            "connecting-rods",
+            "pistons",
+            "crankcase-left",
+            "crankcase-right",
+            "oil-pump",
+            "cylinders-left",
+            "cylinders-right",
+            "heads-left",
+            "heads-right",
+            "valvetrain",
+            "cam-carriers",
+            "camshafts",
+            "timing-chains"
+          ],
+          "title": "A core that can time its own breathing.",
+          "description": "The crankshaft, chain drive, camshafts and valve gear form one coordinated mechanism. The heads contain gas flow, the bores guide pistons, and the crankcase supports rotation. Intake, ignition and exhaust will give this mechanism its working connections.",
+          "joined": "The timed core returns as one assembly. Now build the paths for mixture, spark and exhaust.",
+          "detail": "Milestone · supported rotating core and timed valve gear",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "flywheel",
+          "componentIds": [
+            "flywheel"
+          ],
+          "title": "Carry rotation beyond the engine.",
+          "description": "The flywheel stores rotational energy between firing impulses and passes torque toward the clutch. Its toothed perimeter also gives the starter a place to engage.",
+          "joined": "The flywheel seats at the output end. The clutch and transmission would carry torque onward beyond this study.",
+          "detail": "Machined steel · darker toothed rim",
+          "from": [
+            0.35,
+            0.2,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "intake-manifolds",
+          "componentIds": [
+            "intake-manifolds"
+          ],
+          "title": "Build a route into each head.",
+          "description": "The intake runners connect the carburetors to the cylinder heads. An intake valve admits the mixture into the chamber at the appropriate part of the cycle.",
+          "joined": "Six intake runners connect the heads to the carburetors that follow.",
+          "detail": "Cast-metal runners · machined flange faces",
+          "from": [
+            0.65,
+            0.65,
+            1
+          ],
+          "approach": [
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "carburetors",
+          "componentIds": [
+            "carburetors"
+          ],
+          "title": "Meter the incoming mixture.",
+          "description": "The early 901/01 uses Solex carburetion. Air passes through a throat for each cylinder; throttle position changes the flow and the carburetor meters fuel into it.",
+          "joined": "The carburetors seat above the runners. Each cylinder now has a path for a metered air-fuel mixture.",
+          "detail": "Cast alloy bodies · machined throats · brass fittings",
+          "from": [
+            0.65,
+            0.65,
+            1
+          ],
+          "approach": [
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "air-cleaner",
+          "componentIds": [
+            "air-cleaner"
+          ],
+          "title": "Clean the air before it enters.",
+          "description": "The air cleaner feeds the two banks of carburetors. Removing it reveals six separate intake throats beneath.",
+          "joined": "The cleaner closes the intake path above the carburetors. This airflow feeds combustion, not the separate cooling fan.",
+          "detail": "Satin black housing · bright fasteners",
+          "from": [
+            0.65,
+            0.65,
+            1
+          ],
+          "approach": [
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "ignition",
+          "componentIds": [
+            "ignition"
+          ],
+          "title": "Add the spark.",
+          "description": "The distributor routes high voltage to six spark plugs. A spark starts combustion in the compressed mixture; the plug is a separate part of each head.",
+          "joined": "The distributor, leads and plugs complete the represented ignition path. Electrical timing and the running firing sequence are not simulated.",
+          "detail": "Brown insulating cap · black cable · pale ceramic",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "exhaust",
+          "componentIds": [
+            "exhaust"
+          ],
+          "title": "Give spent gases a way out.",
+          "description": "Exhaust leaves each head through a runner, collects below the banks, and passes through the silencer. The cycle can then begin again with fresh mixture.",
+          "joined": "The exhaust returns below the banks, completing the represented route from intake to combustion to discharge.",
+          "detail": "Heat-exposed metal · soft reflections",
+          "from": [
+            0.65,
+            -0.4,
+            1
+          ],
+          "approach": [
+            0,
+            -1,
+            1
+          ]
+        },
+        {
+          "id": "breathing-engine",
+          "kind": "milestone",
+          "componentIds": [
+            "intake-manifolds",
+            "carburetors",
+            "air-cleaner",
+            "ignition",
+            "exhaust",
+            "heads-left",
+            "heads-right"
+          ],
+          "title": "Follow one breath through the engine.",
+          "description": "Air enters the cleaner and carburetors, mixture reaches the heads through the runners, ignition initiates combustion, and exhaust carries spent gases away. The valves you explored determine when the chambers connect to these paths.",
+          "joined": "The breathing and ignition systems return to the core. Next, manage the heat that combustion produces.",
+          "detail": "Milestone · intake, ignition and exhaust",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "cooling-shroud",
+          "componentIds": [
+            "cooling-shroud"
+          ],
+          "title": "Guide air across the hot engine.",
+          "description": "The black shroud guides fan air over both cylinder banks. Without that guidance, air could escape before collecting heat from the fins.",
+          "joined": "The shroud forms a separate air route over the finned cylinders and heads.",
+          "detail": "Satin black finish · no baked highlights",
+          "from": [
+            0.65,
+            0.65,
+            1
+          ],
+          "approach": [
+            0,
+            1,
+            1
+          ]
+        },
+        {
+          "id": "alternator",
+          "componentIds": [
+            "alternator"
+          ],
+          "title": "Make electrical power from rotation.",
+          "description": "Behind the fan, an alternator converts shaft rotation into electrical power. It shares the belt drive rather than needing a second motor.",
+          "joined": "The alternator sits behind the fan position. Both share a belt-driven shaft arrangement.",
+          "detail": "Cast housing · steel shaft",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "fan-housing",
+          "componentIds": [
+            "fan-housing"
+          ],
+          "title": "Support the fan and contain its inlet.",
+          "description": "The housing supports the fan and alternator while keeping the blade tips close to the surrounding ring. It forms the inlet to the cooling duct.",
+          "joined": "The housing seats around the alternator and the fan opening. Its ring defines the airflow entrance.",
+          "detail": "Cast metal · restrained silver-grey reflection",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "fan",
+          "componentIds": [
+            "fan"
+          ],
+          "title": "Move air through the cooling route.",
+          "description": "The pitched blades accelerate air into the shroud. Cooling needs directed flow across the hot surfaces, not simply an exposed engine.",
+          "joined": "Eleven pitched blades return inside the housing. The fan directs air into the shroud instead of feeding combustion.",
+          "detail": "Fine cast-metal finish · machined hub",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "fan-drive",
+          "componentIds": [
+            "fan-drive"
+          ],
+          "title": "Let the crankshaft drive the airflow.",
+          "description": "The crankshaft turns a belt. That belt drives the cooling fan and alternator, so the running engine provides its own airflow.",
+          "joined": "The belt links crankshaft rotation to the fan and alternator. The engine supplies its own cooling airflow.",
+          "detail": "Machined metal pulleys · matte rubber belt",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "oil-cooler",
+          "componentIds": [
+            "oil-cooler"
+          ],
+          "title": "Carry away heat in the oil.",
+          "description": "Oil carries heat from loaded surfaces to the cooler. Closely spaced fins give the air another route to remove that heat.",
+          "joined": "The cooler rejoins the engine-mounted oil circuit. An air-cooled engine still needs lubrication and oil heat rejection.",
+          "detail": "Metal fins · cast end tanks",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "oil-lines",
+          "componentIds": [
+            "oil-lines"
+          ],
+          "title": "Join the oil circuit together.",
+          "description": "Return tubes carry oil from the heads back toward the case. External connections link the engine to the wider dry-sump circuit in the car.",
+          "joined": "The represented lines return around the engine. The dry-sump circuit continues to an external tank not shown here.",
+          "detail": "Metal tubing · rubber hoses and seals · warm metal fittings",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "thermal-engine",
+          "kind": "milestone",
+          "componentIds": [
+            "cooling-shroud",
+            "alternator",
+            "fan-housing",
+            "fan",
+            "fan-drive",
+            "oil-cooler",
+            "oil-lines",
+            "oil-pump",
+            "cylinders-left",
+            "cylinders-right"
+          ],
+          "title": "Air and oil share the thermal work.",
+          "description": "Fan-driven air travels over finned surfaces. Circulating oil lubricates loaded interfaces and carries heat toward the cooler. These routes complement each other; the external oil tank remains outside this engine model.",
+          "joined": "Cooling and oil systems return. The final covers protect the working mechanisms.",
+          "detail": "Milestone · directed cooling air and engine-mounted oil circuit",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "timing-covers",
+          "componentIds": [
+            "timing-covers"
+          ],
+          "title": "Close the chain drive.",
+          "description": "The front covers enclose the timing drive and retain lubricant. Moving them away reveals the chain route between the central drive and the two camshafts.",
+          "joined": "The cast covers seat over the chains. Their surfaces enclose the drive and retain lubricant.",
+          "detail": "Cast aluminum · granular surface · machined fasteners",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "valve-covers",
+          "componentIds": [
+            "valve-covers"
+          ],
+          "title": "Close the service openings.",
+          "description": "The ribbed covers seal the valve mechanism. Removing them opens a service view of the rocker and cam assemblies beneath.",
+          "joined": "The covers seat over the valve mechanisms. The completed exterior now surrounds the detailed systems you have followed.",
+          "detail": "Cast-metal covers · machined nuts",
+          "from": [
+            0.65,
+            0.35,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        }
+      ]
+    }
   }
 }

@@ -19,7 +19,7 @@ export interface SceneHandle {
   setAtmosphere: (value: Atmosphere) => void
   setPresentation: (value: PresentationSetting) => void
   setPaused: (value: boolean) => void
-  snapshot: () => { unobscuredParts:string[]; setting:PresentationSetting; selected: string | null; selectedParts: string[]; allVisible: boolean; bounds: { left: number; right: number; top: number; bottom: number } | null; progress: number; separation: number; partPositions: Record<string, number[]> }
+  snapshot: () => { builtIds:string[]; chapterKind:string|null; homePositions:Record<string,number[]>; unobscuredParts:string[]; setting:PresentationSetting; selected: string | null; selectedParts: string[]; allVisible: boolean; bounds: { left: number; right: number; top: number; bottom: number } | null; progress: number; separation: number; partPositions: Record<string, number[]> }
   capture: () => string
   dispose: () => void
 }
@@ -59,6 +59,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
   }
   scene.add(model.root)
   const story=spec.scene3d?.kind==='gltf'&&spec.scene3d.assemblyStory?createAssemblyStory(model.root,Object.fromEntries(model.parts.map(p=>[p.id,p.group])),spec.scene3d.assemblyStory):undefined
+  let lastAssemblyState=story?.pose(0)
   const storyShot=(state:ReturnType<NonNullable<typeof story>['pose']>)=>{
    const narrow=camera.aspect<.85,whole=state.opening?1-state.reveal:ease((state.progress-.92)/.02)
    const shot=story!.camera(state,STORY_FOV,camera.aspect,narrow?[.76,.35]:[THREE.MathUtils.lerp(.49,.8,whole),THREE.MathUtils.lerp(.68,.47,whole)])
@@ -175,6 +176,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     }
     if(story){model.root.rotation.set(0,0,0);model.root.position.set(0,0,0)}
     const assemblyState=story?.pose(displayed)
+    lastAssemblyState=assemblyState
     const sample = assemblyState?{separation:assemblyState.opening?assemblyState.reveal:assemblyState.complete?0:1,focus:assemblyState.focus}:poseModel(model, displayed)
     model.root.rotation.y += pointerX * 0.015 + dragX
     model.root.rotation.x += pointerY * 0.01 + dragY
@@ -233,10 +235,10 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     setAtmosphere: (value) => { dirty = true; atmosphere = value },
     setPaused: (value) => { dirty = true; paused = value },
     snapshot: () => {
-      const state=story?.pose(displayed),sample=sampleScene(displayed, modelStops(model).length),index=state?(state.opening||state.complete?-1:state.index):sample.index,selected=modelStops(model)[index]
+      const state=lastAssemblyState,sample=sampleScene(displayed, modelStops(model).length),index=state?(state.opening||state.complete?-1:state.index):sample.index,selected=modelStops(model)[index]
       model.root.updateMatrixWorld(true)
       const points = corners(selected ? stopBounds(model,index) : new THREE.Box3().setFromObject(model.root)).map(p => p.project(camera))
-      return { unobscuredParts:unobscuredSubjects(camera,Object.fromEntries(model.parts.map(p=>[p.id,p.group])),presentation.group),setting:presentation.setting,selected: selected?.id ?? null, selectedParts:selected?.componentIds??[], progress: displayed, separation: state?(state.opening?state.reveal:state.complete?0:1):sample.separation, partPositions: Object.fromEntries(model.parts.map(p => [p.id, p.group.position.toArray()])), allVisible: model.parts.every(p => p.group.visible), bounds: { left: Math.min(...points.map(p => (p.x + 1) * host.clientWidth / 2)), right: Math.max(...points.map(p => (p.x + 1) * host.clientWidth / 2)), top: Math.min(...points.map(p => (1 - p.y) * host.clientHeight / 2)), bottom: Math.max(...points.map(p => (1 - p.y) * host.clientHeight / 2)) } }
+      return { builtIds:state?.builtIds??[],chapterKind:state&&!state.opening&&!state.complete?(state.chapter.kind??'component'):null,homePositions:Object.fromEntries(model.parts.map(p=>[p.id,p.home.toArray()])),unobscuredParts:unobscuredSubjects(camera,Object.fromEntries(model.parts.map(p=>[p.id,p.group])),presentation.group),setting:presentation.setting,selected: selected?.id ?? null, selectedParts:selected?.componentIds??[], progress: displayed, separation: state?(state.opening?state.reveal:state.complete?0:1):sample.separation, partPositions: Object.fromEntries(model.parts.map(p => [p.id, p.group.position.toArray()])), allVisible: model.parts.every(p => p.group.visible), bounds: { left: Math.min(...points.map(p => (p.x + 1) * host.clientWidth / 2)), right: Math.max(...points.map(p => (p.x + 1) * host.clientWidth / 2)), top: Math.min(...points.map(p => (1 - p.y) * host.clientHeight / 2)), bottom: Math.max(...points.map(p => (1 - p.y) * host.clientHeight / 2)) } }
     },
     capture: () => { render(); return renderer.domElement.toDataURL("image/png") },
     dispose: () => {

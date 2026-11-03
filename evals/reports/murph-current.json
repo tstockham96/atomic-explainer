@@ -25,12 +25,12 @@
     },
     {
       "id": "review-freshness",
-      "status": "pass",
+      "status": "fail",
       "detail": "Review must match this exact spec hash and object."
     },
     {
       "id": "asset-freshness",
-      "status": "pass",
+      "status": "fail",
       "detail": "Visual review must match the exact rendered asset, not only its spec."
     },
     {
@@ -45,8 +45,8 @@
     },
     {
       "id": "component-review-coverage",
-      "status": "pass",
-      "detail": "Missing reviews: none; duplicate/unknown reviews: 0."
+      "status": "fail",
+      "detail": "Missing reviews: mainspring; duplicate/unknown reviews: 0."
     },
     {
       "id": "complete-surface-review",
@@ -81,7 +81,7 @@
     {
       "id": "model-payload",
       "status": "fail",
-      "detail": "38004384 bytes; prototype budget is 25 MiB before transport compression. Field performance remains separate."
+      "detail": "43693888 bytes; prototype budget is 25 MiB before transport compression. Field performance remains separate."
     },
     {
       "id": "physical-continuity",

@@ -11,7 +11,7 @@ import type { Atmosphere, SceneHandle } from "./three/scene.ts"
 
 declare global { interface Window { __explodeAssemblyReview?: { inspect: (id: string, local?: number) => void; snapshot: SceneHandle['snapshot'] } } }
 
-export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: { current: ReelHandle | null }; onImages?: (images: Record<string, string>) => void }) {
+export function ObjectScene({ spec, api, onImages, scrollTo }: { spec: ExplodeSpec; api: { current: ReelHandle | null }; onImages?: (images: Record<string, string>) => void; scrollTo?: (top:number)=>void }) {
   const host = useRef<HTMLDivElement>(null)
   const title = useRef<HTMLDivElement>(null)
   const closing = useRef<HTMLDivElement>(null)
@@ -110,7 +110,10 @@ export function ObjectScene({ spec, api, onImages }: { spec: ExplodeSpec; api: {
   const navigate = (value: number) => {
     const pin = host.current?.closest('.pin')?.parentElement
     const spacer = pin?.parentElement
-    if (spacer) window.scrollTo({ top: spacer.getBoundingClientRect().top + window.scrollY + value * Math.max(0, spacer.offsetHeight - window.innerHeight), behavior: 'instant' })
+    if (spacer) {
+      const top=spacer.getBoundingClientRect().top+window.scrollY+value*Math.max(0,spacer.offsetHeight-window.innerHeight)
+      if(scrollTo)scrollTo(top);else window.scrollTo({top,behavior:'instant'})
+    }
     updateRef.current(value)
   }
 

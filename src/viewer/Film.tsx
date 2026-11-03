@@ -31,6 +31,7 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
   const api = useRef<ReelHandle | null>(null)
   const [images, setImages] = useState<Record<string, string>>({})
   const driver = useRef({ progress: 0 })
+  const scrollTo = useRef((top:number)=>window.scrollTo({top,behavior:'instant'}))
   const tween = useMemo(() => ({ start: 0, end: 100, target: driver.current, fromTo: [
     { progress: 0 }, { progress: 1, ease: "none", onUpdate: () => api.current?.setProgress(driver.current.progress) },
   ] as [gsap.TweenVars, gsap.TweenVars] }), [])
@@ -40,9 +41,12 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
   useGSAP(() => {
     const lenis = new Lenis({ lerp: 0.09, smoothWheel: true, autoRaf: false, anchors: true })
     lenis.on("scroll", ScrollTrigger.update)
+    // Menu jumps must cancel wheel momentum in the same scrolling driver.
+    scrollTo.current=(top)=>lenis.scrollTo(top,{immediate:true,force:true})
     const tick = (time: number) => lenis.raf(time * 1000)
     gsap.ticker.add(tick)
     return () => {
+      scrollTo.current=(top)=>window.scrollTo({top,behavior:'instant'})
       lenis.destroy()
       gsap.ticker.remove(tick)
     }
@@ -55,7 +59,7 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
         <Scrollytelling.Pin childHeight="100svh" pinSpacerHeight={`${spec.scene3d?.kind==='gltf'&&spec.scene3d.assemblyStory?assemblyScrollVh(tourLength):(4+tourLength*1.15)*100}svh`}>
           <Scrollytelling.Animation tween={tween} />
           <section id="film" className="pin" aria-label={`${spec.item.name}: rotate, explode, and explore`}>
-            {spec.scene3d ? <ObjectScene spec={spec} api={api} onImages={setImages} /> : <Reel spec={spec} api={api} />}
+            {spec.scene3d ? <ObjectScene spec={spec} api={api} onImages={setImages} scrollTo={top=>scrollTo.current(top)} /> : <Reel spec={spec} api={api} />}
           </section>
         </Scrollytelling.Pin>
       </Scrollytelling.Root>

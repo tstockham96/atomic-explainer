@@ -19,3 +19,11 @@ The reference websites supplied for design direction are not included in this di
 ## Blender-authored workshop derivative
 
 `public/presentation/atelier/workshop.glb` incorporates the CC0 workshop sources listed above into an authored room. The source textures, materials and lighting are baked into four atlases. `workshop-probe.hdr` is rendered from that scene. Attribution and license records are retained beside the packaged presentation assets; editable Blender source and reproducible authoring instructions are in `tools/workshop-scene/`. No Bruno Simon or Spline scene assets are redistributed.
+
+## Local-only iPhone study
+
+The Apple exterior reference and the combined internal-study GLB are not bundled or licensed by this repository. Their redistribution rights have not been established. They stay in ignored `assets.local/` directories. Public builds show a source-review page at the iPhone route; they do not present the simple construction fixture as a finished reconstruction. Existing images in `evals/reports/iphone-assembly/` document the project-authored construction fixture, not the manufacturer asset. See `docs/research/iphone-source-audit.md`.
+
+## Porsche engine study
+
+`examples/porsche-911-engine/models/engine.glb` is project-authored educational geometry under MIT, not manufacturer CAD or a redistributed marketplace model. The source, research limitations and asset attribution accompany the example. Brand names identify study subjects and do not imply endorsement.

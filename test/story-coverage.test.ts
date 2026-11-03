@@ -21,3 +21,17 @@ it('keeps an individual lesson for every exported Murph component before the mov
  expect(report.milestones[0]!.componentIds).toContain('mainspring')
  expect(story.chapters[0].id).toBe('mainspring')
 })
+
+for(const [name,path,count,pairs] of [
+ ['Porsche','examples/porsche-911-engine/research.json',29,3],
+ ['iPhone','examples/iphone-18-pro/internal-study.json',28,0],
+] as const)it(`${name} retains every physical lesson and adds researched system milestones`,()=>{
+ const spec=JSON.parse(readFileSync(path,'utf8')),scene=spec.scene3d
+ const report=auditStory(scene.assemblyStory,scene.parts.map((p:{componentId:string})=>p.componentId),scene.inspectionGroups)
+ expect(report.issues).toEqual([]);expect(report.components).toHaveLength(count)
+ expect(report.components.filter(c=>c.coverage==='declared-group')).toHaveLength(pairs*2)
+ expect(report.milestones).toHaveLength(4);expect(report.ready).toBe(false)
+ const source=JSON.parse(readFileSync(`docs/research/${name==='Porsche'?'porsche':'iphone'}-assembly-story.json`,'utf8'))
+ expect(scene.assemblyStory).toEqual(source)
+ expect(source.chapters[0].id).toBe(name==='Porsche'?'crankshaft':'battery')
+})

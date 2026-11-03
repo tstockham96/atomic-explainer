@@ -283,7 +283,7 @@
       "id": "enclosure",
       "name": "Enclosure",
       "system": "Exterior",
-      "purpose": "The enclosure locates the display, rear panel and optical openings within one rigid structure. Its openings make room for lenses, controls and the connector. The empty interior here reflects what this source model omits; the actual phone contains many additional components.",
+      "purpose": "The enclosure locates and supports the display, boards, battery and distributed modules. Its openings provide access for controls, connectors and acoustic paths. The sourced outer geometry surrounds reference-fitted internals; precise internal mounting interfaces remain approximate.",
       "sourceUrls": [
         "https://www.apple.com/iphone-18-pro/"
       ]
@@ -292,7 +292,7 @@
       "id": "rear-panel",
       "name": "Rear panel",
       "system": "Exterior",
-      "purpose": "The rear panel closes this part of the enclosure. Its distinct finish and logo stay attached to the panel as it moves. This source does not expose the charging coil, adhesives or other hardware beneath it.",
+      "purpose": "The rear panel closes the back of the phone behind the charging and sensing hardware. Its sourced exterior surface is preserved; the underlying interfaces and adhesive construction remain approximate.",
       "sourceUrls": [
         "https://www.apple.com/iphone-18-pro/"
       ]

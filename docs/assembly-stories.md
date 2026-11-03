@@ -53,3 +53,18 @@ Material correctness is a separate release condition. Inspect actual exported ca
 After individual `motor` and `motor-mount` chapters, a milestone can use `{"id":"power-unit", "kind":"milestone", "componentIds":["motor","motor-mount"], ...}`. The same meshes lift and turn together, then return to their existing seats. The assembled part count stays unchanged. Separate component lessons remain directly selectable. Narrative length scales with the chapter count so added detail does not compress reading time.
 
 The general viewer's anatomy uses the original component research and declared pairs, not milestone summaries. Unmodeled researched components retain written entries. Each story export writes `story-review.json`: it flags missing lessons and multi-part chapters without a declared inspection group. A milestone never counts as individual lesson coverage. This structural check cannot judge explanation quality, mechanical accuracy or whether a grouping was honestly justified by research.
+
+## Engine and phone studies
+
+The real engine and local sourced-phone exports now use the same story contract:
+
+- `docs/research/porsche-assembly-story.json`: 29 physical groups, 26 component lessons (three declared pairs) and four system milestones. The crankshaft leads into the rotating core, timed mechanism, breathing/ignition, and air/oil cooling before the covers close.
+- `docs/research/iphone-assembly-story.json`: 28 physical groups, 28 component lessons and four system milestones. Stored energy leads into computation, connection paths, imaging, sensing/feedback, and the completed enclosure/display. Board layers and left/right controls remain separate lessons because they have distinct roles.
+
+Both `tools/*-study/spec.mjs` builders load the researched story file, so rebuilding a model cannot silently restore the old exploded tour. Existing materials and authored geometry are retained. These scripts rebuild exports; they do not demonstrate new unattended reconstruction from a photo.
+
+Run `npm run build:porsche` to regenerate the public engine. The iPhone build requires the separately obtained, ignored `examples/iphone-18-pro/assets.local/apple-reference.glb`: run `node tools/iphone-study/spec.mjs` and `node --import tsx tools/iphone-study/build.mjs`. Use `PLAYWRIGHT_CHANNEL=chrome` when exporting with installed Chrome. Never commit the sourced Apple geometry or its combined derivative.
+
+`test/browser/porsche.spec.ts` checks all story lessons at three turn positions, milestone/part coverage, scenery clearance, caption clearance, exact cumulative seating, completion, public navigation and reverse scroll on desktop and mobile. It normally tests the public engine. Set `EXPLODE_LOCAL_STORIES=1` to include the real local phone and target the running previews on port 4319. The test deliberately does not substitute the primitive construction fixture for the sourced phone.
+
+Review snapshots observe the rendered pose without changing it. Scenery visibility probes include actual mesh triangle centers as well as group centers, because a group center can lie inside a bore or between disconnected members. Passing this check only establishes some visible anatomy, not full silhouette clarity or physical accuracy.

@@ -10,6 +10,14 @@ The Murph is an authored research prototype, not proof of automatic reconstructi
 
 Read [the evaluation method and findings](docs/evaluations.md). Run `npm run eval` for reports, `npm test` for regression checks, and `npm run eval:browser` for real exported-model browser checks. `npm run eval:release` deliberately fails while the current specimen falls below the reviewed bar.
 
+## Model-authoring stack
+
+Research defines the component inventory and evidence first. Reuse an appropriately licensed model when it is a better starting point; otherwise Tripo can draft exterior geometry. Blender is a refinement/authoring tool for missing internals, geometry, UVs, separated components and physically based materials. Export multipart GLB for the Three.js viewer. [Blender’s glTF export documentation](https://docs.blender.org/manual/en/4.5/addons/import_export/scene_gltf2.html) describes supported geometry and material channels.
+
+Tripo is optional, and Blender is not required to play an exported study. Neither is an automatic source of verified hidden anatomy. The authored workshop already uses Blender; the current watch, engine and phone retain their existing authored/imported product geometry.
+
+The [assembly-story contract](docs/assembly-stories.md) now drives the Murph, public Porsche engine and local sourced iPhone: whole object → core → individual lessons → subsystem milestones → complete object. Detailed anatomy remains available afterward. The iPhone's manufacturer asset is excluded from public builds because redistribution rights are not established.
+
 ## Use with an agent
 
 Point a capable agent at this repository and ask it to use [the Explode skill](skills/explode/SKILL.md) with your photograph, object description, or model. For example: “Use the Explode skill in this repo to research this object and build a continuous 3D explainer. Prioritize fidelity; inspect a short assembled-to-exploded sequence before making the full tour.”

@@ -7,9 +7,9 @@ import {assemblyRequirementsSchema} from '../src/spec/requirements.ts'
 import {glbComponentIds} from '../src/evals/inventory.ts'
 import {auditCompleteness} from '../src/pipeline/completeness.ts'
 import {prepareModel} from '../src/viewer/three/loadModel.ts'
-import {poseModel,cameraShot,corners,STORY_FOV} from '../src/viewer/three/choreography.ts'
+import {corners,STORY_FOV} from '../src/viewer/three/choreography.ts'
 import {modelStops,stopBounds} from '../src/viewer/three/model.ts'
-import {THREE_TIMING} from '../src/viewer/three/timeline.ts'
+import {createAssemblyStory} from '../src/viewer/three/assemblyStory.ts'
 const base='examples/porsche-911-engine/'
 const spec=explodeSpecSchema.parse(JSON.parse(readFileSync(base+'research.json','utf8')))
 const required=assemblyRequirementsSchema.parse(JSON.parse(readFileSync(base+'requirements.json','utf8')))
@@ -51,15 +51,19 @@ describe('Porsche engine assembly',()=>{
  it('fits every engine part through its complete inspection turn and seats it at the end',()=>{
   const model=prepareModel(spec,{scene:buildEngine(),animations:[]})
   try {
-   for(const aspect of [1440/900,390/844])for(let i=0;i<modelStops(model).length;i++)for(const local of [.28,.39,.5,.61,.72]){
-    const p=THREE_TIMING.inspect+(i+local)*(THREE_TIMING.reassemble-THREE_TIMING.inspect)/modelStops(model).length
-    poseModel(model,p);const shot=cameraShot(model,p,aspect)
-    const camera=new T.PerspectiveCamera(STORY_FOV,aspect,.05,300);camera.position.copy(shot.position);camera.lookAt(shot.target);camera.updateMatrixWorld()
-    const points=corners(stopBounds(model,i)).map(p=>p.project(camera))
-    expect(points.every(p=>Math.abs(p.x)<1&&Math.abs(p.y)<1),modelStops(model)[i]!.id).toBe(true)
+   const story=createAssemblyStory(model.root,Object.fromEntries(model.parts.map(p=>[p.id,p.group])),spec.scene3d?.kind==='gltf'?spec.scene3d.assemblyStory:undefined)
+   for(const aspect of [1440/900,390/844])for(let i=0;i<modelStops(model).length;i++)for(const local of [.2,.39,.55,.97]){
+    const state=story.pose(story.progressFor(modelStops(model)[i]!.id,local)),shot=story.camera(state,STORY_FOV,aspect,[.7,.6])
+    if(local<.58){
+     const camera=new T.PerspectiveCamera(STORY_FOV,aspect,.05,300);camera.position.copy(shot.position);camera.lookAt(shot.target);camera.updateMatrixWorld()
+     const points=corners(stopBounds(model,i)).map(p=>p.project(camera))
+     expect(points.every(p=>Math.abs(p.x)<1&&Math.abs(p.y)<1),modelStops(model)[i]!.id).toBe(true)
+    }else for(const id of state.builtIds)expect(story.homes[id]!.position.distanceTo(model.parts.find(p=>p.id===id)!.group.position)).toBeLessThan(1e-9)
    }
-   poseModel(model,1)
+   const end=story.pose(1);expect(end.builtIds).toHaveLength(29)
    model.parts.forEach(p=>expect(p.group.position.distanceTo(p.home)).toBeLessThan(1e-9))
+   story.pose(story.progressFor('pistons',.97));expect(story.pose(story.progressFor('crankshaft',.4)).builtIds).toEqual([])
+   story.pose(0);model.parts.forEach(p=>expect(p.group.position.distanceTo(p.home)).toBeLessThan(1e-9))
   } finally {model.dispose()}
  })
 })

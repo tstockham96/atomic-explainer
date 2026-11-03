@@ -1,0 +1,63 @@
+{
+  "date": "2026-11-02",
+  "method": "Hardware Chrome; real exported models; shared browser regression. Motion/presentation evidence, not reference fidelity or learner validation.",
+  "studies": [
+    {
+      "study": "porsche",
+      "specSha256": "3931971df25a9afb5cc5d5422bfd857e4f20153a0f60a6047e9dbdf9aaf59788",
+      "modelSha256": "1e445ac0f0ebb13eda17f09378c797d8679e0e619f3e990e9a0f1c07cd2295e4",
+      "physicalGroups": 29,
+      "chapters": 30,
+      "milestones": 4,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 900,
+          "passed": true
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "passed": true
+        }
+      ],
+      "rotationSamples": [
+        0.23,
+        0.42,
+        0.55
+      ],
+      "seatingSample": 0.97,
+      "localAssetOnly": false
+    },
+    {
+      "study": "iphone",
+      "specSha256": "c8a39e42464690513a5fbbea555d39947b96964fdad3ccd4c21e2ae209f69c5b",
+      "modelSha256": "d9df78b5d76060d511a76ecc9d858067c9216b4cc88f1e7f79b6fb927e98fabc",
+      "physicalGroups": 28,
+      "chapters": 32,
+      "milestones": 4,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 900,
+          "passed": true
+        },
+        {
+          "width": 390,
+          "height": 844,
+          "passed": true
+        }
+      ],
+      "rotationSamples": [
+        0.23,
+        0.42,
+        0.55
+      ],
+      "seatingSample": 0.97,
+      "localAssetOnly": true
+    }
+  ],
+  "unitTestsPassed": 161,
+  "sharedFixtureBrowserTestsPassed": 2,
+  "ready": false
+}
