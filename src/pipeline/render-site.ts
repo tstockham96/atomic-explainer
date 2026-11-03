@@ -1,5 +1,5 @@
 import { spawnSync } from "node:child_process"
-import { cp, mkdir, readFile, writeFile } from "node:fs/promises"
+import { cp, mkdir, readFile, writeFile, readdir } from "node:fs/promises"
 import { existsSync } from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
@@ -42,9 +42,10 @@ export async function ensureViewerTemplate(root = packageRoot(), log: (message: 
 export async function renderSite(
   spec: ExplodeSpec,
   outDir: string,
-  options: { templateDir?: string; log?: (message: string) => void } = {},
+  options: { templateDir?: string; assetRoot?: string; requirementsPath?: string; log?: (message: string) => void } = {},
 ) {
   const log = options.log ?? (() => undefined)
+
   const destination = path.resolve(outDir)
   const templateDir = options.templateDir ?? (await ensureViewerTemplate(packageRoot(), log))
   if (path.resolve(templateDir) === destination) {
@@ -52,8 +53,70 @@ export async function renderSite(
   }
 
   await mkdir(destination, { recursive: true })
-  await cp(templateDir, destination, { recursive: true, force: true })
+  const requirementsPath = options.requirementsPath ?? (existsSync(path.join(destination, 'assembly-requirements.json')) ? path.join(destination, 'assembly-requirements.json') : undefined)
+  if (requirementsPath) {
+    if (spec.scene3d?.kind !== 'gltf' || /^(https?:|data:)/.test(spec.scene3d.url)) throw Error('Completeness checks require the actual local exported GLB.')
+    const assetRoot = path.resolve(options.assetRoot ?? outDir), modelPath = path.resolve(assetRoot, spec.scene3d.url), relative = path.relative(assetRoot, modelPath)
+    if (!relative || relative.startsWith('..') || path.isAbsolute(relative)) throw Error('The 3D model path must stay inside the asset directory.')
+    const report = await (await import('./completeness.ts')).writeCompleteness(requirementsPath, spec, modelPath, outDir)
+    if (report.remaining.length) spec = {...spec, modelNotice:`Assembly incomplete · ${report.remaining.length} required components still need work`}
+  }
 
+  const referenced = [spec.heroImage, spec.explodedImage, ...spec.components.map(p => p.image), spec.frames?.rotation?.dir, spec.frames?.explode?.dir, spec.scene3d?.kind === 'gltf' ? spec.scene3d.url : undefined]
+    .filter((value): value is string => Boolean(value) && !/^(https?:|data:)/.test(value!))
+    .map(value => value.replace(/^\//, ''))
+  // A new object must not silently ship every other specimen in the template.
+  const include = (source: string) => {
+    const relative = path.relative(templateDir, source).split(path.sep).join('/')
+    if (relative === 'presentation' || relative.startsWith('presentation/')) return true
+    if (!relative || relative === 'assets' || relative.startsWith('assets/')) return true
+    if (!relative.includes('/') && /\.(html|js|css|woff2?|txt)$/.test(relative)) return true
+    return referenced.some(file => relative === file || relative.startsWith(`${file}/`) || file.startsWith(`${relative}/`))
+  }
+  for (const name of await readdir(templateDir)) {
+    const source = path.join(templateDir, name)
+    if (include(source)) await cp(source, path.join(destination, name), { recursive: true, force: true, filter: include })
+  }
+
+  // Self-contained local GLB files travel with exported explainers.
+  if (spec.scene3d?.kind === "gltf" && !/^(https?:|data:)/.test(spec.scene3d.url)) {
+    const relative = spec.scene3d.url
+    const inside = (root: string, file: string) => {
+      const resolved = path.resolve(root, file)
+      const fromRoot = path.relative(path.resolve(root), resolved)
+      if (!fromRoot || fromRoot === ".." || fromRoot.startsWith(`..${path.sep}`) || path.isAbsolute(fromRoot)) {
+        throw new Error("The 3D model path must stay inside the asset directory.")
+      }
+      return resolved
+    }
+    if (!relative.toLowerCase().endsWith(".glb")) throw new Error("Local 3D exports require a self-contained .glb file.")
+    const target = inside(destination, relative)
+    if (options.assetRoot) {
+      const source = inside(options.assetRoot, relative)
+      if (source !== target) {
+        await mkdir(path.dirname(target), { recursive: true })
+        await cp(source, target)
+      }
+    } else if (!existsSync(target)) {
+      throw new Error("The 3D model is missing. Supply assetRoot or place the GLB in the viewer's public assets.")
+    }
+  }
+
+  // Every locally exported object gets a material inventory, even without an
+  // independent assembly manifest. This never certifies visual readiness.
+  if (spec.scene3d?.kind === 'gltf' && !/^(https?:|data:)/.test(spec.scene3d.url)) {
+    const {auditMaterials} = await import('../evals/materials.ts')
+    const report = auditMaterials(await readFile(path.resolve(destination, spec.scene3d.url)))
+    await writeFile(path.join(destination, 'material-review.json'), `${JSON.stringify(report, null, 2)}\n`)
+    if(report.issues.length) log(`Material review: ${report.issues.length} export issues need attention.`)
+  }
+
+  if(spec.scene3d?.kind==='gltf'&&spec.scene3d.assemblyStory){
+    const {auditStory}=await import('../evals/story.ts')
+    const report=auditStory(spec.scene3d.assemblyStory,spec.scene3d.parts.map(p=>p.componentId),spec.scene3d.inspectionGroups)
+    await writeFile(path.join(destination,'story-review.json'),JSON.stringify(report,null,2)+'\n')
+    if(report.issues.length)log(`Story review: ${report.issues.length} component lessons need attention.`)
+  }
   const indexPath = path.join(destination, "index.html")
   const html = await readFile(indexPath, "utf8")
   await writeFile(indexPath, injectSpec(html, spec))

@@ -1,0 +1,77 @@
+{
+  "date": "2026-11-02",
+  "status": "component-coverage-and-behavior-checks-passed; fidelity remains subject to review",
+  "sha256": {
+    "src/spec/assembly-story.ts": "732764632be3a55d3ed4a726e9b9a0b680e6cec2c8310f95e83e52c147ad64a9",
+    "src/viewer/three/assemblyStory.ts": "501400c251d99fde267ad7aa70015a32666b07d5654b03406414a09814714926",
+    "src/viewer/three/assemblyTimeline.ts": "e56e642277b9b18949df54d4daeddd49d70b9204fbd7d0fcc3c0be1b16de960b",
+    "src/spec/scene3d.ts": "a3c51dc413e51f44e7b276ff9a61438faf4a136d41c22b60a5c78731d32d4aaa",
+    "src/evals/story.ts": "b8f0042380e9bd7b4011b074b63d741579a5505cd36150717941a390c01ee556",
+    "src/authoring/h10.ts": "2d44fe0d8208e30208f3656659525dfb09d26bfe47b328bb259a7157126b9b59",
+    "tools/murph-study/viewer.ts": "f92c1309865f7b6177747bdd77096ea58a8c48a2accf9e161e22289b8a8be655",
+    "docs/research/murph-assembly-story.json": "38636cf43fab8ffc11c60e401abef761049d613e375080ff8bfc723c34905d69",
+    "docs/research/murph-study.json": "67d815adfb90f1ff0f5343f4beb8e1be82a859235c598d4ceb8c33bf929e219a",
+    "public/models/murph/murph.glb": "048681ad7b1221ec230cf53b2a957ec8aaa19f16ec816ee0064260a8b2c10c11"
+  },
+  "checks": {
+    "unitAndIntegrationTests": 153,
+    "browserTests": 22,
+    "typecheck": "passed",
+    "physicalGroups": 17,
+    "componentLessons": 17,
+    "systemMilestones": 1,
+    "narrativeChapters": 18,
+    "writtenAnatomyEntries": 18,
+    "storyAuditIssues": [],
+    "wholeAtStartAndEnd": true,
+    "milestoneReusesPreviouslyAssembledParts": true,
+    "milestoneDoesNotIncreaseBuiltCount": true,
+    "exactReturnToHome": true,
+    "reverseScrolling": true,
+    "genericObjectMilestoneIntegration": true,
+    "declaredPairsRetainSharedLessons": true,
+    "viewports": [
+      [
+        1440,
+        900
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        360,
+        640
+      ]
+    ]
+  },
+  "visualEvidence": [
+    "complete-1440.png",
+    "complete-390.png",
+    "mainspring-1440.png",
+    "mainspring-390.png",
+    "movement-system-1440.png",
+    "movement-system-390.png",
+    "opening-1440.png",
+    "opening-390.png",
+    "wheel-train-1440.png"
+  ],
+  "findings": [
+    "Mainspring is independently inspectable before its barrel joins.",
+    "Energy storage and balance-hairspring timing have separate lessons.",
+    "The movement milestone explains eight previously assembled groups together.",
+    "Original researched anatomy survives narrative grouping, including the currently unmodeled buckle.",
+    "Generic phone construction fixture retains 12 physical components and 12 anatomy entries with an additional powered-core milestone.",
+    "Structural lesson coverage flags unapproved bundling; it does not grade explanation quality."
+  ],
+  "limits": [
+    "Educational order is not a verified factory assembly process.",
+    "Mainspring turns, geometry and dimensions are illustrative; exact alloy remains unverified.",
+    "No calibrated winding, escapement or gear simulation is claimed.",
+    "Hidden H-10 geometry, plain dial-side support plate and existing source artwork remain approximate.",
+    "Generic phone fixture verifies integration and layout, not photorealistic reconstruction.",
+    "A new object still needs researched components, evidence, geometry, narrative and visual review.",
+    "The 41.7 MiB asset remains a performance limitation."
+  ],
+  "readyForPhotorealismRelease": false
+}

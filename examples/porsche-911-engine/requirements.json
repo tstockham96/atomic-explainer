@@ -1,0 +1,297 @@
+{
+  "version": 1,
+  "identity": "1965 Porsche 911 Type 901/01 air-cooled flat-six. Engine-mounted systems; vehicle ancillaries explicitly excluded.",
+  "objective": "Explain the complete engine-mounted power, breathing, timing, cooling and lubrication architecture in a continuous 3D tour, then reassemble.",
+  "components": [
+    {
+      "id": "fan-drive",
+      "name": "Belt & pulleys",
+      "system": "Cooling",
+      "purpose": "The crankshaft turns a belt. That belt drives the cooling fan and alternator, so the running engine provides its own airflow.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "fan",
+      "name": "Cooling fan",
+      "system": "Cooling",
+      "purpose": "The pitched blades accelerate air into the shroud. Cooling needs directed flow across the hot surfaces, not simply an exposed engine.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "fan-housing",
+      "name": "Fan housing",
+      "system": "Cooling",
+      "purpose": "The housing supports the fan and alternator while keeping the blade tips close to the surrounding ring. It forms the inlet to the cooling duct.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "alternator",
+      "name": "Alternator",
+      "system": "Electrical",
+      "purpose": "Behind the fan, an alternator converts shaft rotation into electrical power. It shares the belt drive rather than needing a second motor.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "cooling-shroud",
+      "name": "Cooling shroud",
+      "system": "Cooling",
+      "purpose": "The black shroud guides fan air over both cylinder banks. Without that guidance, air could escape before collecting heat from the fins.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "air-cleaner",
+      "name": "Air cleaner",
+      "system": "Intake",
+      "purpose": "The air cleaner feeds the two banks of carburetors. Removing it reveals six separate intake throats beneath.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "carburetors",
+      "name": "Solex carburetors",
+      "system": "Intake",
+      "purpose": "The early 901/01 uses Solex carburetion. Air passes through a throat for each cylinder; throttle position changes the flow and the carburetor meters fuel into it.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "intake-manifolds",
+      "name": "Intake manifolds",
+      "system": "Intake",
+      "purpose": "The intake runners connect the carburetors to the cylinder heads. An intake valve admits the mixture into the chamber at the appropriate part of the cycle.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "heads-left",
+      "name": "Left cylinder heads",
+      "system": "Combustion",
+      "purpose": "Each cylinder has its own head. The chamber closes the cylinder while the intake and exhaust valves control what enters and leaves.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "heads-right",
+      "name": "Right cylinder heads",
+      "system": "Combustion",
+      "purpose": "The opposite three cylinders work through the same four-stroke sequence. Their horizontal arrangement gives the flat-six its broad, low form.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "cylinders-left",
+      "name": "Left cylinder bank",
+      "system": "Combustion",
+      "purpose": "The bore guides the piston. Outside, thin fins increase the surface exposed to cooling air; the hot cylinder can shed heat as the fan drives air past.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "cylinders-right",
+      "name": "Right cylinder bank",
+      "system": "Combustion",
+      "purpose": "Three cylinders sit on each side of the crankcase. Opposed pistons move toward and away from the centre as their rods follow separate crankpins.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "pistons",
+      "name": "Six pistons",
+      "system": "Power",
+      "purpose": "Combustion pressure pushes on each piston crown. Rings seal against the bore while the hollow skirt and wrist pin connect that force to a rod.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "connecting-rods",
+      "name": "Connecting rods",
+      "system": "Power",
+      "purpose": "Each rod connects a piston pin to its own crankpin. The big end follows a circle while the small end follows the piston, converting reciprocation into rotation.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "crankshaft",
+      "name": "Crankshaft",
+      "system": "Power",
+      "purpose": "Six offset crankpins gather the piston forces into one rotating shaft. Main journals support it inside the case; counterweights help manage the rotating loads.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "flywheel",
+      "name": "Flywheel",
+      "system": "Power",
+      "purpose": "The flywheel stores rotational energy between firing impulses and passes torque toward the clutch. Its toothed perimeter also gives the starter a place to engage.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "timing-covers",
+      "name": "Timing covers",
+      "system": "Timing",
+      "purpose": "The front covers enclose the timing drive and retain lubricant. Moving them away reveals the chain route between the central drive and the two camshafts.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "timing-chains",
+      "name": "Timing chains",
+      "system": "Timing",
+      "purpose": "An intermediate drive turns two chains, one for each camshaft. Valve timing coordinates intake and exhaust events with piston travel through the four-stroke cycle.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "valve-covers",
+      "name": "Valve covers",
+      "system": "Timing",
+      "purpose": "The ribbed covers seal the valve mechanism. Removing them opens a service view of the rocker and cam assemblies beneath.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "cam-carriers",
+      "name": "Cam carriers",
+      "system": "Timing",
+      "purpose": "The carriers support the camshafts and rocker shafts along each bank. Alignment matters: a cam profile is useful only if the moving surfaces meet in the right place.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "camshafts",
+      "name": "Camshafts",
+      "system": "Timing",
+      "purpose": "One overhead camshaft serves each bank. Its lobes act through rockers to open valves; spring force closes them after the lobe passes.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "valvetrain",
+      "name": "Valves & rockers",
+      "system": "Timing",
+      "purpose": "The intake valve admits fresh mixture; the exhaust valve lets spent gases leave. Rockers transmit cam motion, and springs keep the valves returning to their seats.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "ignition",
+      "name": "Ignition system",
+      "system": "Electrical",
+      "purpose": "The distributor routes high voltage to six spark plugs. A spark starts combustion in the compressed mixture; the plug is a separate part of each head.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "crankcase-left",
+      "name": "Left crankcase",
+      "system": "Structure",
+      "purpose": "One half of the split crankcase supports the cylinders and the rotating shaft. The mating surfaces locate the other half and form the enclosed lower engine.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "crankcase-right",
+      "name": "Right crankcase",
+      "system": "Structure",
+      "purpose": "The matching case half completes the main bearing supports. Bolting the halves together fixes the relationship between the crankshaft and both cylinder banks.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "oil-pump",
+      "name": "Oil pump",
+      "system": "Lubrication",
+      "purpose": "The dry-sump system uses pumping stages to supply pressurized oil and scavenge it back toward a separate reservoir. Oil both lubricates moving interfaces and carries heat away.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "oil-cooler",
+      "name": "Oil cooler",
+      "system": "Lubrication",
+      "purpose": "Oil carries heat from loaded surfaces to the cooler. Closely spaced fins give the air another route to remove that heat.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "oil-lines",
+      "name": "Oil return & lines",
+      "system": "Lubrication",
+      "purpose": "Return tubes carry oil from the heads back toward the case. External connections link the engine to the wider dry-sump circuit in the car.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    },
+    {
+      "id": "exhaust",
+      "name": "Exhaust system",
+      "system": "Exhaust",
+      "purpose": "Exhaust leaves each head through a runner, collects below the banks, and passes through the silencer. The cycle can then begin again with fresh mixture.",
+      "sourceUrls": [
+        "https://assets-v2.porsche.com/us/-/media/Project/PCOM/SharedSite/PorscheClassic/Original-Parts-Catalogue/PDF-EN-US/KAT573_USA_911_69_KATALOG",
+        "https://www.historika.co.uk/parts/1965-porsche-911-2.0l-engine/8"
+      ]
+    }
+  ]
+}

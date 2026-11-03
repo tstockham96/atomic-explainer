@@ -1,0 +1,3309 @@
+{
+  "version": 1,
+  "item": {
+    "name": "iPhone 18 Pro",
+    "maker": "Apple",
+    "model": "iPhone 18 Pro",
+    "category": "smartphone",
+    "year": "2026",
+    "summary": "Energy, computation, light and sound—explore the systems inside a phone."
+  },
+  "components": [
+    {
+      "id": "display",
+      "name": "Front display",
+      "material": "Front display surfaces",
+      "howItsMade": "The display presents the result of computation as light. Its front surface is preserved from the source model, with a separate reverse backing added so the story can open the phone and expose the electronics behind it.",
+      "funFacts": [
+        "This tour separates surfaces present in the sourced model. Missing internals are not inferred from those surfaces."
+      ],
+      "order": 0,
+      "figureLabel": "Source geometry grouped by inspected visible function; unseen construction remains unverified.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/"
+        ],
+        "note": "Visible groups were inspected in front and oblique source-model renders. Functional explanation is general; the source does not establish all hidden construction."
+      }
+    },
+    {
+      "id": "display-seal",
+      "name": "Display perimeter seal",
+      "material": "Dark adhesive/sealing interface; formulation unverified",
+      "howItsMade": "A continuous perimeter interface joins the display to the enclosure and helps resist ingress. Separation exposes that otherwise hidden boundary. The strip follows the enclosure contour, but this visualization is not a prediction of sealing performance.",
+      "funFacts": [
+        "A continuous perimeter interface joins the display to the enclosure and helps resist ingress."
+      ],
+      "order": 1,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "battery",
+      "name": "Battery",
+      "material": "Metallic cell enclosure; finish observed, alloy unverified",
+      "howItsMade": "A rechargeable lithium-ion cell stores chemical energy. Power-management circuits deliver that energy to the processor, display and radios. The cell and its carrier are separate parts: the carrier supports the cell; it does not store charge.",
+      "funFacts": [
+        "A rechargeable lithium-ion cell stores chemical energy."
+      ],
+      "order": 2,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "battery-tray",
+      "name": "Battery carrier",
+      "material": "Formed metallic carrier; alloy and thickness estimated",
+      "howItsMade": "The formed carrier supports the battery and provides screw attachment points. Its relief and openings let a thin sheet gain stiffness while fitting around neighboring assemblies. The cell lifts separately here to make their different jobs visible.",
+      "funFacts": [
+        "The formed carrier supports the battery and provides screw attachment points."
+      ],
+      "order": 3,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "logic-board",
+      "name": "Logic board · upper layer",
+      "material": "Dark solder mask, metallic contacts, ceramic passives",
+      "howItsMade": "The circuit board connects the phone’s systems through conductive paths, connectors and surface-mounted electronics. The stepped outline fits around the cameras. Separate chip packages lift away to reveal their contact footprints; a circuit board is much more than a green rectangle.",
+      "funFacts": [
+        "The circuit board connects the phone’s systems through conductive paths, connectors and surface-mounted electronics."
+      ],
+      "order": 4,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "processor",
+      "name": "Application processor",
+      "material": "Observed copper-colored package surface; exact lid stack unverified",
+      "howItsMade": "The application processor runs software and coordinates graphics, camera processing and other computation. Its package connects to the board through a dense contact array. The separate cooling assembly carries away heat; the copper-colored surface shown here is a package surface, not a view of individual transistors.",
+      "funFacts": [
+        "The application processor runs software and coordinates graphics, camera processing and other computation."
+      ],
+      "order": 5,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "memory",
+      "name": "Working memory",
+      "material": "Dark semiconductor package",
+      "howItsMade": "Working memory holds data that active applications need quickly. It is distinct from long-term storage: its contents depend on power. This separate package illustrates that role beside the processor; its precise package outline and placement are approximated.",
+      "funFacts": [
+        "Working memory holds data that active applications need quickly."
+      ],
+      "order": 6,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "logic-board-lower",
+      "name": "Logic board · lower layer",
+      "material": "Dark circuit laminate and metallic inter-board contacts",
+      "howItsMade": "The board assembly uses more than one substrate. Connections between layers allow dense packaging within a thin phone. Separating them reveals additional electronics that an exterior model cannot show. The contact pattern is explanatory, not a repair pinout.",
+      "funFacts": [
+        "The board assembly uses more than one substrate."
+      ],
+      "order": 7,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "storage",
+      "name": "Flash storage",
+      "material": "Dark molded chip packages; hidden package details approximate",
+      "howItsMade": "Nonvolatile flash stores apps, photographs and other data when power is off. Storage packages are shown between the board layers. They serve a different purpose from working memory, and this teaching separation is not a normal service operation.",
+      "funFacts": [
+        "Nonvolatile flash stores apps, photographs and other data when power is off."
+      ],
+      "order": 8,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "radio",
+      "name": "Cellular electronics",
+      "material": "Semiconductor packages and metal contacts",
+      "howItsMade": "The modem and supporting radio circuits turn digital data into signals for a cellular connection and decode incoming signals. Antennas and interconnects complete the path. Package markings here identify a teaching role; internal circuitry is not reconstructed.",
+      "funFacts": [
+        "The modem and supporting radio circuits turn digital data into signals for a cellular connection and decode incoming signals."
+      ],
+      "order": 9,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "cooling",
+      "name": "Thermal spreader",
+      "material": "Metallic thermal assembly and dark contact pad; internal structure unresolved",
+      "howItsMade": "Electrical computation also produces heat. A contact layer couples the processor to the cooling assembly, which spreads that heat across a larger area. A vapor chamber uses evaporation and condensation internally; its hidden wick and fluid are not depicted as visible geometry here.",
+      "funFacts": [
+        "Electrical computation also produces heat."
+      ],
+      "order": 10,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "camera-optics",
+      "name": "Rear camera optics",
+      "material": "Three rear optical groups",
+      "howItsMade": "The sourced lens surfaces sit outside the newly modeled camera housings and sensors. Light travels through the optical system before reaching a sensor; the complete lens prescription and stabilizer mechanism are not reconstructed.",
+      "funFacts": [
+        "This tour separates surfaces present in the sourced model. Missing internals are not inferred from those surfaces."
+      ],
+      "order": 11,
+      "figureLabel": "Source geometry grouped by inspected visible function; unseen construction remains unverified.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/"
+        ],
+        "note": "Visible groups were inspected in front and oblique source-model renders. Functional explanation is general; the source does not establish all hidden construction."
+      }
+    },
+    {
+      "id": "camera-modules",
+      "name": "Camera module housings",
+      "material": "Metallic housings and dark optical barrels",
+      "howItsMade": "The rear optical assemblies need support, alignment and connections as well as a visible lens. These housings sit beneath the sourced exterior optics. Their outlines and clearances are fitted estimates; the small stabilizer mechanisms inside have not been resolved.",
+      "funFacts": [
+        "The rear optical assemblies need support, alignment and connections as well as a visible lens."
+      ],
+      "order": 12,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "camera-sensors",
+      "name": "Image sensors",
+      "material": "Optical cover over semiconductor package; spectral finish approximate",
+      "howItsMade": "A sensor converts arriving light into electrical signals. The processor turns those signals into an image. Each sensor package sits behind an optical axis; the colored sensor surface illustrates the active area, not a reconstructed microscopic pixel layout.",
+      "funFacts": [
+        "A sensor converts arriving light into electrical signals."
+      ],
+      "order": 13,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "front-sensors",
+      "name": "Front camera and sensing",
+      "material": "Dark housings, metallic surrounds and optical windows",
+      "howItsMade": "The front sensing assembly combines imaging and depth-related functions. Its optical openings must remain aligned with the display’s viewing regions. The modeled packages show where sensing hardware sits; their internal optics and precise hidden construction remain approximate.",
+      "funFacts": [
+        "The front sensing assembly combines imaging and depth-related functions."
+      ],
+      "order": 14,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "wireless-charging",
+      "name": "Charging coil and alignment",
+      "material": "Copper-colored winding, dark backing and metallic alignment elements",
+      "howItsMade": "A changing magnetic field induces electrical energy in the receiving coil. Charging electronics condition that energy before it reaches the battery. The surrounding alignment elements help position the receiver. Turn the part to see the winding thickness and backing.",
+      "funFacts": [
+        "A changing magnetic field induces electrical energy in the receiving coil."
+      ],
+      "order": 15,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "haptics",
+      "name": "Taptic Engine",
+      "material": "Metallic actuator housing and dark top surface",
+      "howItsMade": "The haptic actuator turns an electrical command into a brief mechanical vibration. Its housing transmits that motion into the enclosure so a tap can be felt. The exterior package is modeled; the concealed moving mass and suspension are not asserted as reconstructed.",
+      "funFacts": [
+        "The haptic actuator turns an electrical command into a brief mechanical vibration."
+      ],
+      "order": 16,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "speakers",
+      "name": "Acoustic assemblies",
+      "material": "Dark molded housings, metal shields and outlet mesh",
+      "howItsMade": "The speaker assemblies turn electrical signals into pressure changes in air. Their housings direct sound toward the phone’s openings. The upper and lower packages share this chapter; the internal diaphragms and acoustic channels are not fully reconstructed.",
+      "funFacts": [
+        "The speaker assemblies turn electrical signals into pressure changes in air."
+      ],
+      "order": 17,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "interconnects",
+      "name": "Flexible interconnects",
+      "material": "Polymer-covered flexible conductors and metallic contacts",
+      "howItsMade": "Flexible circuits carry power and signals between modules while fitting along the edges of the enclosure. Their connectors allow assemblies to be attached separately. The routes shown here illustrate the documented connections; fine copper routing and exact bends remain approximate.",
+      "funFacts": [
+        "Flexible circuits carry power and signals between modules while fitting along the edges of the enclosure."
+      ],
+      "order": 18,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "microphones",
+      "name": "Microphones",
+      "material": "Metallic microphone packages and dark acoustic apertures",
+      "howItsMade": "Microphones turn pressure variations in air into electrical signals. Small package openings couple them to acoustic paths through the enclosure. The visible packages and flex are represented here; the microscopic diaphragm and exact port network remain unresolved.",
+      "funFacts": [
+        "Microphones turn pressure variations in air into electrical signals."
+      ],
+      "order": 19,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "antennas",
+      "name": "Antenna interconnects",
+      "material": "Flexible conductors and metallic contacts",
+      "howItsMade": "Radio electronics need conductive paths to radiating elements at the enclosure. This chapter exposes representative contacts and antenna flex routes. The exact tuned antenna geometry is not established, so this model must not be used as an RF design.",
+      "funFacts": [
+        "Radio electronics need conductive paths to radiating elements at the enclosure."
+      ],
+      "order": 20,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "depth-sensor",
+      "name": "Rear depth sensing",
+      "material": "Dark package and optical window",
+      "howItsMade": "A rear depth-sensing assembly supports spatial measurement alongside the cameras. The optical window and package are represented separately from the imaging sensors. Internal emitters, receivers and their precise optical arrangement are not reconstructed.",
+      "funFacts": [
+        "A rear depth-sensing assembly supports spatial measurement alongside the cameras."
+      ],
+      "order": 21,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "connector",
+      "name": "USB-C connector",
+      "material": "USB-C opening and modeled connector surfaces",
+      "howItsMade": "A connector aligns a cable with electrical contacts. It carries power and signals between the phone and external equipment. This model exposes the socket surfaces; its attachment to internal circuitry is not represented.",
+      "funFacts": [
+        "This tour separates surfaces present in the sourced model. Missing internals are not inferred from those surfaces."
+      ],
+      "order": 22,
+      "figureLabel": "Source geometry grouped by inspected visible function; unseen construction remains unverified.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/"
+        ],
+        "note": "Visible groups were inspected in front and oblique source-model renders. Functional explanation is general; the source does not establish all hidden construction."
+      }
+    },
+    {
+      "id": "left-controls",
+      "name": "Left controls",
+      "material": "Left-side control surfaces",
+      "howItsMade": "These physical controls give your fingers distinct targets along the edge. A press becomes an input to the phone. The source includes the outer control surfaces, but not the switches or circuits behind them.",
+      "funFacts": [
+        "This tour separates surfaces present in the sourced model. Missing internals are not inferred from those surfaces."
+      ],
+      "order": 23,
+      "figureLabel": "Source geometry grouped by inspected visible function; unseen construction remains unverified.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/"
+        ],
+        "note": "Visible groups were inspected in front and oblique source-model renders. Functional explanation is general; the source does not establish all hidden construction."
+      }
+    },
+    {
+      "id": "right-controls",
+      "name": "Right controls",
+      "material": "Right-side control surfaces",
+      "howItsMade": "Controls sit proud of, or within, the enclosure so you can find them by touch. Their outer shapes separate here; this visualization does not claim to reconstruct the sensing mechanisms underneath.",
+      "funFacts": [
+        "This tour separates surfaces present in the sourced model. Missing internals are not inferred from those surfaces."
+      ],
+      "order": 24,
+      "figureLabel": "Source geometry grouped by inspected visible function; unseen construction remains unverified.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/"
+        ],
+        "note": "Visible groups were inspected in front and oblique source-model renders. Functional explanation is general; the source does not establish all hidden construction."
+      }
+    },
+    {
+      "id": "fasteners",
+      "name": "Fasteners and mounting",
+      "material": "Metallic fasteners; alloy and exact service dimensions unverified",
+      "howItsMade": "Small fasteners hold assemblies against their locating surfaces and retain selected electrical contacts. Mounting holes constrain position; the screws supply clamping force. The displayed set is representative, not an exhaustive service screw map.",
+      "funFacts": [
+        "Small fasteners hold assemblies against their locating surfaces and retain selected electrical contacts."
+      ],
+      "order": 25,
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://support.apple.com/en-us/127388",
+          "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+          "https://support.apple.com/en-us/127410"
+        ],
+        "note": "Component existence and relationships researched; geometry is reference-fitted and approximate."
+      }
+    },
+    {
+      "id": "enclosure",
+      "name": "Enclosure",
+      "material": "Coated metal enclosure and exterior fittings",
+      "howItsMade": "The enclosure locates and supports the display, boards, battery and distributed modules. Its openings provide access for controls, connectors and acoustic paths. The sourced outer geometry surrounds reference-fitted internals; precise internal mounting interfaces remain approximate.",
+      "funFacts": [
+        "This tour separates surfaces present in the sourced model. Missing internals are not inferred from those surfaces."
+      ],
+      "order": 26,
+      "figureLabel": "Source geometry grouped by inspected visible function; unseen construction remains unverified.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/"
+        ],
+        "note": "Visible groups were inspected in front and oblique source-model renders. Functional explanation is general; the source does not establish all hidden construction."
+      }
+    },
+    {
+      "id": "rear-panel",
+      "name": "Rear panel",
+      "material": "Rear panel with authored finish",
+      "howItsMade": "The rear panel closes the back of the phone behind the charging and sensing hardware. Its sourced exterior surface is preserved; the underlying interfaces and adhesive construction remain approximate.",
+      "funFacts": [
+        "This tour separates surfaces present in the sourced model. Missing internals are not inferred from those surfaces."
+      ],
+      "order": 27,
+      "figureLabel": "Source geometry grouped by inspected visible function; unseen construction remains unverified.",
+      "evidence": {
+        "basis": "inferred",
+        "sourceUrls": [
+          "https://www.apple.com/iphone-18-pro/"
+        ],
+        "note": "Visible groups were inspected in front and oblique source-model renders. Functional explanation is general; the source does not establish all hidden construction."
+      }
+    }
+  ],
+  "facts": [
+    {
+      "label": "Width",
+      "value": "71.9 mm"
+    },
+    {
+      "label": "Height",
+      "value": "150.0 mm"
+    },
+    {
+      "label": "Depth",
+      "value": "8.75 mm"
+    }
+  ],
+  "sources": [
+    {
+      "title": "iFixit iPhone 18 Pro teardown",
+      "url": "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown"
+    },
+    {
+      "title": "Apple iPhone 18 Pro product and AR model",
+      "url": "https://www.apple.com/iphone-18-pro/"
+    },
+    {
+      "title": "Apple component repair index",
+      "url": "https://support.apple.com/en-us/127388"
+    },
+    {
+      "title": "Apple eSIM logic-board locator",
+      "url": "https://support.apple.com/en-us/127410"
+    }
+  ],
+  "understanding": {
+    "version": 1,
+    "identityScope": "Apple iPhone 18 Pro, eSIM, Burgundy; sourced exterior with research-fitted internal assembly.",
+    "learningGoals": [
+      "Trace energy from wired or wireless input to the battery and electronics.",
+      "Distinguish processor, working memory, nonvolatile storage and radio electronics.",
+      "Follow light through optics to sensors and image processing.",
+      "Explain how cooling, structure, interconnects and feedback assemblies support the computing system."
+    ],
+    "references": [
+      {
+        "id": "ifixit-layout",
+        "title": "iFixit iPhone 18 Pro teardown",
+        "url": "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "kind": "teardown",
+        "scope": "exact-model",
+        "observation": "Inspected the full-layout photograph: rounded burgundy housing, three circular camera openings, irregular board assemblies, metal battery enclosure and display reverse. These are not represented by the rejected primitive recipe.",
+        "limitations": "Single teardown view does not establish every hidden surface, dimension or material. Pro and Pro Max share the article; the inspected layout is captioned Pro."
+      },
+      {
+        "id": "apple-model",
+        "title": "Apple iPhone 18 Pro product and AR model",
+        "url": "https://www.apple.com/iphone-18-pro/",
+        "kind": "photograph",
+        "scope": "exact-model",
+        "observation": "Downloaded the manufacturer USDZ linked from this page. Flattened its USD payload and selected one device from the two-device arrangement. Inspected front and reverse renders.",
+        "limitations": "AR is an exterior visualization. Its node names are obfuscated; 94 mesh surfaces are not 94 verified functional parts. Shader conversion still needs comparison."
+      },
+      {
+        "id": "apple-manual",
+        "title": "Apple component repair index",
+        "url": "https://support.apple.com/en-us/127388",
+        "kind": "manual",
+        "scope": "exact-model",
+        "observation": "Identifies internal assembly categories, including battery, logic board, cameras, speakers, Taptic Engine, microphone and USB-C connector.",
+        "limitations": "Photographs constrain visible form; inferred dimensions, reverse details and some minor component placement remain unresolved."
+      },
+      {
+        "id": "apple-locator",
+        "title": "Apple eSIM logic-board locator",
+        "url": "https://support.apple.com/en-us/127410",
+        "kind": "manual",
+        "scope": "exact-model",
+        "observation": "Inspected the highlighted stepped board within the enclosure and the removal view: board around camera openings, broad lower package area, flex connections and frame mounting.",
+        "limitations": "Photographs constrain visible form; inferred dimensions, reverse details and some minor component placement remain unresolved."
+      },
+      {
+        "id": "ifixit-internals",
+        "title": "iFixit isolated internal views",
+        "url": "https://www.ifixit.com/News/119329/inside-the-tiny-unfixable-eye-iphone-18-pro-and-pro-max-teardown",
+        "kind": "teardown",
+        "scope": "exact-model",
+        "observation": "Inspected cell outline and stepped notch; embossed carrier relief; board package/connector layout; separate board layers; metallic package surfaces and adjacent passives.",
+        "limitations": "Photographs constrain visible form; inferred dimensions, reverse details and some minor component placement remain unresolved."
+      }
+    ],
+    "components": [
+      {
+        "componentId": "display",
+        "function": "The display presents the result of computation as light. Its front surface is preserved from the source model, with a separate reverse backing added so the story can open the phone and expose the electronics behind it.",
+        "claims": [
+          {
+            "statement": "The source contains separately addressable surfaces grouped here as front display surfaces.",
+            "basis": "observed",
+            "referenceIds": [
+              "apple-model"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "source-model",
+          "referenceIds": [
+            "apple-model",
+            "ifixit-layout"
+          ],
+          "shape": "Preserve source geometry and materials. Group only the inspected surfaces listed in the scene mapping.",
+          "materialBehavior": "Keep mapped source finishes under fixed neutral lighting; do not fade component materials for focus.",
+          "hiddenSurfaces": "Some reversed surfaces are absent or simplified in this exterior asset. This tour is not a full internal teardown.",
+          "exclude": [
+            "Unverified battery, logic board and complete camera electronics",
+            "Black source occlusion proxies interpreted as physical parts"
+          ],
+          "acceptanceChecks": [
+            "Assembled surfaces align before and after the scroll sequence.",
+            "Parts visibly separate under ordinary scroll, without material fades.",
+            "Full component turn retains source geometry and states missing reverse-side detail."
+          ]
+        },
+        "unknowns": [
+          "Reverse-side construction and exact material stack are not fully established.",
+          "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+        ]
+      },
+      {
+        "componentId": "enclosure",
+        "function": "The enclosure locates and supports the display, boards, battery and distributed modules. Its openings provide access for controls, connectors and acoustic paths. The sourced outer geometry surrounds reference-fitted internals; precise internal mounting interfaces remain approximate.",
+        "claims": [
+          {
+            "statement": "The source contains separately addressable surfaces grouped here as coated metal enclosure and exterior fittings.",
+            "basis": "observed",
+            "referenceIds": [
+              "apple-model"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "source-model",
+          "referenceIds": [
+            "apple-model",
+            "ifixit-layout"
+          ],
+          "shape": "Preserve source geometry and materials. Group only the inspected surfaces listed in the scene mapping.",
+          "materialBehavior": "Keep mapped source finishes under fixed neutral lighting; do not fade component materials for focus.",
+          "hiddenSurfaces": "Some reversed surfaces are absent or simplified in this exterior asset. This tour is not a full internal teardown.",
+          "exclude": [
+            "Unverified battery, logic board and complete camera electronics",
+            "Black source occlusion proxies interpreted as physical parts"
+          ],
+          "acceptanceChecks": [
+            "Assembled surfaces align before and after the scroll sequence.",
+            "Parts visibly separate under ordinary scroll, without material fades.",
+            "Full component turn retains source geometry and states missing reverse-side detail."
+          ]
+        },
+        "unknowns": [
+          "Reverse-side construction and exact material stack are not fully established.",
+          "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+        ]
+      },
+      {
+        "componentId": "rear-panel",
+        "function": "The rear panel closes the back of the phone behind the charging and sensing hardware. Its sourced exterior surface is preserved; the underlying interfaces and adhesive construction remain approximate.",
+        "claims": [
+          {
+            "statement": "The source contains separately addressable surfaces grouped here as rear panel with authored finish.",
+            "basis": "observed",
+            "referenceIds": [
+              "apple-model"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "source-model",
+          "referenceIds": [
+            "apple-model",
+            "ifixit-layout"
+          ],
+          "shape": "Preserve source geometry and materials. Group only the inspected surfaces listed in the scene mapping.",
+          "materialBehavior": "Keep mapped source finishes under fixed neutral lighting; do not fade component materials for focus.",
+          "hiddenSurfaces": "Some reversed surfaces are absent or simplified in this exterior asset. This tour is not a full internal teardown.",
+          "exclude": [
+            "Unverified battery, logic board and complete camera electronics",
+            "Black source occlusion proxies interpreted as physical parts"
+          ],
+          "acceptanceChecks": [
+            "Assembled surfaces align before and after the scroll sequence.",
+            "Parts visibly separate under ordinary scroll, without material fades.",
+            "Full component turn retains source geometry and states missing reverse-side detail."
+          ]
+        },
+        "unknowns": [
+          "Reverse-side construction and exact material stack are not fully established.",
+          "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+        ]
+      },
+      {
+        "componentId": "camera-optics",
+        "function": "The sourced lens surfaces sit outside the newly modeled camera housings and sensors. Light travels through the optical system before reaching a sensor; the complete lens prescription and stabilizer mechanism are not reconstructed.",
+        "claims": [
+          {
+            "statement": "The source contains separately addressable surfaces grouped here as three rear optical groups.",
+            "basis": "observed",
+            "referenceIds": [
+              "apple-model"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "source-model",
+          "referenceIds": [
+            "apple-model",
+            "ifixit-layout"
+          ],
+          "shape": "Preserve source geometry and materials. Group only the inspected surfaces listed in the scene mapping.",
+          "materialBehavior": "Keep mapped source finishes under fixed neutral lighting; do not fade component materials for focus.",
+          "hiddenSurfaces": "Some reversed surfaces are absent or simplified in this exterior asset. This tour is not a full internal teardown.",
+          "exclude": [
+            "Unverified battery, logic board and complete camera electronics",
+            "Black source occlusion proxies interpreted as physical parts"
+          ],
+          "acceptanceChecks": [
+            "Assembled surfaces align before and after the scroll sequence.",
+            "Parts visibly separate under ordinary scroll, without material fades.",
+            "Full component turn retains source geometry and states missing reverse-side detail."
+          ]
+        },
+        "unknowns": [
+          "Reverse-side construction and exact material stack are not fully established.",
+          "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+        ]
+      },
+      {
+        "componentId": "left-controls",
+        "function": "These physical controls give your fingers distinct targets along the edge. A press becomes an input to the phone. The source includes the outer control surfaces, but not the switches or circuits behind them.",
+        "claims": [
+          {
+            "statement": "The source contains separately addressable surfaces grouped here as left-side control surfaces.",
+            "basis": "observed",
+            "referenceIds": [
+              "apple-model"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "source-model",
+          "referenceIds": [
+            "apple-model",
+            "ifixit-layout"
+          ],
+          "shape": "Preserve source geometry and materials. Group only the inspected surfaces listed in the scene mapping.",
+          "materialBehavior": "Keep mapped source finishes under fixed neutral lighting; do not fade component materials for focus.",
+          "hiddenSurfaces": "Some reversed surfaces are absent or simplified in this exterior asset. This tour is not a full internal teardown.",
+          "exclude": [
+            "Unverified battery, logic board and complete camera electronics",
+            "Black source occlusion proxies interpreted as physical parts"
+          ],
+          "acceptanceChecks": [
+            "Assembled surfaces align before and after the scroll sequence.",
+            "Parts visibly separate under ordinary scroll, without material fades.",
+            "Full component turn retains source geometry and states missing reverse-side detail."
+          ]
+        },
+        "unknowns": [
+          "Reverse-side construction and exact material stack are not fully established.",
+          "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+        ]
+      },
+      {
+        "componentId": "right-controls",
+        "function": "Controls sit proud of, or within, the enclosure so you can find them by touch. Their outer shapes separate here; this visualization does not claim to reconstruct the sensing mechanisms underneath.",
+        "claims": [
+          {
+            "statement": "The source contains separately addressable surfaces grouped here as right-side control surfaces.",
+            "basis": "observed",
+            "referenceIds": [
+              "apple-model"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "source-model",
+          "referenceIds": [
+            "apple-model",
+            "ifixit-layout"
+          ],
+          "shape": "Preserve source geometry and materials. Group only the inspected surfaces listed in the scene mapping.",
+          "materialBehavior": "Keep mapped source finishes under fixed neutral lighting; do not fade component materials for focus.",
+          "hiddenSurfaces": "Some reversed surfaces are absent or simplified in this exterior asset. This tour is not a full internal teardown.",
+          "exclude": [
+            "Unverified battery, logic board and complete camera electronics",
+            "Black source occlusion proxies interpreted as physical parts"
+          ],
+          "acceptanceChecks": [
+            "Assembled surfaces align before and after the scroll sequence.",
+            "Parts visibly separate under ordinary scroll, without material fades.",
+            "Full component turn retains source geometry and states missing reverse-side detail."
+          ]
+        },
+        "unknowns": [
+          "Reverse-side construction and exact material stack are not fully established.",
+          "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+        ]
+      },
+      {
+        "componentId": "connector",
+        "function": "A connector aligns a cable with electrical contacts. It carries power and signals between the phone and external equipment. This model exposes the socket surfaces; its attachment to internal circuitry is not represented.",
+        "claims": [
+          {
+            "statement": "The source contains separately addressable surfaces grouped here as usb-c opening and modeled connector surfaces.",
+            "basis": "observed",
+            "referenceIds": [
+              "apple-model"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "source-model",
+          "referenceIds": [
+            "apple-model",
+            "ifixit-layout"
+          ],
+          "shape": "Preserve source geometry and materials. Group only the inspected surfaces listed in the scene mapping.",
+          "materialBehavior": "Keep mapped source finishes under fixed neutral lighting; do not fade component materials for focus.",
+          "hiddenSurfaces": "Some reversed surfaces are absent or simplified in this exterior asset. This tour is not a full internal teardown.",
+          "exclude": [
+            "Unverified battery, logic board and complete camera electronics",
+            "Black source occlusion proxies interpreted as physical parts"
+          ],
+          "acceptanceChecks": [
+            "Assembled surfaces align before and after the scroll sequence.",
+            "Parts visibly separate under ordinary scroll, without material fades.",
+            "Full component turn retains source geometry and states missing reverse-side detail."
+          ]
+        },
+        "unknowns": [
+          "Reverse-side construction and exact material stack are not fully established.",
+          "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+        ]
+      },
+      {
+        "componentId": "battery",
+        "function": "A rechargeable lithium-ion cell stores chemical energy. Power-management circuits deliver that energy to the processor, display and radios. The cell and its carrier are separate parts: the carrier supports the cell; it does not store charge.",
+        "claims": [
+          {
+            "statement": "Battery is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Metallic cell enclosure; finish observed, alloy unverified; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "battery-tray",
+        "function": "The formed carrier supports the battery and provides screw attachment points. Its relief and openings let a thin sheet gain stiffness while fitting around neighboring assemblies. The cell lifts separately here to make their different jobs visible.",
+        "claims": [
+          {
+            "statement": "Battery carrier is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Formed metallic carrier; alloy and thickness estimated; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "logic-board",
+        "function": "The circuit board connects the phone’s systems through conductive paths, connectors and surface-mounted electronics. The stepped outline fits around the cameras. Separate chip packages lift away to reveal their contact footprints; a circuit board is much more than a green rectangle.",
+        "claims": [
+          {
+            "statement": "Logic board · upper layer is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Dark solder mask, metallic contacts, ceramic passives; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "processor",
+        "function": "The application processor runs software and coordinates graphics, camera processing and other computation. Its package connects to the board through a dense contact array. The separate cooling assembly carries away heat; the copper-colored surface shown here is a package surface, not a view of individual transistors.",
+        "claims": [
+          {
+            "statement": "Application processor is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Observed copper-colored package surface; exact lid stack unverified; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "memory",
+        "function": "Working memory holds data that active applications need quickly. It is distinct from long-term storage: its contents depend on power. This separate package illustrates that role beside the processor; its precise package outline and placement are approximated.",
+        "claims": [
+          {
+            "statement": "Working memory is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Dark semiconductor package; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "logic-board-lower",
+        "function": "The board assembly uses more than one substrate. Connections between layers allow dense packaging within a thin phone. Separating them reveals additional electronics that an exterior model cannot show. The contact pattern is explanatory, not a repair pinout.",
+        "claims": [
+          {
+            "statement": "Logic board · lower layer is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Dark circuit laminate and metallic inter-board contacts; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "storage",
+        "function": "Nonvolatile flash stores apps, photographs and other data when power is off. Storage packages are shown between the board layers. They serve a different purpose from working memory, and this teaching separation is not a normal service operation.",
+        "claims": [
+          {
+            "statement": "Flash storage is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Dark molded chip packages; hidden package details approximate; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "radio",
+        "function": "The modem and supporting radio circuits turn digital data into signals for a cellular connection and decode incoming signals. Antennas and interconnects complete the path. Package markings here identify a teaching role; internal circuitry is not reconstructed.",
+        "claims": [
+          {
+            "statement": "Cellular electronics is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Semiconductor packages and metal contacts; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "cooling",
+        "function": "Electrical computation also produces heat. A contact layer couples the processor to the cooling assembly, which spreads that heat across a larger area. A vapor chamber uses evaporation and condensation internally; its hidden wick and fluid are not depicted as visible geometry here.",
+        "claims": [
+          {
+            "statement": "Thermal spreader is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Metallic thermal assembly and dark contact pad; internal structure unresolved; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "camera-modules",
+        "function": "The rear optical assemblies need support, alignment and connections as well as a visible lens. These housings sit beneath the sourced exterior optics. Their outlines and clearances are fitted estimates; the small stabilizer mechanisms inside have not been resolved.",
+        "claims": [
+          {
+            "statement": "Camera module housings is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Metallic housings and dark optical barrels; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "camera-sensors",
+        "function": "A sensor converts arriving light into electrical signals. The processor turns those signals into an image. Each sensor package sits behind an optical axis; the colored sensor surface illustrates the active area, not a reconstructed microscopic pixel layout.",
+        "claims": [
+          {
+            "statement": "Image sensors is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Optical cover over semiconductor package; spectral finish approximate; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "front-sensors",
+        "function": "The front sensing assembly combines imaging and depth-related functions. Its optical openings must remain aligned with the display’s viewing regions. The modeled packages show where sensing hardware sits; their internal optics and precise hidden construction remain approximate.",
+        "claims": [
+          {
+            "statement": "Front camera and sensing is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Dark housings, metallic surrounds and optical windows; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "wireless-charging",
+        "function": "A changing magnetic field induces electrical energy in the receiving coil. Charging electronics condition that energy before it reaches the battery. The surrounding alignment elements help position the receiver. Turn the part to see the winding thickness and backing.",
+        "claims": [
+          {
+            "statement": "Charging coil and alignment is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Copper-colored winding, dark backing and metallic alignment elements; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "haptics",
+        "function": "The haptic actuator turns an electrical command into a brief mechanical vibration. Its housing transmits that motion into the enclosure so a tap can be felt. The exterior package is modeled; the concealed moving mass and suspension are not asserted as reconstructed.",
+        "claims": [
+          {
+            "statement": "Taptic Engine is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Metallic actuator housing and dark top surface; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "speakers",
+        "function": "The speaker assemblies turn electrical signals into pressure changes in air. Their housings direct sound toward the phone’s openings. The upper and lower packages share this chapter; the internal diaphragms and acoustic channels are not fully reconstructed.",
+        "claims": [
+          {
+            "statement": "Acoustic assemblies is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Dark molded housings, metal shields and outlet mesh; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "interconnects",
+        "function": "Flexible circuits carry power and signals between modules while fitting along the edges of the enclosure. Their connectors allow assemblies to be attached separately. The routes shown here illustrate the documented connections; fine copper routing and exact bends remain approximate.",
+        "claims": [
+          {
+            "statement": "Flexible interconnects is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Polymer-covered flexible conductors and metallic contacts; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "microphones",
+        "function": "Microphones turn pressure variations in air into electrical signals. Small package openings couple them to acoustic paths through the enclosure. The visible packages and flex are represented here; the microscopic diaphragm and exact port network remain unresolved.",
+        "claims": [
+          {
+            "statement": "Microphones is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Metallic microphone packages and dark acoustic apertures; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "antennas",
+        "function": "Radio electronics need conductive paths to radiating elements at the enclosure. This chapter exposes representative contacts and antenna flex routes. The exact tuned antenna geometry is not established, so this model must not be used as an RF design.",
+        "claims": [
+          {
+            "statement": "Antenna interconnects is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Flexible conductors and metallic contacts; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "depth-sensor",
+        "function": "A rear depth-sensing assembly supports spatial measurement alongside the cameras. The optical window and package are represented separately from the imaging sensors. Internal emitters, receivers and their precise optical arrangement are not reconstructed.",
+        "claims": [
+          {
+            "statement": "Rear depth sensing is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Dark package and optical window; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "fasteners",
+        "function": "Small fasteners hold assemblies against their locating surfaces and retain selected electrical contacts. Mounting holes constrain position; the screws supply clamping force. The displayed set is representative, not an exhaustive service screw map.",
+        "claims": [
+          {
+            "statement": "Fasteners and mounting is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Metallic fasteners; alloy and exact service dimensions unverified; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      },
+      {
+        "componentId": "display-seal",
+        "function": "A continuous perimeter interface joins the display to the enclosure and helps resist ingress. Separation exposes that otherwise hidden boundary. The strip follows the enclosure contour, but this visualization is not a prediction of sealing performance.",
+        "claims": [
+          {
+            "statement": "Display perimeter seal is represented as part of the internal assembly.",
+            "basis": "documented",
+            "referenceIds": [
+              "apple-manual"
+            ]
+          },
+          {
+            "statement": "Constructed geometry and placement are fitted estimates, not manufacturer CAD.",
+            "basis": "inferred",
+            "referenceIds": [
+              "apple-locator",
+              "ifixit-internals"
+            ]
+          }
+        ],
+        "reconstruction": {
+          "method": "model-part",
+          "referenceIds": [
+            "apple-locator",
+            "ifixit-internals"
+          ],
+          "shape": "Outlined and fitted using the component layout and isolated teardown observations; see tools/iphone-study/model.ts for explicit geometry.",
+          "materialBehavior": "Dark adhesive/sealing interface; formulation unverified; physical lighting, no photographic illumination texture.",
+          "hiddenSurfaces": "Closed or layered geometry with conservative unmarked reverse surfaces. Concealed mechanism detail remains approximate.",
+          "exclude": [
+            "Neighboring components baked into textures",
+            "Photographic shadows",
+            "Unverified manufacturer tolerances"
+          ],
+          "acceptanceChecks": [
+            "Present in exported GLB under its own component ID",
+            "Fits the researched assembly envelope",
+            "Separate forward and backward scroll inspection",
+            "Compare front, oblique and reverse against references"
+          ]
+        },
+        "unknowns": [
+          "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+          "Microdetail is an educational approximation and has not passed an independent fidelity review."
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "from": "wireless-charging",
+        "to": "battery",
+        "relationship": "Charging path supplies energy through conditioning electronics.",
+        "basis": "inferred",
+        "referenceIds": [
+          "apple-manual",
+          "ifixit-internals"
+        ]
+      },
+      {
+        "from": "connector",
+        "to": "battery",
+        "relationship": "Wired power reaches battery charging electronics.",
+        "basis": "inferred",
+        "referenceIds": [
+          "apple-manual",
+          "ifixit-internals"
+        ]
+      },
+      {
+        "from": "battery",
+        "to": "logic-board",
+        "relationship": "The battery supplies electrical energy to the electronic assembly.",
+        "basis": "inferred",
+        "referenceIds": [
+          "apple-manual",
+          "ifixit-internals"
+        ]
+      },
+      {
+        "from": "processor",
+        "to": "memory",
+        "relationship": "The processor exchanges active data with working memory.",
+        "basis": "inferred",
+        "referenceIds": [
+          "apple-manual",
+          "ifixit-internals"
+        ]
+      },
+      {
+        "from": "processor",
+        "to": "storage",
+        "relationship": "Software and user data are read from and written to nonvolatile storage.",
+        "basis": "inferred",
+        "referenceIds": [
+          "apple-manual",
+          "ifixit-internals"
+        ]
+      },
+      {
+        "from": "processor",
+        "to": "cooling",
+        "relationship": "Heat passes through the thermal interface to the cooling assembly.",
+        "basis": "inferred",
+        "referenceIds": [
+          "apple-manual",
+          "ifixit-internals"
+        ]
+      },
+      {
+        "from": "camera-optics",
+        "to": "camera-sensors",
+        "relationship": "Optics direct light onto sensor surfaces.",
+        "basis": "inferred",
+        "referenceIds": [
+          "apple-manual",
+          "ifixit-internals"
+        ]
+      },
+      {
+        "from": "camera-sensors",
+        "to": "processor",
+        "relationship": "Sensor signals enter the image-processing path.",
+        "basis": "inferred",
+        "referenceIds": [
+          "apple-manual",
+          "ifixit-internals"
+        ]
+      },
+      {
+        "from": "logic-board",
+        "to": "radio",
+        "relationship": "Digital data reaches the cellular subsystem.",
+        "basis": "inferred",
+        "referenceIds": [
+          "apple-manual",
+          "ifixit-internals"
+        ]
+      },
+      {
+        "from": "logic-board",
+        "to": "display",
+        "relationship": "The electronics drive the displayed image.",
+        "basis": "inferred",
+        "referenceIds": [
+          "apple-manual",
+          "ifixit-internals"
+        ]
+      },
+      {
+        "from": "logic-board",
+        "to": "haptics",
+        "relationship": "Control signals produce tactile feedback.",
+        "basis": "inferred",
+        "referenceIds": [
+          "apple-manual",
+          "ifixit-internals"
+        ]
+      },
+      {
+        "from": "logic-board",
+        "to": "speakers",
+        "relationship": "Audio signals drive acoustic feedback.",
+        "basis": "inferred",
+        "referenceIds": [
+          "apple-manual",
+          "ifixit-internals"
+        ]
+      },
+      {
+        "from": "interconnects",
+        "to": "logic-board",
+        "relationship": "Flexible circuits connect distributed modules.",
+        "basis": "inferred",
+        "referenceIds": [
+          "apple-manual",
+          "ifixit-internals"
+        ]
+      },
+      {
+        "from": "battery-tray",
+        "to": "battery",
+        "relationship": "The carrier supports and retains the cell.",
+        "basis": "inferred",
+        "referenceIds": [
+          "apple-manual",
+          "ifixit-internals"
+        ]
+      }
+    ],
+    "unresolved": [
+      "Independent reference fidelity review remains outstanding.",
+      "Internal dimensions and fitting are estimates; not suitable for manufacturing or repair.",
+      "Exact antenna conductors, microphone internals, stabilizers, semiconductor die structures and sealing formulations remain unresolved."
+    ]
+  },
+  "modelNotice": "Research-built internals · dimensions and hidden details approximate",
+  "closing": "A phone is a collection of connected systems: energy powers computation, sensors supply information, and displays, speakers and haptics return it to you.",
+  "artNote": "Manufacturer exterior preserved. Internal geometry is reference-fitted, not manufacturer CAD. Package labels are educational identifiers. No teardown photographs are projected onto geometry. Fine internal mechanisms, exact pinouts, antennas and microscopic semiconductor structures remain unresolved. Separation is explanatory, not a repair procedure. Apple source asset redistribution is not established.",
+  "scene3d": {
+    "kind": "gltf",
+    "url": "assets.local/internal-study.glb",
+    "lighting": "neutral",
+    "requireCompleteMapping": true,
+    "parts": [
+      {
+        "componentId": "display",
+        "offset": [
+          0,
+          0,
+          9
+        ],
+        "shot": {
+          "from": [
+            0.3,
+            0.1,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        },
+        "node": "display"
+      },
+      {
+        "componentId": "display-seal",
+        "node": "display-seal",
+        "offset": [
+          0,
+          0,
+          7.2
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "battery",
+        "node": "battery",
+        "offset": [
+          0,
+          0,
+          5.5
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "battery-tray",
+        "node": "battery-tray",
+        "offset": [
+          -0.2,
+          0,
+          3.7
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "logic-board",
+        "node": "logic-board",
+        "offset": [
+          -4,
+          1.7,
+          2.2
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "processor",
+        "node": "processor",
+        "offset": [
+          -5.5,
+          3.8,
+          5
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "memory",
+        "node": "memory",
+        "offset": [
+          -3.1,
+          4.2,
+          4
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "logic-board-lower",
+        "node": "logic-board-lower",
+        "offset": [
+          -3.6,
+          1.7,
+          -0.5
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "storage",
+        "node": "storage",
+        "offset": [
+          -5.1,
+          -0.1,
+          3.5
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "radio",
+        "node": "radio",
+        "offset": [
+          -5.1,
+          -1.9,
+          2.2
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "cooling",
+        "node": "cooling",
+        "offset": [
+          0,
+          0,
+          1.6
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "camera-optics",
+        "offset": [
+          2.2,
+          3.2,
+          -3
+        ],
+        "shot": {
+          "from": [
+            0.15,
+            0.1,
+            -1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        },
+        "reverseSurface": {
+          "color": "#171a1c",
+          "roughness": 0.7,
+          "note": "Neutral untextured reverse visualization for opaque single-sided source faces. Actual reverse construction and finish are not established."
+        },
+        "node": "camera-optics"
+      },
+      {
+        "componentId": "camera-modules",
+        "node": "camera-modules",
+        "offset": [
+          2.2,
+          3.2,
+          -0.8
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "camera-sensors",
+        "node": "camera-sensors",
+        "offset": [
+          3.8,
+          4.1,
+          2.7
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "front-sensors",
+        "node": "front-sensors",
+        "offset": [
+          0.3,
+          5.4,
+          2
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "wireless-charging",
+        "node": "wireless-charging",
+        "offset": [
+          0.2,
+          -0.4,
+          -3.3
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "haptics",
+        "node": "haptics",
+        "offset": [
+          2.1,
+          -3.5,
+          2
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "speakers",
+        "node": "speakers",
+        "offset": [
+          -2.6,
+          -3.8,
+          2.3
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "interconnects",
+        "node": "interconnects",
+        "offset": [
+          -2.4,
+          0,
+          -1.8
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "microphones",
+        "node": "microphones",
+        "offset": [
+          -3.4,
+          -4.5,
+          3
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "antennas",
+        "node": "antennas",
+        "offset": [
+          3.2,
+          0.2,
+          -2
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "depth-sensor",
+        "node": "depth-sensor",
+        "offset": [
+          4.2,
+          2.2,
+          -2.8
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "connector",
+        "offset": [
+          0,
+          -4,
+          0
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            -1,
+            0.3
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        },
+        "reverseSurface": {
+          "color": "#171a1c",
+          "roughness": 0.7,
+          "note": "Neutral untextured reverse visualization for opaque single-sided source faces. Actual reverse construction and finish are not established."
+        },
+        "node": "connector"
+      },
+      {
+        "componentId": "left-controls",
+        "offset": [
+          -3.5,
+          0,
+          0
+        ],
+        "shot": {
+          "from": [
+            -1,
+            0.1,
+            0.3
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        },
+        "reverseSurface": {
+          "color": "#171a1c",
+          "roughness": 0.7,
+          "note": "Neutral untextured reverse visualization for opaque single-sided source faces. Actual reverse construction and finish are not established."
+        },
+        "node": "left-controls"
+      },
+      {
+        "componentId": "right-controls",
+        "offset": [
+          3.5,
+          0,
+          0
+        ],
+        "shot": {
+          "from": [
+            1,
+            0.1,
+            0.3
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        },
+        "reverseSurface": {
+          "color": "#171a1c",
+          "roughness": 0.7,
+          "note": "Neutral untextured reverse visualization for opaque single-sided source faces. Actual reverse construction and finish are not established."
+        },
+        "node": "right-controls"
+      },
+      {
+        "componentId": "fasteners",
+        "node": "fasteners",
+        "offset": [
+          2.6,
+          0,
+          3.3
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "componentId": "enclosure",
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "shot": {
+          "from": [
+            0.35,
+            0.1,
+            -1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        },
+        "reverseSurface": {
+          "color": "#171a1c",
+          "roughness": 0.7,
+          "note": "Neutral untextured reverse visualization for opaque single-sided source faces. Actual reverse construction and finish are not established."
+        },
+        "node": "enclosure"
+      },
+      {
+        "componentId": "rear-panel",
+        "offset": [
+          0,
+          0,
+          -5.6
+        ],
+        "shot": {
+          "from": [
+            0.25,
+            0.1,
+            -1
+          ],
+          "to": [
+            0,
+            0,
+            0
+          ]
+        },
+        "reverseSurface": {
+          "color": "#171a1c",
+          "roughness": 0.7,
+          "note": "Neutral untextured reverse visualization for opaque single-sided source faces. Actual reverse construction and finish are not established."
+        },
+        "node": "rear-panel"
+      }
+    ],
+    "assemblyStory": {
+      "title": "From stored energy to a connected phone.",
+      "note": "Educational system build, not a repair or factory assembly procedure. The sourced exterior is combined with researched, reference-fitted internals. Hidden mechanisms, exact dimensions and chip microstructure remain unresolved.",
+      "opening": {
+        "title": "A whole world of connected parts.",
+        "description": "Start with the finished phone. Then follow energy into computation, light into information, and information back into sight, sound and touch. Every component joins the growing assembly.",
+        "from": [
+          0.25,
+          0.16,
+          1
+        ]
+      },
+      "closing": {
+        "title": "A whole world, working together.",
+        "description": "Energy powers computation. Sensors and radios bring information in; the display, speakers and haptics return it to you. Cooling, structure and connections let these systems share one compact object."
+      },
+      "chapters": [
+        {
+          "id": "battery",
+          "componentIds": [
+            "battery"
+          ],
+          "title": "Begin with stored energy.",
+          "description": "A rechargeable lithium-ion cell stores chemical energy. Power-management circuits deliver that energy to the processor, display and radios. The cell and its carrier are separate parts: the carrier supports the cell; it does not store charge.",
+          "joined": "The battery establishes the power source for the systems we are about to build.",
+          "detail": "Metallic cell enclosure; finish observed, alloy unverified",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "battery-tray",
+          "componentIds": [
+            "battery-tray"
+          ],
+          "title": "Give the cell a home.",
+          "description": "The formed carrier supports the battery and provides screw attachment points. Its relief and openings let a thin sheet gain stiffness while fitting around neighboring assemblies. The cell lifts separately here to make their different jobs visible.",
+          "joined": "The carrier seats behind the cell. Supporting a battery and storing energy are different jobs.",
+          "detail": "Formed metallic carrier; alloy and thickness estimated",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "logic-board",
+          "componentIds": [
+            "logic-board"
+          ],
+          "title": "Lay down the connections.",
+          "description": "The circuit board connects the phone’s systems through conductive paths, connectors and surface-mounted electronics. The stepped outline fits around the cameras. Separate chip packages lift away to reveal their contact footprints; a circuit board is much more than a green rectangle.",
+          "joined": "The upper board joins the battery assembly. Its conductive paths and connectors will link the electronic packages.",
+          "detail": "Dark solder mask, metallic contacts, ceramic passives",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "processor",
+          "componentIds": [
+            "processor"
+          ],
+          "title": "Add the computing core.",
+          "description": "The application processor runs software and coordinates graphics, camera processing and other computation. Its package connects to the board through a dense contact array. The separate cooling assembly carries away heat; the copper-colored surface shown here is a package surface, not a view of individual transistors.",
+          "joined": "The processor seats on the board. Its package is visible here; its microscopic transistors are not reconstructed.",
+          "detail": "Observed copper-colored package surface; exact lid stack unverified",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "memory",
+          "componentIds": [
+            "memory"
+          ],
+          "title": "Keep active work close.",
+          "description": "Working memory holds data that active applications need quickly. It is distinct from long-term storage: its contents depend on power. This separate package illustrates that role beside the processor; its precise package outline and placement are approximated.",
+          "joined": "Working memory joins the computing assembly. It holds active data while powered.",
+          "detail": "Dark semiconductor package",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "logic-board-lower",
+          "componentIds": [
+            "logic-board-lower"
+          ],
+          "title": "Make room through layered packaging.",
+          "description": "The board assembly uses more than one substrate. Connections between layers allow dense packaging within a thin phone. Separating them reveals additional electronics that an exterior model cannot show. The contact pattern is explanatory, not a repair pinout.",
+          "joined": "The second board layer joins the assembly. Its contacts connect a dense stack; this separation is explanatory, not a service instruction.",
+          "detail": "Dark circuit laminate and metallic inter-board contacts",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "storage",
+          "componentIds": [
+            "storage"
+          ],
+          "title": "Keep information when power is off.",
+          "description": "Nonvolatile flash stores apps, photographs and other data when power is off. Storage packages are shown between the board layers. They serve a different purpose from working memory, and this teaching separation is not a normal service operation.",
+          "joined": "Flash storage joins the board stack. It retains data, unlike working memory.",
+          "detail": "Dark molded chip packages; hidden package details approximate",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "radio",
+          "componentIds": [
+            "radio"
+          ],
+          "title": "Give digital data a radio path.",
+          "description": "The modem and supporting radio circuits turn digital data into signals for a cellular connection and decode incoming signals. Antennas and interconnects complete the path. Package markings here identify a teaching role; internal circuitry is not reconstructed.",
+          "joined": "Cellular packages join the electronics. Their signals will still need connections to the antennas.",
+          "detail": "Semiconductor packages and metal contacts",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "cooling",
+          "componentIds": [
+            "cooling"
+          ],
+          "title": "Spread the heat of computation.",
+          "description": "Electrical computation also produces heat. A contact layer couples the processor to the cooling assembly, which spreads that heat across a larger area. A vapor chamber uses evaporation and condensation internally; its hidden wick and fluid are not depicted as visible geometry here.",
+          "joined": "The thermal assembly seats against the computing region. Its contact path carries heat into a broader area.",
+          "detail": "Metallic thermal assembly and dark contact pad; internal structure unresolved",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "computing-core",
+          "kind": "milestone",
+          "componentIds": [
+            "battery",
+            "battery-tray",
+            "logic-board",
+            "processor",
+            "memory",
+            "logic-board-lower",
+            "storage",
+            "radio",
+            "cooling"
+          ],
+          "title": "Energy becomes useful computation.",
+          "description": "The cell supplies energy, boards connect packages, the processor works with memory and storage, and the thermal assembly spreads heat. These are different roles within one computing system; package outlines and placements are fitted estimates.",
+          "joined": "The computing core returns together. Next connect it to charging, communications and sensing.",
+          "detail": "Milestone · power, board stack, computation and thermal support",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "interconnects",
+          "componentIds": [
+            "interconnects"
+          ],
+          "title": "Connect the distributed modules.",
+          "description": "Flexible circuits carry power and signals between modules while fitting along the edges of the enclosure. Their connectors allow assemblies to be attached separately. The routes shown here illustrate the documented connections; fine copper routing and exact bends remain approximate.",
+          "joined": "Flexible circuits return around the board and battery. Their routes connect systems that cannot all sit on one rigid board.",
+          "detail": "Polymer-covered flexible conductors and metallic contacts",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "connector",
+          "componentIds": [
+            "connector"
+          ],
+          "title": "Bring in wired power and signals.",
+          "description": "A connector aligns a cable with electrical contacts. It carries power and signals between the phone and external equipment. This model exposes the socket surfaces; its attachment to internal circuitry is not represented.",
+          "joined": "The external connector joins the lower edge. Charging electronics condition incoming power before it reaches the cell.",
+          "detail": "USB-C opening and modeled connector surfaces",
+          "from": [
+            0.25,
+            -1,
+            0.3
+          ],
+          "approach": [
+            0,
+            -1,
+            1
+          ]
+        },
+        {
+          "id": "wireless-charging",
+          "componentIds": [
+            "wireless-charging"
+          ],
+          "title": "Receive energy without a cable.",
+          "description": "A changing magnetic field induces electrical energy in the receiving coil. Charging electronics condition that energy before it reaches the battery. The surrounding alignment elements help position the receiver. Turn the part to see the winding thickness and backing.",
+          "joined": "The charging receiver seats behind the internal assembly. Its coil supplies energy through charging electronics, not directly into the cell.",
+          "detail": "Copper-colored winding, dark backing and metallic alignment elements",
+          "from": [
+            0.25,
+            0.16,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "antennas",
+          "componentIds": [
+            "antennas"
+          ],
+          "title": "Connect electronics to the air.",
+          "description": "Radio electronics need conductive paths to radiating elements at the enclosure. This chapter exposes representative contacts and antenna flex routes. The exact tuned antenna geometry is not established, so this model must not be used as an RF design.",
+          "joined": "The antenna contacts and flex return along the enclosure region. The exact tuned conductors remain an approximation.",
+          "detail": "Flexible conductors and metallic contacts",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "connected-core",
+          "kind": "milestone",
+          "componentIds": [
+            "battery",
+            "connector",
+            "wireless-charging",
+            "interconnects",
+            "logic-board",
+            "radio",
+            "antennas"
+          ],
+          "title": "Power and information need complete paths.",
+          "description": "Wired and wireless inputs bring energy through charging electronics to the battery. Flexible circuits link modules, while cellular electronics connect to antenna routes. The diagram-like separation explains relationships without claiming an exact circuit or RF design.",
+          "joined": "The connection system returns around the core. Now add the parts that sense the world.",
+          "detail": "Milestone · charging routes, flex connections and radio path",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "camera-sensors",
+          "componentIds": [
+            "camera-sensors"
+          ],
+          "title": "Turn light into a signal.",
+          "description": "A sensor converts arriving light into electrical signals. The processor turns those signals into an image. Each sensor package sits behind an optical axis; the colored sensor surface illustrates the active area, not a reconstructed microscopic pixel layout.",
+          "joined": "The rear sensors establish the image planes. The next parts will support and align the optical paths.",
+          "detail": "Optical cover over semiconductor package; spectral finish approximate",
+          "from": [
+            0.25,
+            0.16,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "camera-modules",
+          "componentIds": [
+            "camera-modules"
+          ],
+          "title": "Hold each optical path in place.",
+          "description": "The rear optical assemblies need support, alignment and connections as well as a visible lens. These housings sit beneath the sourced exterior optics. Their outlines and clearances are fitted estimates; the small stabilizer mechanisms inside have not been resolved.",
+          "joined": "Camera housings return around the sensing assemblies. The hidden stabilizer mechanisms remain unresolved.",
+          "detail": "Metallic housings and dark optical barrels",
+          "from": [
+            0.25,
+            0.16,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "camera-optics",
+          "componentIds": [
+            "camera-optics"
+          ],
+          "title": "Focus the world onto the sensors.",
+          "description": "The sourced lens surfaces sit outside the newly modeled camera housings and sensors. Light travels through the optical system before reaching a sensor; the complete lens prescription and stabilizer mechanism are not reconstructed.",
+          "joined": "The sourced optical surfaces seat outside the housings and sensors. Visible lenses do not establish the full internal lens prescription.",
+          "detail": "Three rear optical groups",
+          "from": [
+            0.25,
+            0.16,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "rear-imaging",
+          "kind": "milestone",
+          "componentIds": [
+            "camera-sensors",
+            "camera-modules",
+            "camera-optics"
+          ],
+          "title": "An image needs more than a lens.",
+          "description": "Optics direct light, housings maintain alignment, and sensors convert arriving light into electrical signals. The processor then interprets those signals. The microscopic pixel structure, full lens prescription and stabilization mechanism are not reconstructed.",
+          "joined": "The rear imaging assembly returns as a unit. Other sensors will add front-facing images, depth and sound.",
+          "detail": "Milestone · optics, mechanical support and image sensors",
+          "from": [
+            0.25,
+            0.16,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "front-sensors",
+          "componentIds": [
+            "front-sensors"
+          ],
+          "title": "Look back toward the user.",
+          "description": "The front sensing assembly combines imaging and depth-related functions. Its optical openings must remain aligned with the display’s viewing regions. The modeled packages show where sensing hardware sits; their internal optics and precise hidden construction remain approximate.",
+          "joined": "The front sensing package returns to its display-facing position. Its openings must align with the front viewing regions.",
+          "detail": "Dark housings, metallic surrounds and optical windows",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "depth-sensor",
+          "componentIds": [
+            "depth-sensor"
+          ],
+          "title": "Add a sense of distance.",
+          "description": "A rear depth-sensing assembly supports spatial measurement alongside the cameras. The optical window and package are represented separately from the imaging sensors. Internal emitters, receivers and their precise optical arrangement are not reconstructed.",
+          "joined": "The rear depth-sensing package returns beside the cameras. Its internal emitter and receiver arrangement is not reconstructed.",
+          "detail": "Dark package and optical window",
+          "from": [
+            0.25,
+            0.16,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "microphones",
+          "componentIds": [
+            "microphones"
+          ],
+          "title": "Listen to pressure changes.",
+          "description": "Microphones turn pressure variations in air into electrical signals. Small package openings couple them to acoustic paths through the enclosure. The visible packages and flex are represented here; the microscopic diaphragm and exact port network remain unresolved.",
+          "joined": "The microphones return near their acoustic openings. They convert sound into signals, the reverse direction from speakers.",
+          "detail": "Metallic microphone packages and dark acoustic apertures",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "speakers",
+          "componentIds": [
+            "speakers"
+          ],
+          "title": "Turn a signal back into sound.",
+          "description": "The speaker assemblies turn electrical signals into pressure changes in air. Their housings direct sound toward the phone’s openings. The upper and lower packages share this chapter; the internal diaphragms and acoustic channels are not fully reconstructed.",
+          "joined": "The speaker assemblies seat near the output openings. Their housings route acoustic energy toward the outside.",
+          "detail": "Dark molded housings, metal shields and outlet mesh",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "haptics",
+          "componentIds": [
+            "haptics"
+          ],
+          "title": "Let a command become a feeling.",
+          "description": "The haptic actuator turns an electrical command into a brief mechanical vibration. Its housing transmits that motion into the enclosure so a tap can be felt. The exterior package is modeled; the concealed moving mass and suspension are not asserted as reconstructed.",
+          "joined": "The haptic housing rejoins the lower assembly. It transmits vibration into the phone; its concealed moving mechanism is not shown.",
+          "detail": "Metallic actuator housing and dark top surface",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "sense-and-respond",
+          "kind": "milestone",
+          "componentIds": [
+            "camera-sensors",
+            "camera-modules",
+            "camera-optics",
+            "front-sensors",
+            "depth-sensor",
+            "microphones",
+            "speakers",
+            "haptics"
+          ],
+          "title": "A computer that can sense and respond.",
+          "description": "Imaging, depth and microphones bring information into the system. Speakers and the haptic actuator turn electrical commands into physical feedback. Their different roles now fit around the same computing core.",
+          "joined": "The sensing and feedback assemblies return. Next give the complete system its structure and protective surfaces.",
+          "detail": "Milestone · light, spatial sensing, sound and touch",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "enclosure",
+          "componentIds": [
+            "enclosure"
+          ],
+          "title": "Give every system a shared structure.",
+          "description": "The enclosure locates and supports the display, boards, battery and distributed modules. Its openings provide access for controls, connectors and acoustic paths. The sourced outer geometry surrounds reference-fitted internals; precise internal mounting interfaces remain approximate.",
+          "joined": "The enclosure returns around the internal systems. Locating surfaces and mounting points hold their relationships.",
+          "detail": "Coated metal enclosure and exterior fittings",
+          "from": [
+            0.25,
+            0.16,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "left-controls",
+          "componentIds": [
+            "left-controls"
+          ],
+          "title": "Provide inputs at the left edge.",
+          "description": "These physical controls give your fingers distinct targets along the edge. A press becomes an input to the phone. The source includes the outer control surfaces, but not the switches or circuits behind them.",
+          "joined": "The left controls seat in their openings. Their distinct functions remain separate from the controls on the other edge.",
+          "detail": "Left-side control surfaces",
+          "from": [
+            -1,
+            0.1,
+            0.3
+          ],
+          "approach": [
+            -1,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "right-controls",
+          "componentIds": [
+            "right-controls"
+          ],
+          "title": "Complete the edge controls.",
+          "description": "Controls sit proud of, or within, the enclosure so you can find them by touch. Their outer shapes separate here; this visualization does not claim to reconstruct the sensing mechanisms underneath.",
+          "joined": "The right controls return to their openings. The enclosure makes these small input surfaces accessible.",
+          "detail": "Right-side control surfaces",
+          "from": [
+            1,
+            0.1,
+            0.3
+          ],
+          "approach": [
+            1,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "fasteners",
+          "componentIds": [
+            "fasteners"
+          ],
+          "title": "Hold the assembly in place.",
+          "description": "Small fasteners hold assemblies against their locating surfaces and retain selected electrical contacts. Mounting holes constrain position; the screws supply clamping force. The displayed set is representative, not an exhaustive service screw map.",
+          "joined": "The representative fasteners return to mounting points. This is a lesson in clamping and location, not a service screw map.",
+          "detail": "Metallic fasteners; alloy and exact service dimensions unverified",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "rear-panel",
+          "componentIds": [
+            "rear-panel"
+          ],
+          "title": "Close the back of the system.",
+          "description": "The rear panel closes the back of the phone behind the charging and sensing hardware. Its sourced exterior surface is preserved; the underlying interfaces and adhesive construction remain approximate.",
+          "joined": "The rear panel closes behind the charging and sensing hardware. The internals remain available in the detailed anatomy below.",
+          "detail": "Rear panel with authored finish",
+          "from": [
+            0.25,
+            0.16,
+            -1
+          ],
+          "approach": [
+            0,
+            0,
+            -1
+          ]
+        },
+        {
+          "id": "display-seal",
+          "componentIds": [
+            "display-seal"
+          ],
+          "title": "Protect the perimeter interface.",
+          "description": "A continuous perimeter interface joins the display to the enclosure and helps resist ingress. Separation exposes that otherwise hidden boundary. The strip follows the enclosure contour, but this visualization is not a prediction of sealing performance.",
+          "joined": "The sealing interface seats around the display opening. Its visualization does not predict ingress resistance.",
+          "detail": "Dark adhesive/sealing interface; formulation unverified",
+          "from": [
+            0.25,
+            0.16,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        },
+        {
+          "id": "display",
+          "componentIds": [
+            "display"
+          ],
+          "title": "Make the result visible.",
+          "description": "The display presents the result of computation as light. Its front surface is preserved from the source model, with a separate reverse backing added so the story can open the phone and expose the electronics behind it.",
+          "joined": "The display closes the front. Stored energy, computing, sensing and feedback now share a complete enclosure.",
+          "detail": "Front display surfaces",
+          "from": [
+            0.3,
+            0.1,
+            1
+          ],
+          "approach": [
+            0,
+            0,
+            1
+          ]
+        }
+      ]
+    }
+  }
+}

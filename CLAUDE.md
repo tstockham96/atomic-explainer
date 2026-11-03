@@ -1,15 +1,18 @@
 # explode
 
-A photo of a physical object goes in. A photoreal, scroll-driven “how it’s made” site comes out.
+An open-source, scroll-driven 3D object explainer. The core purpose is to help people understand how an object works. Research must determine the assembly, geometry, materials, motion, and text before generation. A photo or description starts the investigation; it is not the complete reconstruction brief. Read `docs/research-first.md` before planning assets. For the Murph, continue from `docs/research/murph.md` and `docs/research/murph-study.json`; do not restart from one exterior photograph. The experience is one continuous scene followed by anatomy stories. Avoid marketing navigation or unrelated editorial sections.
 
-The demo is the Hamilton Khaki Field Murph 42mm, reference H70605731. Frames live in `public/murph/frames/` (121-frame turn, 110-frame explosion). The researched copy is `public/spec.json`.
+The default demo is now the licensed Khronos Chronograph Watch (`public/chronograph.json`), with six separately explorable assemblies and no internal movement. Keep the attribution and trademark notices in `public/models/chronograph/`. The earlier Hamilton Murph experiment remains at `?demo=murph`, with its researched copy in `public/spec.json`. Do not confuse the two objects or apply the Murph image manifest to the chronograph.
+
+The research-led component reconstruction is in `src/authoring/` with its continuous-scroll study and build instructions in `tools/murph-study/README.md`. Continue movement fidelity work from its Hamilton, Fratello and SJX photo register; preserve independent parts, transparent windows, and evidence metadata. This authored example is not yet an unattended arbitrary-object reconstruction pipeline.
 
 ## Architecture
 
 ```
-src/pipeline     identify, research, image edits, motion, site writer, 3D stub
+src/pipeline     identify, research, image edits, motion, site writer, Tripo 3D adapter
 src/spec         zod schema (version 1), film phases, frame skip math
-src/viewer       React page: pinned canvas film, then parts, essay, sources
+src/viewer       React page: pinned 3D scene or image fallback, then anatomy
+src/viewer/three Three.js models, camera, atmosphere, GLB loader
 src/cli.ts       explode bin
 src/mcp.ts       same pipeline as MCP tools over stdio
 public/murph     committed Murph stills and WebP sequences
@@ -18,11 +21,11 @@ public/murph     committed Murph stills and WebP sequences
 Pipeline, in order:
 
 1. **Identify.** Vision model returns maker, model, category, and confidence. It is told not to invent a reference number.
-2. **Research.** A second call returns the spec: each part’s name, material, how it is made, a fact or two, and stack order.
+2. **Research.** Broad and targeted evidence passes produce an `understanding` dossier: identity scope, references, component functions and claims, assembly relationships, construction methods, isolated-surface checks, and open questions. Research directs the asset plan.
 3. **Images.** The uploaded photo is the reference for a hero, an exploded view, and a cutout per part. A failed edit does not abort the run; the warning is stored and that plate stays empty.
 4. **Motion (optional).** Image-to-video makes a rotation clip from the hero and an explode clip from the hero plus the exploded still. ffmpeg writes numbered WebP frames.
 5. **Site.** Static folder: `index.html`, the viewer, `spec.json`, and the frames.
-6. **True 3D.** Not built. `src/pipeline/solid3d.ts` is the interface. `solid3d.available` is `false`. `reconstruct` throws `TODO(explode-3d)`. The film is an image sequence on purpose.
+6. **True 3D viewer.** `reconstruct` first writes `construction-plan.json`. The single-photo adapter only executes an explicitly scoped exterior draft; plans needing component work stop before a paid generation. The agent must author/source those components rather than discard them. Implemented in `src/viewer/three`. Specs choose a procedural watch or a multipart GLB via `scene3d`. `--3d` now calls Tripo image-to-model and semantic segmentation through `solid3d.ts`. The integration has mocked HTTP/real GLB tests and two live watch trials. Neither result passed the visual/component quality target; see `docs/tripo-watch-trial.md` and `docs/murph-reconstruction-trial.md`. Do not claim accurate hidden geometry or validated part matching. See `docs/photo-to-3d.md`.
 
 `runExplode()` in `src/pipeline/run.ts` is the whole pipeline. MCP tools (`explode_identify`, `explode_research`, `explode_visualize`, `explode_motion`, `explode_extract_frames`, `explode_build_site`, `explode_run`) call the same code. Details are in `docs/agent.md`.
 
@@ -76,20 +79,13 @@ npm run explode -- --extract ./rotate.mp4 --frames-dir public/murph/frames/rotat
 npm run explode -- --extract ./explode.mp4 --frames-dir public/murph/frames/explode --fps 12 --skip 4.55-5.65 --skip-keep 2
 ```
 
-## Scroll film (lunarwheel.it)
+## Continuous scene
 
-The page follows [lunarwheel.it](https://lunarwheel.it). Notes from reading that site are in `docs/reference-lunarwheel.md`.
+`Film.tsx` pins one scene with Basement Scrollytelling (Root, Pin, Animation), GSAP, and Lenis. A `scene3d` spec selects `ObjectScene.tsx`, which lazy-loads Three.js. The chronograph has six grouped assemblies. `timeline.ts` maps scroll to turn, separation, and focus; `choreography.ts` computes geometry-based camera framing and per-part orbit directions. `scene.ts` applies lighting, animation, and fading of neighboring components. Imported material maps and bevels are retained. Both atmosphere options share the same geometry and timeline. The user rejected the procedural model and overlapping, repetitive motion. The current imported-asset pass addresses those concrete defects. Do not treat test counts or switching color themes as proof of visual quality.
 
-It is not WebGL and not a 3D model in the browser. It is the Apple AirPods technique: scroll scrubs a pre-rendered image sequence drawn onto a canvas.
+Generic GLB scenes map named, non-overlapping nodes to component IDs. See `docs/3d-scenes.md`. Keep model authoring separate from the reusable viewer. The procedural watch is illustrative, not Hamilton CAD or an accurate H-10 simulation.
 
-- **GSAP ScrollTrigger** pins one section (`#film` in `src/viewer/Film.tsx`) with `scrub: true`.
-- **Lenis** (`lerp: 0.09`) is the inertial scroller. It drives `gsap.ticker` and calls `ScrollTrigger.update` on scroll. Lunar uses Locomotive Scroll; explode uses Lenis for the same job.
-- **Canvas 2D** (`src/viewer/Reel.tsx`) paints the current WebP. Scroll progress maps through `src/spec/film.ts`: a short title, then the turn, then the explosion, then the last exploded frame holds while HTML callouts step through each part.
-- Lunar uses several pinned canvases. Explode uses one continuous pin, because the turn’s last frame is the explosion’s first frame.
-- If a spec has no frame sequences, the same pin crossfades the hero still into the exploded still.
-- `prefers-reduced-motion` drops the pin and shows the stills in order.
-
-The explosion source flashes a second crystal between **4.55s and 5.65s**. Extraction rushes that range instead of playing every duplicate frame: `--skip 4.55-5.65 --skip-keep 2` (keep two frames spread through the range; `keep: 0` would drop it). The committed `public/murph/frames/explode/` sequence is already that extract.
+Specs without `scene3d` use the photographic fallback in `Reel.tsx`. One canvas scrubs the rotation and explosion, then focuses on regions of the same exploded frame. Historical image-sequence notes are in `docs/reference-lunarwheel.md`. Reduced-motion preferences skip the pin and show stills and anatomy text.
 
 ## Secrets and source art
 
@@ -99,11 +95,18 @@ No API keys belong in the repo. `.env` and `.env.*` are gitignored; `.env.exampl
 
 - Movement, crown, and caseback pictures are representative, not macros of this exact watch. The caseback engraving in the photograph is generated and is not Hamilton’s production text.
 - Hamilton does not publish a steel grade for this case. The demo does not call it 316L.
-- True 3D is a stub (`solid3d.ts`). There is no glTF, no camera path, and no image-to-3D provider.
+- Photo-to-3D integration exists; live quality validation and missing internal-part reconstruction are outstanding.
+- Web research requires OPENAI_API_KEY even when writing uses the gateway. Never invent citations.
+- `npm run build && npm run studio` serves upload at localhost:4319/create. Jobs are private local files under ignored `.explode-jobs/`.
 - Background removal is not implemented. A model that will not return a clean cutout leaves an empty plate.
 - Specs without `frames.rotation` / `frames.explode` only crossfade stills. They do not scrub a film.
-- The design is still not quite there. It should feel more premium: type, pacing, the pinned frame, and the callouts do not yet have the finish of a studio scrollytelling piece.
+- The actual WebGL canvas has been captured through a local review page in the in-app browser. Desktop, portrait close-ups, and both atmospheres have been inspected. A same-origin iframe check verifies pinning, captions, six anatomy thumbnails, and the atmosphere switch. This is not full browser screenshot coverage or a claim that the user’s target is achieved.
+- The imported sample has no internal movement; its planar glass receives an explicitly documented illustrative beveled edge. Full Murph fidelity still requires appropriate source assets.
 
 ## Direction
 
-Consider [basement.studio/scrollytelling](https://github.com/basementstudio/scrollytelling) as the scroll engine, or as the reference for how a premium frame-scrub story is structured. The current pin is hand-rolled GSAP + Lenis in `Film.tsx` and `Reel.tsx`. A library built for this kind of story may be a better base than continuing to tune the custom pin, if the next pass is about feel rather than the photo pipeline.
+Prioritize object fidelity and intentional camera choreography. The requested experience is floating around one continuous, real 3D object while scroll reveals how its parts work. The user liked the anatomy stories after the scene. Keep both atmospheres available while the model and motion are refined; theme selection is secondary.
+
+## Quality evaluations
+
+Read `docs/evaluations.md` before claiming a model or experience is ready. `npm run eval` reports known failures; `npm run eval:release` is a deliberately strict release gate. Tests passing do not establish visual quality or learner comprehension. Reviews bind to the spec and model hashes. Record actual exported front, oblique and reverse views for every component. Preserve research-only and fixture labels; never present them as live generations. The studio now creates plans only (`--plan` / MCP `planOnly`), with component construction handed to an agent.

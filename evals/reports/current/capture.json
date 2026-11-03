@@ -1,0 +1,30 @@
+{
+  "recordedAt": "2026-10-31T02:57:02.902Z",
+  "experienceSha256": "7778d0a74637224396d62b1b98afd62ce245acde7b3023885b9b343585cfe677",
+  "assetSha256": "bc05ec5e791e7209557153c4058fb89ae0134e3b1a6ec2e7a3a40c7197ab5fa7",
+  "viewerSha256": "16e08d42810b4ff0f90b7b797c4c8ab3f0333080236ce2fdc9450800c884e461",
+  "htmlSha256": "3ac3e5cc55cb2367c76747c735c80534fb2a251db74a14de40a88a5005c9c24e",
+  "resources": [
+    {
+      "file": "/murph-study/study.js",
+      "durationMs": 21.399999976158142,
+      "bytes": 2521797
+    },
+    {
+      "file": "/murph-study/studio-small-09.hdr",
+      "durationMs": 10.200000047683716,
+      "bytes": 1615248
+    },
+    {
+      "file": "/murph-study/study.json",
+      "durationMs": 4.700000047683716,
+      "bytes": 63044
+    },
+    {
+      "file": "/murph-study/murph-researched.glb",
+      "durationMs": 53,
+      "bytes": 38004384
+    }
+  ],
+  "note": "Local headless Chrome measurements; not field performance, mobile GPU measurements, or independent visual approval."
+}

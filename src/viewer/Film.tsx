@@ -1,13 +1,17 @@
+import {assemblyScrollVh} from './three/assemblyTimeline.ts'
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import Lenis from "lenis"
-import { useMemo, useRef } from "react"
+import { useMemo, useRef, useState } from "react"
+import * as Scrollytelling from "@bsmnt/scrollytelling"
 import type { ExplodeSpec } from "../spec/schema.ts"
 import { frameFile, sequenceReady } from "../spec/frames.ts"
-import { progressForPhase } from "../spec/film.ts"
+import { focusTour } from "../spec/camera.ts"
 import { asset } from "./asset.ts"
 import { Reel, type ReelHandle } from "./Reel.tsx"
+import { inspectionStops, anatomyComponents } from "../spec/scene3d.ts"
+import { ObjectScene } from "./ObjectScene.tsx"
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
@@ -24,176 +28,90 @@ export function Film({ spec, reduced = false }: { spec: ExplodeSpec; reduced?: b
 
 function Pinned({ spec }: { spec: ExplodeSpec }) {
   const rootRef = useRef<HTMLDivElement>(null)
-  const lenisRef = useRef<Lenis | null>(null)
-  const triggerRef = useRef<ScrollTrigger | null>(null)
   const api = useRef<ReelHandle | null>(null)
-  const components = spec.components
+  const [images, setImages] = useState<Record<string, string>>({})
+  const driver = useRef({ progress: 0 })
+  const scrollTo = useRef((top:number)=>window.scrollTo({top,behavior:'instant'}))
+  const tween = useMemo(() => ({ start: 0, end: 100, target: driver.current, fromTo: [
+    { progress: 0 }, { progress: 1, ease: "none", onUpdate: () => api.current?.setProgress(driver.current.progress) },
+  ] as [gsap.TweenVars, gsap.TweenVars] }), [])
+  const callbacks = useMemo(() => ({ onRefresh: (self: ScrollTrigger) => api.current?.setProgress(self.progress) }), [])
+  const tourLength = spec.scene3d ? inspectionStops(spec).length : focusTour(spec).length
 
-  const jump = (id: string) => {
-    const lenis = lenisRef.current
-    const trigger = triggerRef.current
-    const part = components.findIndex((component) => component.id === id)
-    if (part >= 0 && trigger && lenis) {
-      const progress = progressForPhase(part, components.length)
-      lenis.scrollTo(trigger.start + (trigger.end - trigger.start) * progress, { duration: 1.05 })
-      return
+  useGSAP(() => {
+    const lenis = new Lenis({ lerp: 0.09, smoothWheel: true, autoRaf: false, anchors: true })
+    lenis.on("scroll", ScrollTrigger.update)
+    // Menu jumps must cancel wheel momentum in the same scrolling driver.
+    scrollTo.current=(top)=>lenis.scrollTo(top,{immediate:true,force:true})
+    const tick = (time: number) => lenis.raf(time * 1000)
+    gsap.ticker.add(tick)
+    return () => {
+      scrollTo.current=(top)=>window.scrollTo({top,behavior:'instant'})
+      lenis.destroy()
+      gsap.ticker.remove(tick)
     }
-    const node = document.getElementById(id === "intro" ? "film" : id)
-    if (!node) return
-    if (lenis) lenis.scrollTo(node, { duration: 1.05, offset: 0 })
-    else node.scrollIntoView({ behavior: "smooth" })
-  }
-
-  useGSAP(
-    () => {
-      const root = rootRef.current
-      if (!root) return
-      const pin = root.querySelector<HTMLElement>("#film")
-      if (!pin) return
-
-      const lenis = new Lenis({ lerp: 0.09, smoothWheel: true, autoRaf: false, anchors: false })
-      lenis.on("scroll", ScrollTrigger.update)
-      const tick = (time: number) => lenis.raf(time * 1000)
-      gsap.ticker.add(tick)
-      gsap.ticker.lagSmoothing(0)
-      lenisRef.current = lenis
-
-      const count = components.length
-      const trigger = ScrollTrigger.create({
-        id: "explode-film",
-        trigger: pin,
-        start: "top top",
-        end: () => (window.innerWidth < 860 ? `+=${110 + count * 62}%` : `+=${160 + count * 92}%`),
-        pin: true,
-        scrub: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => api.current?.setProgress(self.progress),
-      })
-      triggerRef.current = trigger
-
-      const links = [...root.querySelectorAll<HTMLButtonElement>("[data-nav]")]
-      const mark = (id: string) => {
-        for (const link of links) link.classList.toggle("on", link.dataset.nav === id)
-      }
-      ScrollTrigger.create({
-        trigger: "#parts",
-        start: "top 40%",
-        end: "bottom 40%",
-        onToggle: (self) => {
-          if (self.isActive) mark("parts")
-        },
-        onLeaveBack: () => mark("film"),
-      })
-      ScrollTrigger.create({
-        trigger: "#making",
-        start: "top 55%",
-        onEnter: () => mark("making"),
-        onLeaveBack: () => mark("parts"),
-      })
-      ScrollTrigger.create({
-        trigger: "#notes",
-        start: "top 70%",
-        onEnter: () => mark("notes"),
-        onLeaveBack: () => mark("making"),
-      })
-
-      const hash = window.location.hash.replace("#", "")
-      if (hash) {
-        requestAnimationFrame(() => jump(hash))
-      } else {
-        api.current?.setProgress(0)
-      }
-
-      return () => {
-        triggerRef.current = null
-        lenis.destroy()
-        lenisRef.current = null
-        gsap.ticker.remove(tick)
-      }
-    },
-    { scope: rootRef, dependencies: [spec] },
-  )
+  }, { scope: rootRef, dependencies: [spec], revertOnUpdate: true })
 
   return (
-    <div ref={rootRef} className="reel">
-      <header className="topbar">
-        <button type="button" className="brand" onClick={() => jump("film")}>
-          explode
-        </button>
-        <nav aria-label="Page">
-          <button type="button" data-nav="film" className="on" onClick={() => jump("film")}>
-            Watch
-          </button>
-          <button type="button" data-nav="parts" onClick={() => jump("parts")}>
-            Parts
-          </button>
-          <button type="button" data-nav="making" onClick={() => jump("making")}>
-            Making
-          </button>
-          <button type="button" data-nav="notes" onClick={() => jump("notes")}>
-            Notes
-          </button>
-        </nav>
-      </header>
-
-      <section id="film" className="pin">
-        <Reel spec={spec} api={api} onJump={jump} />
-      </section>
-
-      <Sheets spec={spec} />
-    </div>
+    <main ref={rootRef} className="reel continuous-reel">
+      <a className="skip-film" href="#parts">Skip motion and read the anatomy</a>
+      <Scrollytelling.Root callbacks={callbacks}>
+        <Scrollytelling.Pin childHeight="100svh" pinSpacerHeight={`${spec.scene3d?.kind==='gltf'&&spec.scene3d.assemblyStory?assemblyScrollVh(tourLength):(4+tourLength*1.15)*100}svh`}>
+          <Scrollytelling.Animation tween={tween} />
+          <section id="film" className="pin" aria-label={`${spec.item.name}: rotate, explode, and explore`}>
+            {spec.scene3d ? <ObjectScene spec={spec} api={api} onImages={setImages} scrollTo={top=>scrollTo.current(top)} /> : <Reel spec={spec} api={api} />}
+          </section>
+        </Scrollytelling.Pin>
+      </Scrollytelling.Root>
+      <Sheets spec={spec} images={images} />
+    </main>
   )
 }
 
-function Sheets({ spec }: { spec: ExplodeSpec }) {
+function Sheets({ spec, images = {} }: { spec: ExplodeSpec; images?: Record<string, string> }) {
+  const components=anatomyComponents(spec)
   return (
     <>
       <section id="parts" className="sheet">
+        <div className="section-rule"><span>01 / Anatomy</span><span>{String(components.length).padStart(2, "0")} individual stories</span></div>
         <div className="sheet-head">
-          <p className="kicker">Parts</p>
-          <h2>The stack, piece by piece.</h2>
+          <h2>A whole world.<br /><em>In every part.</em></h2>
+          <p>Look a little closer. Discover the materials, processes, and small decisions behind each component.</p>
         </div>
         <ol className="part-grid">
-          {spec.components.map((component, index) => (
-            <li key={component.id} id={component.id}>
-              {component.image ? <img src={asset(component.image)} alt="" /> : <div className="empty-shot" />}
-              <p className="kicker">{String(index + 1).padStart(2, "0")}</p>
+          {components.map((component, index) => (
+            <li key={component.id} id={`detail-${component.id}`}>
+              <div className="part-image">
+                <span className="part-number">{String(index + 1).padStart(2, "0")}</span>
+                {images[component.id] || component.image ? <img src={images[component.id] ?? asset(component.image!)} alt={component.name} loading="lazy" /> : <div className="empty-shot">{component.name}</div>}
+              </div>
+              <p className="part-material">{component.material}</p>
               <h3>{component.name}</h3>
-              <p>{lead(component.howItsMade)}</p>
+              <p className="part-summary">{lead(component.howItsMade)}</p>
+              <details onToggle={() => ScrollTrigger.refresh()}>
+                <summary>How it’s made <span aria-hidden="true">+</span></summary>
+                <div className="part-detail">
+                  <p>{component.howItsMade}</p>
+                  {component.funFacts.map((fact) => <p key={fact}>{fact}</p>)}
+                  {component.figureLabel ? <p className="figure-note">{component.figureLabel}</p> : null}
+                  {component.evidence && <div className="figure-note"><p>{component.evidence.basis === "documented" ? "Documented construction" : "Inferred construction"} · {component.evidence.note}</p>{component.evidence.sourceUrls.map((url, i) => <a key={url} href={url} target="_blank" rel="noreferrer">Source {i + 1} ↗ </a>)}</div>}
+                </div>
+              </details>
             </li>
           ))}
         </ol>
       </section>
 
-      <section id="making" className="essay">
-        <p className="kicker">{spec.item.maker}</p>
-        <h2>{spec.closing ?? spec.item.summary}</h2>
-        <dl>
-          {spec.facts.map((fact) => (
-            <div key={fact.label}>
-              <dt>{fact.label}</dt>
-              <dd>{fact.value}</dd>
-            </div>
-          ))}
-        </dl>
+      <section id="notes" className="notes">
+        <div className="section-rule"><span>Sources & image notes</span></div>
+        <div className="notes-layout">
+          <div><h2>Behind the study.</h2>{spec.scene3d?.kind === "procedural-watch" ? <p>The interactive watch is an illustrative procedural model, not Hamilton CAD. Its movement demonstrates the idea of a mechanical watch and does not reproduce the H-10 mechanism.</p> : null}{spec.artNote ? <p>{spec.artNote}</p> : null}</div>
+          {spec.sources.length > 0 ? <ol>{spec.sources.map((source, index) => (
+            <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer"><span>{String(index + 1).padStart(2, "0")}</span>{source.title}<span aria-hidden="true">↗</span></a></li>
+          ))}</ol> : null}
+        </div>
       </section>
 
-      <section id="notes" className="notes">
-        {spec.artNote ? <p>{spec.artNote}</p> : null}
-        {spec.frames?.explode?.note ? <p>{spec.frames.explode.note}</p> : null}
-        {spec.sources.length > 0 ? (
-          <ul>
-            {spec.sources.map((source) => (
-              <li key={source.url}>
-                <a href={source.url} target="_blank" rel="noreferrer">
-                  {source.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-      </section>
     </>
   )
 }
@@ -211,9 +129,6 @@ function Quiet({ spec }: { spec: ExplodeSpec }) {
 
   return (
     <div className="reel is-quiet">
-      <header className="topbar">
-        <span className="brand">explode</span>
-      </header>
       <section className="quiet-hero" id="film">
         <p className="kicker">{spec.item.maker}</p>
         <h1>{spec.item.model}</h1>

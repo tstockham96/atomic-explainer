@@ -1,0 +1,985 @@
+{
+  "name": "component-material-inventory",
+  "components": [
+    {
+      "id": "crystal",
+      "materials": [
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "ffffff",
+          "metalness": 0,
+          "roughness": 0.02,
+          "transmission": 1,
+          "ior": 1.76,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {
+            "opticalEvidence": {
+              "composition": "sapphire",
+              "basis": "documented",
+              "profile": "photo-informed curved reconstruction"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "hands",
+      "materials": [
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "d9caa6",
+          "metalness": 0,
+          "roughness": 0.78,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "c8cbc7",
+          "metalness": 1,
+          "roughness": 0.32,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "e0e3e5",
+          "metalness": 1,
+          "roughness": 0.14,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "171b1d",
+          "metalness": 0.7,
+          "roughness": 0.4,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "id": "dial",
+      "materials": [
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "141515",
+          "metalness": 0,
+          "roughness": 0.87,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "ffffff",
+          "metalness": 0,
+          "roughness": 0.87,
+          "transmission": 0,
+          "hasColorMap": true,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "b59b60",
+          "metalness": 0.88,
+          "roughness": 0.3,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "id": "case",
+      "materials": [
+        {
+          "name": "Material_tripo_part_0",
+          "type": "MeshStandardMaterial",
+          "color": "ffffff",
+          "metalness": 0.95,
+          "roughness": 0.29,
+          "transmission": 0,
+          "hasColorMap": true,
+          "hasNormalMap": true,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "c3c7c9",
+          "metalness": 1,
+          "roughness": 0.3,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": true,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "e0e3e5",
+          "metalness": 1,
+          "roughness": 0.14,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "id": "crown",
+      "materials": [
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "e0e3e5",
+          "metalness": 1,
+          "roughness": 0.14,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "c3c7c9",
+          "metalness": 1,
+          "roughness": 0.3,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": true,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "id": "seals",
+      "materials": [
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "141516",
+          "metalness": 0,
+          "roughness": 0.85,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "id": "caseback",
+      "materials": [
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "e0e3e5",
+          "metalness": 1,
+          "roughness": 0.14,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "c3c7c9",
+          "metalness": 1,
+          "roughness": 0.3,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": true,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "171b1d",
+          "metalness": 0.7,
+          "roughness": 0.4,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "id": "rear-window",
+      "materials": [
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "ffffff",
+          "metalness": 0,
+          "roughness": 0.02,
+          "transmission": 1,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {
+            "opticalEvidence": {
+              "composition": "unverified",
+              "basis": "observed transparent window",
+              "ior": "1.5 is a presentation assumption, not a composition claim",
+              "profile": "photo-informed flat reconstruction"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "rotor",
+      "materials": [
+        {
+          "name": "Observed brushed metal — linear",
+          "type": "MeshPhysicalMaterial",
+          "color": "ffffff",
+          "metalness": 1,
+          "roughness": 1,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": true,
+          "hasNormalMap": true,
+          "hasBumpMap": false,
+          "hasRoughnessMap": true,
+          "evidence": {
+            "finishEvidence": {
+              "basis": "observed",
+              "grain": "linear",
+              "substrate": "unverified",
+              "plating": "unverified",
+              "reliefScaleMm": 0.022
+            }
+          }
+        },
+        {
+          "name": "Observed brushed metal — linear",
+          "type": "MeshPhysicalMaterial",
+          "color": "ffffff",
+          "metalness": 1,
+          "roughness": 1,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": true,
+          "hasNormalMap": true,
+          "hasBumpMap": false,
+          "hasRoughnessMap": true,
+          "evidence": {
+            "finishEvidence": {
+              "basis": "observed",
+              "grain": "linear",
+              "substrate": "unverified",
+              "plating": "unverified",
+              "reliefScaleMm": 0.022
+            }
+          }
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "c6c8c3",
+          "metalness": 1,
+          "roughness": 0.38,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": true,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "Observed brushed metal — radial",
+          "type": "MeshPhysicalMaterial",
+          "color": "ffffff",
+          "metalness": 1,
+          "roughness": 1,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": true,
+          "hasNormalMap": true,
+          "hasBumpMap": false,
+          "hasRoughnessMap": true,
+          "evidence": {
+            "finishEvidence": {
+              "basis": "observed",
+              "grain": "radial",
+              "substrate": "unverified",
+              "plating": "unverified",
+              "reliefScaleMm": 0.022
+            }
+          }
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "c3c7c9",
+          "metalness": 1,
+          "roughness": 0.3,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": true,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "b59b60",
+          "metalness": 0.88,
+          "roughness": 0.3,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "e0e3e5",
+          "metalness": 1,
+          "roughness": 0.14,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "c1c6c5",
+          "metalness": 0.72,
+          "roughness": 0.36,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "171b1d",
+          "metalness": 0.7,
+          "roughness": 0.4,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "id": "movement",
+      "materials": [
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "c6c8c3",
+          "metalness": 1,
+          "roughness": 0.38,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": true,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "c3c7c9",
+          "metalness": 1,
+          "roughness": 0.3,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": true,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "c1c6c5",
+          "metalness": 0.72,
+          "roughness": 0.36,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "171b1d",
+          "metalness": 0.7,
+          "roughness": 0.4,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "b59b60",
+          "metalness": 0.88,
+          "roughness": 0.3,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "8c1741",
+          "metalness": 0.35,
+          "roughness": 0.16,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "e0e3e5",
+          "metalness": 1,
+          "roughness": 0.14,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "id": "winding-train",
+      "materials": [
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "c3c7c9",
+          "metalness": 1,
+          "roughness": 0.3,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": true,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "c1c6c5",
+          "metalness": 0.72,
+          "roughness": 0.36,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "b59b60",
+          "metalness": 0.88,
+          "roughness": 0.3,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "c6c8c3",
+          "metalness": 1,
+          "roughness": 0.38,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": true,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "171b1d",
+          "metalness": 0.7,
+          "roughness": 0.4,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "id": "barrel",
+      "materials": [
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "b59b60",
+          "metalness": 0.88,
+          "roughness": 0.3,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "c1c6c5",
+          "metalness": 0.72,
+          "roughness": 0.36,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "e0e3e5",
+          "metalness": 1,
+          "roughness": 0.14,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "c3c7c9",
+          "metalness": 1,
+          "roughness": 0.3,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": true,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "id": "wheel-train",
+      "materials": [
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "b59b60",
+          "metalness": 0.88,
+          "roughness": 0.3,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "c1c6c5",
+          "metalness": 0.72,
+          "roughness": 0.36,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "id": "escapement",
+      "materials": [
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "c3c7c9",
+          "metalness": 1,
+          "roughness": 0.3,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": true,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "c1c6c5",
+          "metalness": 0.72,
+          "roughness": 0.36,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "e0e3e5",
+          "metalness": 1,
+          "roughness": 0.14,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "b59b60",
+          "metalness": 0.88,
+          "roughness": 0.3,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "8c1741",
+          "metalness": 0.35,
+          "roughness": 0.16,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "171b1d",
+          "metalness": 0.7,
+          "roughness": 0.4,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "id": "balance",
+      "materials": [
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "b59b60",
+          "metalness": 0.88,
+          "roughness": 0.3,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "c6c8c3",
+          "metalness": 1,
+          "roughness": 0.38,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": true,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "c1c6c5",
+          "metalness": 0.72,
+          "roughness": 0.36,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshStandardMaterial",
+          "color": "171b1d",
+          "metalness": 0.7,
+          "roughness": 0.4,
+          "transmission": 0,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "c3c7c9",
+          "metalness": 1,
+          "roughness": 0.3,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": true,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "e0e3e5",
+          "metalness": 1,
+          "roughness": 0.14,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "",
+          "type": "MeshPhysicalMaterial",
+          "color": "8c1741",
+          "metalness": 0.35,
+          "roughness": 0.16,
+          "transmission": 0,
+          "ior": 1.5,
+          "hasColorMap": false,
+          "hasNormalMap": false,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        }
+      ]
+    },
+    {
+      "id": "strap",
+      "materials": [
+        {
+          "name": "Material_tripo_part_1",
+          "type": "MeshStandardMaterial",
+          "color": "ffffff",
+          "metalness": 0,
+          "roughness": 0.7,
+          "transmission": 0,
+          "hasColorMap": true,
+          "hasNormalMap": true,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "Material_tripo_part_2",
+          "type": "MeshStandardMaterial",
+          "color": "ffffff",
+          "metalness": 0,
+          "roughness": 0.7,
+          "transmission": 0,
+          "hasColorMap": true,
+          "hasNormalMap": true,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "Material_tripo_part_4",
+          "type": "MeshStandardMaterial",
+          "color": "ffffff",
+          "metalness": 0,
+          "roughness": 0.7,
+          "transmission": 0,
+          "hasColorMap": true,
+          "hasNormalMap": true,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "Material_tripo_part_5",
+          "type": "MeshStandardMaterial",
+          "color": "ffffff",
+          "metalness": 0,
+          "roughness": 0.7,
+          "transmission": 0,
+          "hasColorMap": true,
+          "hasNormalMap": true,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "Material_tripo_part_7",
+          "type": "MeshStandardMaterial",
+          "color": "ffffff",
+          "metalness": 0,
+          "roughness": 0.7,
+          "transmission": 0,
+          "hasColorMap": true,
+          "hasNormalMap": true,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        },
+        {
+          "name": "Material_tripo_part_10",
+          "type": "MeshStandardMaterial",
+          "color": "ffffff",
+          "metalness": 0,
+          "roughness": 0.7,
+          "transmission": 0,
+          "hasColorMap": true,
+          "hasNormalMap": true,
+          "hasBumpMap": false,
+          "hasRoughnessMap": false,
+          "evidence": {}
+        }
+      ]
+    }
+  ]
+}

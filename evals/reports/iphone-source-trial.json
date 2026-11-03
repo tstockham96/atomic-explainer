@@ -1,0 +1,26 @@
+{
+  "case": "iphone-manufacturer-source",
+  "status": "needs-visual-review",
+  "acquisition": "Downloaded manufacturer exterior; source import executed locally; no paid generation in this trial",
+  "assetSha256": "7b1cebe86a2bd66cd28099586de605999bd960affe97f268f071835ea8f30c6f",
+  "researchSha256": "1db6330419e032ceed0e49a048f9c0a2aeceadc9b2d5a13928be8ee0a106b00c",
+  "meshCount": 94,
+  "triangleCount": 70003,
+  "materialCount": 94,
+  "textureCount": 51,
+  "redistribution": "unknown; asset excluded from repository",
+  "observed": [
+    "Front and back renders visually inspected",
+    "Desktop and mobile source-model preview inspected",
+    "Detailed enclosure curvature, camera housings, lens surfaces and side controls present"
+  ],
+  "unresolved": [
+    "Camera-rim conversion artifact",
+    "USD/GLB shader equivalence",
+    "Functional component grouping",
+    "Internal component geometry",
+    "Assembly fitting and learning-effectiveness review"
+  ],
+  "qualityScores": null,
+  "note": "No visual quality pass inferred from source reputation, mesh counts, import success or tests."
+}

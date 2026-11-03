@@ -1,0 +1,468 @@
+{
+  "version": 1,
+  "reviewer": "Agent self-review; not independent validation",
+  "date": "2026-10-30",
+  "ready": false,
+  "modelSha256": "3e9a3b8b79ddb1843f1a503f64b2db85960e160d3d9adc746dc6e378727d67fc",
+  "specSha256": "7d680575d4af1ce019a1ad256aacd7f6349d6b20df42cd8ad7af74c195e2fbfc",
+  "modelBytes": 24170532,
+  "coverage": {
+    "required": 29,
+    "geometry": 29,
+    "research": 29,
+    "story": 29
+  },
+  "checks": {
+    "unitAndIntegrationTests": 130,
+    "browserRegressions": 15,
+    "geometricInspectionViews": 290,
+    "componentVisualViews": 87,
+    "desktopAndPhone": true,
+    "nativeClosingReturnsHome": true,
+    "allComponentsRemainVisible": true,
+    "iphoneNativeClosing": "Verified separately in the actual local 28-part study",
+    "providerCalls": 0
+  },
+  "evidence": {
+    "overview": [
+      "review/assembled.png",
+      "review/exploded.png",
+      "review/reassembled.png"
+    ],
+    "cutaway": "review/oil-pump.png",
+    "componentSheets": [
+      "review/components-1.png",
+      "review/components-2.png",
+      "review/components-3.png",
+      "review/components-4.png",
+      "review/components-5.png"
+    ]
+  },
+  "fixes": [
+    "Added closing reassembly with a settled hold before anatomy.",
+    "Reduced exaggerated casting bump after checking the normalized export.",
+    "Indexed and batched repeated geometry; model below 25 MiB.",
+    "Closed head chamber faces while retaining valve openings.",
+    "Corrected case wall orientation and half-bearing seats.",
+    "Expanded the casting outline to preserve all six cylinder apertures.",
+    "Added timing guides and tensioner forms.",
+    "Opened and clearly framed a documented oil-pump cutaway."
+  ],
+  "components": [
+    {
+      "id": "fan-drive",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-1.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Pulley diameters and belt cross-section are reference-fitted, not measured."
+      ]
+    },
+    {
+      "id": "fan",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-1.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Blade pitch and aerofoil geometry are inferred from photographs."
+      ]
+    },
+    {
+      "id": "fan-housing",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-1.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Exact alloy and casting marks are not established."
+      ]
+    },
+    {
+      "id": "alternator",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-1.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Internal windings and electrical circuit are outside this engine-mechanism study."
+      ]
+    },
+    {
+      "id": "cooling-shroud",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-1.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Duct contours and wall thickness are approximate; coating chemistry is unverified."
+      ]
+    },
+    {
+      "id": "air-cleaner",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-1.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Air-cleaner silhouette is less certain than the exposed engine; internal filter media is not reconstructed."
+      ]
+    },
+    {
+      "id": "carburetors",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-2.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Jet passages, calibration, and fuel recirculation plumbing are not reproduced."
+      ]
+    },
+    {
+      "id": "intake-manifolds",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-2.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Runner bends and wall thickness are reference-fitted."
+      ]
+    },
+    {
+      "id": "heads-left",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-2.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Combustion-chamber contours and port cross-sections are simplified."
+      ]
+    },
+    {
+      "id": "heads-right",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-2.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Bank spacing is illustrative, not a workshop measurement."
+      ]
+    },
+    {
+      "id": "cylinders-left",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-2.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Fin count/spacing and cylinder metallurgy are visual approximations, not a verified part specification."
+      ]
+    },
+    {
+      "id": "cylinders-right",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-2.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "This is a static assembly pose, not a running-engine simulation."
+      ]
+    },
+    {
+      "id": "pistons",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-3.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Crown profiles, ring gaps, pin-bore details and clearances are approximate."
+      ]
+    },
+    {
+      "id": "connecting-rods",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-3.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Forging contours and bearing clearances are simplified."
+      ]
+    },
+    {
+      "id": "crankshaft",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-3.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Throw layout is educational; balance, firing order and dynamic loads are not simulated."
+      ]
+    },
+    {
+      "id": "flywheel",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-3.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Exact tooth count and clutch interface dimensions are illustrative."
+      ]
+    },
+    {
+      "id": "timing-covers",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-3.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Contours and sealing lips are fitted to the diagram, not exact CAD."
+      ]
+    },
+    {
+      "id": "timing-chains",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-3.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Chain pitch, tensioner geometry and exact ratio are simplified; not a timing-setting reference."
+      ]
+    },
+    {
+      "id": "valve-covers",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-4.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Rib spacing, markings and gasket profiles are approximate."
+      ]
+    },
+    {
+      "id": "cam-carriers",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-4.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Carrier castings are simplified and not fully oil-tight solids."
+      ]
+    },
+    {
+      "id": "camshafts",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-4.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Lobe lift and phase are illustrative rather than verified 901/01 cam profiles."
+      ]
+    },
+    {
+      "id": "valvetrain",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-4.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Exact rocker ratios and valve angles are not measured."
+      ]
+    },
+    {
+      "id": "ignition",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-4.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Wire routing and plug details are representative; no exact firing-order claim."
+      ]
+    },
+    {
+      "id": "crankcase-left",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-4.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Casting shape and material grade are not established from measured factory data."
+      ]
+    },
+    {
+      "id": "crankcase-right",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-5.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Sealing geometry and oil passages are simplified."
+      ]
+    },
+    {
+      "id": "oil-pump",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-5.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "The permanent housing cutaway is illustrative; gear dimensions and hidden passages are schematic. The external oil tank is vehicle-mounted and not modeled."
+      ]
+    },
+    {
+      "id": "oil-cooler",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-5.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Internal flow channels and exact fin pitch are unverified."
+      ]
+    },
+    {
+      "id": "oil-lines",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-5.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Routing is representative; the vehicle reservoir and filter are outside the model boundary."
+      ]
+    },
+    {
+      "id": "exhaust",
+      "visualViews": [
+        "front",
+        "reverse",
+        "side"
+      ],
+      "sheet": "review/components-5.png",
+      "geometryAndFraming": "checked",
+      "materialReview": "Coherent under shared lighting; source-specific alloy and finish fidelity remain approximate",
+      "unknowns": [
+        "Heat exchangers, muffler baffles and exhaust wall thickness are simplified."
+      ]
+    }
+  ],
+  "remaining": [
+    "Exact casting contours, air-cleaner form, ports, small hardware, dimensional fits and finishes need measured/expert references.",
+    "Alternator windings, filter media, carburetor passages, complete heat exchangers and muffler baffles are not reconstructed.",
+    "Vehicle oil tank/fuel supply, clutch/transmission and vehicle wiring are outside the engine-mounted boundary.",
+    "No running, combustion, fluid or thermal simulation.",
+    "No independent visual review or learner study.",
+    "Manually authored cross-object demonstration; unattended arbitrary-object reconstruction is not established."
+  ],
+  "subsequentMaterialReview": "surface-review.json (this record retains its original model hash and historical geometry checks)"
+}

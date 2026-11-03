@@ -1,0 +1,64 @@
+{
+  "date": "2026-11-02",
+  "mode": "how-it-is-made",
+  "reviewer": "Agent self-review; not independent learner or fidelity validation",
+  "readyForPhotorealismRelease": false,
+  "physicalGroups": 16,
+  "chapters": 11,
+  "script": "../../murph-assembly-story.json",
+  "fingerprints": {
+    "docs/research/murph-assembly-story.json": "b44214e08715e948d6932ade6ebf093085b9ceff67b20c5726ed96416c743f81",
+    "src/viewer/three/assemblyStory.ts": "4e96a65638c91190ea5ea5ad81cdce4021c1c2ece38b98f3393623536e3acf89",
+    "tools/murph-study/viewer.ts": "43724c69c97ef995650f26fe2d79d30ef84718803f2f88f202876791404c1b0e",
+    "tools/murph-study/index.html": "90211a77e52ead96c8901ad42a768304653b8b8f69bcb4899acd0e4773f798bc",
+    "public/models/murph/murph.glb": "bc05ec5e791e7209557153c4058fb89ae0134e3b1a6ec2e7a3a40c7197ab5fa7"
+  },
+  "checks": {
+    "unitAndIntegrationTests": 143,
+    "fullBrowserRunPassed": 19,
+    "finalAssemblyStoryBrowserChecksPassed": 5,
+    "inspectionFramingChecks": 99,
+    "viewports": [
+      [
+        1440,
+        900
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        360,
+        640
+      ]
+    ],
+    "finalTransformsEqualHome": true,
+    "reducedMotionAndPublicNavigation": true,
+    "reverseScroll": true,
+    "allPhysicalGroupsRemainVisible": true
+  },
+  "visualEvidence": [
+    "opening-1440.png",
+    "rotor-joined-1440.png",
+    "hands-joined-1440.png",
+    "crystal-joined-1440.png",
+    "complete-1440.png",
+    "opening-390.png",
+    "complete-390.png",
+    "opening-360.png"
+  ],
+  "findings": [
+    "Opening shows the complete movement rather than a blank support plate.",
+    "Rear-facing chapters hold a rear view when seating, so the added rotor remains visible.",
+    "Dial and hands remain on the accumulating mechanism after inspection.",
+    "The closing frame holds the complete watch and leads into existing anatomy.",
+    "Phone layouts keep the inspected object above the chapter text and controls."
+  ],
+  "limits": [
+    "Order is educational, not verified Hamilton factory assembly procedure.",
+    "Existing geometry, printing, materials and hidden-mechanism approximations remain; no new fidelity score awarded.",
+    "The reusable helper is integrated into the Hamilton adapter; other objects need authored scripts and adapter integration.",
+    "No swept collision proof, actual mechanical simulation, or learner comprehension study.",
+    "The modeled inventory still omits an independently reconstructed buckle."
+  ]
+}

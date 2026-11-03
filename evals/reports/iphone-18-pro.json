@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "object": "iPhone 18 Pro",
+  "mode": "research-only",
+  "reviewer": "Codex audit",
+  "independence": "self-review",
+  "status": "not-ready",
+  "scores": {
+    "design": {
+      "reviewed": 0,
+      "total": 6,
+      "mean": null
+    },
+    "model": {
+      "reviewed": 0,
+      "total": 6,
+      "mean": null
+    }
+  },
+  "gates": [
+    {
+      "id": "research-structure",
+      "status": "pass",
+      "detail": "Component plans and citation links are structurally valid; source entailment still requires review."
+    },
+    {
+      "id": "review-freshness",
+      "status": "pass",
+      "detail": "Review must match this exact spec hash and object."
+    },
+    {
+      "id": "asset-freshness",
+      "status": "unmeasured",
+      "detail": "Visual review must match the exact rendered asset, not only its spec."
+    },
+    {
+      "id": "experience-freshness",
+      "status": "unmeasured",
+      "detail": "Design review must match the exact viewer and layout source."
+    },
+    {
+      "id": "rendered-coverage",
+      "status": "unmeasured",
+      "detail": "No rendered model supplied. A construction plan does not count as generated geometry."
+    },
+    {
+      "id": "component-review-coverage",
+      "status": "pass",
+      "detail": "Missing reviews: none; duplicate/unknown reviews: 0."
+    },
+    {
+      "id": "complete-surface-review",
+      "status": "fail",
+      "detail": "Incomplete views/evidence: display, back-glass, battery, rear-cameras, front-camera, logic-board, taptic-engine, top-speaker, bottom-speaker, usb-c, enclosure."
+    },
+    {
+      "id": "reference-fidelity",
+      "status": "fail",
+      "detail": "Still approximate or unreviewed: display, back-glass, battery, rear-cameras, front-camera, logic-board, taptic-engine, top-speaker, bottom-speaker, usb-c, enclosure."
+    },
+    {
+      "id": "artifact-evidence",
+      "status": "pass",
+      "detail": "Artifact existence is checked separately from the reviewer’s visual judgment."
+    },
+    {
+      "id": "learning-coverage",
+      "status": "pass",
+      "detail": "Every learning goal needs a question, expected explanation, component IDs and sources. Uncovered goals: none."
+    },
+    {
+      "id": "learner-validation",
+      "status": "unmeasured",
+      "detail": "A written teaching check is not evidence that a learner understood it."
+    },
+    {
+      "id": "learning-depth",
+      "status": "pass",
+      "detail": "Supply beginner identification/function, intermediate causal explanation, and advanced evidence/uncertainty questions. Level labels still require editorial review."
+    },
+    {
+      "id": "model-payload",
+      "status": "unmeasured",
+      "detail": "No model payload measured."
+    },
+    {
+      "id": "physical-continuity",
+      "status": "unmeasured",
+      "detail": "No measured motion run supplied."
+    },
+    {
+      "id": "optical-transmission",
+      "status": "unmeasured",
+      "detail": "No rendered transmission measurements supplied."
+    },
+    {
+      "id": "rubric-validity",
+      "status": "pass",
+      "detail": "Unknown criteria are rejected. The top anchor requires independent review."
+    },
+    {
+      "id": "design-quality",
+      "status": "unmeasured",
+      "detail": "0/6 anchored criteria reviewed; each must reach 3/4. Missing ratings are not zeroes or passes."
+    },
+    {
+      "id": "model-quality",
+      "status": "unmeasured",
+      "detail": "0/6 anchored criteria reviewed; each must reach 3/4. Missing ratings are not zeroes or passes."
+    }
+  ],
+  "limitations": [
+    "No input photograph, provider call, generated geometry or rendered phone exists for this case.",
+    "Obtain and inspect exact regional internal views before authoring hidden components.",
+    "Resolve internal dimensions, materials, connector interfaces and redistribution rights for any sourced model."
+  ],
+  "note": "Passing unit tests validates the evaluator, not the object. Scores are anchored reviewer judgments, not automatic proof of photorealism or learning."
+}

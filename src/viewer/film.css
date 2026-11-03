@@ -1,0 +1,220 @@
+/* Shared anatomy styling and the continuous object film. */
+.reel {
+  --ink: #eeece4;
+  --dim: #a09f95;
+  --accent: #ed7958;
+  --hairline: #ffffff20;
+  background: #151515;
+  color: var(--ink);
+  min-height: 100svh;
+}
+.reel *, .reel *::before, .reel *::after { box-sizing: border-box; }
+.reel :is(button, a, summary, input):focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+.reel a { text-decoration: none; }
+.pin { position: relative; }
+.kicker { font: 10px var(--font-mono); letter-spacing: 1.6px; text-transform: uppercase; color: var(--dim); }
+.sheet-head h2 { margin: 0; font-weight: 400; letter-spacing: -.055em; line-height: 1.02; }
+.sheet-head em { font-family: var(--font-serif); font-weight: 400; }
+.sheet, .notes { padding: 95px 4vw; margin: 0 auto; max-width: 1600px; scroll-margin-top: 84px; }
+.sheet { background: #e9e8df; color: #23251e; max-width: none; }
+.section-rule { border-top: 1px solid currentColor; padding-top: 20px; display: flex; justify-content: space-between; font: 10px var(--font-mono); text-transform: uppercase; letter-spacing: 1.2px; }
+.sheet-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 50px; margin: 55px 0 65px; }
+.sheet-head h2 { font-size: clamp(42px, 5vw, 72px); }
+.sheet-head em { color: #72775d; }
+.sheet-head > p { max-width: 32ch; margin: 0; font-size: 16px; line-height: 1.7; color: #626658; }
+.part-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 55px 28px; }
+.part-grid > li { min-width: 0; scroll-margin-top: 110px; }
+.part-image { position: relative; aspect-ratio: 1.1; overflow: hidden; background: #141610; }
+.part-image img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .6s; }
+.part-grid li:hover .part-image img { transform: scale(1.035); }
+.part-number { position: absolute; top: 16px; left: 16px; z-index: 1; font: 10px var(--font-mono); color: #c8c8b7; }
+.part-material { color: #626658; font: 9px var(--font-mono); letter-spacing: .3px; text-transform: uppercase; line-height: 1.6; margin: 22px 0 8px; }
+.part-grid h3 { font-size: 26px; font-weight: 400; letter-spacing: -.7px; margin: 0; }
+.part-summary { font-size: 14px; line-height: 1.7; color: #626658; margin: 12px 0 20px; }
+.part-grid details { border-top: 1px solid #23251e30; }
+.part-grid summary { display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 16px 0; font-size: 12px; list-style: none; }
+.part-grid summary::-webkit-details-marker { display: none; }
+.part-grid summary > span { font-size: 20px; }
+.part-grid details[open] summary > span { transform: rotate(45deg); }
+.part-detail { font-size: 14px; line-height: 1.75; color: #505648; }
+.part-detail p { margin: 0 0 16px; }
+.figure-note { font-size: 11px; font-style: italic; }
+.empty-shot { height: 100%; display: grid; place-items: center; color: #a09f95; font-size: 13px; }
+.notes { padding-top: 10px; padding-bottom: 80px; }
+.notes-layout { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 10vw; }
+.notes h2 { font-size: 24px; letter-spacing: -.5px; font-weight: 400; margin: 0 0 20px; }
+.notes p { font-size: 13px; line-height: 1.8; max-width: 50ch; color: var(--dim); }
+.notes ol { list-style: none; padding: 0; margin: 0; }
+.notes li { border-bottom: 1px solid var(--hairline); }
+.notes li a { display: flex; gap: 16px; padding: 16px 0; color: var(--ink); font-size: 12px; }
+.notes li a span:first-child { font: 9px var(--font-mono); color: var(--accent); }
+.notes li a span:last-child { margin-left: auto; }
+
+.quiet-hero { padding: 70px 6vw; text-align: center; }
+.quiet-hero h1, .quiet-hero h2 { font: 400 clamp(32px, 5vw, 72px)/1.1 var(--font-serif); letter-spacing: -.04em; }
+.quiet-hero .sub { max-width: 60ch; margin: 25px auto; color: var(--dim); line-height: 1.7; }
+.quiet-hero img { display: block; max-height: 80svh; max-width: 100%; margin: 40px auto 0; object-fit: contain; }
+@media (max-width: 860px) {
+  .sheet, .notes { padding: 65px 24px; }
+  .part-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 20px; }
+  .sheet-head { margin: 40px 0; gap: 28px; }
+  .sheet-head > p { font-size: 14px; max-width: 25ch; }
+  .notes-layout { gap: 40px; }
+}
+@media (max-width: 600px) {
+  .sheet, .notes { padding: 50px 20px; }
+  .section-rule { font-size: 8px; letter-spacing: .5px; gap: 15px; }
+  .sheet-head { display: block; margin: 35px 0; }
+  .sheet-head h2 { font-size: 42px; }
+  .sheet-head > p { max-width: 34ch; margin-top: 25px; }
+  .part-grid { grid-template-columns: 1fr; gap: 40px; }
+  .part-image { aspect-ratio: 1.2; }
+  .notes-layout { grid-template-columns: 1fr; gap: 35px; margin-top: 35px; }
+}
+@media (prefers-reduced-motion: reduce) { .reel *, .reel *::before { transition: none !important; scroll-behavior: auto !important; } }
+/* The explainer is a single persistent scene. Anatomy begins only after the pin ends. */
+.continuous-reel { background: #151515; }
+.continuous-reel .pin, .object-film { height: 100svh; min-height: 0; }
+.object-film { position: relative; overflow: hidden; }
+.object-canvas { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
+.film-title { position: absolute; left: 5%; right: 5%; bottom: 7vh; text-align: center; color: #f3f0e7; text-shadow: 0 2px 24px #000a; pointer-events: none; }
+.film-title > p { font: 11px var(--font-mono); letter-spacing: .24em; text-transform: uppercase; margin: 0 0 16px; }
+.film-title h1 { font-family: var(--font-serif); font-size: clamp(36px, 5.8vw, 84px); font-weight: 400; letter-spacing: -.05em; line-height: 1.05; margin: 0; }
+.film-title > span { display: inline-block; font-size: 11px; letter-spacing: .08em; margin-top: 24px; color: #bdbbb2; }
+.film-title > span > span { margin-left: 12px; }
+.focus-caption { position: absolute; left: 66%; top: 34%; width: 27%; max-width: 380px; opacity: 0; visibility: hidden; color: #eeece4; pointer-events: none; }
+.focus-caption .kicker { color: #a9aa99; margin: 0 0 22px; }
+.focus-caption h2 { font-family: var(--font-serif); font-size: clamp(32px, 3.6vw, 56px); font-weight: 400; letter-spacing: -.045em; line-height: 1.06; margin: 0; }
+.focus-material { font: 10px var(--font-mono); color: #b7b49f; line-height: 1.7; margin: 22px 0 0; }
+.focus-description { font-size: 16px; line-height: 1.8; margin: 20px 0 0; color: #c6c4bb; }
+.continuous-reel .notes { padding-top: 60px; }
+.skip-film { position: fixed; z-index: 40; top: 15px; left: 15px; transform: translateY(-200%); padding: 12px 16px; background: #e9e8df; color: #23251e; }
+.skip-film:focus { transform: none; }
+@media (max-width: 699px) {
+  .film-title { bottom: 8vh; }
+  .film-title h1 { font-size: clamp(32px, 9vw, 52px); }
+  .film-title > p { font-size: 9px; }
+  .focus-caption { top: auto; bottom: 5vh; left: 7%; width: 86%; max-width: none; padding-top: 30px; background: linear-gradient(transparent, #151515e8 30%); }
+  .focus-caption .kicker { margin-bottom: 14px; font-size: 9px; }
+  .focus-caption h2 { font-size: 34px; }
+  .focus-material { margin-top: 14px; }
+  .focus-description { font-size: 13px; line-height: 1.65; margin-top: 14px; }
+}
+@media (max-height: 600px) and (min-width: 700px) {
+  .focus-caption { top: 18%; }
+  .focus-caption h2 { font-size: 32px; }
+  .focus-description { font-size: 13px; line-height: 1.6; }
+}
+
+/* Real geometry under changing light. The same scene supports both atmospheres. */
+.mesh-film { position: relative; height: 100svh; overflow: hidden; --scene-ink: #253744; --scene-muted: #526775; color: var(--scene-ink); background: #d5dfe5; transition: color .7s; }
+.mesh-film.is-midnight { --scene-ink: #f1eee6; --scene-muted: #b4bdc8; background: #0b111d; }
+.mesh-host, .mesh-host canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.atmosphere-switch { position: absolute; top: 28px; right: 32px; display: flex; gap: 3px; border: 1px solid #677a852d; border-radius: 30px; padding: 4px; background: #ffffff15; backdrop-filter: blur(16px); z-index: 4; }
+.atmosphere-switch button { display: flex; align-items: center; gap: 7px; font: 11px var(--font-sans); padding: 8px 14px; border: 0; border-radius: 30px; background: none; color: var(--scene-muted); cursor: pointer; }
+.atmosphere-switch button[aria-pressed="true"] { background: #ffffff65; color: #253744; box-shadow: 0 2px 10px #152a3710; }
+.is-midnight .atmosphere-switch button[aria-pressed="true"] { background: #ffffff1f; color: #fff; }
+.atmosphere-switch span { font-size: 17px; line-height: 1; }
+.mesh-title { position: absolute; left: 7%; top: 39%; width: 30%; pointer-events: none; }
+.mesh-title > p { font: 10px var(--font-mono); letter-spacing: .22em; text-transform: uppercase; margin: 0 0 22px; color: var(--scene-muted); }
+.mesh-title h1 { font: 400 clamp(40px, 5vw, 76px)/1.04 var(--font-serif); letter-spacing: -.055em; margin: 0; max-width: 9ch; }
+.mesh-title > span { display: block; margin-top: 28px; font-size: 11px; color: var(--scene-muted); }
+.mesh-scroll { font-size: 28px; margin-top: 24px; font-weight: 300; }
+.mesh-caption { position: absolute; top: 31%; left: 66%; width: 27%; max-width: 390px; opacity: 0; visibility: hidden; pointer-events: none; }
+.mesh-counter { font: 10px var(--font-mono); letter-spacing: .08em; margin: 0 0 30px; }
+.mesh-counter span { opacity: .45; margin-left: 10px; }
+.mesh-caption h2 { font: 400 clamp(30px, 3.8vw, 60px)/1.07 var(--font-serif); letter-spacing: -.05em; margin: 0; }
+.mesh-material { font: 10px/1.75 var(--font-mono); color: var(--scene-muted); margin: 22px 0; }
+.mesh-description { font-size: 15px; line-height: 1.85; margin: 0; color: var(--scene-ink); }
+.mesh-bottom { position: absolute; bottom: 22px; left: 30px; right: 30px; display: flex; align-items: center; justify-content: space-between; font: 9px var(--font-mono); color: var(--scene-muted); }
+.mesh-bottom button { background: transparent; border: 0; padding: 8px 0; color: inherit; font: inherit; cursor: pointer; }
+.mesh-error { position: absolute; inset: 25% 15%; padding: 40px; background: #e8edf0ee; color: #253744; display: grid; align-content: center; text-align: center; }
+.mesh-error h2 { font: 400 32px var(--font-serif); }
+.mesh-error a { color: inherit; text-decoration: underline; }
+@media (max-width: 699px) {
+  .atmosphere-switch { top: 18px; right: 18px; }
+  .atmosphere-switch button { font-size: 10px; padding: 7px 10px; }
+  .mesh-title { top: auto; bottom: 8%; left: 7%; width: 86%; text-align: center; }
+  .mesh-title h1 { font-size: 37px; max-width: none; }
+  .mesh-title > p { font-size: 8px; margin-bottom: 12px; }
+  .mesh-title > span { margin-top: 16px; font-size: 10px; }
+  .mesh-scroll { margin-top: 12px; font-size: 22px; }
+  .mesh-caption { top: auto; bottom: 10%; left: 7%; width: 86%; max-width: none; }
+  .mesh-counter { margin-bottom: 14px; font-size: 8px; }
+  .mesh-caption h2 { font-size: 32px; }
+  .mesh-material { font-size: 9px; margin: 14px 0; }
+  .mesh-description { font-size: 12px; line-height: 1.65; }
+  .mesh-bottom { left: 18px; right: 18px; bottom: 14px; font-size: 7px; }
+  .mesh-error { inset: 20% 7%; padding: 24px; }
+}
+@media (max-height: 650px) and (min-width: 700px) {
+  .mesh-title { top: 30%; }
+  .mesh-title h1 { font-size: 44px; }
+  .mesh-caption { top: 18%; }
+  .mesh-caption h2 { font-size: 34px; }
+  .mesh-description { font-size: 12px; line-height: 1.65; }
+}
+
+/* Object-first framing: the model owns the center, the name sits below it. */
+.mesh-title { left: 5%; top: auto; bottom: 7%; width: 90%; text-align: center; }
+.mesh-title h1 { max-width: none; font: 400 clamp(30px, 3.3vw, 52px)/1.08 var(--font-sans); letter-spacing: -.045em; }
+.mesh-title > p { margin-bottom: 12px; font-size: 9px; }
+.mesh-title > span { margin-top: 18px; }
+.mesh-scroll { margin-top: 12px; font-size: 21px; }
+.mesh-caption h2 { font-family: var(--font-sans); font-size: clamp(30px, 3.1vw, 48px); }
+.mesh-caption { top: 34%; }
+.mesh-labels { position: absolute; inset: 0; pointer-events: none; }
+.mesh-part-label { position: absolute; opacity: 0; transform: translate(-50%, -115px); text-align: center; white-space: nowrap; font: 10px/1.4 var(--font-sans); letter-spacing: .025em; transition: opacity .25s; }
+.mesh-part-label span { display: block; font: 8px var(--font-mono); opacity: .55; margin-bottom: 5px; }
+.mesh-part-label::after { content: ''; display: block; width: 1px; height: 47px; margin: 10px auto 0; background: currentColor; opacity: .22; }
+@media (max-width: 699px) {
+  .mesh-title { bottom: 9%; }
+  .mesh-title h1 { font-size: 32px; }
+  .mesh-caption { top: auto; bottom: 10%; }
+  .mesh-part-label { font-size: 8px; transform: translate(-50%, -65px); }
+  .mesh-part-label::after { height: 22px; margin-top: 6px; }
+  .mesh-description { max-width: 45ch; }
+}
+
+.mesh-navigation { position:absolute; top:26px; left:30px; display:flex; align-items:center; gap:22px; z-index:5; font:12px var(--font-sans); color:var(--scene-ink); }
+.mesh-navigation a { color:inherit; text-decoration:none; padding:12px 0; }
+.mesh-navigation label { display:flex; align-items:center; gap:10px; }
+.mesh-navigation select { max-width:200px; min-height:44px; border:1px solid #788b8555; border-radius:6px; padding:8px 12px; background:#eff2ed; color:#253b36; font:inherit; }
+.mesh-connection { display:block; margin-top:20px; padding-top:16px; border-top:1px solid #82958c55; font-size:12px; line-height:1.7; }
+.mesh-navigation :focus-visible { outline:2px solid currentColor; outline-offset:4px; }
+@media(max-width:699px) {
+  .mesh-navigation { top:13px; left:18px; gap:12px; font-size:11px; }
+  .mesh-navigation label { font-size:0; }
+  .mesh-navigation select { max-width:150px; font-size:11px; }
+  .atmosphere-switch { top:70px; right:18px; }
+  .mesh-bottom { align-items:flex-end; gap:16px; font-size:9px; line-height:1.5; }
+  .mesh-bottom span { max-width:65%; }
+  .mesh-bottom button { min-height:44px; }
+  .mesh-connection { font-size:11px; margin-top:12px; padding-top:10px; }
+}
+
+.mesh-explode { pointer-events:auto; display:inline-block; min-height:44px; margin-top:14px; border:1px solid #788b8577; border-radius:24px; padding:10px 20px; background:transparent; color:var(--scene-ink); font:12px var(--font-sans); cursor:pointer; }
+.mesh-explode:disabled { cursor:wait; }
+.mesh-explode:focus-visible { outline:2px solid currentColor; outline-offset:4px; }
+.mesh-stage { position:absolute; top:79px; left:30px; margin:0; color:var(--scene-muted); font:10px var(--font-mono); letter-spacing:.08em; pointer-events:none; }
+@media (max-width:700px) { .mesh-stage { top:75px; left:18px; font-size:9px; } .mesh-explode { margin-top:10px; font-size:11px; } }
+
+.mesh-closing h2 { margin:0; font:400 clamp(30px,3.3vw,52px)/1.08 var(--font-sans); letter-spacing:-.045em; }
+.mesh-closing a { display:inline-block; pointer-events:auto; margin-top:16px; font-size:12px; color:var(--scene-muted); text-underline-offset:5px; }
+
+/* Optional world-space presentation; caption surfaces preserve readable contrast. */
+.atmosphere-switch select{min-height:36px;max-width:130px;border:0;border-radius:24px;background:#f5f2e9;color:#253744;font:11px var(--font-sans);padding:7px 12px;cursor:pointer}
+.mesh-film[data-setting]:not([data-setting=plain]) .mesh-caption{background:#f5f2e9ed;padding:24px;border-radius:6px}
+.mesh-film[data-setting]:not([data-setting=plain]) .mesh-bottom{background:#f5f2e9ed;padding:8px 12px;border-radius:6px}
+@media(max-width:700px){.mesh-film[data-setting]:not([data-setting=plain]) .mesh-caption{padding:16px}}
+
+.mesh-film[data-setting]:not([data-setting=plain]) .mesh-navigation,.mesh-film[data-setting]:not([data-setting=plain]) .mesh-stage{background:#f5f2e9ed;border-radius:6px}
+
+/* Match the workshop's friendly surfaces while keeping the research readable. */
+.mesh-film[data-setting=workbench] .mesh-caption{background:#fff2dff5;border:2px solid #354458;border-radius:18px;box-shadow:5px 6px 0 #354458}
+.mesh-film[data-setting=workbench] .mesh-title{background:#fff2dfed;border-radius:16px;padding:16px 22px;left:50%;transform:translateX(-50%);width:max-content;max-width:86%}
+.mesh-film[data-setting=workbench] .mesh-title h1{font-size:clamp(28px,2.5vw,40px)}
+.mesh-film[data-setting=workbench] .mesh-title>span{margin-top:10px}
+.mesh-film[data-setting=workbench] .mesh-navigation{padding:0 10px;border-radius:12px}
+.mesh-film[data-setting=workbench] .mesh-stage{padding:5px 8px;border-radius:8px}
+.atmosphere-switch select{min-height:44px}

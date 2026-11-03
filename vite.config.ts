@@ -8,14 +8,15 @@ export default defineConfig({
   build: {
     outDir: "dist-site",
     emptyOutDir: true,
+    rollupOptions: { input: { main: "index.html", assetReview: "asset-review.html" } },
   },
   server: {
-    host: "0.0.0.0",
+    host: "127.0.0.1",
     port: 4317,
     strictPort: true,
   },
   preview: {
-    host: "0.0.0.0",
+    host: "127.0.0.1",
     port: 4317,
     strictPort: true,
   },

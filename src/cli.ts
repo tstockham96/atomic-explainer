@@ -11,9 +11,15 @@ interface Flags {
   json: boolean
   out: string
   fromSpec?: string
+  requirements?: string
   skipImages: boolean
   images: boolean
   motion: boolean
+  three: boolean
+  plan: boolean
+  assemble?: string
+  assetPlan?: string
+  component?: string
   extract?: string
   framesDir?: string
   fps?: number
@@ -27,7 +33,12 @@ export function formatHelp() {
 Usage
   explode ./photo.jpg
   explode ./photo.jpg --out ./site
+  explode ./photo.jpg --3d --out ./site
+  explode ./photo.jpg --plan --out ./research
+  explode --from-spec ./research.json --plan --out ./research
   explode --from-spec public/spec.json --out ./site
+  explode --from-spec ./research.json --asset-plan ./assets.json --component battery --out ./battery-review
+  explode --from-spec ./research.json --assemble ./assembly.json --out ./site
   explode ./photo.jpg --from-spec public/spec.json --images --out ./site
   explode ./photo.jpg --motion --out ./site
   explode --extract ./explode.mp4 --frames-dir ./frames/explode --skip 4.55-5.65 --skip-keep 2
@@ -35,9 +46,15 @@ Usage
 Options
   -o, --out <dir>         Output folder (default: ./explode-out)
       --from-spec <file>  Render a spec JSON instead of calling models
+      --requirements <file> Audit exported geometry against the original component inventory
       --skip-images       Research and build, but do not call an image model
       --images            With --from-spec, also generate layer images
       --motion            After stills, make rotation + explode clips and extract WebP frames
+      --asset-plan <file> Execute a researched sourcing or generation task; saves an asset for review
+      --component <id>    Prepare one component; omit to advance the whole researched asset queue
+      --assemble <file>   Build an agent-authored component recipe into a GLB and reviewable site
+      --plan              Save research and component construction tasks; no geometry generation
+      --3d                Research, generate a textured mesh, segment parts, and build a 3D draft
       --extract <video>   Only extract a clip to WebP frames. No model call
       --frames-dir <dir>  Destination for --extract
       --fps <n>           Frame rate for extraction (default 12)
@@ -49,6 +66,8 @@ Options
 Environment
   AI_GATEWAY_API_KEY      Vercel AI Gateway (preferred)
   OPENAI_API_KEY          Direct OpenAI, used only if the gateway key is unset
+                          Also required for web-backed component research
+  TRIPO_API_KEY           Photo-to-3D and part segmentation with --3d
   FAL_KEY                 Used when EXPLODE_VIDEO_PROVIDER=fal
   EXPLODE_VISION_MODEL    Default google/gemini-2.5-flash
   EXPLODE_RESEARCH_MODEL  Default anthropic/claude-sonnet-4.5
@@ -58,8 +77,9 @@ Environment
   EXPLODE_VIDEO_MODEL     Default klingai/kling-v2.6-i2v
                           Also: google/veo-3.1-fast-generate-001, bytedance/seedance-v1.5-pro
 
-The committed Murph demo does not need a key:
-  npm run dev
+The committed Murph study does not need a key:
+  npm run build && npm run studio
+  Open http://127.0.0.1:4319/murph-study/index.html
 `
 }
 
@@ -70,9 +90,15 @@ export function parseFlags(argv: string[]): Flags {
     options: {
       out: { type: "string", short: "o", default: "./explode-out" },
       "from-spec": { type: "string" },
+      requirements: { type: "string" },
       "skip-images": { type: "boolean", default: false },
       images: { type: "boolean", default: false },
       motion: { type: "boolean", default: false },
+      "3d": { type: "boolean", default: false },
+      plan: { type: "boolean", default: false },
+      assemble: { type: "string" },
+      "asset-plan": { type: "string" },
+      component: { type: "string" },
       extract: { type: "string" },
       "frames-dir": { type: "string" },
       fps: { type: "string" },
@@ -102,9 +128,15 @@ export function parseFlags(argv: string[]): Flags {
     json: values.json,
     out: values.out ?? "./explode-out",
     fromSpec: values["from-spec"],
+    requirements: values.requirements,
     skipImages: values["skip-images"],
     images: values.images,
     motion: values.motion,
+    three: values["3d"],
+    plan: values.plan,
+    assemble: values.assemble,
+    assetPlan: values["asset-plan"],
+    component: values.component,
     extract: values.extract,
     framesDir: values["frames-dir"],
     fps,
@@ -141,12 +173,28 @@ export async function main(argv: string[]) {
   }
 
   try {
-    const spec = await runExplode({
+    if (flags.assetPlan) {
+      if (!flags.fromSpec || flags.assemble || flags.three || flags.images || flags.motion || flags.plan) throw Error('--asset-plan requires --from-spec; cannot combine generation modes.')
+      if (!flags.component) {
+        const batch = await (await import('./pipeline/assets.ts')).prepareAssets({specPath:flags.fromSpec,planPath:flags.assetPlan,outDir:flags.out,requirementsPath:flags.requirements,log:message=>console.error(message)})
+        console.log(JSON.stringify(batch,null,2)); return 0
+      }
+      const report = await (await import('./pipeline/assets.ts')).prepareAsset({specPath: flags.fromSpec, planPath: flags.assetPlan, componentId: flags.component, outDir: flags.out, log: message => console.error(message)})
+      console.log(JSON.stringify({status: report.status, index: path.resolve(flags.out, 'index.html'), review: path.resolve(flags.out, 'asset-review.json'), model: path.resolve(flags.out, 'model.glb')}, null, 2))
+      return 0
+    }
+    if (flags.assemble && (!flags.fromSpec || flags.three || flags.plan || flags.motion || flags.images)) throw Error("--assemble requires --from-spec and cannot be combined with generation flags.")
+    const spec = flags.assemble
+      ? await (await import("./pipeline/assemble.ts")).assembleStudy(flags.fromSpec!, flags.assemble, flags.out, undefined, flags.requirements)
+      : await runExplode({
       photo: flags.photo,
       specPath: flags.fromSpec,
+      requirementsPath: flags.requirements,
       outDir: flags.out,
       skipImages: flags.images ? false : flags.fromSpec ? true : flags.skipImages,
       motion: flags.motion,
+      three: flags.three,
+      planOnly: flags.plan,
       skips: flags.skips,
       log: (message) => {
         if (!flags.json) console.error(message)
@@ -156,13 +204,13 @@ export async function main(argv: string[]) {
     if (flags.json) {
       console.log(JSON.stringify(spec, null, 2))
     } else {
-      const index = path.resolve(flags.out, "index.html")
+      const index = path.resolve(flags.out, flags.plan ? 'construction-plan.json' : "index.html")
       console.error("")
       console.error(`  ${spec.item.name}`)
       console.error(`  ${spec.components.length} parts`)
       console.error(`  ${index}`)
       console.error("")
-      console.error("  Serve it with:  npx serve " + path.resolve(flags.out))
+      console.error(flags.plan?'  Research plan only; geometry still needs construction and review.':"  Serve it with:  npx serve " + path.resolve(flags.out))
     }
     return 0
   } catch (error) {

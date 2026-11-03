@@ -1,0 +1,599 @@
+{
+  "version": 1,
+  "objectName": "Hamilton Khaki Field Murph 42mm",
+  "mode": "authored",
+  "reviewer": "Codex self-review of packaged GLB and current desktop/mobile evidence",
+  "independence": "self-review",
+  "specSha256": "16c60852c96e3984ba5101c3c906c0bbc410fd01c45709611b8dc4606fe4ad07",
+  "components": [
+    {
+      "componentId": "crystal",
+      "geometry": "approximate",
+      "material": "approximate",
+      "views": [
+        "assembled",
+        "front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "referenceIds": [
+        "catalog",
+        "macro",
+        "laid",
+        "rolled",
+        "sapphire"
+      ],
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ],
+      "notes": "See component-specific remaining gaps in docs/research/murph-material-review.md."
+    },
+    {
+      "componentId": "hands",
+      "geometry": "approximate",
+      "material": "approximate",
+      "views": [
+        "assembled",
+        "front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "referenceIds": [
+        "front",
+        "macro",
+        "rolled"
+      ],
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ],
+      "notes": "Added solid metal backing behind the luminous cells. Exported reverse now reads as metal; exact profile, tolerances and back finish remain inferred."
+    },
+    {
+      "componentId": "dial",
+      "geometry": "approximate",
+      "material": "approximate",
+      "views": [
+        "assembled",
+        "front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "referenceIds": [
+        "front",
+        "macro"
+      ],
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ],
+      "notes": "See component-specific remaining gaps in docs/research/murph-material-review.md."
+    },
+    {
+      "componentId": "case",
+      "geometry": "approximate",
+      "material": "approximate",
+      "views": [
+        "assembled",
+        "front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "referenceIds": [
+        "catalog",
+        "macro",
+        "laid"
+      ],
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ],
+      "notes": "See component-specific remaining gaps in docs/research/murph-material-review.md."
+    },
+    {
+      "componentId": "crown",
+      "geometry": "approximate",
+      "material": "approximate",
+      "views": [
+        "assembled",
+        "front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "referenceIds": [
+        "macro",
+        "laid",
+        "manual"
+      ],
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ],
+      "notes": "See component-specific remaining gaps in docs/research/murph-material-review.md."
+    },
+    {
+      "componentId": "caseback",
+      "geometry": "approximate",
+      "material": "approximate",
+      "views": [
+        "assembled",
+        "front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "referenceIds": [
+        "back",
+        "catalog"
+      ],
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ],
+      "notes": "See component-specific remaining gaps in docs/research/murph-material-review.md."
+    },
+    {
+      "componentId": "rear-window",
+      "geometry": "approximate",
+      "material": "approximate",
+      "views": [
+        "assembled",
+        "front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "referenceIds": [
+        "back",
+        "catalog"
+      ],
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ],
+      "notes": "See component-specific remaining gaps in docs/research/murph-material-review.md."
+    },
+    {
+      "componentId": "seals",
+      "geometry": "approximate",
+      "material": "approximate",
+      "views": [
+        "assembled",
+        "front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "referenceIds": [
+        "manual",
+        "catalog"
+      ],
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ],
+      "notes": "See component-specific remaining gaps in docs/research/murph-material-review.md."
+    },
+    {
+      "componentId": "movement",
+      "geometry": "approximate",
+      "material": "approximate",
+      "views": [
+        "assembled",
+        "front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "referenceIds": [
+        "back",
+        "caliber",
+        "manufacturing",
+        "sjx-macro-4",
+        "sjx-macro-5",
+        "sjx-macro-7"
+      ],
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ],
+      "notes": "See component-specific remaining gaps in docs/research/murph-material-review.md."
+    },
+    {
+      "componentId": "rotor",
+      "geometry": "approximate",
+      "material": "approximate",
+      "views": [
+        "assembled",
+        "front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "referenceIds": [
+        "back",
+        "caliber",
+        "mechanism",
+        "sjx-macro-4",
+        "sjx-macro-5",
+        "sjx-macro-7"
+      ],
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ],
+      "notes": "See component-specific remaining gaps in docs/research/murph-material-review.md."
+    },
+    {
+      "componentId": "winding-train",
+      "geometry": "approximate",
+      "material": "approximate",
+      "views": [
+        "assembled",
+        "front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "referenceIds": [
+        "mechanism",
+        "caliber",
+        "sjx-macro-4",
+        "sjx-macro-5",
+        "sjx-macro-7"
+      ],
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ],
+      "notes": "See component-specific remaining gaps in docs/research/murph-material-review.md."
+    },
+    {
+      "componentId": "barrel",
+      "geometry": "approximate",
+      "material": "approximate",
+      "views": [
+        "assembled",
+        "front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "referenceIds": [
+        "mechanism"
+      ],
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ],
+      "notes": "See component-specific remaining gaps in docs/research/murph-material-review.md."
+    },
+    {
+      "componentId": "wheel-train",
+      "geometry": "approximate",
+      "material": "approximate",
+      "views": [
+        "assembled",
+        "front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "referenceIds": [
+        "mechanism"
+      ],
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ],
+      "notes": "See component-specific remaining gaps in docs/research/murph-material-review.md."
+    },
+    {
+      "componentId": "escapement",
+      "geometry": "approximate",
+      "material": "approximate",
+      "views": [
+        "assembled",
+        "front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "referenceIds": [
+        "mechanism"
+      ],
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ],
+      "notes": "See component-specific remaining gaps in docs/research/murph-material-review.md."
+    },
+    {
+      "componentId": "balance",
+      "geometry": "approximate",
+      "material": "approximate",
+      "views": [
+        "assembled",
+        "front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "referenceIds": [
+        "caliber",
+        "catalog",
+        "spring",
+        "mechanism",
+        "sjx-macro-4",
+        "sjx-macro-5",
+        "sjx-macro-7"
+      ],
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ],
+      "notes": "See component-specific remaining gaps in docs/research/murph-material-review.md."
+    },
+    {
+      "componentId": "strap",
+      "geometry": "approximate",
+      "material": "approximate",
+      "views": [
+        "assembled",
+        "front",
+        "oblique",
+        "reverse",
+        "exported"
+      ],
+      "referenceIds": [
+        "front",
+        "laid",
+        "catalog"
+      ],
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ],
+      "notes": "See component-specific remaining gaps in docs/research/murph-material-review.md."
+    },
+    {
+      "componentId": "buckle",
+      "geometry": "missing",
+      "material": "unreviewed",
+      "views": [],
+      "referenceIds": [
+        "catalog"
+      ],
+      "evidenceFiles": [],
+      "notes": "See component-specific remaining gaps in docs/research/murph-material-review.md."
+    }
+  ],
+  "ratings": {
+    "composition": {
+      "score": 3,
+      "reason": "The object has a clear stage and the caption stays separate at desktop, 390px and 360px widths. Some assemblies still feel visually sparse.",
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/mobile.png"
+      ]
+    },
+    "typography": {
+      "score": 3,
+      "reason": "Consistent serif titles, quiet labels and restrained controls improve hierarchy. Narrow short screens use smaller body text and need physical-device review.",
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/mobile.png"
+      ]
+    },
+    "continuity": {
+      "score": 2,
+      "reason": "Physical separation and reversible inspection work, with no fades in the sampled run. Long transitions and changes in perceived scale still need a human scroll review.",
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/mobile.png"
+      ]
+    },
+    "pacing": {
+      "score": 2,
+      "reason": "Direct component selection now avoids forced repetition, but the full sixteen-turn tour is still long and many stops repeat similar motion.",
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/mobile.png"
+      ]
+    },
+    "controls": {
+      "score": 3,
+      "reason": "Component selector, next button, pause, free inspection and skip link are discoverable and keyboard operable; no usability study has been run.",
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/mobile.png"
+      ]
+    },
+    "accessibility": {
+      "score": 3,
+      "reason": "Reduced-motion users retain direct access to every modeled component and all seventeen written explanations. Automated viewport and keyboard checks pass; assistive-technology review remains outstanding.",
+      "evidenceFiles": [
+        "evals/reports/current/desktop.png",
+        "evals/reports/current/mobile.png"
+      ]
+    },
+    "identity": {
+      "score": 2,
+      "reason": "The object is recognizable, but generated dial numerals/ticks, exterior mesh waviness and simplified hand profiles prevent exact reference fidelity.",
+      "evidenceFiles": [
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ]
+    },
+    "anatomy": {
+      "score": 1,
+      "reason": "Sixteen independent groups exist, but the buckle is missing and hidden plate faces, interfaces and train layout are educational approximations.",
+      "evidenceFiles": [
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ]
+    },
+    "materials": {
+      "score": 2,
+      "reason": "Glass and authored metal use coherent scene lighting; exterior textures retain baked shading and the rotor still reads too uniform at some angles.",
+      "evidenceFiles": [
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ]
+    },
+    "optics": {
+      "score": 2,
+      "reason": "Both windows transmit and turn independently; some angles remain hard to read. Geometry profiles and rear composition are not established by measured manufacturer data.",
+      "evidenceFiles": [
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ]
+    },
+    "detail": {
+      "score": 2,
+      "reason": "Hand backs now have metal support and rotor markings avoid holes, but print accuracy, edge detail, back surfaces and actual manufacturing marks remain approximate.",
+      "evidenceFiles": [
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ]
+    },
+    "mechanism": {
+      "score": 1,
+      "reason": "The text traces energy, but gears are simplified and do not demonstrate correct meshing, escapement action or ratios. Separation is not a mechanism simulation.",
+      "evidenceFiles": [
+        "evals/reports/current/component-review-20.png",
+        "evals/reports/current/component-review-37.png",
+        "evals/reports/current/component-review-50.png"
+      ]
+    }
+  },
+  "learningChecks": [
+    {
+      "goalIndex": 0,
+      "question": "Why is winding different from regulating the watch?",
+      "expectedAnswer": "Winding replenishes energy in the mainspring. The escapement and balance regulate its release.",
+      "componentIds": [
+        "rotor",
+        "barrel",
+        "balance"
+      ],
+      "referenceIds": [
+        "back",
+        "caliber",
+        "mechanism",
+        "sjx-macro-4",
+        "sjx-macro-5",
+        "sjx-macro-7"
+      ],
+      "learnerResult": "not-tested",
+      "level": "intermediate"
+    },
+    {
+      "goalIndex": 1,
+      "question": "Why must hands lift away from an otherwise clean dial?",
+      "expectedAnswer": "The hands are separate moving components above a stationary scale; their silhouettes must not remain on the dial.",
+      "componentIds": [
+        "hands",
+        "dial"
+      ],
+      "referenceIds": [
+        "front",
+        "macro",
+        "rolled"
+      ],
+      "learnerResult": "not-tested",
+      "level": "beginner"
+    },
+    {
+      "goalIndex": 2,
+      "question": "Does a clear rear window prove it is made from sapphire?",
+      "expectedAnswer": "No. Transparency is observed; the exact rear-window composition remains unverified.",
+      "componentIds": [
+        "crystal",
+        "rear-window"
+      ],
+      "referenceIds": [
+        "catalog",
+        "macro",
+        "laid",
+        "rolled",
+        "sapphire"
+      ],
+      "learnerResult": "not-tested",
+      "level": "advanced"
+    },
+    {
+      "goalIndex": 3,
+      "question": "Does a silver-colored rotor establish its alloy?",
+      "expectedAnswer": "No. The observed brushing can guide rendering, but appearance alone does not identify the substrate or coating.",
+      "componentIds": [
+        "rotor"
+      ],
+      "referenceIds": [
+        "back",
+        "caliber",
+        "mechanism",
+        "sjx-macro-4",
+        "sjx-macro-5",
+        "sjx-macro-7"
+      ],
+      "learnerResult": "not-tested",
+      "level": "advanced"
+    }
+  ],
+  "limitations": [
+    "This is self-review of an authored prototype, not independent quality approval.",
+    "Unattended photo-to-researched-internals generation is not implemented. The upload studio produces a plan.",
+    "One researched component (buckle) has no independent geometry; all modeled components retain approximations.",
+    "Written learning questions have not been tested with learners.",
+    "Browser checks measure layout and invariants, not photorealism, source entailment or physical mechanism correctness.",
+    "The GLB is about 38 MB before HTTP compression; field loading and real mobile GPU performance are unmeasured.",
+    "Source exterior textures retain baked lighting; typography and hidden details remain approximate.",
+    "Software graphics uses lower raster resolution and skips screen-space postprocessing; geometry and material assignments are preserved. Saved visual ratings use the normal hardware path."
+  ],
+  "assetSha256": "bc05ec5e791e7209557153c4058fb89ae0134e3b1a6ec2e7a3a40c7197ab5fa7",
+  "experienceSha256": "7778d0a74637224396d62b1b98afd62ce245acde7b3023885b9b343585cfe677"
+}

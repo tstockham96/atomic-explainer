@@ -1,0 +1,1796 @@
+{
+  "version": 1,
+  "date": "2026-10-31",
+  "reviewer": "Agent self-review, not independent validation",
+  "ready": false,
+  "status": "material-pipeline-improved; reference-fidelity-still-approximate",
+  "modelSha256": "23e29c386ae301275b5520b3f9b55e971355013ba7878baa8c20e6cadf0b5ce9",
+  "specSha256": "0a560a1841ad218ad30819fa06eb81370c9001d1fdd9ec0dcae7e2fb01681e80",
+  "checks": {
+    "unitAndIntegrationTests": 136,
+    "engineDesktopAndMobileTours": true,
+    "iphoneClosingReassembly": true,
+    "exportMaterialIssues": [],
+    "componentViews": 84,
+    "browserErrors": [],
+    "alternateLighting": {
+      "component": "rear-panel",
+      "file": "midnight-sample.png",
+      "scope": "One sampled component; not an all-component alternate-lighting review"
+    }
+  },
+  "changes": [
+    "Shared physical-scale normal and roughness finishes for original geometry.",
+    "Preserve valid imported textures and UVs; document invalid AO binding repairs.",
+    "Smooth curved surfaces without pulling bevel shading into planar caps.",
+    "Every local GLB export receives a material inventory and pending per-component visual checks."
+  ],
+  "exportMaterials": [
+    {
+      "index": 0,
+      "name": "Material 0",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 1,
+      "name": "Material 1",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 2,
+      "name": "Material 2",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 3,
+      "name": "Material 3",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 4,
+      "name": "Material 4",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 5,
+      "name": "Material 5",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 6,
+      "name": "Material 6",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 7,
+      "name": "Material 7",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 0.001,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 8,
+      "name": "Material 8",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 0.001,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 9,
+      "name": "Material 9",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 10,
+      "name": "Surface \u00b7 graphite",
+      "finish": {
+        "version": 1,
+        "kind": "graphite",
+        "tileMm": 2,
+        "reliefMm": 0.001,
+        "grain": "isotropic",
+        "basis": "approximation",
+        "evidence": "Finish family guided by locator/teardown references; microstructure and exact coating are approximations",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 11,
+      "name": "Surface \u00b7 steel",
+      "finish": {
+        "version": 1,
+        "kind": "steel",
+        "tileMm": 4,
+        "reliefMm": 0.002,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Finish family guided by locator/teardown references; microstructure and exact coating are approximations",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 12,
+      "name": "Material 12",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": false,
+      "metalness": 0.7,
+      "roughness": 0.15,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 13,
+      "name": "Material 13",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 14,
+      "name": "Material 14",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.02,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 15,
+      "name": "Material 15",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 16,
+      "name": "Material 16",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0.87,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 17,
+      "name": "Material 17",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 18,
+      "name": "Material 18",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 19,
+      "name": "Material 19",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.33,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 20,
+      "name": "Material 20",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.33,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 21,
+      "name": "Material 21",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.4,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 22,
+      "name": "Material 22",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.3,
+      "roughness": 0.5,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 23,
+      "name": "Material 23",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 24,
+      "name": "Material 24",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0.87,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 25,
+      "name": "Material 25",
+      "finish": null,
+      "repair": {
+        "reason": "Source occlusion texture had no matching UV channel; removed invalid AO only",
+        "missingChannel": 1,
+        "visualStatus": "pending"
+      },
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.3,
+      "roughness": 0.5,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 26,
+      "name": "Material 26",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0.5,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 27,
+      "name": "Material 27",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 0.22,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 28,
+      "name": "Material 28",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": false,
+      "metalness": 0.87,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 29,
+      "name": "Material 29",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0.5,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 30,
+      "name": "Material 30",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 0.001,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 31,
+      "name": "Material 31",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 32,
+      "name": "Material 32",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 0.001,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 33,
+      "name": "Material 33",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 34,
+      "name": "Material 34",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 35,
+      "name": "Material 35",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0.87,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 36,
+      "name": "Material 36",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 37,
+      "name": "Material 37",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 38,
+      "name": "Material 38",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.7,
+      "roughness": 0.05,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 39,
+      "name": "Material 39",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.01,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 40,
+      "name": "Material 40",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 41,
+      "name": "Material 41",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 42,
+      "name": "Material 42",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 43,
+      "name": "Material 43",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 44,
+      "name": "Material 44",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 45,
+      "name": "Material 45",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 46,
+      "name": "Material 46",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 0.001,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 47,
+      "name": "Material 47",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0.87,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 48,
+      "name": "Material 48",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 0.001,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 49,
+      "name": "Material 49",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 50,
+      "name": "Material 50",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 0.001,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 51,
+      "name": "Material 51",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 52,
+      "name": "Material 52",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.7,
+      "roughness": 0.05,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 53,
+      "name": "Material 53",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.01,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 54,
+      "name": "Material 54",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 55,
+      "name": "Material 55",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 56,
+      "name": "Material 56",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 57,
+      "name": "Material 57",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 58,
+      "name": "Material 58",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 59,
+      "name": "Material 59",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 60,
+      "name": "Material 60",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 61,
+      "name": "Material 61",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 62,
+      "name": "Material 62",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 63,
+      "name": "Material 63",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 64,
+      "name": "Material 64",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 65,
+      "name": "Material 65",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 66,
+      "name": "Material 66",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 0.001,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 67,
+      "name": "Material 67",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 68,
+      "name": "Material 68",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 0.001,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 69,
+      "name": "Material 69",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 0.001,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 70,
+      "name": "Material 70",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 71,
+      "name": "Material 71",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.7,
+      "roughness": 0.05,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 72,
+      "name": "Material 72",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0.87,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 73,
+      "name": "Material 73",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.01,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 74,
+      "name": "Material 74",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 75,
+      "name": "Material 75",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0.87,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 76,
+      "name": "Material 76",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0.87,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 77,
+      "name": "Material 77",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0.87,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 78,
+      "name": "Material 78",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0.87,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 79,
+      "name": "Material 79",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0.5,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 80,
+      "name": "Material 80",
+      "finish": null,
+      "repair": {
+        "reason": "Source occlusion texture had no matching UV channel; removed invalid AO only",
+        "missingChannel": 1,
+        "visualStatus": "pending"
+      },
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 0.3,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 81,
+      "name": "Material 81",
+      "finish": null,
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0.5,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 82,
+      "name": "Material 82",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 83,
+      "name": "Material 83",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.7,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 84,
+      "name": "Material 84",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 85,
+      "name": "Material 85",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.7,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 86,
+      "name": "Material 86",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.7,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 87,
+      "name": "Material 87",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 88,
+      "name": "Material 88",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.7,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 89,
+      "name": "Material 89",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 1,
+      "roughness": 0.65,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 90,
+      "name": "Material 90",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 91,
+      "name": "Material 91",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.5,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 92,
+      "name": "Material 92",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.5,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 93,
+      "name": "Material 93",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 94,
+      "name": "Surface \u00b7 pcb",
+      "finish": {
+        "version": 1,
+        "kind": "pcb",
+        "tileMm": 2,
+        "reliefMm": 0.0007,
+        "grain": "isotropic",
+        "basis": "approximation",
+        "evidence": "Finish family guided by locator/teardown references; microstructure and exact coating are approximations",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 95,
+      "name": "Surface \u00b7 coated",
+      "finish": {
+        "version": 1,
+        "kind": "coated",
+        "tileMm": 3,
+        "reliefMm": 0.0015,
+        "grain": "isotropic",
+        "basis": "approximation",
+        "evidence": "Finish family guided by locator/teardown references; microstructure and exact coating are approximations",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 96,
+      "name": "Surface \u00b7 brass",
+      "finish": {
+        "version": 1,
+        "kind": "brass",
+        "tileMm": 3,
+        "reliefMm": 0.001,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Finish family guided by locator/teardown references; microstructure and exact coating are approximations",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 97,
+      "name": "Surface \u00b7 ceramic",
+      "finish": {
+        "version": 1,
+        "kind": "ceramic",
+        "tileMm": 2,
+        "reliefMm": 0.0004,
+        "grain": "isotropic",
+        "basis": "approximation",
+        "evidence": "Finish family guided by locator/teardown references; microstructure and exact coating are approximations",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 98,
+      "name": "Surface \u00b7 package",
+      "finish": {
+        "version": 1,
+        "kind": "package",
+        "tileMm": 2,
+        "reliefMm": 0.0012,
+        "grain": "isotropic",
+        "basis": "approximation",
+        "evidence": "Finish family guided by locator/teardown references; microstructure and exact coating are approximations",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 99,
+      "name": "Material 99",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.6,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 100,
+      "name": "Surface \u00b7 copper",
+      "finish": {
+        "version": 1,
+        "kind": "copper",
+        "tileMm": 3,
+        "reliefMm": 0.001,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Finish family guided by locator/teardown references; microstructure and exact coating are approximations",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 101,
+      "name": "Material 101",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.6,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 102,
+      "name": "Material 102",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.6,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 103,
+      "name": "Material 103",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.6,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 104,
+      "name": "Material 104",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.6,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 105,
+      "name": "Material 105",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.6,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 106,
+      "name": "Surface \u00b7 foil",
+      "finish": {
+        "version": 1,
+        "kind": "foil",
+        "tileMm": 4,
+        "reliefMm": 0.0008,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Finish family guided by locator/teardown references; microstructure and exact coating are approximations",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 1,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 107,
+      "name": "Material 107",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.6,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 108,
+      "name": "Surface \u00b7 flex",
+      "finish": {
+        "version": 1,
+        "kind": "flex",
+        "tileMm": 2,
+        "reliefMm": 0.0003,
+        "grain": "linear",
+        "basis": "approximation",
+        "evidence": "Finish family guided by locator/teardown references; microstructure and exact coating are approximations",
+        "substrate": "unverified",
+        "uvUnits": "millimetres"
+      },
+      "repair": null,
+      "normalMap": true,
+      "roughnessMap": true,
+      "metalness": 0,
+      "roughness": 1,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 109,
+      "name": "Material 109",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.35,
+      "roughness": 0.18,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 110,
+      "name": "Material 110",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.35,
+      "roughness": 0.18,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 111,
+      "name": "Material 111",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0.35,
+      "roughness": 0.18,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 112,
+      "name": "Material 112",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.045,
+      "visualStatus": "pending"
+    },
+    {
+      "index": 113,
+      "name": "Material 113",
+      "finish": null,
+      "repair": null,
+      "normalMap": false,
+      "roughnessMap": false,
+      "metalness": 0,
+      "roughness": 0.6,
+      "visualStatus": "pending"
+    }
+  ],
+  "components": [
+    {
+      "componentId": "display",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-1.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Reverse-side construction and exact material stack are not fully established.",
+        "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+      ]
+    },
+    {
+      "componentId": "display-seal",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-1.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "battery",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-1.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "battery-tray",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-1.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "logic-board",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-2.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "processor",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-2.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "memory",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-2.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "logic-board-lower",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-2.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "storage",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-3.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "radio",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-3.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "cooling",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-3.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "camera-optics",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-3.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Reverse-side construction and exact material stack are not fully established.",
+        "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+      ]
+    },
+    {
+      "componentId": "camera-modules",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-4.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "camera-sensors",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-4.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "front-sensors",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-4.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "wireless-charging",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-4.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "haptics",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-5.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "speakers",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-5.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "interconnects",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-5.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "microphones",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-5.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "antennas",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-6.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "depth-sensor",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-6.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "connector",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-6.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Reverse-side construction and exact material stack are not fully established.",
+        "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+      ]
+    },
+    {
+      "componentId": "left-controls",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-6.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Reverse-side construction and exact material stack are not fully established.",
+        "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+      ]
+    },
+    {
+      "componentId": "right-controls",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-7.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Reverse-side construction and exact material stack are not fully established.",
+        "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+      ]
+    },
+    {
+      "componentId": "fasteners",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-7.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Exact internal dimensions, manufacturing tolerances and hidden interfaces are not established.",
+        "Microdetail is an educational approximation and has not passed an independent fidelity review."
+      ]
+    },
+    {
+      "componentId": "enclosure",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-7.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Reverse-side construction and exact material stack are not fully established.",
+        "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+      ]
+    },
+    {
+      "componentId": "rear-panel",
+      "visualStatus": "self-reviewed; not fidelity-approved",
+      "sheet": "references.local/surface-review/sheet-7.png",
+      "views": [
+        "front",
+        "reverse",
+        "oblique"
+      ],
+      "unknowns": [
+        "Reverse-side construction and exact material stack are not fully established.",
+        "Neutral reverse visualization surfaces are illustrative; they are not a reconstruction of actual hidden finishes."
+      ]
+    }
+  ],
+  "remaining": [
+    "Finish families and physical grain scales are authored approximations, not measured or scanned materials.",
+    "No independent visual approval or learner validation.",
+    "Complex curved/directional surfaces may need custom UV unwraps; box projection is a starting point.",
+    "Processor/foil directional grain is prominent at macro scale and still needs closer source matching.",
+    "Small distributed groups (microphones, fasteners, speakers) need per-subpart closeups before their finish can be approved.",
+    "Imported connector backing and some camera internals remain schematic or source-limited.",
+    "Some chip markings are too faint or absent at inspection scale; source-specific print/encapsulation detail needs further work.",
+    "Imported rear panel is too dark in the sampled midnight view; preserve source color and improve illumination before approval."
+  ]
+}

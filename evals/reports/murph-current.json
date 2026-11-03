@@ -1,0 +1,123 @@
+{
+  "version": 1,
+  "object": "Hamilton Khaki Field Murph 42mm",
+  "mode": "authored",
+  "reviewer": "Codex self-review of packaged GLB and current desktop/mobile evidence",
+  "independence": "self-review",
+  "status": "not-ready",
+  "scores": {
+    "design": {
+      "reviewed": 6,
+      "total": 6,
+      "mean": 2.6666666666666665
+    },
+    "model": {
+      "reviewed": 6,
+      "total": 6,
+      "mean": 1.6666666666666667
+    }
+  },
+  "gates": [
+    {
+      "id": "research-structure",
+      "status": "pass",
+      "detail": "Component plans and citation links are structurally valid; source entailment still requires review."
+    },
+    {
+      "id": "review-freshness",
+      "status": "fail",
+      "detail": "Review must match this exact spec hash and object."
+    },
+    {
+      "id": "asset-freshness",
+      "status": "fail",
+      "detail": "Visual review must match the exact rendered asset, not only its spec."
+    },
+    {
+      "id": "experience-freshness",
+      "status": "fail",
+      "detail": "Design review must match the exact viewer and layout source."
+    },
+    {
+      "id": "rendered-coverage",
+      "status": "fail",
+      "detail": "Missing actual geometry: buckle."
+    },
+    {
+      "id": "component-review-coverage",
+      "status": "fail",
+      "detail": "Missing reviews: mainspring; duplicate/unknown reviews: 0."
+    },
+    {
+      "id": "complete-surface-review",
+      "status": "fail",
+      "detail": "Incomplete views/evidence: buckle."
+    },
+    {
+      "id": "reference-fidelity",
+      "status": "fail",
+      "detail": "Still approximate or unreviewed: crystal, hands, dial, case, crown, caseback, rear-window, seals, movement, rotor, winding-train, barrel, wheel-train, escapement, balance, strap, buckle."
+    },
+    {
+      "id": "artifact-evidence",
+      "status": "fail",
+      "detail": "Missing evidence files: Current browser measurements are stale; rerun tools/evals/record.mjs."
+    },
+    {
+      "id": "learning-coverage",
+      "status": "pass",
+      "detail": "Every learning goal needs a question, expected explanation, component IDs and sources. Uncovered goals: none."
+    },
+    {
+      "id": "learner-validation",
+      "status": "unmeasured",
+      "detail": "A written teaching check is not evidence that a learner understood it."
+    },
+    {
+      "id": "learning-depth",
+      "status": "pass",
+      "detail": "Supply beginner identification/function, intermediate causal explanation, and advanced evidence/uncertainty questions. Level labels still require editorial review."
+    },
+    {
+      "id": "model-payload",
+      "status": "fail",
+      "detail": "43693888 bytes; prototype budget is 25 MiB before transport compression. Field performance remains separate."
+    },
+    {
+      "id": "physical-continuity",
+      "status": "unmeasured",
+      "detail": "No measured motion run supplied."
+    },
+    {
+      "id": "optical-transmission",
+      "status": "unmeasured",
+      "detail": "No rendered transmission measurements supplied."
+    },
+    {
+      "id": "rubric-validity",
+      "status": "pass",
+      "detail": "Unknown criteria are rejected. The top anchor requires independent review."
+    },
+    {
+      "id": "design-quality",
+      "status": "fail",
+      "detail": "6/6 anchored criteria reviewed; each must reach 3/4. Missing ratings are not zeroes or passes."
+    },
+    {
+      "id": "model-quality",
+      "status": "fail",
+      "detail": "6/6 anchored criteria reviewed; each must reach 3/4. Missing ratings are not zeroes or passes."
+    }
+  ],
+  "limitations": [
+    "This is self-review of an authored prototype, not independent quality approval.",
+    "Unattended photo-to-researched-internals generation is not implemented. The upload studio produces a plan.",
+    "One researched component (buckle) has no independent geometry; all modeled components retain approximations.",
+    "Written learning questions have not been tested with learners.",
+    "Browser checks measure layout and invariants, not photorealism, source entailment or physical mechanism correctness.",
+    "The GLB is about 38 MB before HTTP compression; field loading and real mobile GPU performance are unmeasured.",
+    "Source exterior textures retain baked lighting; typography and hidden details remain approximate.",
+    "Software graphics uses lower raster resolution and skips screen-space postprocessing; geometry and material assignments are preserved. Saved visual ratings use the normal hardware path."
+  ],
+  "note": "Passing unit tests validates the evaluator, not the object. Scores are anchored reviewer judgments, not automatic proof of photorealism or learning."
+}

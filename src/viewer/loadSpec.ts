@@ -14,7 +14,7 @@ export async function loadSpec(): Promise<ExplodeSpec> {
     ? explodeSpecSchema.parse(injected)
     : await fetchSpec()
 
-  if (injected) return spec
+  if (injected || spec.item.reference !== "H70605731") return spec
 
   try {
     const response = await fetch(asset("murph/manifest.json"))
@@ -26,7 +26,8 @@ export async function loadSpec(): Promise<ExplodeSpec> {
 }
 
 async function fetchSpec() {
-  const response = await fetch(asset("spec.json"))
+  const demo = new URLSearchParams(window.location.search).get("demo")
+  const response = await fetch(asset(demo === "murph" ? "spec.json" : "chronograph.json"))
   if (!response.ok) {
     throw new Error(`Could not load spec.json (${response.status}).`)
   }

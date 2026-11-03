@@ -1,0 +1,208 @@
+{
+  "version": 1,
+  "objectName": "iPhone 18 Pro",
+  "mode": "research-only",
+  "reviewer": "Codex audit",
+  "independence": "self-review",
+  "specSha256": "de6c009ebb7aa6b1be5d619592cb0056debcd0ca887e101c1aeb2fd37d4c4d5e",
+  "components": [
+    {
+      "componentId": "display",
+      "geometry": "missing",
+      "material": "unreviewed",
+      "views": [],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [],
+      "notes": "No geometry generated. Manual inventory is not a visual reconstruction."
+    },
+    {
+      "componentId": "back-glass",
+      "geometry": "missing",
+      "material": "unreviewed",
+      "views": [],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [],
+      "notes": "No geometry generated. Manual inventory is not a visual reconstruction."
+    },
+    {
+      "componentId": "battery",
+      "geometry": "missing",
+      "material": "unreviewed",
+      "views": [],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [],
+      "notes": "No geometry generated. Manual inventory is not a visual reconstruction."
+    },
+    {
+      "componentId": "rear-cameras",
+      "geometry": "missing",
+      "material": "unreviewed",
+      "views": [],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [],
+      "notes": "No geometry generated. Manual inventory is not a visual reconstruction."
+    },
+    {
+      "componentId": "front-camera",
+      "geometry": "missing",
+      "material": "unreviewed",
+      "views": [],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [],
+      "notes": "No geometry generated. Manual inventory is not a visual reconstruction."
+    },
+    {
+      "componentId": "logic-board",
+      "geometry": "missing",
+      "material": "unreviewed",
+      "views": [],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [],
+      "notes": "No geometry generated. Manual inventory is not a visual reconstruction."
+    },
+    {
+      "componentId": "taptic-engine",
+      "geometry": "missing",
+      "material": "unreviewed",
+      "views": [],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [],
+      "notes": "No geometry generated. Manual inventory is not a visual reconstruction."
+    },
+    {
+      "componentId": "top-speaker",
+      "geometry": "missing",
+      "material": "unreviewed",
+      "views": [],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [],
+      "notes": "No geometry generated. Manual inventory is not a visual reconstruction."
+    },
+    {
+      "componentId": "bottom-speaker",
+      "geometry": "missing",
+      "material": "unreviewed",
+      "views": [],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [],
+      "notes": "No geometry generated. Manual inventory is not a visual reconstruction."
+    },
+    {
+      "componentId": "usb-c",
+      "geometry": "missing",
+      "material": "unreviewed",
+      "views": [],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [],
+      "notes": "No geometry generated. Manual inventory is not a visual reconstruction."
+    },
+    {
+      "componentId": "enclosure",
+      "geometry": "missing",
+      "material": "unreviewed",
+      "views": [],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "evidenceFiles": [],
+      "notes": "No geometry generated. Manual inventory is not a visual reconstruction."
+    }
+  ],
+  "ratings": {},
+  "learningChecks": [
+    {
+      "goalIndex": 0,
+      "question": "Which part stores energy, and which coordinates processing?",
+      "expectedAnswer": "The battery stores electrical energy; circuitry on the logic board coordinates processing and distribution.",
+      "componentIds": [
+        "battery",
+        "logic-board"
+      ],
+      "referenceIds": [
+        "specs"
+      ],
+      "learnerResult": "not-tested",
+      "level": "beginner"
+    },
+    {
+      "goalIndex": 1,
+      "question": "What does the camera send to the processing electronics?",
+      "expectedAnswer": "The optical and sensing assembly converts incoming light into image data for electronic processing.",
+      "componentIds": [
+        "rear-cameras",
+        "logic-board"
+      ],
+      "referenceIds": [
+        "specs"
+      ],
+      "learnerResult": "not-tested",
+      "level": "intermediate"
+    },
+    {
+      "goalIndex": 2,
+      "question": "Why should the screen and rear closure be separate in the explainer?",
+      "expectedAnswer": "The display presents information, the rear glass closes the back, and the enclosure supports the assemblies.",
+      "componentIds": [
+        "display",
+        "back-glass",
+        "enclosure"
+      ],
+      "referenceIds": [
+        "specs",
+        "manual"
+      ],
+      "learnerResult": "not-tested",
+      "level": "beginner"
+    },
+    {
+      "goalIndex": 1,
+      "question": "Can these public specifications establish the camera module\u2019s hidden geometry?",
+      "expectedAnswer": "No. Product specifications and a repair table of contents identify assemblies but do not establish internal dimensions or connections. Inspect exact-model internal references before modeling.",
+      "componentIds": [
+        "rear-cameras",
+        "logic-board"
+      ],
+      "referenceIds": [
+        "specs"
+      ],
+      "learnerResult": "not-tested",
+      "level": "advanced"
+    }
+  ],
+  "limitations": [
+    "No input photograph, provider call, generated geometry or rendered phone exists for this case.",
+    "Obtain and inspect exact regional internal views before authoring hidden components.",
+    "Resolve internal dimensions, materials, connector interfaces and redistribution rights for any sourced model."
+  ]
+}

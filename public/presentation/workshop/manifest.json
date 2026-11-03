@@ -1,0 +1,30 @@
+{
+  "license": "CC0-1.0",
+  "retrieved": "2026-11-02",
+  "assets": [
+    {
+      "file": "bench-vise.glb",
+      "source": "https://grab3d.com/models/tools/bench-vise/",
+      "bytes": 1178384,
+      "sha256": "b959f4217e9ad103b520dc89070eb5828fa3efe4c133b70504d83b3fd5cb697b"
+    },
+    {
+      "file": "desk-lamp.glb",
+      "source": "https://polyhaven.com/a/desk_lamp_arm_01",
+      "bytes": 2874264,
+      "sha256": "a53eeb902e0b5cdbb8cffa5cec038ce55d39c2c6ff8d789c15522ce4d8deb4d3"
+    },
+    {
+      "file": "vernier-caliper.glb",
+      "source": "https://grab3d.com/models/tools/vernier-caliper/",
+      "bytes": 1191712,
+      "sha256": "d07ecab8b203dda2f3326079fc8235c8841d9a27a157fdcf67ad5611dd548ce7"
+    },
+    {
+      "file": "workbench.glb",
+      "source": "https://grab3d.com/models/tools/workbench/",
+      "bytes": 1056656,
+      "sha256": "69eec66560c89fb0ec37cbd82d8581f34371c64d33afe4feec755f7fc24dc2ec"
+    }
+  ]
+}

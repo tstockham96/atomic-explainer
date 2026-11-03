@@ -1,0 +1,244 @@
+{
+  "version": 1,
+  "item": {
+    "name": "Chronograph \u2014 an object study",
+    "maker": "Explode / Object study 001",
+    "model": "Chronograph",
+    "category": "watch",
+    "summary": "A continuous exploration of a detailed watch model. Turn it in the light, separate its construction, and follow each part."
+  },
+  "studio": "light",
+  "scene3d": {
+    "kind": "gltf",
+    "url": "models/chronograph/watch.glb",
+    "parts": [
+      {
+        "componentId": "glass",
+        "node": "Glass Face",
+        "offset": [
+          0,
+          0,
+          12
+        ],
+        "shot": {
+          "from": [
+            0.95,
+            0.25,
+            0.7
+          ],
+          "to": [
+            0.2,
+            0.15,
+            1
+          ]
+        },
+        "coverThickness": 0.06
+      },
+      {
+        "componentId": "hands",
+        "node": "Hands",
+        "offset": [
+          0,
+          0,
+          8
+        ],
+        "shot": {
+          "from": [
+            -0.25,
+            0.12,
+            1
+          ],
+          "to": [
+            0.35,
+            0.5,
+            1
+          ]
+        }
+      },
+      {
+        "componentId": "dial",
+        "node": "Watch Face",
+        "offset": [
+          0,
+          0,
+          4
+        ],
+        "shot": {
+          "from": [
+            0.4,
+            -0.2,
+            1
+          ],
+          "to": [
+            -0.35,
+            0.3,
+            1
+          ]
+        }
+      },
+      {
+        "componentId": "bezel",
+        "node": "Bezel Frame",
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "shot": {
+          "from": [
+            0.75,
+            0.2,
+            0.8
+          ],
+          "to": [
+            0.1,
+            -0.3,
+            1
+          ]
+        }
+      },
+      {
+        "componentId": "backplate",
+        "node": "Backplate Khronos",
+        "offset": [
+          0,
+          0,
+          -4
+        ],
+        "shot": {
+          "from": [
+            0.7,
+            0.3,
+            -1
+          ],
+          "to": [
+            -0.2,
+            0.4,
+            -1
+          ]
+        },
+        "doubleSided": true
+      },
+      {
+        "componentId": "bracelet",
+        "nodes": [
+          "Band Carbon Fiber",
+          "Band Plastic",
+          "Button Metal",
+          "Button Plastic",
+          "Clasp DGG"
+        ],
+        "offset": [
+          0,
+          0,
+          -10
+        ],
+        "shot": {
+          "from": [
+            0.8,
+            0.5,
+            1
+          ],
+          "to": [
+            -0.7,
+            0.25,
+            1
+          ]
+        }
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "glass",
+      "name": "The crystal",
+      "material": "Transparent cover",
+      "howItsMade": "A clear surface separates the outside world from the dial. Move around it and the reflection changes, while the markings stay visible underneath. In watchmaking, covers can be made from mineral glass, sapphire, or acrylic; this digital model does not specify which material the physical design would use.",
+      "funFacts": [
+        "A reflected highlight makes an otherwise transparent surface visible.",
+        "This model uses light transmission rather than a painted image of glass."
+      ],
+      "order": 0,
+      "image": "chronograph/glass.png"
+    },
+    {
+      "id": "hands",
+      "name": "Time in motion",
+      "material": "Separate hands and fittings",
+      "howItsMade": "The hands sit above the dial at different heights, letting them pass without touching. Here the second hand keeps its original stepped animation as the assembly separates. Watch hands are often stamped or cut from thin sheet material, then finished and fitted to their shafts; this is general construction context, not a documented production process for this sample.",
+      "funFacts": [
+        "The second-hand motion belongs to the source model.",
+        "The hands remain grouped so their relative heights and centers stay intact."
+      ],
+      "order": 1,
+      "image": "chronograph/hands.png"
+    },
+    {
+      "id": "dial",
+      "name": "A face to read",
+      "material": "Dial, markings, and inset details",
+      "howItsMade": "The dial turns moving hands into something you can read at a glance. Its raised details and contrasting surfaces catch light differently as the camera travels across the face. Real dial production can combine machining, printing, coatings, and applied markers; the geometry here demonstrates the finished arrangement.",
+      "funFacts": [
+        "The dial is a separate modeled surface, not the photograph used by the earlier demo.",
+        "The source asset carries Khronos and 3D Commerce branding."
+      ],
+      "order": 2,
+      "image": "chronograph/dial.png"
+    },
+    {
+      "id": "bezel",
+      "name": "The outer frame",
+      "material": "Bezel and case surround",
+      "howItsMade": "The surrounding frame protects the edge of the face and gives the watch its silhouette. Rounded edges turn broad light sources into narrow highlights, revealing depth that a flat outline cannot show. Real cases may use cast, forged, or machined blanks followed by finishing; the source model does not establish a particular alloy or process.",
+      "funFacts": [
+        "Its bevels are part of the geometry.",
+        "The case keeps its source materials and surface textures."
+      ],
+      "order": 3,
+      "image": "chronograph/bezel.png"
+    },
+    {
+      "id": "backplate",
+      "name": "The reverse side",
+      "material": "Rear cover",
+      "howItsMade": "Turn the watch over and the rear cover closes the enclosure. The camera moves behind this part so the reverse can be examined directly. In a physical watch, the back is also a service boundary; this sample contains no internal movement, so removing the cover does not reveal an invented mechanism.",
+      "funFacts": [
+        "The backplate carries the source model's Khronos branding.",
+        "This is an exterior construction study, not a service guide."
+      ],
+      "order": 4,
+      "image": "chronograph/backplate.png"
+    },
+    {
+      "id": "bracelet",
+      "name": "Around the wrist",
+      "material": "Band, clasp, and exterior fittings",
+      "howItsMade": "The curved band holds its shape as the layers above it separate. Its clasp and small exterior fittings remain together so this last view preserves the complete supporting structure. The asset uses separate carbon-fiber-look and polymer-look materials; those material names describe the digital model rather than a verified manufacturing specification.",
+      "funFacts": [
+        "Related source meshes are grouped into one explorable component.",
+        "This same grouping works for a lens assembly, a speaker enclosure, or another multipart object."
+      ],
+      "order": 5,
+      "image": "chronograph/bracelet.png"
+    }
+  ],
+  "facts": [],
+  "sources": [
+    {
+      "title": "Chronograph Watch \u2014 Khronos glTF Sample Assets",
+      "url": "https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/ChronographWatch"
+    },
+    {
+      "title": "Original model by graphiccompressor",
+      "url": "https://skfb.ly/oAsPA"
+    },
+    {
+      "title": "Creative Commons Attribution 4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    }
+  ],
+  "artNote": "Chronograph Watch by Eric Chadwick / Darmstadt Graphics Group GmbH (2025), derived from Chronograph Watch Mudmaster by graphiccompressor. Model and textures: CC BY 4.0. The source GLB is retained; this experience adds grouping, lighting, camera motion, exploded placement, and an illustrative thin beveled edge to the originally planar crystal. That edge is not a manufacturer measurement. Khronos, 3D Commerce, and DGG marks remain part of the source model, with their separate notices included. This is not a Hamilton watch and has no modeled internal movement. Manufacturing notes describe general possibilities, not verified processes for a real product.",
+  "visualMode": "generated",
+  "heroImage": "chronograph/hero.png",
+  "explodedImage": "chronograph/exploded.png"
+}

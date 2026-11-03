@@ -1,0 +1,563 @@
+{
+  "errors": [],
+  "views": [
+    {
+      "width": 1440,
+      "id": "opening",
+      "setting": "workbench",
+      "partsInView": [
+        "crystal",
+        "hands",
+        "dial",
+        "case",
+        "crown",
+        "seals",
+        "caseback",
+        "rear-window",
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "strap"
+      ],
+      "lighting": {
+        "source": "bench_key",
+        "castsShadow": true,
+        "fillFactor": 0.24
+      },
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "id": "movement-system",
+      "setting": "workbench",
+      "partsInView": [
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance"
+      ],
+      "lighting": {
+        "source": "bench_key",
+        "castsShadow": true,
+        "fillFactor": 0.24
+      },
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "id": "crystal",
+      "setting": "workbench",
+      "partsInView": [
+        "crystal"
+      ],
+      "lighting": {
+        "source": "bench_key",
+        "castsShadow": true,
+        "fillFactor": 0.24
+      },
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "id": "complete",
+      "setting": "workbench",
+      "partsInView": [
+        "crystal",
+        "hands",
+        "dial",
+        "case",
+        "crown",
+        "seals",
+        "caseback",
+        "rear-window",
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "strap"
+      ],
+      "lighting": {
+        "source": "bench_key",
+        "castsShadow": true,
+        "fillFactor": 0.24
+      },
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "id": "opening",
+      "setting": "workbench",
+      "partsInView": [
+        "crystal",
+        "hands",
+        "dial",
+        "case",
+        "crown",
+        "seals",
+        "caseback",
+        "rear-window",
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "strap"
+      ],
+      "lighting": {
+        "source": "bench_key",
+        "castsShadow": true,
+        "fillFactor": 0.24
+      },
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "id": "movement-system",
+      "setting": "workbench",
+      "partsInView": [
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance"
+      ],
+      "lighting": {
+        "source": "bench_key",
+        "castsShadow": true,
+        "fillFactor": 0.24
+      },
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "id": "crystal",
+      "setting": "workbench",
+      "partsInView": [
+        "crystal"
+      ],
+      "lighting": {
+        "source": "bench_key",
+        "castsShadow": true,
+        "fillFactor": 0.24
+      },
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "id": "complete",
+      "setting": "workbench",
+      "partsInView": [
+        "crystal",
+        "hands",
+        "dial",
+        "case",
+        "crown",
+        "seals",
+        "caseback",
+        "rear-window",
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "strap"
+      ],
+      "lighting": {
+        "source": "bench_key",
+        "castsShadow": true,
+        "fillFactor": 0.24
+      },
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "id": "opening",
+      "setting": "workbench",
+      "partsInView": [
+        "crystal",
+        "hands",
+        "dial",
+        "case",
+        "crown",
+        "seals",
+        "caseback",
+        "rear-window",
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "strap"
+      ],
+      "lighting": {
+        "source": "bench_key",
+        "castsShadow": true,
+        "fillFactor": 0.24
+      },
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "id": "movement-system",
+      "setting": "workbench",
+      "partsInView": [
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance"
+      ],
+      "lighting": {
+        "source": "bench_key",
+        "castsShadow": true,
+        "fillFactor": 0.24
+      },
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "id": "crystal",
+      "setting": "workbench",
+      "partsInView": [
+        "crystal"
+      ],
+      "lighting": {
+        "source": "bench_key",
+        "castsShadow": true,
+        "fillFactor": 0.24
+      },
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "id": "complete",
+      "setting": "workbench",
+      "partsInView": [
+        "crystal",
+        "hands",
+        "dial",
+        "case",
+        "crown",
+        "seals",
+        "caseback",
+        "rear-window",
+        "rotor",
+        "movement",
+        "winding-train",
+        "barrel",
+        "mainspring",
+        "wheel-train",
+        "escapement",
+        "balance",
+        "strap"
+      ],
+      "lighting": {
+        "source": "bench_key",
+        "castsShadow": true,
+        "fillFactor": 0.24
+      },
+      "overflow": false
+    }
+  ],
+  "boundaries": [
+    {
+      "width": 1440,
+      "id": "barrel",
+      "distance": 7.659436822999384e-8
+    },
+    {
+      "width": 1440,
+      "id": "wheel-train",
+      "distance": 7.845919548499964e-8
+    },
+    {
+      "width": 1440,
+      "id": "escapement",
+      "distance": 6.29361219450605e-8
+    },
+    {
+      "width": 1440,
+      "id": "balance",
+      "distance": 6.550136841243592e-8
+    },
+    {
+      "width": 1440,
+      "id": "movement",
+      "distance": 6.444996074370455e-8
+    },
+    {
+      "width": 1440,
+      "id": "winding-train",
+      "distance": 4.902059670879436e-8
+    },
+    {
+      "width": 1440,
+      "id": "rotor",
+      "distance": 5.2090985715515926e-8
+    },
+    {
+      "width": 1440,
+      "id": "movement-system",
+      "distance": 0
+    },
+    {
+      "width": 1440,
+      "id": "dial",
+      "distance": 6.28707418171345e-8
+    },
+    {
+      "width": 1440,
+      "id": "hands",
+      "distance": 4.7054060536809855e-8
+    },
+    {
+      "width": 1440,
+      "id": "case",
+      "distance": 6.706045884342529e-8
+    },
+    {
+      "width": 1440,
+      "id": "crown",
+      "distance": 7.024456955644952e-8
+    },
+    {
+      "width": 1440,
+      "id": "seals",
+      "distance": 3.9874352821186554e-8
+    },
+    {
+      "width": 1440,
+      "id": "caseback",
+      "distance": 3.739591652250261e-8
+    },
+    {
+      "width": 1440,
+      "id": "rear-window",
+      "distance": 3.7360799697752435e-8
+    },
+    {
+      "width": 1440,
+      "id": "crystal",
+      "distance": 4.172806211666544e-8
+    },
+    {
+      "width": 1440,
+      "id": "strap",
+      "distance": 6.694116228315177e-8
+    },
+    {
+      "width": 390,
+      "id": "barrel",
+      "distance": 1.5029869551770764e-7
+    },
+    {
+      "width": 390,
+      "id": "wheel-train",
+      "distance": 1.539581163782191e-7
+    },
+    {
+      "width": 390,
+      "id": "escapement",
+      "distance": 1.2349762519063612e-7
+    },
+    {
+      "width": 390,
+      "id": "balance",
+      "distance": 1.2853131678620583e-7
+    },
+    {
+      "width": 390,
+      "id": "movement",
+      "distance": 1.26468295780172e-7
+    },
+    {
+      "width": 390,
+      "id": "winding-train",
+      "distance": 9.619164428345832e-8
+    },
+    {
+      "width": 390,
+      "id": "rotor",
+      "distance": 1.0221655764246891e-7
+    },
+    {
+      "width": 390,
+      "id": "movement-system",
+      "distance": 0
+    },
+    {
+      "width": 390,
+      "id": "dial",
+      "distance": 1.2336940452832172e-7
+    },
+    {
+      "width": 390,
+      "id": "hands",
+      "distance": 9.23324993143634e-8
+    },
+    {
+      "width": 390,
+      "id": "case",
+      "distance": 1.3159046965097225e-7
+    },
+    {
+      "width": 390,
+      "id": "crown",
+      "distance": 1.378391326972141e-7
+    },
+    {
+      "width": 390,
+      "id": "seals",
+      "distance": 7.824419577303587e-8
+    },
+    {
+      "width": 390,
+      "id": "caseback",
+      "distance": 7.338100282040213e-8
+    },
+    {
+      "width": 390,
+      "id": "rear-window",
+      "distance": 7.331209868825912e-8
+    },
+    {
+      "width": 390,
+      "id": "crystal",
+      "distance": 8.188160952686536e-8
+    },
+    {
+      "width": 390,
+      "id": "strap",
+      "distance": 1.3135638116907808e-7
+    },
+    {
+      "width": 360,
+      "id": "barrel",
+      "distance": 2.1322338110998808e-7
+    },
+    {
+      "width": 360,
+      "id": "wheel-train",
+      "distance": 2.1841492177266376e-7
+    },
+    {
+      "width": 360,
+      "id": "escapement",
+      "distance": 1.7520181352356323e-7
+    },
+    {
+      "width": 360,
+      "id": "balance",
+      "distance": 1.823429382426861e-7
+    },
+    {
+      "width": 360,
+      "id": "movement",
+      "distance": 1.794158764098767e-7
+    },
+    {
+      "width": 360,
+      "id": "winding-train",
+      "distance": 1.3646365314472202e-7
+    },
+    {
+      "width": 360,
+      "id": "rotor",
+      "distance": 1.4501093309926463e-7
+    },
+    {
+      "width": 360,
+      "id": "movement-system",
+      "distance": 0
+    },
+    {
+      "width": 360,
+      "id": "dial",
+      "distance": 1.750195918830104e-7
+    },
+    {
+      "width": 360,
+      "id": "hands",
+      "distance": 1.3098916192957682e-7
+    },
+    {
+      "width": 360,
+      "id": "case",
+      "distance": 1.866827978627097e-7
+    },
+    {
+      "width": 360,
+      "id": "crown",
+      "distance": 1.9554733176369595e-7
+    },
+    {
+      "width": 360,
+      "id": "seals",
+      "distance": 1.1100202903716151e-7
+    },
+    {
+      "width": 360,
+      "id": "caseback",
+      "distance": 1.041033055701438e-7
+    },
+    {
+      "width": 360,
+      "id": "rear-window",
+      "distance": 1.0400534758163285e-7
+    },
+    {
+      "width": 360,
+      "id": "crystal",
+      "distance": 1.1616260674269762e-7
+    },
+    {
+      "width": 360,
+      "id": "strap",
+      "distance": 1.8635069293046243e-7
+    }
+  ],
+  "thumbnails": [
+    {
+      "loaded": true,
+      "alt": "Independent transparent front crystal"
+    },
+    {
+      "loaded": true,
+      "alt": "Independent metal hands and luminous inserts"
+    },
+    {
+      "loaded": true,
+      "alt": "Rotor above the mechanism"
+    }
+  ],
+  "keyboardFocus": "Skip to component explanations",
+  "skipTarget": "component-guide"
+}

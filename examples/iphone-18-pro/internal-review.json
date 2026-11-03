@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "recordedAt": "2026-10-31T03:38:10.135Z",
+  "reviewer": "Codex self-review",
+  "status": "authored-prototype",
+  "ready": false,
+  "specSha256": "0a560a1841ad218ad30819fa06eb81370c9001d1fdd9ec0dcae7e2fb01681e80",
+  "modelSha256": "407710299a80fbc6d5808681157cd0b61a88d975ee3c8e5425a04828a8fcd7ed",
+  "modelBytes": 38213356,
+  "geometryComponentIds": [
+    "display",
+    "enclosure",
+    "rear-panel",
+    "camera-optics",
+    "left-controls",
+    "right-controls",
+    "connector",
+    "logic-board",
+    "logic-board-lower",
+    "processor",
+    "memory",
+    "storage",
+    "radio",
+    "battery",
+    "battery-tray",
+    "cooling",
+    "wireless-charging",
+    "camera-modules",
+    "camera-sensors",
+    "front-sensors",
+    "haptics",
+    "speakers",
+    "interconnects",
+    "microphones",
+    "antennas",
+    "depth-sensor",
+    "fasteners",
+    "display-seal"
+  ],
+  "checks": {
+    "unitTests": 124,
+    "sharedBrowserTests": 13,
+    "actualComponentViews": 168,
+    "viewports": [
+      "1440x900",
+      "390x844"
+    ],
+    "allObjectsRetained": true,
+    "reverseScrollReassembles": true,
+    "consoleErrors": 0,
+    "settledNavigationChecks": [
+      "connector",
+      "left-controls"
+    ]
+  },
+  "observations": [
+    "Assembled exterior retains source silhouette, display and surface detail.",
+    "Battery, board layers and chip packages are real separate geometry.",
+    "Dense overview labels are culled to avoid text overlap; physical components remain present.",
+    "Two 650 ms jump samples clipped transiently; actual navigation at 1400 ms settled within frame. This is not a proof of collision-free continuous camera travel.",
+    "Mobile component captions and key-component captures were inspected."
+  ],
+  "remaining": [
+    "Internal fit and outlines are estimated rather than measured CAD.",
+    "Microdetails, chip labels and hidden surfaces include educational approximations.",
+    "Internal visual fidelity is lower than the source exterior and has not passed independent approval.",
+    "Model exceeds the existing 25 MiB payload target; device GPU and memory profiling remain unmeasured.",
+    "No learner study or exact internal collision clearance validation has been completed.",
+    "Combined source asset remains local-only; redistribution rights are not established."
+  ],
+  "evidenceLocation": "Local captures and detailed sweep at work/iphone-asset-research/internal-final-* and internal-browser-review.json; excluded from repository with restricted source model.",
+  "subsequentMaterialReview": "surface-review.json (this record retains its original model hash and historical geometry checks)"
+}
