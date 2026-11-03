@@ -67,7 +67,9 @@ for(const viewport of [{width:1440,height:900},{width:390,height:844}])test(`gen
  await page.getByRole('button',{name:'Discover how it’s made'}).click()
  await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().selected)).toBe('logic-board')
  for(const id of ['logic-board','battery','front-glass']){
-  await page.evaluate(id=>window.__explodeAssemblyReview!.inspect(id,.35),id);await page.waitForTimeout(1400)
+  await page.evaluate(id=>window.__explodeAssemblyReview!.inspect(id,.35),id)
+  await expect.poll(()=>page.evaluate(()=>window.__explodeAssemblyReview!.snapshot().selected)).toBe(id)
+  await page.waitForTimeout(1400)
   const state=await page.evaluate(()=>window.__explodeAssemblyReview!.snapshot()),caption=await page.locator('.mesh-caption:visible').boundingBox()
   expect(state.selected).toBe(id);expect(state.allVisible).toBe(true)
   expect(state.bounds!.left).toBeGreaterThanOrEqual(0);expect(state.bounds!.top).toBeGreaterThan(90)

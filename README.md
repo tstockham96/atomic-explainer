@@ -24,7 +24,7 @@ Point a capable agent at this repository and ask it to use [the Explode skill](s
 
 The skill directs research, geometry sourcing/generation, part assembly, visual review, and export. It can use the host agent's tools; an OpenAI API key is not required to render a spec the agent authors. External generation still requires an available provider/account, and a skill does not make arbitrary-photo mechanical reconstruction reliable. The standalone API pipeline below is also supported. This skill is included in the source checkout; it is not automatically installed or connected as an MCP plugin.
 
-The current prototype keeps one object in one scene: turn it, separate its parts, move closer to each component, then return to the overview. Manufacturing stories appear in an expandable anatomy section after the scene. Daylight and Midnight switch the atmosphere; dragging rotates the object; Pause motion stops ambient movement. The Murph study includes direct component selection, a pause control, and a complete written guide; reduced-motion users can inspect every component without the pinned scroll animation.
+The researched studies keep one object in one scene: begin assembled, reveal the core, inspect individual parts, build through subsystem milestones, and finish whole. Detailed anatomy follows the scene. Workbench is the default setting; Original offers Daylight and Midnight lighting. Dragging rotates the object; Pause motion stops ambient movement. The Murph study includes direct component selection, a pause control, and a complete written guide; reduced-motion users can inspect every component without the pinned scroll animation.
 
 The default demo uses **Chronograph Watch**, a detailed, textured multipart asset by Eric Chadwick / Darmstadt Graphics Group, derived from graphiccompressor’s model and distributed through Khronos under CC BY 4.0. It preserves the source glass transmission, surface maps, bevels, and second-hand animation. Six explorable assemblies separate along the depth axis, with individually authored camera angles and labels. It is a different watch from the Hamilton Murph and has no internal movement. Attribution and trademark notices ship in `public/models/chronograph/`. The earlier Murph experiment remains at `?demo=murph`.
 
@@ -45,6 +45,7 @@ Requires Node.js 22.12 or newer.
 
 - The Chronograph demo (`npm run dev`).
 - The packaged research-led Murph: `npm ci && npm run build && npm run studio`, then open [the study](http://127.0.0.1:4319/murph-study/index.html). The model, lighting and fonts are included; no private work directory or API key is required. See [asset provenance](public/models/murph/ATTRIBUTION.md).
+- The original Porsche engine, built by the same command above: [open the study](http://127.0.0.1:4319/porsche-study/index.html).
 - Rendering any spec you already have:
 
 ```bash
@@ -221,3 +222,7 @@ npm run explode -- --from-spec spec.json --requirements assembly-requirements.js
 ### Porsche engine: bundled cross-object study
 
 The [Porsche 911 engine example](examples/porsche-911-engine/README.md) includes original geometry for 29 explorable assemblies and opens at `/porsche-study/index.html` after the normal build. It requires no provider credentials or proprietary source model. Both it and the shared iPhone viewer now close with a visible reassembly before anatomy. The engine's dimensions and detailed castings remain approximate; its review does not claim universal automatic reconstruction.
+
+## Security
+
+No API key is required to build the included studies. Keep credentials and private inputs local; never put secrets in browser-prefixed variables or public issues. See [the security policy](SECURITY.md) for safe local use and private vulnerability reporting.

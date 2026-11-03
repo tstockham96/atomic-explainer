@@ -155,11 +155,14 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
 
   const frame = (milliseconds: number) => {
     if (disposed || !visible || document.hidden) { lastTime = milliseconds; return }
-    const delta = Math.min((milliseconds - lastTime) / 1000 || 1 / 60, 0.05)
+    const elapsed = Math.max(0, (milliseconds - lastTime) / 1000) || 1 / 60
+    const delta = Math.min(elapsed, 0.05)
     lastTime = milliseconds
     if (paused && !dirty) return
     if (!paused) time += delta
-    const damp = 1 - Math.exp(-delta * 9)
+    // Scroll/camera response follows wall time, even when software rendering
+    // takes more than 50 ms per frame. Only ambient animation is time-capped.
+    const damp = 1 - Math.exp(-elapsed * 9)
     displayed = THREE.MathUtils.lerp(displayed, progress, damp)
     if (Math.abs(displayed - progress) < 0.00001) displayed = progress
     night = THREE.MathUtils.lerp(night, presentation.setting==='plain'&&atmosphere === "midnight" ? 1 : 0, damp)
@@ -189,7 +192,7 @@ export async function createObjectScene(host: HTMLElement, spec: ExplodeSpec, on
     camera.lookAt(look)
     camera.updateMatrixWorld()
     const showLabels = !story && sample.separation > 0.995 && sample.focus < 0.015
-    if (onFrame) onFrame(modelStops(model).map((stop,index) => {
+    if (onFrame && !story) onFrame(modelStops(model).map((stop,index) => {
       const box = stopBounds(model,index)
       const projected = box.getCenter(new THREE.Vector3()).project(camera)
       return { id: stop.id, x: (projected.x + 1) * host.clientWidth / 2, y: (1 - projected.y) * host.clientHeight / 2, visible: showLabels && Math.abs(projected.x) < 0.95 && Math.abs(projected.y) < 0.85 }

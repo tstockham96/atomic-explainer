@@ -1,6 +1,6 @@
 import {defineConfig} from '@playwright/test'
 export default defineConfig({
- testDir:'test/browser',timeout:120_000,expect:{timeout:15_000},workers:1,
+ testDir:'test/browser',fullyParallel:true,timeout:process.env.EXPLODE_SOFTWARE_GL?300_000:120_000,expect:{timeout:process.env.EXPLODE_SOFTWARE_GL?45_000:15_000},workers:1,
  reporter:[['list'],['html',{open:'never'}]],
  use:{baseURL:'http://127.0.0.1:4323',viewport:{width:1440,height:900},
   launchOptions:{channel:process.env.PLAYWRIGHT_CHANNEL||undefined,args:process.env.EXPLODE_SOFTWARE_GL?['--use-angle=swiftshader','--enable-unsafe-swiftshader']:[]},trace:'retain-on-failure'},

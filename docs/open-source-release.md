@@ -18,3 +18,16 @@ Explode's own code is MIT licensed. Third-party software and assets retain their
 The completed story changes should be reviewed in the existing PR. Making the repository public exposes its Git history, not just the latest files. Do not change visibility or merge solely because a preview passes. The owner chooses the publication timing; the planned fresh-object test remains outstanding. API provider access, optional Blender authoring, and separately licensed source assets are not bundled with the MIT application.
 
 No package publication, hosted public deployment, automatic provider spending, or repository visibility change is performed by this preparation.
+
+## Final release preparation
+
+The owner explicitly authorized merging and public visibility on 2026-11-02 after the checks below. The proposed fresh-object holdout remains a future quality evaluation, not a prerequisite imposed on publication.
+
+- Fetched both remote branches and rescanned all 27 existing commits with Gitleaks: zero findings. No credentials were opened or copied into release artifacts.
+- A fresh Git archive installed dependencies and built all public examples with provider variables unset. The archive contains no ignored local assets; its iPhone route is a source review and contains no GLB. The existing private local preview was preserved.
+- The dependency audit reported zero known vulnerabilities. All 161 regression tests and TypeScript checks passed. Existing lint warnings remain documented.
+- Development and preview servers now bind to localhost, matching the studio. Added a security reporting/use policy and a checksum-verified Gitleaks workflow that scans history on every push/PR.
+- The old CI job consistently exceeded its 15-minute budget on software graphics. Browser checks now run across four independent shards, with explicit software-renderer time budgets. No test cases or quality assertions were removed.
+- Scroll/camera easing now follows elapsed wall time on slow renderers; hidden story labels no longer recalculate every component's bounds each frame. The previously failing desktop generic-story check passed locally under software rendering after this fix.
+
+The repository's open-source publication is separate from npm publishing or a hosted deployment; neither is included in this release.
