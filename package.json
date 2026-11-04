@@ -39,6 +39,8 @@
     "eval:release": "tsx tools/evals/run.ts --require-ready --case murph-current",
     "build:examples": "node --import tsx tools/build-examples.ts",
     "review:compare": "node --import tsx tools/review/compare.ts",
+    "setup": "node --import tsx tools/setup.ts",
+    "blender": "node --import tsx tools/blender.ts",
     "build:porsche": "node tools/porsche-study/spec.mjs && node --import tsx tools/porsche-study/build.mjs"
   },
   "dependencies": {

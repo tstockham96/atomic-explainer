@@ -20,9 +20,18 @@ The [assembly-story contract](docs/assembly-stories.md) now drives the Murph, pu
 
 ## Use with an agent
 
+Set up once:
+
+```bash
+npm install
+npm run setup
+```
+
+`npm run setup` builds the viewer, makes sure a browser is available for review renders, installs Blender (Homebrew on macOS, winget on Windows), and asks for your `TRIPO_API_KEY`, which it saves to `.env`. Tripo is a hosted API, so the key is all it needs. No OpenAI or AI Gateway key is needed: the agent does its own research and writing. `npm run setup -- --check` reports without changing anything.
+
 Point a capable agent at this repository and ask it to use [the Atomic Explainer skill](skills/atomic-explainer/SKILL.md) with your photograph, object description, or model. For example: “Use the Atomic Explainer skill in this repo to research this object and build a continuous 3D explainer. Prioritize fidelity; inspect a short assembled-to-exploded sequence before making the full tour.”
 
-The skill directs research, geometry sourcing/generation, part assembly, visual review, and export. It can use the host agent's tools; an OpenAI API key is not required to render a spec the agent authors. External generation still requires an available provider/account, and a skill does not make arbitrary-photo mechanical reconstruction reliable. The standalone API pipeline below is also supported. This skill is included in the source checkout; it is not automatically installed or connected as an MCP plugin.
+The skill directs research, geometry sourcing/generation, part assembly, visual review, and export. It uses the host agent's own research and writing, Blender through `npm run blender -- script.py`, and Tripo for component generation. External generation still requires an available provider/account, and a skill does not make arbitrary-photo mechanical reconstruction reliable. The standalone API pipeline below is also supported. This skill is included in the source checkout; it is not automatically installed or connected as an MCP plugin.
 
 The researched studies keep one object in one scene: begin assembled, reveal the core, inspect individual parts, build through subsystem milestones, and finish whole. Detailed anatomy follows the scene. Workbench is the default setting; Original offers Daylight and Midnight lighting. Dragging rotates the object; Pause motion stops ambient movement. The Murph study includes direct component selection, a pause control, and a complete written guide; reduced-motion users can inspect every component without the pinned scroll animation.
 
@@ -168,6 +177,8 @@ public/spec.json             earlier researched Murph demo
 ## Scripts
 
 ```bash
+npm run setup      # Blender, browser and Tripo key for agent builds
+npm run blender -- script.py  # run a Blender script headless
 npm run dev        # demo on port 4317
 npm run studio     # upload studio on port 4319, after build
 npm test           # spec, geometry, provider contracts, local server, export

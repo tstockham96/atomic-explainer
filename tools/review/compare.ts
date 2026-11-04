@@ -41,7 +41,10 @@ for (const [index, o] of (plan?.observations ?? []).entries()) {
 }
 
 const server = await openSite(site, { open: false, idleMinutes: 5 })
-const browser = await chromium.launch({ channel: process.env.PLAYWRIGHT_CHANNEL || undefined })
+// Playwright's bundled Chromium, else the installed Chrome (see npm run setup).
+const browser = await chromium
+  .launch({ channel: process.env.PLAYWRIGHT_CHANNEL || undefined })
+  .catch(() => chromium.launch({ channel: "chrome" }))
 const renders: Array<{ file: string; caption: string }> = []
 const errors: string[] = []
 try {

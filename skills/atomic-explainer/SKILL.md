@@ -7,12 +7,22 @@ description: Build a researched, continuous 3D object explainer with the Atomic 
 
 Produce one convincing object in one continuous 3D scene: an assembled turn, readable separation, close exploration of individual components, a visible closing reassembly, and anatomy stories afterward. The purpose is learning: the user should understand how the object works. Research determines the geometry and the story; motion reveals that understanding. The project is https://github.com/tstockham96/atomic-explainer.
 
+## Set up first
+
+Before any research, run `npm install` (if `node_modules` is missing) and `npm run setup` in the checkout. It builds the viewer, ensures a browser for review renders, installs Blender, and reports whether `TRIPO_API_KEY` is set. Read its result with `npm run setup -- --check --json`.
+
+- **Blender missing:** `npm run setup` installs it where a package manager allows; otherwise give the user its printed fix. Run Blender scripts with `npm run blender -- script.py -- args`.
+- **Tripo key missing:** do not ask the user to paste the key into chat. Ask them to run `npm run setup` in their own terminal, which prompts for it and saves it to `.env`, then rerun the check.
+- **Never ask for `OPENAI_API_KEY` or `AI_GATEWAY_API_KEY`.** You do the research and writing yourself; those keys serve only the standalone pipeline and upload studio.
+
+Do not start building geometry until the check reports ready, or the user has explicitly chosen to continue without one capability.
+
 ## Quality bar — read before anything else
 
 Someone who knows the object must recognize it instantly in the opening shot, and it must hold up at close range. Past runs failed this by modeling from one front product photo, hand-coding the visible exterior from three.js boxes and cylinders, truncating the bracelet to two links per side, and shipping a render defect that was already noted in their own README. These rules are not optional:
 
 1. **Photographs before geometry.** Inspect at least eight photographs of the exact reference before authoring anything: front, back, both sides, a three-quarter oblique, controls/crown detail, strap or bracelet and clasp, plus teardown or service photos for internals. Save each locally and record it as an `observations` entry with its `view`. `referenceCoverage()` in `src/spec/assets.ts` must report `ok`. Each component cites the observations that actually show it.
-2. **Real geometry for everything visible.** For the exterior, use in order: a licensed multipart model; Blender (`blender --background --python script.py`, with the references as image planes) or CAD; Tripo multi-view generation per component. Hand-written primitive geometry is acceptable only for hidden or schematic internals, labeled as such. If none of the three is available, stop and tell the user what is missing; do not ship a primitive exterior.
+2. **Real geometry for everything visible.** For the exterior, use in order: a licensed multipart model; Blender (`npm run blender -- script.py`, with the references as image planes) or CAD; Tripo multi-view generation per component. Hand-written primitive geometry is acceptable only for hidden or schematic internals, labeled as such. If none of the three is available, stop and tell the user what is missing; do not ship a primitive exterior.
 3. **Build the whole object.** Full-length bracelets, straps, cables and clasps. A part cut short "for framing" reads as a broken object.
 4. **Iterate on the fidelity sheet.** Run `npm run review:compare -- --site <built site> --plan <asset-plan.json>` and look at the PNG it writes. It shows the real viewer's opening shot and front, oblique, side and back renders beside every inspected photograph. Write down each mismatch (silhouette, proportions, missing or partial parts, finish, printed detail, flicker or see-through layers), fix it, rebuild, and rerun. Finish only when there is nothing left you would have to point out to the user. A defect you documented is still a defect.
 5. **Do not promote a draft.** Do not add the object to the studio's sample list or call it finished until the sheet passes.
@@ -30,7 +40,7 @@ Each local GLB render writes `material-review.json`. Resolve its export issues a
 
 Complete the construction plan's `requiredMaterialReview` for every component, not just the hero part. Compare related surfaces under matching conditions. Glass on the back deserves the same optical treatment as glass on the front, while shape/composition differences require evidence or an explicit assumption. Keep absent/deferred parts and unresolved mismatches visible in the review record.
 
-Prefer the host agent's research and writing capabilities when available. An OpenAI API key is needed only for steps that explicitly invoke OpenAI through the repository. The agent can write the researched spec itself and render it without any OpenAI call. Use the standalone API pipeline when requested or useful for unattended execution.
+Do the research and writing yourself and render with `--from-spec`; no OpenAI or AI Gateway key is involved. Use the standalone API pipeline only when the user asks for unattended execution.
 
 ## Research an assembly
 

@@ -35,6 +35,7 @@ The default demo needs no API key.
 
 ```bash
 npm install
+npm run setup        # Blender, review browser, TRIPO_API_KEY; no OpenAI/Gateway key for agent builds
 npm run dev          # http://127.0.0.1:4317
 npm test
 npm run typecheck
