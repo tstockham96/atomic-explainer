@@ -11,8 +11,8 @@ Produce one convincing object in one continuous 3D scene: an assembled turn, rea
 
 Run every command yourself, setup included. Never tell the user to run a command, open a terminal, or type `!`, and never hand back a list of steps for them to do.
 
-1. Run `npm install` if `node_modules` is missing, then `npm run setup`. It builds the viewer, ensures a browser for review renders, and installs Blender.
-2. If `TRIPO_API_KEY` is not set, the same `npm run setup` opens the Tripo key page and a native password window on the user's screen, and saves what they paste to `.env`. Tell them in one line that the window is up; you never see or handle the key. If they skip it, carry on: Tripo is optional and Blender covers the visible geometry.
+1. Run `npm install` if `node_modules` is missing, then `npm run setup` (the full command, not only `--check`). It builds the viewer, ensures a browser for review renders, and installs Blender.
+2. If `TRIPO_API_KEY` is not set, that `npm run setup` run opens the Tripo key page and a native password window on the user's screen, and saves what they paste to `.env`. Tell them in one line that the window is up; you never see or handle the key. If the key is still missing afterward, carry on without asking how to proceed: Tripo is optional and Blender covers the visible geometry.
 3. Read the result with `npm run setup -- --check --json`. `ok` covers everything required; the Tripo check is marked `optional`.
 
 - **Blender with no package manager** (Linux): install it with the platform's own package tool yourself, or use the printed download as a last resort. Run Blender scripts with `npm run blender -- script.py -- args`.
@@ -20,7 +20,11 @@ Run every command yourself, setup included. Never tell the user to run a command
 
 ## Decide, don't ask
 
-Start working as soon as setup is done. Do not open with clarifying questions.
+Start working as soon as setup is done. Do not open with clarifying questions, and do not present a menu of approaches to pick from. Never ask:
+
+- whether to look for an existing or licensed model. Searching for one is a required research step (see "Research an assembly"); you just do it.
+- which geometry route to take (licensed model, Blender, Tripo). The order in quality rule 2, what the search finds and which tools setup reports decide it.
+- whether to add a Tripo key, or how to proceed without one.
 
 - **Which exact variant:** if the request names a model line without a reference, build the current standard reference (for example, the current production Moonwatch Professional for "Speedmaster") and state the reference you chose in your first update. The user can redirect you.
 - **Tripo budget:** if the user named no cap, spend up to `ATOMIC_EXPLAINER_TRIPO_CREDITS` from `.env`, or 300 credits when that is unset. Say the cap in your first update and report credits spent at the end. Stop and ask only before going past it.
@@ -52,6 +56,8 @@ Complete the construction plan's `requiredMaterialReview` for every component, n
 Do the research and writing yourself and render with `--from-spec`; no OpenAI or AI Gateway key is involved. Use the standalone API pipeline only when the user asks for unattended execution.
 
 ## Research an assembly
+
+**Search for an existing model first, every time.** Before planning any geometry, look for a licensed 3D model of the exact reference or its parts: manufacturer CAD and press or dealer kits, Sketchfab (downloadable, Creative Commons), GrabCAD, Printables, Thingiverse, Poly Haven, and the Khronos glTF samples. Record every credible candidate in the research notes with its URL, license, author, format, whether parts are separate, and a verdict (use, use for some parts, or reject and why). Use a suitable one and carry its attribution; model only what it lacks. Do not ask the user whether to search, and do not ask them to choose among the results.
 
 Identify the object with appropriate uncertainty. Find original specifications, service documentation, exploded diagrams, and credible teardown references. Build a component inventory from those sources, keeping exact-model evidence distinct from category-level inference.
 
