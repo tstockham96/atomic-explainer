@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useImperativeHandle, useRef, useState, type Ref } from "react"
 import type { ExplodeSpec, FrameSequence } from "../spec/schema.ts"
 import { filmMap, frameIndex, phaseAt, windowOpacity } from "../spec/film.ts"
 import { cameraAt, focusTour, type CameraPose } from "../spec/camera.ts"
@@ -11,9 +11,9 @@ export interface ReelHandle {
 }
 
 /** One canvas, one world. The camera never substitutes an isolated component photo. */
-export function Reel({ spec, api }: {
+export function Reel({ spec, ref }: {
   spec: ExplodeSpec
-  api: { current: ReelHandle | null }
+  ref: Ref<ReelHandle>
 }) {
   const tour = focusTour(spec)
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -123,20 +123,29 @@ export function Reel({ spec, api }: {
       applyRef.current()
     })
   }
+  // `schedule` only touches refs, so the first instance stays valid.
+  const scheduleRef = useRef(schedule)
+
+  useImperativeHandle(ref, () => ({ setProgress: (progress) => { progressRef.current = progress; scheduleRef.current() } }), [])
 
   useEffect(() => {
-    api.current = { setProgress: (progress) => { progressRef.current = progress; schedule() } }
     const canvas = canvasRef.current
-    const observer = new ResizeObserver(schedule)
+    const observer = new ResizeObserver(() => scheduleRef.current())
     if (canvas) observer.observe(canvas)
-    schedule()
+    scheduleRef.current()
     return () => {
-      api.current = null
       observer.disconnect()
       cancelAnimationFrame(requestRef.current)
       requestRef.current = 0
     }
-  }, [api])
+  }, [])
+
+  // A new spec restarts loading during render rather than from an effect.
+  const [loadedSpec, setLoadedSpec] = useState(spec)
+  if (loadedSpec !== spec) {
+    setLoadedSpec(spec)
+    setMotion("loading")
+  }
 
   useEffect(() => {
     let cancelled = false
@@ -144,7 +153,6 @@ export function Reel({ spec, api }: {
     rotationRef.current = []
     explodeRef.current = []
     stillsRef.current = { hero: null, exploded: null }
-    setMotion("loading")
 
     const loadStill = (kind: "hero" | "exploded", path?: string) => {
       if (!path) return

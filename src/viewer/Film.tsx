@@ -30,11 +30,12 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
   const rootRef = useRef<HTMLDivElement>(null)
   const api = useRef<ReelHandle | null>(null)
   const [images, setImages] = useState<Record<string, string>>({})
-  const driver = useRef({ progress: 0 })
+  // GSAP tweens this object in place; it is created once and never replaced.
+  const [driver] = useState(() => ({ progress: 0 }))
   const scrollTo = useRef((top:number)=>window.scrollTo({top,behavior:'instant'}))
-  const tween = useMemo(() => ({ start: 0, end: 100, target: driver.current, fromTo: [
-    { progress: 0 }, { progress: 1, ease: "none", onUpdate: () => api.current?.setProgress(driver.current.progress) },
-  ] as [gsap.TweenVars, gsap.TweenVars] }), [])
+  const tween = useMemo(() => ({ start: 0, end: 100, target: driver, fromTo: [
+    { progress: 0 }, { progress: 1, ease: "none", onUpdate: () => api.current?.setProgress(driver.progress) },
+  ] as [gsap.TweenVars, gsap.TweenVars] }), [driver])
   const callbacks = useMemo(() => ({ onRefresh: (self: ScrollTrigger) => api.current?.setProgress(self.progress) }), [])
   const tourLength = spec.scene3d ? inspectionStops(spec).length : focusTour(spec).length
 
@@ -59,7 +60,7 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
         <Scrollytelling.Pin childHeight="100svh" pinSpacerHeight={`${spec.scene3d?.kind==='gltf'&&spec.scene3d.assemblyStory?assemblyScrollVh(tourLength):(4+tourLength*1.15)*100}svh`}>
           <Scrollytelling.Animation tween={tween} />
           <section id="film" className="pin" aria-label={`${spec.item.name}: rotate, explode, and explore`}>
-            {spec.scene3d ? <ObjectScene spec={spec} api={api} onImages={setImages} scrollTo={top=>scrollTo.current(top)} /> : <Reel spec={spec} api={api} />}
+            {spec.scene3d ? <ObjectScene spec={spec} ref={api} onImages={setImages} scrollTo={top=>scrollTo.current(top)} /> : <Reel spec={spec} ref={api} />}
           </section>
         </Scrollytelling.Pin>
       </Scrollytelling.Root>

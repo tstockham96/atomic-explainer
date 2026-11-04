@@ -1,6 +1,6 @@
 import {presentationSetting,type PresentationSetting} from './three/presentation.ts'
 import {assemblySample,assemblyProgress} from './three/assemblyTimeline.ts'
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useImperativeHandle, useMemo, useRef, useState, type Ref } from "react"
 import type { ExplodeSpec } from "../spec/schema.ts"
 import type { ReelHandle } from "./Reel.tsx"
 import { windowOpacity } from "../spec/film.ts"
@@ -11,7 +11,7 @@ import type { Atmosphere, SceneHandle } from "./three/scene.ts"
 
 declare global { interface Window { __explodeAssemblyReview?: { inspect: (id: string, local?: number) => void; settled: SceneHandle['isSettled']; snapshot: SceneHandle['snapshot'] } } }
 
-export function ObjectScene({ spec, api, onImages, scrollTo }: { spec: ExplodeSpec; api: { current: ReelHandle | null }; onImages?: (images: Record<string, string>) => void; scrollTo?: (top:number)=>void }) {
+export function ObjectScene({ spec, ref, onImages, scrollTo }: { spec: ExplodeSpec; ref: Ref<ReelHandle>; onImages?: (images: Record<string, string>) => void; scrollTo?: (top:number)=>void }) {
   const host = useRef<HTMLDivElement>(null)
   const title = useRef<HTMLDivElement>(null)
   const closing = useRef<HTMLDivElement>(null)
@@ -27,8 +27,8 @@ export function ObjectScene({ spec, api, onImages, scrollTo }: { spec: ExplodeSp
   const [selected, setSelected] = useState("assembly")
   const [stage, setStage] = useState("01 / 04 · Rotate")
   const story=spec.scene3d?.kind==='gltf'?spec.scene3d.assemblyStory:undefined
-  const stops = inspectionStops(spec)
-  const ids = stops.map(s=>s.id)
+  const stops = useMemo(() => inspectionStops(spec), [spec])
+  const ids = useMemo(() => stops.map(s=>s.id), [stops])
   const components = storyComponents(spec)
   const update = (value: number) => {
     progress.current = value
@@ -55,14 +55,17 @@ export function ObjectScene({ spec, api, onImages, scrollTo }: { spec: ExplodeSp
   }
   const updateRef = useRef(update)
   useEffect(() => { updateRef.current = update })
-  useEffect(() => {
-    api.current = { setProgress: (value) => updateRef.current(value) }
-    updateRef.current(progress.current)
-    return () => { api.current = null }
-  }, [api])
+  useImperativeHandle(ref, () => ({ setProgress: (value) => updateRef.current(value) }), [])
+  useEffect(() => { updateRef.current(progress.current) }, [])
+  // A new spec resets the scene state during render rather than from an effect.
+  const [loadedSpec, setLoadedSpec] = useState(spec)
+  if (loadedSpec !== spec) {
+    setLoadedSpec(spec)
+    setReady(false)
+    setError(null)
+  }
   useEffect(() => {
     let cancelled = false
-    setReady(false); setError(null)
     void import("./three/scene.ts").then(({ createObjectScene }) => {
       if (cancelled || !host.current) return undefined
       return createObjectScene(host.current, spec, (message) => { if (!cancelled) setError(message) }, (positions) => {
@@ -103,7 +106,7 @@ export function ObjectScene({ spec, api, onImages, scrollTo }: { spec: ExplodeSp
       handle.current = null
       delete window.__explodeAssemblyReview
     }
-  }, [spec, onImages])
+  }, [spec, onImages, story, stops, ids.length])
   useEffect(() => { handle.current?.setAtmosphere(atmosphere) }, [atmosphere, ready])
   useEffect(()=>{handle.current?.setPresentation(setting)},[setting,ready])
   useEffect(() => { handle.current?.setPaused(paused) }, [paused, ready])
