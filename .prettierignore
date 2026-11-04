@@ -1,12 +1,12 @@
 # Generated output, data, models, and prose are not formatted.
-dist
-dist-site
-dist-eval
+/dist
+/dist-site
+/dist-eval
 node_modules
-public
-examples
-evals
-docs
+/public
+/examples
+/evals
+/docs
 *.md
 *.json
 *.html

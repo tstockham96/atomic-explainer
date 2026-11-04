@@ -1,1 +1,1 @@
-export function experienceFingerprint(): Promise<string>;
+export function experienceFingerprint(): Promise<string>
