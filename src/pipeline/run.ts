@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises"
 import path from "node:path"
-import { explodeSpecSchema, type ExplodeSpec, type Identity } from "../spec/schema.ts"
+import { explainerSpecSchema, type ExplainerSpec, type Identity } from "../spec/schema.ts"
 import { normalizeSpec } from "../spec/normalize.ts"
 import { identifyPhoto } from "./identify.ts"
 import { assertModels } from "./models.ts"
@@ -30,7 +30,7 @@ export interface RunOptions {
   log?: (message: string) => void
 }
 
-export async function runExplode(options: RunOptions): Promise<ExplodeSpec> {
+export async function runExplainer(options: RunOptions): Promise<ExplainerSpec> {
   const log = options.log ?? (() => undefined)
   if (options.planOnly && (options.three || options.motion))
     throw new Error("Choose research planning or generation, not both.")
@@ -46,11 +46,11 @@ export async function runExplode(options: RunOptions): Promise<ExplodeSpec> {
     if (!options.specPath && !process.env.OPENAI_API_KEY?.trim())
       throw new Error("Set OPENAI_API_KEY in .env for web-backed research.")
   }
-  let spec: ExplodeSpec
+  let spec: ExplainerSpec
 
   if (options.specPath) {
     const raw = JSON.parse(await readFile(path.resolve(options.specPath), "utf8")) as unknown
-    spec = normalizeSpec(explodeSpecSchema.parse(raw))
+    spec = normalizeSpec(explainerSpecSchema.parse(raw))
     log(`Spec · ${spec.item.name}`)
   } else if (options.photo) {
     const models = assertModels()
@@ -111,7 +111,7 @@ export async function runExplode(options: RunOptions): Promise<ExplodeSpec> {
     const video = resolveVideo()
     if ("error" in video) {
       const error = new Error(video.error)
-      error.name = "ExplodeConfigError"
+      error.name = "ExplainerConfigError"
       throw error
     }
     spec = await generateMotion(spec, options.outDir, video, log, { skips: options.skips })
@@ -130,11 +130,11 @@ export async function runExplode(options: RunOptions): Promise<ExplodeSpec> {
 }
 
 function withIdentity(
-  spec: ExplodeSpec,
+  spec: ExplainerSpec,
   identity: Identity,
   sourcePhoto: string,
   visionModel: string,
-): ExplodeSpec {
+): ExplainerSpec {
   return {
     ...spec,
     identity: {

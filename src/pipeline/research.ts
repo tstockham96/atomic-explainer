@@ -1,19 +1,24 @@
 import { generateObject, generateText } from "ai"
 import { openai } from "@ai-sdk/openai"
-import { explodeSpecSchema, researchedSpecSchema, type ExplodeSpec, type Identity } from "../spec/schema.ts"
+import {
+  explainerSpecSchema,
+  researchedSpecSchema,
+  type ExplainerSpec,
+  type Identity,
+} from "../spec/schema.ts"
 import { normalizeSpec } from "../spec/normalize.ts"
 import type { ResolvedModels } from "./models.ts"
 import { RESEARCH_PROMPT } from "./prompts.ts"
 import { languageModel } from "./providers.ts"
 import { groundUnderstanding, understandingIssues } from "./understanding.ts"
 
-export async function researchItem(identity: Identity, models: ResolvedModels): Promise<ExplodeSpec> {
+export async function researchItem(identity: Identity, models: ResolvedModels): Promise<ExplainerSpec> {
   if (!process.env.OPENAI_API_KEY?.trim()) {
     throw new Error(
       "Web-backed component research needs OPENAI_API_KEY in .env. No research or geometry has been generated.",
     )
   }
-  const webModel = process.env.EXPLODE_WEB_RESEARCH_MODEL?.trim() || "gpt-4.1"
+  const webModel = process.env.ATOMIC_EXPLAINER_WEB_RESEARCH_MODEL?.trim() || "gpt-4.1"
   const research = await generateText({
     model: openai.responses(webModel),
     tools: { web_search: openai.tools.webSearch({ searchContextSize: "high" }) },
@@ -78,7 +83,7 @@ ${JSON.stringify(identity, null, 2)}`,
   })
 
   const spec = normalizeSpec(
-    explodeSpecSchema.parse({
+    explainerSpecSchema.parse({
       ...object,
       sources,
       understanding: groundUnderstanding(object.understanding, sources),
@@ -101,7 +106,7 @@ ${JSON.stringify(identity, null, 2)}`,
   return spec
 }
 
-export function groundComponents(components: ExplodeSpec["components"], sources: ExplodeSpec["sources"]) {
+export function groundComponents(components: ExplainerSpec["components"], sources: ExplainerSpec["sources"]) {
   const allowed = new Set(sources.map((source) => source.url))
   return components.map((component) => {
     const evidence = component.evidence

@@ -13,10 +13,10 @@ import {
 import { applyManifest, manifestSchema } from "../src/spec/manifest.ts"
 import { resolveModels, resolveVideo } from "../src/pipeline/models.ts"
 import { SPEC_MARKER, injectSpec, renderSite } from "../src/pipeline/render-site.ts"
-import { explodeSpecSchema } from "../src/spec/schema.ts"
+import { explainerSpecSchema } from "../src/spec/schema.ts"
 import { readFileSync } from "node:fs"
 
-const murph = explodeSpecSchema.parse(JSON.parse(readFileSync("public/spec.json", "utf8")))
+const murph = explainerSpecSchema.parse(JSON.parse(readFileSync("public/spec.json", "utf8")))
 const dirs: string[] = []
 
 afterEach(async () => {
@@ -45,7 +45,7 @@ describe("credentials", () => {
   it("strips a provider prefix for direct OpenAI", () => {
     const result = resolveModels({
       OPENAI_API_KEY: "secret-openai",
-      EXPLODE_IMAGE_MODEL: "openai/gpt-image-1",
+      ATOMIC_EXPLAINER_IMAGE_MODEL: "openai/gpt-image-1",
     })
     expect(result).toMatchObject({ mode: "openai", image: "gpt-image-1", vision: "gpt-4o" })
   })
@@ -65,7 +65,7 @@ describe("motion", () => {
       provider: "gateway",
       model: "klingai/kling-v2.6-i2v",
     })
-    expect(resolveVideo({ FAL_KEY: "secret-fal", EXPLODE_VIDEO_PROVIDER: "fal" })).toMatchObject({
+    expect(resolveVideo({ FAL_KEY: "secret-fal", ATOMIC_EXPLAINER_VIDEO_PROVIDER: "fal" })).toMatchObject({
       provider: "fal",
     })
     expect(JSON.stringify(resolveVideo({ AI_GATEWAY_API_KEY: "secret-gateway" }))).not.toContain("secret")
@@ -85,7 +85,7 @@ describe("site render", () => {
   })
 
   it("copies a viewer template and writes spec.json", async () => {
-    const root = await mkdtemp(path.join(tmpdir(), "explode-"))
+    const root = await mkdtemp(path.join(tmpdir(), "atomic-explainer-"))
     dirs.push(root)
     const template = path.join(root, "template")
     const out = path.join(root, "site")
@@ -121,7 +121,7 @@ describe("site render", () => {
   })
 
   it("includes a local multipart model when exporting a portable explainer", async () => {
-    const root = await mkdtemp(path.join(tmpdir(), "explode-model-"))
+    const root = await mkdtemp(path.join(tmpdir(), "atomic-explainer-model-"))
     dirs.push(root)
     const templateDir = path.join(root, "template")
     const assetRoot = path.join(root, "assets")
@@ -139,7 +139,7 @@ describe("site render", () => {
     bytes.writeUInt32LE(0x4e4f534a, 16)
     json.copy(bytes, 20)
     await writeFile(path.join(assetRoot, "models", "object.glb"), bytes)
-    const spec = explodeSpecSchema.parse({
+    const spec = explainerSpecSchema.parse({
       ...murph,
       scene3d: {
         kind: "gltf",
@@ -164,12 +164,12 @@ describe("site render", () => {
   })
 
   it("reports a missing local model instead of exporting a broken scene", async () => {
-    const root = await mkdtemp(path.join(tmpdir(), "explode-missing-model-"))
+    const root = await mkdtemp(path.join(tmpdir(), "atomic-explainer-missing-model-"))
     dirs.push(root)
     const templateDir = path.join(root, "template")
     await mkdir(templateDir)
     await writeFile(path.join(templateDir, "index.html"), `<script>${SPEC_MARKER}</script>`)
-    const spec = explodeSpecSchema.parse({
+    const spec = explainerSpecSchema.parse({
       ...murph,
       scene3d: {
         kind: "gltf",

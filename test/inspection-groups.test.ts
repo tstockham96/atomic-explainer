@@ -1,14 +1,14 @@
 import { it, expect } from "vitest"
 import { readFileSync } from "node:fs"
 import * as T from "three"
-import { explodeSpecSchema } from "../src/spec/schema.ts"
+import { explainerSpecSchema } from "../src/spec/schema.ts"
 import { inspectionStops, storyComponents, scenePartIds } from "../src/spec/scene3d.ts"
 import { prepareModel } from "../src/viewer/three/loadModel.ts"
 import { modelStops, stopParts } from "../src/viewer/three/model.ts"
 import { poseModel } from "../src/viewer/three/choreography.ts"
 import { THREE_TIMING } from "../src/viewer/three/timeline.ts"
 import { componentLesson } from "../src/viewer/three/learning.ts"
-const spec = explodeSpecSchema.parse(
+const spec = explainerSpecSchema.parse(
   JSON.parse(readFileSync("examples/porsche-911-engine/research.json", "utf8")),
 )
 // Keep exercising the legacy explode adapter; the real assembly story is
@@ -85,6 +85,6 @@ it("rejects overlapping or nonexistent group members and ID collisions", () => {
     const bad = structuredClone(spec)
     if (bad.scene3d?.kind !== "gltf") throw Error("fixture")
     Object.assign(bad.scene3d.inspectionGroups![2]!, patch)
-    expect(explodeSpecSchema.safeParse(bad).success).toBe(false)
+    expect(explainerSpecSchema.safeParse(bad).success).toBe(false)
   }
 })

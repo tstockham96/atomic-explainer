@@ -15,14 +15,14 @@ type Review = {
 }
 declare global {
   interface Window {
-    __explodeReview: Review
+    __atomicExplainerReview: Review
   }
 }
 async function load(page: Page) {
   const errors: string[] = []
   page.on("pageerror", (e) => errors.push(e.message))
   await page.goto("/murph-study/index.html?eval=1&story=explode")
-  await page.waitForFunction(() => window.__explodeReview?.ready, {}, { timeout: 90_000 })
+  await page.waitForFunction(() => window.__atomicExplainerReview?.ready, {}, { timeout: 90_000 })
   expect(errors).toEqual([])
 }
 for (const viewport of [
@@ -35,16 +35,16 @@ for (const viewport of [
   }, testInfo) => {
     await page.setViewportSize(viewport)
     await load(page)
-    const ids = await page.evaluate(() => window.__explodeReview.ids)
+    const ids = await page.evaluate(() => window.__atomicExplainerReview.ids)
     expect(ids).toHaveLength(17)
     expect(await page.locator("#component-menu option").count()).toBe(18)
     expect(await page.locator("#component-explanations article").count()).toBe(18)
     for (const id of ids) {
       // Front, oblique and reverse: one view cannot establish a usable inspection.
       for (const turn of [0.2, 0.37, 0.5]) {
-        await page.evaluate(({ id, turn }) => window.__explodeReview.inspect(id, turn), { id, turn })
+        await page.evaluate(({ id, turn }) => window.__atomicExplainerReview.inspect(id, turn), { id, turn })
         const state = await page.evaluate(() => ({
-          snapshot: window.__explodeReview.snapshot(),
+          snapshot: window.__atomicExplainerReview.snapshot(),
           caption: document.querySelector("#chapter")!.getBoundingClientRect().toJSON(),
           controls: document.querySelector(".controls")!.getBoundingClientRect().toJSON(),
           overflow: document.documentElement.scrollWidth > innerWidth,
@@ -62,7 +62,7 @@ for (const viewport of [
         else expect(b.left, id).toBeGreaterThanOrEqual(state.caption.right + 8)
       }
     }
-    await page.evaluate(() => window.__explodeReview.inspect("rotor", 0.2))
+    await page.evaluate(() => window.__atomicExplainerReview.inspect("rotor", 0.2))
     await page.screenshot({ path: testInfo.outputPath("rotor.png") })
   })
 }
@@ -73,9 +73,9 @@ test("reduced motion keeps every component and keyboard navigation available", a
   await page.evaluate(
     () => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))),
   )
-  const before = await page.evaluate(() => window.__explodeReview.snapshot())
+  const before = await page.evaluate(() => window.__atomicExplainerReview.snapshot())
   await page.waitForTimeout(300)
-  const after = await page.evaluate(() => window.__explodeReview.snapshot())
+  const after = await page.evaluate(() => window.__atomicExplainerReview.snapshot())
   expect(after.time).toBe(before.time)
   expect(after.drawCount).toBe(before.drawCount)
   await page.locator("#component-menu").selectOption("rear-window")
@@ -96,9 +96,9 @@ test("pause stops ambient movement and all buttons have usable touch targets", a
   await page.evaluate(
     () => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))),
   )
-  const before = await page.evaluate(() => window.__explodeReview.snapshot())
+  const before = await page.evaluate(() => window.__atomicExplainerReview.snapshot())
   await page.waitForTimeout(300)
-  const after = await page.evaluate(() => window.__explodeReview.snapshot())
+  const after = await page.evaluate(() => window.__atomicExplainerReview.snapshot())
   expect(after.time).toBe(before.time)
   expect(after.drawCount).toBe(before.drawCount)
   for (const button of await page.locator(".controls button").all())
@@ -123,20 +123,20 @@ test("ordinary forward and backward scrolling preserves the live scene", async (
   await load(page)
   await page.mouse.wheel(0, 900)
   await expect
-    .poll(() => page.evaluate(() => window.__explodeReview.snapshot().progress))
+    .poll(() => page.evaluate(() => window.__atomicExplainerReview.snapshot().progress))
     .toBeGreaterThan(0.01)
   await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(500)
   // Wait for the rendered forward pose, not just the DOM scroll position.
   // Software GPUs can still be catching up when the wheel has already stopped.
   await expect
-    .poll(() => page.evaluate(() => window.__explodeReview.snapshot().progress))
+    .poll(() => page.evaluate(() => window.__atomicExplainerReview.snapshot().progress))
     .toBeGreaterThan(0.035)
-  const forward = await page.evaluate(() => window.__explodeReview.snapshot())
+  const forward = await page.evaluate(() => window.__atomicExplainerReview.snapshot())
   expect(forward.allVisible).toBe(true)
   await page.mouse.wheel(0, -600)
   await expect.poll(() => page.evaluate(() => scrollY)).toBeLessThan(500)
   await expect
-    .poll(() => page.evaluate(() => window.__explodeReview.snapshot().progress))
+    .poll(() => page.evaluate(() => window.__atomicExplainerReview.snapshot().progress))
     .toBeLessThan(forward.progress)
-  expect(await page.evaluate(() => window.__explodeReview.snapshot().allVisible)).toBe(true)
+  expect(await page.evaluate(() => window.__atomicExplainerReview.snapshot().allVisible)).toBe(true)
 })

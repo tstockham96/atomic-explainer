@@ -2,12 +2,12 @@ import { it, expect } from "vitest"
 import { mkdtemp, readFile, readdir, rm } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import path from "node:path"
-import { runExplode } from "../src/pipeline/run.ts"
+import { runExplainer } from "../src/pipeline/run.ts"
 import { glbComponentIds } from "../src/evals/inventory.ts"
 it("a second product produces a component plan without pretending to generate geometry", async () => {
-  const outDir = await mkdtemp(path.join(tmpdir(), "explode-plan-"))
+  const outDir = await mkdtemp(path.join(tmpdir(), "atomic-explainer-plan-"))
   try {
-    await runExplode({ specPath: "evals/cases/iphone-18-pro.json", planOnly: true, outDir })
+    await runExplainer({ specPath: "evals/cases/iphone-18-pro.json", planOnly: true, outDir })
     expect((await readdir(outDir)).sort()).toEqual([
       "assembly-requirements.json",
       "construction-plan.json",
@@ -21,8 +21,8 @@ it("a second product produces a component plan without pretending to generate ge
   }
 })
 it("planning cannot silently opt into paid model or motion generation", async () => {
-  await expect(runExplode({ planOnly: true, three: true, outDir: "unused" })).rejects.toThrow("not both")
-  await expect(runExplode({ planOnly: true, motion: true, outDir: "unused" })).rejects.toThrow("not both")
+  await expect(runExplainer({ planOnly: true, three: true, outDir: "unused" })).rejects.toThrow("not both")
+  await expect(runExplainer({ planOnly: true, motion: true, outDir: "unused" })).rejects.toThrow("not both")
 })
 function glb(doc: object) {
   const json = Buffer.from(JSON.stringify(doc).padEnd(Math.ceil(JSON.stringify(doc).length / 4) * 4, " ")),

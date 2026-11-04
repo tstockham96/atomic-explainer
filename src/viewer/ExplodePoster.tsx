@@ -1,5 +1,5 @@
 import { useMemo } from "react"
-import type { ExplodeSpec } from "../spec/schema.ts"
+import type { ExplainerSpec } from "../spec/schema.ts"
 import { asset } from "./asset.ts"
 import { PhotoLayer } from "./PhotoLayer.tsx"
 
@@ -8,7 +8,7 @@ export function ExplodePoster({
   chapter,
   onJump,
 }: {
-  spec: ExplodeSpec
+  spec: ExplainerSpec
   chapter: number
   onJump: (index: number) => void
 }) {
@@ -20,7 +20,7 @@ export function ExplodePoster({
   return (
     <div className={`poster studio-${studio}${overview ? " is-overview" : ""}`}>
       <header className="poster-head">
-        <p className="poster-mark">explode</p>
+        <p className="poster-mark">Atomic Explainer</p>
         <h1>{spec.item.model}</h1>
         <p className="poster-sub">
           {spec.item.reference ? `${spec.item.reference} · ` : ""}

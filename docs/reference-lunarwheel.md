@@ -48,7 +48,7 @@ Desktop pin distance is `+=200%` to `+=350%` per beat. Under 901px those ends sh
 
 Separate pins, one product. You never get a free-scrolling hero. The object turns, then a later pinned canvas opens it, then copy crossfades on top of a held or still-playing frame. Labels are HTML. The frames themselves are clean product renders.
 
-## What explode takes from this
+## What Atomic Explainer takes from this
 
 The Murph page is one continuous pin instead of four canvases, because the source clips already join: a 9:16 turn whose last frame is the first frame of the explosion. Scroll maps onto that film, then holds the final exploded frame while HTML callouts step through each part. Supporting sections after the pin follow the same shape as Lunar’s feature grid, essay, and notes.
 

@@ -4,10 +4,10 @@ import { randomUUID } from "node:crypto"
 import { mkdir, readFile, writeFile, rename, realpath } from "node:fs/promises"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
-import { runExplode, type RunOptions } from "../pipeline/run.ts"
+import { runExplainer, type RunOptions } from "../pipeline/run.ts"
 import { assembleStudy } from "../pipeline/assemble.ts"
 import { assemblySchema } from "../spec/assembly.ts"
-import { explodeSpecSchema } from "../spec/schema.ts"
+import { explainerSpecSchema } from "../spec/schema.ts"
 import { validateAssemblyEvidence } from "../authoring/assembly.ts"
 import { packageRoot } from "../pipeline/render-site.ts"
 
@@ -40,13 +40,13 @@ export function createStudioServer(
     root?: string
     siteDir?: string
     jobsRoot?: string
-    run?: typeof runExplode
+    run?: typeof runExplainer
     env?: NodeJS.ProcessEnv
   } = {},
 ) {
   const root = options.root ?? packageRoot()
-  const jobsRoot = options.jobsRoot ?? path.join(root, ".explode-jobs")
-  const run = options.run ?? runExplode
+  const jobsRoot = options.jobsRoot ?? path.join(root, ".atomic-explainer-jobs")
+  const run = options.run ?? runExplainer
   const env = options.env ?? process.env
   const token = randomUUID()
   const active = new Set<string>()
@@ -128,7 +128,7 @@ export function createStudioServer(
       return
     }
     const url = new URL(req.url ?? "/", origin)
-    if (req.method === "POST" && req.headers["x-explode-token"] !== token) {
+    if (req.method === "POST" && req.headers["x-atomic-explainer-token"] !== token) {
       json(res, 403, { error: "Refresh the page before submitting." })
       return
     }
@@ -164,7 +164,7 @@ export function createStudioServer(
           chunks.push(chunk)
         }
         const input = JSON.parse(Buffer.concat(chunks).toString("utf8"))
-        const spec = explodeSpecSchema.parse(input.spec),
+        const spec = explainerSpecSchema.parse(input.spec),
           assembly = assemblySchema.parse(input.assembly)
         validateAssemblyEvidence(spec, assembly)
         const directory = path.join(jobsRoot, id),
@@ -320,8 +320,10 @@ export function createStudioServer(
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  const port = Number(process.env.EXPLODE_STUDIO_PORT ?? 4319)
+  const port = Number(process.env.ATOMIC_EXPLAINER_STUDIO_PORT ?? 4319)
   createStudioServer({
-    siteDir: process.env.EXPLODE_SITE_DIR ? path.resolve(process.env.EXPLODE_SITE_DIR) : undefined,
-  }).listen(port, "127.0.0.1", () => console.log(`Explode studio: http://127.0.0.1:${port}/create`))
+    siteDir: process.env.ATOMIC_EXPLAINER_SITE_DIR
+      ? path.resolve(process.env.ATOMIC_EXPLAINER_SITE_DIR)
+      : undefined,
+  }).listen(port, "127.0.0.1", () => console.log(`Atomic Explainer studio: http://127.0.0.1:${port}/create`))
 }

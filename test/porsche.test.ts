@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest"
 import { readFileSync } from "node:fs"
 import * as T from "three"
 import { buildEngine } from "../tools/porsche-study/model.ts"
-import { explodeSpecSchema } from "../src/spec/schema.ts"
+import { explainerSpecSchema } from "../src/spec/schema.ts"
 import { assemblyRequirementsSchema } from "../src/spec/requirements.ts"
 import { glbComponentIds } from "../src/evals/inventory.ts"
 import { auditCompleteness } from "../src/pipeline/completeness.ts"
@@ -11,7 +11,7 @@ import { corners, STORY_FOV } from "../src/viewer/three/choreography.ts"
 import { modelStops, stopBounds } from "../src/viewer/three/model.ts"
 import { createAssemblyStory } from "../src/viewer/three/assemblyStory.ts"
 const base = "examples/porsche-911-engine/"
-const spec = explodeSpecSchema.parse(JSON.parse(readFileSync(base + "research.json", "utf8")))
+const spec = explainerSpecSchema.parse(JSON.parse(readFileSync(base + "research.json", "utf8")))
 const required = assemblyRequirementsSchema.parse(
   JSON.parse(readFileSync(base + "requirements.json", "utf8")),
 )

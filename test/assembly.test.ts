@@ -5,7 +5,7 @@ import path from "node:path"
 import * as THREE from "three"
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js"
 import { assemblySchema } from "../src/spec/assembly.ts"
-import { explodeSpecSchema } from "../src/spec/schema.ts"
+import { explainerSpecSchema } from "../src/spec/schema.ts"
 import { buildAssembly, validateAssemblyEvidence } from "../src/authoring/assembly.ts"
 import { assembleStudy } from "../src/pipeline/assemble.ts"
 import { prepareModel } from "../src/viewer/three/loadModel.ts"
@@ -15,7 +15,7 @@ import { disposeObject } from "../src/viewer/three/model.ts"
 const recipe = assemblySchema.parse(
   JSON.parse(await readFile("examples/iphone-18-pro/assembly.json", "utf8")),
 )
-const spec = explodeSpecSchema.parse(
+const spec = explainerSpecSchema.parse(
   JSON.parse(await readFile("examples/iphone-18-pro/research.json", "utf8")),
 )
 const dirs: string[] = []
@@ -62,7 +62,7 @@ describe("agent-authored assemblies", () => {
     disposeObject(root)
   })
   it("exports and reopens all parts, preserving provenance and optics without copying another study", async () => {
-    const root = await mkdtemp(path.join(tmpdir(), "explode-assembly-"))
+    const root = await mkdtemp(path.join(tmpdir(), "atomic-explainer-assembly-"))
     dirs.push(root)
     const template = path.join(root, "template"),
       output = path.join(template, "phone")

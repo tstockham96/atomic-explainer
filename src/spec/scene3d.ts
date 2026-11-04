@@ -1,4 +1,4 @@
-import type { ExplodeSpec, ComponentSpec } from "./schema.ts"
+import type { ExplainerSpec, ComponentSpec } from "./schema.ts"
 
 export const WATCH_PART_IDS = [
   "crystal",
@@ -12,7 +12,7 @@ export const WATCH_PART_IDS = [
   "buckle",
 ] as const
 
-export function scenePartIds(spec: ExplodeSpec): string[] {
+export function scenePartIds(spec: ExplainerSpec): string[] {
   if (spec.scene3d?.kind === "gltf") return spec.scene3d.parts.map((part) => part.componentId)
   if (spec.scene3d?.kind === "procedural-watch") return [...WATCH_PART_IDS]
   return []
@@ -20,7 +20,7 @@ export function scenePartIds(spec: ExplodeSpec): string[] {
 
 /** Physical inventory remains independent of presentation grouping. No name
  * heuristics: matching functions and evidence must justify each authored group. */
-export function inspectionStops(spec: ExplodeSpec) {
+export function inspectionStops(spec: ExplainerSpec) {
   if (spec.scene3d?.kind === "gltf" && spec.scene3d.assemblyStory)
     return spec.scene3d.assemblyStory.chapters.map((c) => ({
       id: c.id,
@@ -41,7 +41,7 @@ export function inspectionStops(spec: ExplodeSpec) {
     return [stop]
   })
 }
-export function storyComponents(spec: ExplodeSpec): ComponentSpec[] {
+export function storyComponents(spec: ExplainerSpec): ComponentSpec[] {
   if (!spec.scene3d) return spec.components
   return inspectionStops(spec)
     .map((stop) => {
@@ -71,14 +71,14 @@ export function storyComponents(spec: ExplodeSpec): ComponentSpec[] {
 
 /** Story milestones add system explanations; they never replace the anatomy.
  * Preserve original paired inspections and also retain unmodeled research. */
-export function anatomyStops(spec: ExplodeSpec) {
+export function anatomyStops(spec: ExplainerSpec) {
   return inspectionStops(
     spec.scene3d?.kind === "gltf"
       ? { ...spec, scene3d: { ...spec.scene3d, assemblyStory: undefined } }
       : spec,
   )
 }
-export function anatomyComponents(spec: ExplodeSpec): ComponentSpec[] {
+export function anatomyComponents(spec: ExplainerSpec): ComponentSpec[] {
   if (spec.scene3d?.kind !== "gltf" || !spec.scene3d.assemblyStory) return storyComponents(spec)
   const physical = new Set(scenePartIds(spec))
   return [

@@ -1,5 +1,5 @@
 import { useEffect, useImperativeHandle, useRef, useState, type Ref } from "react"
-import type { ExplodeSpec, FrameSequence } from "../spec/schema.ts"
+import type { ExplainerSpec, FrameSequence } from "../spec/schema.ts"
 import { filmMap, frameIndex, phaseAt, windowOpacity } from "../spec/film.ts"
 import { cameraAt, focusTour, type CameraPose } from "../spec/camera.ts"
 import { frameFile } from "../spec/frames.ts"
@@ -11,7 +11,7 @@ export interface ReelHandle {
 }
 
 /** One canvas, one world. The camera never substitutes an isolated component photo. */
-export function Reel({ spec, ref }: { spec: ExplodeSpec; ref: Ref<ReelHandle> }) {
+export function Reel({ spec, ref }: { spec: ExplainerSpec; ref: Ref<ReelHandle> }) {
   const tour = focusTour(spec)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const titleRef = useRef<HTMLDivElement>(null)

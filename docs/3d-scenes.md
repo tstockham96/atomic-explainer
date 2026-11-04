@@ -29,7 +29,7 @@ Place the GLB under `public/models/` for the development viewer. For CLI exports
 
 ```bash
 npm run build
-npm run explode -- --from-spec ./my-object/spec.json --out ./my-object/site
+npm run atomic-explainer -- --from-spec ./my-object/spec.json --out ./my-object/site
 ```
 
 Local model paths must remain inside the spec directory. The exporter copies self-contained GLBs into the output. External HTTP model URLs require the host to permit cross-origin requests and are not bundled for offline use. Assets must carry a license that allows your intended redistribution; include their attribution with the explainer.
@@ -100,10 +100,10 @@ A construction plan is not geometry. There are now two explicit handoff paths:
 2. For dimensioned plates, frames, rings and cylindrical parts, author a recipe using `src/spec/assembly.ts`. Build it with the shared assembler:
 
 ```sh
-npm run explode -- --from-spec examples/iphone-18-pro/research.json --assemble examples/iphone-18-pro/assembly.json --out ./phone-out
+npm run atomic-explainer -- --from-spec examples/iphone-18-pro/research.json --assemble examples/iphone-18-pro/assembly.json --out ./phone-out
 ```
 
-The MCP equivalent is `explode_assemble(specPath, assemblyPath, outDir)`. Neither route calls a paid provider. The outputs are a self-contained GLB, an explainer, `assembly-review.json`, and `assembly-project.json`. The last file can be opened through **Open agent-built project** in the local studio, including when no research API key is configured.
+The MCP equivalent is `atomic_explainer_assemble(specPath, assemblyPath, outDir)`. Neither route calls a paid provider. The outputs are a self-contained GLB, an explainer, `assembly-review.json`, and `assembly-project.json`. The last file can be opened through **Open agent-built project** in the local studio, including when no research API key is configured.
 
 Recipes use millimeters for geometry, shared named PBR materials, independently addressable component groups and evidence references. Explosion offsets use the viewer's normalized units (longest assembly dimension is seven units). Openings are actual geometry, not artwork pasted over surfaces. Glass and opaque display/backing materials remain distinct. No photographic lighting is baked into these procedural surfaces.
 

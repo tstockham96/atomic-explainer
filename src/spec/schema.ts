@@ -61,7 +61,7 @@ export const frameSequenceSchema = z.object({
   note: z.string().optional(),
 })
 
-export const explodeSpecSchema = z.object({
+export const explainerSpecSchema = z.object({
   version: z.literal(1),
   item: z.object({
     name: z.string().min(1),
@@ -222,7 +222,7 @@ export const explodeSpecSchema = z.object({
 export const researchedSpecSchema = z.object({
   version: z.literal(1),
   understanding: understandingSchema,
-  item: explodeSpecSchema.shape.item,
+  item: explainerSpecSchema.shape.item,
   components: z
     .array(
       componentSchema.omit({
@@ -247,7 +247,7 @@ export const identitySchema = z.object({
   notes: z.string(),
 })
 
-export type ExplodeSpec = z.infer<typeof explodeSpecSchema>
+export type ExplainerSpec = z.infer<typeof explainerSpecSchema>
 export type ComponentSpec = z.infer<typeof componentSchema>
 export type FrameSequence = z.infer<typeof frameSequenceSchema>
 export type Identity = z.infer<typeof identitySchema>

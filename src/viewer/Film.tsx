@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import Lenis from "lenis"
 import { useMemo, useRef, useState } from "react"
 import * as Scrollytelling from "@bsmnt/scrollytelling"
-import type { ExplodeSpec } from "../spec/schema.ts"
+import type { ExplainerSpec } from "../spec/schema.ts"
 import { frameFile, sequenceReady } from "../spec/frames.ts"
 import { focusTour } from "../spec/camera.ts"
 import { asset } from "./asset.ts"
@@ -19,14 +19,14 @@ function lead(text: string) {
   return text.split(/(?<=[.!?])\s/)[0] ?? text
 }
 
-export function Film({ spec, reduced = false }: { spec: ExplodeSpec; reduced?: boolean }) {
+export function Film({ spec, reduced = false }: { spec: ExplainerSpec; reduced?: boolean }) {
   const components = useMemo(() => [...spec.components].sort((a, b) => a.order - b.order), [spec.components])
   const ordered = useMemo(() => ({ ...spec, components }), [spec, components])
   if (reduced) return <Quiet spec={ordered} />
   return <Pinned spec={ordered} />
 }
 
-function Pinned({ spec }: { spec: ExplodeSpec }) {
+function Pinned({ spec }: { spec: ExplainerSpec }) {
   const rootRef = useRef<HTMLDivElement>(null)
   const api = useRef<ReelHandle | null>(null)
   const [images, setImages] = useState<Record<string, string>>({})
@@ -98,7 +98,7 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
   )
 }
 
-function Sheets({ spec, images = {} }: { spec: ExplodeSpec; images?: Record<string, string> }) {
+function Sheets({ spec, images = {} }: { spec: ExplainerSpec; images?: Record<string, string> }) {
   const components = anatomyComponents(spec)
   return (
     <>
@@ -202,7 +202,7 @@ function Sheets({ spec, images = {} }: { spec: ExplodeSpec; images?: Record<stri
   )
 }
 
-function Quiet({ spec }: { spec: ExplodeSpec }) {
+function Quiet({ spec }: { spec: ExplainerSpec }) {
   const rotation = spec.frames?.rotation
   const explode = spec.frames?.explode
   const hero = sequenceReady(rotation)

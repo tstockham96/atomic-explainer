@@ -15,7 +15,7 @@ import {
   createProductEnvironment,
 } from "./studio.ts"
 import { cameraShot, poseModel, frameBox, STORY_FOV, corners } from "./choreography.ts"
-import type { ExplodeSpec } from "../../spec/schema.ts"
+import type { ExplainerSpec } from "../../spec/schema.ts"
 import { loadModel } from "./loadModel.ts"
 
 export type Atmosphere = "daylight" | "midnight"
@@ -52,7 +52,7 @@ export interface PartLabel {
 
 export async function createObjectScene(
   host: HTMLElement,
-  spec: ExplodeSpec,
+  spec: ExplainerSpec,
   onError: (message: string) => void,
   onFrame?: (labels: PartLabel[]) => void,
   onImages?: (images: Record<string, string>) => void,

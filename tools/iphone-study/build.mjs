@@ -5,7 +5,7 @@ import { createServer } from "node:http"
 import { readFile } from "node:fs/promises"
 import path from "node:path"
 import { renderSite } from "../../src/pipeline/render-site.ts"
-import { explodeSpecSchema } from "../../src/spec/schema.ts"
+import { explainerSpecSchema } from "../../src/spec/schema.ts"
 const base = path.resolve("examples/iphone-18-pro"),
   out = path.resolve(process.argv[2] ?? "dist-site/iphone-study"),
   template = path.resolve(process.argv[3] ?? "dist-site")
@@ -59,7 +59,7 @@ try {
   await browser?.close()
   await new Promise((resolve) => server.close(resolve))
 }
-const spec = explodeSpecSchema.parse(
+const spec = explainerSpecSchema.parse(
   JSON.parse(await readFile(path.join(base, "internal-study.json"), "utf8")),
 )
 await renderSite(spec, out, {

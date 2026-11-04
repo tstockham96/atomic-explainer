@@ -5,13 +5,13 @@ import path from "node:path"
 import { createTripoProvider, type AssetMeshProvider } from "../src/pipeline/three/tripo.ts"
 import { assetPlanIssues, inspectAsset, prepareAsset, prepareAssets } from "../src/pipeline/assets.ts"
 import { assetPlanSchema } from "../src/spec/assets.ts"
-import { explodeSpecSchema } from "../src/spec/schema.ts"
+import { explainerSpecSchema } from "../src/spec/schema.ts"
 import { exteriorStudy } from "./helpers/understanding.ts"
 
 const original = await readFile("public/models/chronograph/watch.glb")
 const dirs: string[] = []
 async function temp() {
-  const dir = await mkdtemp(path.join(tmpdir(), "explode-assets-"))
+  const dir = await mkdtemp(path.join(tmpdir(), "atomic-explainer-assets-"))
   dirs.push(dir)
   return dir
 }
@@ -123,7 +123,7 @@ describe("researched Tripo routes", () => {
 async function fixture() {
   const dir = await temp(),
     spec = exteriorStudy(
-      explodeSpecSchema.parse(JSON.parse(await readFile("public/chronograph.json", "utf8"))),
+      explainerSpecSchema.parse(JSON.parse(await readFile("public/chronograph.json", "utf8"))),
     ),
     componentId = spec.components[0]!.id
   const ref = spec.understanding!.components[0]!.reconstruction.referenceIds[0]!

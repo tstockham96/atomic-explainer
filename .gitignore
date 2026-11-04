@@ -12,8 +12,8 @@ agent-tools
 dist
 dist-ssr
 dist-site
-explode-out
-.explode-jobs
+atomic-explainer-out
+.atomic-explainer-jobs
 *.local
 .env
 .env.*

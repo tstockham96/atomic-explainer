@@ -1,11 +1,11 @@
 {
-  "name": "explode",
+  "name": "atomic-explainer",
   "version": "0.1.0",
   "description": "An open-source engine for exploring physical objects through a continuous, scroll-driven 3D story.",
   "type": "module",
   "license": "MIT",
   "bin": {
-    "explode": "./dist/cli.js"
+    "atomic-explainer": "./dist/cli.js"
   },
   "files": [
     "dist",
@@ -25,7 +25,7 @@
     "build:site": "vite build",
     "build:cli": "esbuild src/cli.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/cli.js --banner:js=\"#!/usr/bin/env node\" && esbuild src/mcp.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/mcp.js --banner:js=\"#!/usr/bin/env node\" && chmod +x dist/cli.js dist/mcp.js && esbuild src/studio/server.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/studio.js",
     "preview": "vite preview",
-    "explode": "tsx src/cli.ts",
+    "atomic-explainer": "tsx src/cli.ts",
     "mcp": "tsx src/mcp.ts",
     "typecheck": "tsc -b --pretty false",
     "test": "vitest run",

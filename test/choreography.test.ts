@@ -1,14 +1,14 @@
 import { beforeAll, afterAll, describe, it, expect } from "vitest"
 import { readFileSync } from "node:fs"
 import * as THREE from "three"
-import { explodeSpecSchema } from "../src/spec/schema.ts"
+import { explainerSpecSchema } from "../src/spec/schema.ts"
 import { prepareModel } from "../src/viewer/three/loadModel.ts"
 import type { ExplodableModel } from "../src/viewer/three/model.ts"
 import { cameraShot, poseModel, corners, STORY_FOV } from "../src/viewer/three/choreography.ts"
 import { THREE_TIMING } from "../src/viewer/three/timeline.ts"
 import { loadWatchGeometry } from "./helpers/load-watch.ts"
 
-const spec = explodeSpecSchema.parse(JSON.parse(readFileSync("public/chronograph.json", "utf8")))
+const spec = explainerSpecSchema.parse(JSON.parse(readFileSync("public/chronograph.json", "utf8")))
 let model: ExplodableModel
 beforeAll(async () => {
   model = prepareModel(spec, await loadWatchGeometry())

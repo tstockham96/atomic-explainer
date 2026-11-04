@@ -1,8 +1,8 @@
-import type { ExplodeSpec } from "../../spec/schema.ts"
+import type { ExplainerSpec } from "../../spec/schema.ts"
 import { storyComponents } from "../../spec/scene3d.ts"
 
 /** Text remains available independently of WebGL and motion preferences. */
-export function componentLesson(spec: ExplodeSpec, id: string) {
+export function componentLesson(spec: ExplainerSpec, id: string) {
   const groups = spec.scene3d?.kind === "gltf" ? (spec.scene3d.inspectionGroups ?? []) : []
   const group = groups.find((g) => g.id === id)
   const component = group

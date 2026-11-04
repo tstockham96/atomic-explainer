@@ -2,7 +2,7 @@ import * as THREE from "three"
 import { mergeVertices } from "three/addons/utils/BufferGeometryUtils.js"
 import { understandingIssues } from "../pipeline/understanding.ts"
 import type { AssemblyRecipe } from "../spec/assembly.ts"
-import type { ExplodeSpec } from "../spec/schema.ts"
+import type { ExplainerSpec } from "../spec/schema.ts"
 
 function rounded(width: number, height: number, radius: number) {
   const p = new THREE.Shape(),
@@ -21,7 +21,7 @@ function rounded(width: number, height: number, radius: number) {
   return p
 }
 
-export function validateAssemblyEvidence(spec: ExplodeSpec, recipe: AssemblyRecipe) {
+export function validateAssemblyEvidence(spec: ExplainerSpec, recipe: AssemblyRecipe) {
   if (!spec.understanding) throw Error("Research is required before building an assembly.")
   const issues = understandingIssues(spec)
   if (issues.length) throw Error(issues.join(" "))

@@ -1,7 +1,7 @@
 import { presentationSetting, type PresentationSetting } from "./three/presentation.ts"
 import { assemblySample, assemblyProgress } from "./three/assemblyTimeline.ts"
 import { useEffect, useImperativeHandle, useMemo, useRef, useState, type Ref } from "react"
-import type { ExplodeSpec } from "../spec/schema.ts"
+import type { ExplainerSpec } from "../spec/schema.ts"
 import type { ReelHandle } from "./Reel.tsx"
 import { windowOpacity } from "../spec/film.ts"
 import { inspectionStops, storyComponents } from "../spec/scene3d.ts"
@@ -11,7 +11,7 @@ import type { Atmosphere, SceneHandle } from "./three/scene.ts"
 
 declare global {
   interface Window {
-    __explodeAssemblyReview?: {
+    __atomicExplainerAssemblyReview?: {
       inspect: (id: string, local?: number) => void
       settled: SceneHandle["isSettled"]
       snapshot: SceneHandle["snapshot"]
@@ -25,7 +25,7 @@ export function ObjectScene({
   onImages,
   scrollTo,
 }: {
-  spec: ExplodeSpec
+  spec: ExplainerSpec
   ref: Ref<ReelHandle>
   onImages?: (images: Record<string, string>) => void
   scrollTo?: (top: number) => void
@@ -170,7 +170,7 @@ export function ObjectScene({
         scene.setProgress(progress.current)
         setReady(true)
         if (new URLSearchParams(window.location.search).has("eval"))
-          window.__explodeAssemblyReview = {
+          window.__atomicExplainerAssemblyReview = {
             inspect: (id, local = 0.5) => {
               const i = stops.findIndex((s) => s.id === id || s.componentIds.includes(id))
               updateRef.current(
@@ -193,7 +193,7 @@ export function ObjectScene({
       cancelled = true
       handle.current?.dispose()
       handle.current = null
-      delete window.__explodeAssemblyReview
+      delete window.__atomicExplainerAssemblyReview
     }
   }, [spec, onImages, story, stops, ids.length])
   useEffect(() => {

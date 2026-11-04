@@ -3,7 +3,7 @@ import { parseArgs } from "node:util"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { extractFrames } from "./pipeline/motion.ts"
-import { runExplode } from "./pipeline/run.ts"
+import { runExplainer } from "./pipeline/run.ts"
 import { parseSkip } from "./spec/frames.ts"
 
 interface Flags {
@@ -28,23 +28,23 @@ interface Flags {
 }
 
 export function formatHelp() {
-  return `explode — a photo in, a how-it's-made scroll site out
+  return `atomic-explainer — a photo in, a how-it's-made scroll site out
 
 Usage
-  explode ./photo.jpg
-  explode ./photo.jpg --out ./site
-  explode ./photo.jpg --3d --out ./site
-  explode ./photo.jpg --plan --out ./research
-  explode --from-spec ./research.json --plan --out ./research
-  explode --from-spec public/spec.json --out ./site
-  explode --from-spec ./research.json --asset-plan ./assets.json --component battery --out ./battery-review
-  explode --from-spec ./research.json --assemble ./assembly.json --out ./site
-  explode ./photo.jpg --from-spec public/spec.json --images --out ./site
-  explode ./photo.jpg --motion --out ./site
-  explode --extract ./explode.mp4 --frames-dir ./frames/explode --skip 4.55-5.65 --skip-keep 2
+  atomic-explainer ./photo.jpg
+  atomic-explainer ./photo.jpg --out ./site
+  atomic-explainer ./photo.jpg --3d --out ./site
+  atomic-explainer ./photo.jpg --plan --out ./research
+  atomic-explainer --from-spec ./research.json --plan --out ./research
+  atomic-explainer --from-spec public/spec.json --out ./site
+  atomic-explainer --from-spec ./research.json --asset-plan ./assets.json --component battery --out ./battery-review
+  atomic-explainer --from-spec ./research.json --assemble ./assembly.json --out ./site
+  atomic-explainer ./photo.jpg --from-spec public/spec.json --images --out ./site
+  atomic-explainer ./photo.jpg --motion --out ./site
+  atomic-explainer --extract ./explode.mp4 --frames-dir ./frames/explode --skip 4.55-5.65 --skip-keep 2
 
 Options
-  -o, --out <dir>         Output folder (default: ./explode-out)
+  -o, --out <dir>         Output folder (default: ./atomic-explainer-out)
       --from-spec <file>  Render a spec JSON instead of calling models
       --requirements <file> Audit exported geometry against the original component inventory
       --skip-images       Research and build, but do not call an image model
@@ -68,13 +68,13 @@ Environment
   OPENAI_API_KEY          Direct OpenAI, used only if the gateway key is unset
                           Also required for web-backed component research
   TRIPO_API_KEY           Photo-to-3D and part segmentation with --3d
-  FAL_KEY                 Used when EXPLODE_VIDEO_PROVIDER=fal
-  EXPLODE_VISION_MODEL    Default google/gemini-2.5-flash
-  EXPLODE_RESEARCH_MODEL  Default anthropic/claude-sonnet-4.5
-  EXPLODE_IMAGE_MODEL     Default google/gemini-2.5-flash-image
+  FAL_KEY                 Used when ATOMIC_EXPLAINER_VIDEO_PROVIDER=fal
+  ATOMIC_EXPLAINER_VISION_MODEL    Default google/gemini-2.5-flash
+  ATOMIC_EXPLAINER_RESEARCH_MODEL  Default anthropic/claude-sonnet-4.5
+  ATOMIC_EXPLAINER_IMAGE_MODEL     Default google/gemini-2.5-flash-image
                           Also: bfl/flux-kontext-pro, bfl/flux-3-image, openai/gpt-image-1
-  EXPLODE_VIDEO_PROVIDER  gateway (default) or fal
-  EXPLODE_VIDEO_MODEL     Default klingai/kling-v2.6-i2v
+  ATOMIC_EXPLAINER_VIDEO_PROVIDER  gateway (default) or fal
+  ATOMIC_EXPLAINER_VIDEO_MODEL     Default klingai/kling-v2.6-i2v
                           Also: google/veo-3.1-fast-generate-001, bytedance/seedance-v1.5-pro
 
 The committed Murph study does not need a key:
@@ -88,7 +88,7 @@ export function parseFlags(argv: string[]): Flags {
     args: argv,
     allowPositionals: true,
     options: {
-      out: { type: "string", short: "o", default: "./explode-out" },
+      out: { type: "string", short: "o", default: "./atomic-explainer-out" },
       "from-spec": { type: "string" },
       requirements: { type: "string" },
       "skip-images": { type: "boolean", default: false },
@@ -112,9 +112,9 @@ export function parseFlags(argv: string[]): Flags {
     },
   })
 
-  if (values["model-vision"]) process.env.EXPLODE_VISION_MODEL = values["model-vision"]
-  if (values["model-research"]) process.env.EXPLODE_RESEARCH_MODEL = values["model-research"]
-  if (values["model-image"]) process.env.EXPLODE_IMAGE_MODEL = values["model-image"]
+  if (values["model-vision"]) process.env.ATOMIC_EXPLAINER_VISION_MODEL = values["model-vision"]
+  if (values["model-research"]) process.env.ATOMIC_EXPLAINER_RESEARCH_MODEL = values["model-research"]
+  if (values["model-image"]) process.env.ATOMIC_EXPLAINER_IMAGE_MODEL = values["model-image"]
 
   const keep = values["skip-keep"] ? Number(values["skip-keep"]) : 0
   const skips = (values.skip ?? []).map((range) => parseSkip(range, keep))
@@ -126,7 +126,7 @@ export function parseFlags(argv: string[]): Flags {
   return {
     help: values.help,
     json: values.json,
-    out: values.out ?? "./explode-out",
+    out: values.out ?? "./atomic-explainer-out",
     fromSpec: values["from-spec"],
     requirements: values.requirements,
     skipImages: values["skip-images"],
@@ -221,7 +221,7 @@ export async function main(argv: string[]) {
       ? await (
           await import("./pipeline/assemble.ts")
         ).assembleStudy(flags.fromSpec!, flags.assemble, flags.out, undefined, flags.requirements)
-      : await runExplode({
+      : await runExplainer({
           photo: flags.photo,
           specPath: flags.fromSpec,
           requirementsPath: flags.requirements,
@@ -255,7 +255,7 @@ export async function main(argv: string[]) {
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
     console.error(message)
-    return error instanceof Error && error.name === "ExplodeConfigError" ? 2 : 1
+    return error instanceof Error && error.name === "ExplainerConfigError" ? 2 : 1
   }
 }
 

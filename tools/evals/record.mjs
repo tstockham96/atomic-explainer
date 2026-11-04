@@ -4,7 +4,7 @@ import {experienceFingerprint} from './fingerprint.mjs';
 import {chromium} from '@playwright/test';
 import {mkdir,writeFile,readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
-const base=process.env.EXPLODE_EVAL_URL??'http://127.0.0.1:4319';
+const base=process.env.ATOMIC_EXPLAINER_EVAL_URL??'http://127.0.0.1:4319';
 if(!/^http:\/\/(127\.0\.0\.1|localhost):\d+$/.test(base))throw Error('Use a local studio URL');
 const out='evals/reports/current';await mkdir(out,{recursive:true});
 const keep=new Set(['motion-check','inspection-check','component-material-inventory','glass-transmission-check','component-review-20','component-review-37','component-review-50']);
@@ -20,17 +20,17 @@ try{
   await route.fulfill({status:200,headers:{'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'Content-Type'},body:'ok'});
  });
  await page.goto(`${base}/murph-study/index.html?eval=1&story=explode&capture=1&turns=1&motion=1&optics=1&no-export=1`);
- await page.waitForFunction(()=>window.__explodeReview?.ready,{},{timeout:120000});
+ await page.waitForFunction(()=>window.__atomicExplainerReview?.ready,{},{timeout:120000});
  if(errors.length)throw Error(errors.join('\n'));
  await page.locator('#motion').click();
  await page.screenshot({path:`${out}/desktop.png`});
  for(const id of ['crystal','hands','rotor','rear-window']){
-  await page.evaluate(id=>window.__explodeReview.inspect(id,.2),id);
+  await page.evaluate(id=>window.__atomicExplainerReview.inspect(id,.2),id);
   await page.screenshot({path:`${out}/${id}.png`});
  }
  await page.setViewportSize({width:390,height:844});
  await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
- await page.evaluate(()=>window.__explodeReview.inspect('rotor',.2));
+ await page.evaluate(()=>window.__atomicExplainerReview.inspect('rotor',.2));
  await page.screenshot({path:`${out}/mobile.png`});
  const resources=await page.evaluate(()=>performance.getEntriesByType('resource').filter(r=>/murph-researched.glb|study.js|studio-small-09.hdr/.test(r.name)).map(r=>({file:new URL(r.name).pathname,durationMs:r.duration,bytes:r.decodedBodySize})));
  const hash=async file=>createHash('sha256').update(await readFile(file)).digest('hex');

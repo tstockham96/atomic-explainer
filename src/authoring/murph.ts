@@ -3,7 +3,7 @@ import * as T from "three"
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js"
 import { mergeVertices } from "three/addons/utils/BufferGeometryUtils.js"
 import { alignWatchReference, hollowCase } from "./fitReference.ts"
-import type { ExplodeSpec } from "../spec/schema.ts"
+import type { ExplainerSpec } from "../spec/schema.ts"
 import { createClearGlass } from "../viewer/three/optics.ts"
 import { buildH10 } from "./h10.ts"
 import { buildMurphHands } from "./hands.ts"
@@ -13,7 +13,7 @@ import { createCrystalGeometry, murphFront, murphCrystalZ, murphRear } from "./c
  * External dimensions follow H70605731. Unpublished internal geometry is illustrative.
  * No photographic watch surfaces are projected onto the case or movement.
  */
-export async function buildMurph(dialUrl: string, strapUrl: string | undefined, study: ExplodeSpec) {
+export async function buildMurph(dialUrl: string, strapUrl: string | undefined, study: ExplainerSpec) {
   if (study.item.reference !== "H70605731" || !study.understanding)
     throw Error("The Murph builder requires its researched component dossier.")
   const root = new T.Group()

@@ -1,4 +1,4 @@
-import type { ComponentSpec, ExplodeSpec } from "../spec/schema.ts"
+import type { ComponentSpec, ExplainerSpec } from "../spec/schema.ts"
 import { COMPONENT_QUALITY_REQUIREMENTS } from "./quality.ts"
 
 export const IDENTIFY_PROMPT = `You identify a physical product in a photograph.
@@ -28,7 +28,7 @@ Rules:
 Component construction and acceptance requirements:
 ${COMPONENT_QUALITY_REQUIREMENTS.map((rule) => `- ${rule.check}`).join("\n")}`
 
-function studioLine(spec: ExplodeSpec) {
+function studioLine(spec: ExplainerSpec) {
   if (spec.studio === "dark") {
     return "Dark navy gradient studio background, because the object is dark."
   }
@@ -38,7 +38,7 @@ function studioLine(spec: ExplodeSpec) {
 const NO_TYPE =
   "Do not illustrate. Do not bake in labels, numbers, leader lines, captions, titles, or watermarks. The page draws those."
 
-export function heroEditPrompt(spec: ExplodeSpec) {
+export function heroEditPrompt(spec: ExplainerSpec) {
   return [
     `Use the uploaded ${spec.item.name} image as reference.`,
     "Turn it into a clean Photorealistic assembled product photograph of that exact object, front view, centered, accurate proportions.",
@@ -48,7 +48,7 @@ export function heroEditPrompt(spec: ExplodeSpec) {
   ].join(" ")
 }
 
-export function explodedEditPrompt(spec: ExplodeSpec) {
+export function explodedEditPrompt(spec: ExplainerSpec) {
   const names = spec.components.map((component) => component.name).join(", ")
   return [
     `Use the uploaded ${spec.item.name} image as reference.`,
@@ -59,7 +59,7 @@ export function explodedEditPrompt(spec: ExplodeSpec) {
   ].join(" ")
 }
 
-export function rotationMotionPrompt(spec: ExplodeSpec) {
+export function rotationMotionPrompt(spec: ExplainerSpec) {
   return [
     `Photoreal studio product film of the exact ${spec.item.name} in the first frame.`,
     "The object rotates smoothly through one full turn on a locked camera. Soft even light, subtle contact shadow, no zoom, no cut.",
@@ -68,7 +68,7 @@ export function rotationMotionPrompt(spec: ExplodeSpec) {
   ].join(" ")
 }
 
-export function explodeMotionPrompt(spec: ExplodeSpec) {
+export function explodeMotionPrompt(spec: ExplainerSpec) {
   const names = spec.components.map((component) => component.name).join(", ")
   return [
     `Photoreal studio film of the exact ${spec.item.name}.`,
@@ -80,7 +80,7 @@ export function explodeMotionPrompt(spec: ExplodeSpec) {
   ].join(" ")
 }
 
-export function componentEditPrompt(spec: ExplodeSpec, component: ComponentSpec) {
+export function componentEditPrompt(spec: ExplainerSpec, component: ComponentSpec) {
   return [
     `Use the uploaded ${spec.item.name} image as reference.`,
     `Isolate only this real part, Photorealistic, floating on the same studio ground: ${component.name}.`,

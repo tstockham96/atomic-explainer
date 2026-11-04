@@ -2,7 +2,7 @@ import {experienceFingerprint} from './fingerprint.mjs'
 import {readFile,writeFile,mkdir,access} from 'node:fs/promises'
 import {createHash} from 'node:crypto'
 import path from 'node:path'
-import {explodeSpecSchema} from '../../src/spec/schema.ts'
+import {explainerSpecSchema} from '../../src/spec/schema.ts'
 import {evaluate,reviewSchema,type Measurements} from '../../src/evals/evaluate.ts'
 import {glbComponentIds} from '../../src/evals/inventory.ts'
 
@@ -15,7 +15,7 @@ const cases=[
 try{await access('evals/reviews/murph-current.json');cases.push({id:'murph-current',spec:'docs/research/murph-study.json',review:'evals/reviews/murph-current.json'})}catch{/* no current visual assessment yet */}
 await mkdir('evals/reports',{recursive:true})
 for(const item of cases){
- const bytes=await readFile(item.spec),spec=explodeSpecSchema.parse(JSON.parse(bytes.toString())),review=reviewSchema.parse(JSON.parse(await readFile(item.review,'utf8')))
+ const bytes=await readFile(item.spec),spec=explainerSpecSchema.parse(JSON.parse(bytes.toString())),review=reviewSchema.parse(JSON.parse(await readFile(item.review,'utf8')))
  const files=new Set([...review.components.flatMap(c=>c.evidenceFiles),...Object.values(review.ratings).flatMap(r=>r.evidenceFiles)])
  const missingEvidenceFiles:string[]=[]
  for(const file of files){const resolved=path.resolve(file);if(!resolved.startsWith(process.cwd()+path.sep)){missingEvidenceFiles.push(file);continue}try{await access(resolved)}catch{missingEvidenceFiles.push(file)}}

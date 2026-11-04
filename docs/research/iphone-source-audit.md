@@ -19,7 +19,7 @@ It is an **exterior reference study**, not the finished internal explainer. Smal
 To reproduce after obtaining permitted local research files, place the converted single-device GLB and inspected teardown screenshot at the paths in `examples/iphone-18-pro/asset-plan.json`, build the viewer, then run:
 
 ```sh
-npm run explode -- --from-spec examples/iphone-18-pro/source-research.json --asset-plan examples/iphone-18-pro/asset-plan.json --component exterior --out ./iphone-review
+npm run atomic-explainer -- --from-spec examples/iphone-18-pro/source-research.json --asset-plan examples/iphone-18-pro/asset-plan.json --component exterior --out ./iphone-review
 ```
 
 This is an agent-assisted source-selection trial. It is not evidence that an arbitrary upload now produces accurate hidden components automatically.

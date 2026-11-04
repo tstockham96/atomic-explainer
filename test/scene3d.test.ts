@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest"
 import { readFileSync } from "node:fs"
-import { explodeSpecSchema } from "../src/spec/schema.ts"
+import { explainerSpecSchema } from "../src/spec/schema.ts"
 import { scenePartIds } from "../src/spec/scene3d.ts"
 import { sampleScene, THREE_TIMING } from "../src/viewer/three/timeline.ts"
 
-const spec = explodeSpecSchema.parse(JSON.parse(readFileSync("public/spec.json", "utf8")))
+const spec = explainerSpecSchema.parse(JSON.parse(readFileSync("public/spec.json", "utf8")))
 
 describe("three-dimensional story", () => {
   it("completes one revolution before separating the meshes", () => {
@@ -56,7 +56,7 @@ describe("three-dimensional story", () => {
   })
 
   it("can target a different object's named model nodes without watch-specific IDs", () => {
-    const generic = explodeSpecSchema.parse({
+    const generic = explainerSpecSchema.parse({
       ...spec,
       scene3d: {
         kind: "gltf",
@@ -105,9 +105,9 @@ it("validates a generic assembly story against the entire imported inventory", (
       },
     },
   }
-  expect(explodeSpecSchema.safeParse(base).success).toBe(true)
+  expect(explainerSpecSchema.safeParse(base).success).toBe(true)
   expect(
-    explodeSpecSchema.safeParse({
+    explainerSpecSchema.safeParse({
       ...base,
       scene3d: {
         ...base.scene3d,
@@ -144,7 +144,7 @@ it("preserves detailed anatomy when a narrative adds a subsystem milestone", asy
     closing: { title: "Together", description: "Whole" },
     chapters,
   }
-  const parsed = explodeSpecSchema.parse(base)
+  const parsed = explainerSpecSchema.parse(base)
   expect(storyComponents(parsed)).toHaveLength(30)
   const anatomy = anatomyComponents(parsed)
   expect(anatomy).toHaveLength(26) // Existing true pairs stay paired, not hidden inside a milestone.

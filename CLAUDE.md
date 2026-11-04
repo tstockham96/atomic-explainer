@@ -1,4 +1,4 @@
-# explode
+# Atomic Explainer
 
 An open-source, scroll-driven 3D object explainer. The core purpose is to help people understand how an object works. Research must determine the assembly, geometry, materials, motion, and text before generation. A photo or description starts the investigation; it is not the complete reconstruction brief. Read `docs/research-first.md` before planning assets. For the Murph, continue from `docs/research/murph.md` and `docs/research/murph-study.json`; do not restart from one exterior photograph. The experience is one continuous scene followed by anatomy stories. Avoid marketing navigation or unrelated editorial sections.
 
@@ -13,7 +13,7 @@ src/pipeline     identify, research, image edits, motion, site writer, Tripo 3D 
 src/spec         zod schema (version 1), film phases, frame skip math
 src/viewer       React page: pinned 3D scene or image fallback, then anatomy
 src/viewer/three Three.js models, camera, atmosphere, GLB loader
-src/cli.ts       explode bin
+src/cli.ts       atomic-explainer bin
 src/mcp.ts       same pipeline as MCP tools over stdio
 public/murph     committed Murph stills and WebP sequences
 ```
@@ -27,7 +27,7 @@ Pipeline, in order:
 5. **Site.** Static folder: `index.html`, the viewer, `spec.json`, and the frames.
 6. **True 3D viewer.** `reconstruct` first writes `construction-plan.json`. The single-photo adapter only executes an explicitly scoped exterior draft; plans needing component work stop before a paid generation. The agent must author/source those components rather than discard them. Implemented in `src/viewer/three`. Specs choose a procedural watch or a multipart GLB via `scene3d`. `--3d` now calls Tripo image-to-model and semantic segmentation through `solid3d.ts`. The integration has mocked HTTP/real GLB tests and two live watch trials. Neither result passed the visual/component quality target; see `docs/tripo-watch-trial.md` and `docs/murph-reconstruction-trial.md`. Do not claim accurate hidden geometry or validated part matching. See `docs/photo-to-3d.md`.
 
-`runExplode()` in `src/pipeline/run.ts` is the whole pipeline. MCP tools (`explode_identify`, `explode_research`, `explode_visualize`, `explode_motion`, `explode_extract_frames`, `explode_build_site`, `explode_run`, `explode_prepare_asset`, `explode_assemble`) call the same code. Details are in `docs/agent.md`.
+`runExplainer()` in `src/pipeline/run.ts` is the whole pipeline. MCP tools (`atomic_explainer_identify`, `atomic_explainer_research`, `atomic_explainer_visualize`, `atomic_explainer_motion`, `atomic_explainer_extract_frames`, `atomic_explainer_build_site`, `atomic_explainer_run`, `atomic_explainer_prepare_asset`, `atomic_explainer_assemble`) call the same code. Details are in `docs/agent.md`.
 
 ## How to run
 
@@ -47,25 +47,25 @@ Generate a site from a photo. Web research needs `OPENAI_API_KEY`; identificatio
 
 ```bash
 cp .env.example .env
-npx explode ./photo.jpg --out ./site
+npx atomic-explainer ./photo.jpg --out ./site
 ```
 
 From this repo, before the package bin exists:
 
 ```bash
-npm run explode -- ./photo.jpg --out ./site
+npm run atomic-explainer -- ./photo.jpg --out ./site
 ```
 
-`--motion` generates the rotation and explode clips, then extracts frames (gateway Kling, Veo, or Seedance, or fal when `EXPLODE_VIDEO_PROVIDER=fal` and `FAL_KEY` is set):
+`--motion` generates the rotation and explode clips, then extracts frames (gateway Kling, Veo, or Seedance, or fal when `ATOMIC_EXPLAINER_VIDEO_PROVIDER=fal` and `FAL_KEY` is set):
 
 ```bash
-npx explode ./photo.jpg --motion --out ./site
+npx atomic-explainer ./photo.jpg --motion --out ./site
 ```
 
 Render a spec you already have, with no model call:
 
 ```bash
-npx explode --from-spec public/spec.json --out ./site
+npx atomic-explainer --from-spec public/spec.json --out ./site
 ```
 
 MCP server (stdio). Development entry, or `node dist/mcp.js` after `npm run build:cli`:
@@ -77,8 +77,8 @@ npm run mcp
 Rebuild frame sequences from local clips (the source mp4s are not in the repo):
 
 ```bash
-npm run explode -- --extract ./rotate.mp4 --frames-dir public/murph/frames/rotation --fps 12
-npm run explode -- --extract ./explode.mp4 --frames-dir public/murph/frames/explode --fps 12 --skip 4.55-5.65 --skip-keep 2
+npm run atomic-explainer -- --extract ./rotate.mp4 --frames-dir public/murph/frames/rotation --fps 12
+npm run atomic-explainer -- --extract ./explode.mp4 --frames-dir public/murph/frames/explode --fps 12 --skip 4.55-5.65 --skip-keep 2
 ```
 
 ## Continuous scene
@@ -99,7 +99,7 @@ No API keys belong in the repo. `.env` and `.env.*` are gitignored; `.env.exampl
 - Hamilton does not publish a steel grade for this case. The demo does not call it 316L.
 - Photo-to-3D integration exists; live quality validation and missing internal-part reconstruction are outstanding.
 - Web research requires OPENAI_API_KEY even when writing uses the gateway. Never invent citations.
-- `npm run build && npm run studio` serves upload at localhost:4319/create. Jobs are private local files under ignored `.explode-jobs/`.
+- `npm run build && npm run studio` serves upload at localhost:4319/create. Jobs are private local files under ignored `.atomic-explainer-jobs/`.
 - Background removal is not implemented. A model that will not return a clean cutout leaves an empty plate.
 - Specs without `frames.rotation` / `frames.explode` only crossfade stills. They do not scrub a film.
 - The actual WebGL canvas has been captured through a local review page in the in-app browser. Desktop, portrait close-ups, and both atmospheres have been inspected. A same-origin iframe check verifies pinning, captions, six anatomy thumbnails, and the atmosphere switch. This is not full browser screenshot coverage or a claim that the user’s target is achieved.

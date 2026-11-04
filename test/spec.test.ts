@@ -3,14 +3,14 @@ import path from "node:path"
 import { describe, expect, it } from "vitest"
 import { layoutFor } from "../src/spec/layout.ts"
 import { normalizeSpec } from "../src/spec/normalize.ts"
-import { explodeSpecSchema, type ComponentSpec } from "../src/spec/schema.ts"
+import { explainerSpecSchema, type ComponentSpec } from "../src/spec/schema.ts"
 import { chapterAt, progressForChapter } from "../src/spec/storyboard.ts"
 import { filmMap, frameIndex, phaseAt, progressForPhase } from "../src/spec/film.ts"
 import { frameFile, keptFrameNumbers } from "../src/spec/frames.ts"
 import { solid3d } from "../src/pipeline/solid3d.ts"
 
 const specPath = path.join(process.cwd(), "public", "spec.json")
-const murph = explodeSpecSchema.parse(JSON.parse(readFileSync(specPath, "utf8")))
+const murph = explainerSpecSchema.parse(JSON.parse(readFileSync(specPath, "utf8")))
 
 describe("Murph demo spec", () => {
   it("parses and keeps the researched reference", () => {

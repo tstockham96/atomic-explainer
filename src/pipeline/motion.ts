@@ -2,7 +2,7 @@ import { spawn } from "node:child_process"
 import { copyFile, mkdir, readdir, rm, writeFile, readFile } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import path from "node:path"
-import type { ExplodeSpec, FrameSequence } from "../spec/schema.ts"
+import type { ExplainerSpec, FrameSequence } from "../spec/schema.ts"
 import { keptFrameNumbers, type SkipRange } from "../spec/frames.ts"
 import type { ResolvedVideo } from "./models.ts"
 import { explodeMotionPrompt, rotationMotionPrompt } from "./prompts.ts"
@@ -82,7 +82,10 @@ export async function extractFrames(
   const width = options.width ?? DEFAULT_WIDTH
   const input = path.resolve(videoPath)
   const destination = path.resolve(outDir)
-  const scratch = path.join(tmpdir(), `explode-frames-${Date.now()}-${Math.random().toString(16).slice(2)}`)
+  const scratch = path.join(
+    tmpdir(),
+    `atomic-explainer-frames-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+  )
   await mkdir(scratch, { recursive: true })
   await mkdir(destination, { recursive: true })
 
@@ -231,7 +234,7 @@ export async function generateClip(options: {
 }) {
   if (options.video.provider === "fal") {
     const apiKey = options.apiKey ?? process.env.FAL_KEY
-    if (!apiKey) throw new Error("FAL_KEY is required when EXPLODE_VIDEO_PROVIDER=fal.")
+    if (!apiKey) throw new Error("FAL_KEY is required when ATOMIC_EXPLAINER_VIDEO_PROVIDER=fal.")
     return falClip({
       model: options.video.model,
       prompt: options.prompt,
@@ -268,12 +271,12 @@ function sequenceFromExtract(relativeDir: string, extracted: ExtractedSequence):
  * Both clips are extracted to WebP sequences under `frames/`.
  */
 export async function generateMotion(
-  spec: ExplodeSpec,
+  spec: ExplainerSpec,
   outDir: string,
   video: ResolvedVideo,
   log: (message: string) => void = () => undefined,
   options: { skips?: SkipRange[]; fps?: number } = {},
-): Promise<ExplodeSpec> {
+): Promise<ExplainerSpec> {
   if (!spec.heroImage) throw new Error("Motion needs a hero image on the spec.")
   if (!spec.explodedImage) throw new Error("Motion needs an exploded image on the spec.")
 

@@ -3,9 +3,9 @@ import { cp, mkdir, readFile, writeFile, readdir } from "node:fs/promises"
 import { existsSync } from "node:fs"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
-import type { ExplodeSpec } from "../spec/schema.ts"
+import type { ExplainerSpec } from "../spec/schema.ts"
 
-export const SPEC_MARKER = "window.__EXPLODE_SPEC__ = null;"
+export const SPEC_MARKER = "window.__ATOMIC_EXPLAINER_SPEC__ = null;"
 
 export function packageRoot() {
   let dir = path.dirname(fileURLToPath(import.meta.url))
@@ -15,14 +15,14 @@ export function packageRoot() {
     if (parent === dir) break
     dir = parent
   }
-  throw new Error("Could not find the explode package root.")
+  throw new Error("Could not find the atomic-explainer package root.")
 }
 
-export function injectSpec(html: string, spec: ExplodeSpec) {
+export function injectSpec(html: string, spec: ExplainerSpec) {
   if (!html.includes(SPEC_MARKER)) {
     throw new Error("Viewer template is missing the spec marker. Rebuild with npm run build:site.")
   }
-  const payload = `window.__EXPLODE_SPEC__ = ${JSON.stringify(spec).replaceAll("<", "\\u003c")};`
+  const payload = `window.__ATOMIC_EXPLAINER_SPEC__ = ${JSON.stringify(spec).replaceAll("<", "\\u003c")};`
   return html.replace(SPEC_MARKER, payload)
 }
 
@@ -43,7 +43,7 @@ export async function ensureViewerTemplate(
 }
 
 export async function renderSite(
-  spec: ExplodeSpec,
+  spec: ExplainerSpec,
   outDir: string,
   options: {
     templateDir?: string

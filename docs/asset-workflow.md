@@ -10,10 +10,10 @@ The rejected iPhone recipe exposed a gap: research existed beside the demo, but 
 4. Execute one component at a time:
 
 ```sh
-npm run explode -- --from-spec ./research.json --asset-plan ./asset-plan.json --component battery --out ./battery-review
+npm run atomic-explainer -- --from-spec ./research.json --asset-plan ./asset-plan.json --component battery --out ./battery-review
 ```
 
-MCP equivalent: `explode_prepare_asset({specPath, planPath, componentId, outDir})`. The host agent can do the research without an OpenAI API key. Tripo generation still needs its own account/key. Source imports use no model API.
+MCP equivalent: `atomic_explainer_prepare_asset({specPath, planPath, componentId, outDir})`. The host agent can do the research without an OpenAI API key. Tripo generation still needs its own account/key. Source imports use no model API.
 
 5. Inspect the returned `index.html`, `asset-brief.json`, `asset-review.json` and `model.glb`. Compare rendered front, oblique, reverse, assembled and exported views to the observations. Source imports preserve the GLB byte-for-byte. The review viewer preserves authored transforms/material maps and supports drag rotation and front/back/side inspection. It does not narrate unverified internal parts.
 6. Repair or replace failed assets, map verified component groups, align dimensions/pivots/interfaces, then use the existing scene authoring/export path. A list of separately generated parts does not establish a coherent assembly. Do not use a primitive recipe as a silent fallback for missing faithful geometry.
@@ -37,6 +37,6 @@ Source licenses remain separate from the engine's MIT license. Unknown/restricte
 
 ## Whole-assembly continuation
 
-Omit `--component` from `--asset-plan` (or `componentId` from `explode_prepare_asset`) to advance all researched component tasks. The batch preserves provider checkpoints, isolates output folders and records unresolved/deferred/missing tasks in `assembly-progress.json`. It always remains incomplete until assets are reviewed, fitted and integrated. This is not a geometric fitting solver.
+Omit `--component` from `--asset-plan` (or `componentId` from `atomic_explainer_prepare_asset`) to advance all researched component tasks. The batch preserves provider checkpoints, isolates output folders and records unresolved/deferred/missing tasks in `assembly-progress.json`. It always remains incomplete until assets are reviewed, fitted and integrated. This is not a geometric fitting solver.
 
-Planning saves `assembly-requirements.json`. Pass that original inventory through `--requirements` or MCP `explode_build_site.requirementsPath`. Export checks actual geometry-bearing GLB component nodes and story/research coverage. It also reuses a requirements inventory already saved in the destination and refuses to silently drop required IDs. Missing coverage appears in the rendered notice, not only a hidden report. Do not regenerate the original inventory from the subset of parts returned by a source provider.
+Planning saves `assembly-requirements.json`. Pass that original inventory through `--requirements` or MCP `atomic_explainer_build_site.requirementsPath`. Export checks actual geometry-bearing GLB component nodes and story/research coverage. It also reuses a requirements inventory already saved in the destination and refuses to silently drop required IDs. Missing coverage appears in the rendered notice, not only a hidden report. Do not regenerate the original inventory from the subset of parts returned by a source provider.

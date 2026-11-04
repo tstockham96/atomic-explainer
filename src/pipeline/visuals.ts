@@ -1,7 +1,7 @@
 import { generateImage } from "ai"
 import { mkdir, writeFile } from "node:fs/promises"
 import path from "node:path"
-import type { ExplodeSpec } from "../spec/schema.ts"
+import type { ExplainerSpec } from "../spec/schema.ts"
 import { slug } from "../spec/normalize.ts"
 import type { ResolvedModels } from "./models.ts"
 import { componentEditPrompt, explodedEditPrompt, heroEditPrompt } from "./prompts.ts"
@@ -42,12 +42,12 @@ async function editPhoto(
 }
 
 export async function generateVisuals(
-  spec: ExplodeSpec,
+  spec: ExplainerSpec,
   outDir: string,
   models: ResolvedModels,
   source: Uint8Array,
   log: (message: string) => void = () => undefined,
-): Promise<ExplodeSpec> {
+): Promise<ExplainerSpec> {
   if (source.byteLength === 0) {
     throw new Error("The reference photo is empty. Image edits need the uploaded photo.")
   }

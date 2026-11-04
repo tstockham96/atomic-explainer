@@ -1,16 +1,16 @@
 import { applyManifest, manifestSchema } from "../spec/manifest.ts"
-import { explodeSpecSchema, type ExplodeSpec } from "../spec/schema.ts"
+import { explainerSpecSchema, type ExplainerSpec } from "../spec/schema.ts"
 import { asset } from "./asset.ts"
 
 declare global {
   interface Window {
-    __EXPLODE_SPEC__?: unknown
+    __ATOMIC_EXPLAINER_SPEC__?: unknown
   }
 }
 
-export async function loadSpec(): Promise<ExplodeSpec> {
-  const injected = window.__EXPLODE_SPEC__
-  const spec = injected ? explodeSpecSchema.parse(injected) : await fetchSpec()
+export async function loadSpec(): Promise<ExplainerSpec> {
+  const injected = window.__ATOMIC_EXPLAINER_SPEC__
+  const spec = injected ? explainerSpecSchema.parse(injected) : await fetchSpec()
 
   if (injected || spec.item.reference !== "H70605731") return spec
 
@@ -29,5 +29,5 @@ async function fetchSpec() {
   if (!response.ok) {
     throw new Error(`Could not load spec.json (${response.status}).`)
   }
-  return explodeSpecSchema.parse(await response.json())
+  return explainerSpecSchema.parse(await response.json())
 }

@@ -5,7 +5,7 @@ const studies = [
   { id: "porsche", path: "examples/porsche-911-engine/research.json", count: 29, anatomy: 26 },
   // Source geometry stays local. Opt in to test the real imported assembly,
   // never silently substitute the construction fixture for a fidelity example.
-  ...(process.env.EXPLODE_LOCAL_STORIES
+  ...(process.env.ATOMIC_EXPLAINER_LOCAL_STORIES
     ? [{ id: "iphone", path: "examples/iphone-18-pro/internal-study.json", count: 28, anatomy: 28 }]
     : []),
 ]
@@ -26,10 +26,12 @@ for (const study of studies)
       page.on("pageerror", (e) => errors.push(e.message))
       await page.setViewportSize(viewport)
       await page.goto(
-        `${process.env.EXPLODE_LOCAL_STORIES ? "http://127.0.0.1:4319" : ""}/${study.id}-study/index.html?eval=1`,
+        `${process.env.ATOMIC_EXPLAINER_LOCAL_STORIES ? "http://127.0.0.1:4319" : ""}/${study.id}-study/index.html?eval=1`,
       )
-      await page.waitForFunction(() => Boolean(window.__explodeAssemblyReview), null, { timeout: 60_000 })
-      const snapshot = () => page.evaluate(() => window.__explodeAssemblyReview!.snapshot())
+      await page.waitForFunction(() => Boolean(window.__atomicExplainerAssemblyReview), null, {
+        timeout: 60_000,
+      })
+      const snapshot = () => page.evaluate(() => window.__atomicExplainerAssemblyReview!.snapshot())
       await page.waitForTimeout(1400)
       const start = await snapshot()
       expect(start.unobscuredParts.length, "opening anatomy must not be hidden by scenery").toBeGreaterThan(0)
@@ -41,11 +43,11 @@ for (const study of studies)
       let built = 0
       for (const chapter of story.chapters) {
         for (const local of [0.23, 0.42, 0.55]) {
-          await page.evaluate(({ id, local }) => window.__explodeAssemblyReview!.inspect(id, local), {
+          await page.evaluate(({ id, local }) => window.__atomicExplainerAssemblyReview!.inspect(id, local), {
             id: chapter.id,
             local,
           })
-          await page.waitForFunction(() => window.__explodeAssemblyReview!.settled())
+          await page.waitForFunction(() => window.__atomicExplainerAssemblyReview!.settled())
           const state = await snapshot(),
             caption = await page.locator(".mesh-caption:visible").boundingBox()
           expect(state.selected).toBe(chapter.id)
@@ -68,8 +70,8 @@ for (const study of studies)
           )
             await page.screenshot({ path: info.outputPath(chapter.id + ".png") })
         }
-        await page.evaluate((id) => window.__explodeAssemblyReview!.inspect(id, 0.97), chapter.id)
-        await page.waitForFunction(() => window.__explodeAssemblyReview!.settled())
+        await page.evaluate((id) => window.__atomicExplainerAssemblyReview!.inspect(id, 0.97), chapter.id)
+        await page.waitForFunction(() => window.__atomicExplainerAssemblyReview!.settled())
         const joined = await snapshot()
         built += chapter.kind === "milestone" ? 0 : chapter.componentIds.length
         expect(joined.builtIds).toHaveLength(built)

@@ -1,10 +1,10 @@
 import { readFileSync } from "node:fs"
 import { describe, expect, it } from "vitest"
 import { cameraAt, focusEnvelope, focusTour } from "../src/spec/camera.ts"
-import { explodeSpecSchema } from "../src/spec/schema.ts"
+import { explainerSpecSchema } from "../src/spec/schema.ts"
 import { filmMap, phaseAt } from "../src/spec/film.ts"
 
-const spec = explodeSpecSchema.parse(JSON.parse(readFileSync("public/spec.json", "utf8")))
+const spec = explainerSpecSchema.parse(JSON.parse(readFileSync("public/spec.json", "utf8")))
 const tour = focusTour(spec)
 const overview = { x: 0.5, y: 0.5, scale: 1, focus: 0 }
 
@@ -72,7 +72,7 @@ describe("continuous camera tour", () => {
       { x: 0.5, y: 0.5, scale: 0 },
     ]) {
       expect(
-        explodeSpecSchema.safeParse({ ...spec, film: { focus: [{ componentId: "crystal", ...target }] } })
+        explainerSpecSchema.safeParse({ ...spec, film: { focus: [{ componentId: "crystal", ...target }] } })
           .success,
       ).toBe(false)
     }

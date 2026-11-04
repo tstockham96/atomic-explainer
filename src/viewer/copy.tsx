@@ -1,4 +1,4 @@
-import type { ComponentSpec, ExplodeSpec } from "../spec/schema.ts"
+import type { ComponentSpec, ExplainerSpec } from "../spec/schema.ts"
 import { asset } from "./asset.ts"
 
 function pad(value: number) {
@@ -28,7 +28,7 @@ function Title({ model, emphasis }: { model: string; emphasis?: string }) {
   )
 }
 
-export function IntroCopy({ spec }: { spec: ExplodeSpec }) {
+export function IntroCopy({ spec }: { spec: ExplainerSpec }) {
   return (
     <div className="flex h-full flex-col">
       <p className="font-mono text-[0.72rem] tracking-[0.22em] text-brass uppercase">
@@ -93,7 +93,7 @@ export function ComponentCopy({
   )
 }
 
-export function OutroCopy({ spec }: { spec: ExplodeSpec }) {
+export function OutroCopy({ spec }: { spec: ExplainerSpec }) {
   return (
     <div className="flex h-full flex-col">
       <p className="font-mono text-[0.72rem] tracking-[0.22em] text-brass uppercase">Back on the wrist</p>

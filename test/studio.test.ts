@@ -4,14 +4,14 @@ import path from "node:path"
 import { randomUUID } from "node:crypto"
 import { tmpdir } from "node:os"
 import { createStudioServer } from "../src/studio/server.ts"
-import type { ExplodeSpec } from "../src/spec/schema.ts"
+import type { ExplainerSpec } from "../src/spec/schema.ts"
 const cleanups: (() => Promise<unknown>)[] = []
 afterEach(async () => {
   for (const cleanup of cleanups.splice(0).reverse()) await cleanup()
 })
 
 it("serves upload, progress, resume and plan handoff while rejecting cross-origin submissions", async () => {
-  const root = await mkdtemp(path.join(tmpdir(), "explode-studio-"))
+  const root = await mkdtemp(path.join(tmpdir(), "atomic-explainer-studio-"))
   cleanups.push(() => rm(root, { recursive: true, force: true }))
   await mkdir(path.join(root, "dist-site"))
   await writeFile(path.join(root, "dist-site/index.html"), "Studio")
@@ -24,7 +24,7 @@ it("serves upload, progress, resume and plan handoff while rejecting cross-origi
     await gate
     await mkdir(options.outDir, { recursive: true })
     await writeFile(path.join(options.outDir, "construction-plan.json"), "Research plan")
-    return {} as ExplodeSpec
+    return {} as ExplainerSpec
   })
   const server = createStudioServer({
     root,
@@ -42,7 +42,7 @@ it("serves upload, progress, resume and plan handoff while rejecting cross-origi
   expect(configText).not.toContain("private-")
   const config = JSON.parse(configText)
   const photo = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10, 0])
-  const headers = { "Content-Type": "image/png", "X-Explode-Token": config.token }
+  const headers = { "Content-Type": "image/png", "X-Atomic-Explainer-Token": config.token }
   expect(
     (
       await fetch(`${base}/api/jobs`, {
@@ -68,7 +68,7 @@ it("serves upload, progress, resume and plan handoff while rejecting cross-origi
   expect((await fetch(`${base}/api/jobs/${job.id}/resume`, { method: "POST", headers })).status).toBe(409)
   expect(run).toHaveBeenCalledTimes(1)
   expect(run).toHaveBeenCalledWith(expect.objectContaining({ planOnly: true }))
-  expect(await readFile(path.join(root, ".explode-jobs", job.id, "source.png"))).toEqual(photo)
+  expect(await readFile(path.join(root, ".atomic-explainer-jobs", job.id, "source.png"))).toEqual(photo)
 })
 
 it("refuses generation before any provider call when credentials are missing", async () => {
@@ -83,17 +83,21 @@ it("refuses generation before any provider call when credentials are missing", a
   const config = await (await fetch(`${base}/api/config`)).json()
   expect(config.missing).toEqual(["OPENAI_API_KEY"])
   expect(
-    (await fetch(`${base}/api/jobs`, { method: "POST", headers: { "X-Explode-Token": config.token } }))
-      .status,
+    (
+      await fetch(`${base}/api/jobs`, {
+        method: "POST",
+        headers: { "X-Atomic-Explainer-Token": config.token },
+      })
+    ).status,
   ).toBe(503)
   expect(run).not.toHaveBeenCalled()
 })
 
 it("recovers an interrupted job using saved research and the original photo", async () => {
-  const root = await mkdtemp(path.join(tmpdir(), "explode-resume-"))
+  const root = await mkdtemp(path.join(tmpdir(), "atomic-explainer-resume-"))
   cleanups.push(() => rm(root, { recursive: true, force: true }))
   const id = randomUUID()
-  const directory = path.join(root, ".explode-jobs", id)
+  const directory = path.join(root, ".atomic-explainer-jobs", id)
   await mkdir(path.join(directory, "site"), { recursive: true })
   await writeFile(
     path.join(directory, "job.json"),
@@ -101,7 +105,7 @@ it("recovers an interrupted job using saved research and the original photo", as
   )
   await writeFile(path.join(directory, "source.jpg"), "fixture")
   await writeFile(path.join(directory, "site/research.json"), "{}")
-  const run = vi.fn(async () => ({}) as ExplodeSpec)
+  const run = vi.fn(async () => ({}) as ExplainerSpec)
   const server = createStudioServer({ root, run, env: { OPENAI_API_KEY: "test", TRIPO_API_KEY: "test" } })
   await new Promise<void>((resolve, reject) => {
     server.once("error", reject)
@@ -112,8 +116,12 @@ it("recovers an interrupted job using saved research and the original photo", as
   expect((await (await fetch(`${base}/api/jobs/${id}`)).json()).status).toBe("interrupted")
   const { token } = await (await fetch(`${base}/api/config`)).json()
   expect(
-    (await fetch(`${base}/api/jobs/${id}/resume`, { method: "POST", headers: { "X-Explode-Token": token } }))
-      .status,
+    (
+      await fetch(`${base}/api/jobs/${id}/resume`, {
+        method: "POST",
+        headers: { "X-Atomic-Explainer-Token": token },
+      })
+    ).status,
   ).toBe(202)
   await vi.waitFor(() =>
     expect(run).toHaveBeenCalledWith(
@@ -127,10 +135,13 @@ it("recovers an interrupted job using saved research and the original photo", as
 })
 
 it("imports an agent assembly without credentials or provider calls and rejects incomplete geometry", async () => {
-  const root = await mkdtemp(path.join(tmpdir(), "explode-import-"))
+  const root = await mkdtemp(path.join(tmpdir(), "atomic-explainer-import-"))
   cleanups.push(() => rm(root, { recursive: true, force: true }))
   await mkdir(path.join(root, "dist-site"))
-  await writeFile(path.join(root, "dist-site/index.html"), "<script>window.__EXPLODE_SPEC__ = null;</script>")
+  await writeFile(
+    path.join(root, "dist-site/index.html"),
+    "<script>window.__ATOMIC_EXPLAINER_SPEC__ = null;</script>",
+  )
   const run = vi.fn(),
     server = createStudioServer({ root, run, env: {} })
   await new Promise<void>((resolve, reject) => {
@@ -142,7 +153,7 @@ it("imports an agent assembly without credentials or provider calls and rejects 
   const { token } = await (await fetch(`${base}/api/config`)).json()
   const spec = JSON.parse(await readFile("examples/iphone-18-pro/research.json", "utf8"))
   const assembly = JSON.parse(await readFile("examples/iphone-18-pro/assembly.json", "utf8"))
-  const headers = { "Content-Type": "application/json", "X-Explode-Token": token }
+  const headers = { "Content-Type": "application/json", "X-Atomic-Explainer-Token": token }
   expect(
     (
       await fetch(`${base}/api/assemblies`, {

@@ -1,6 +1,6 @@
 # Understand the object before reconstructing it
 
-Explode helps people learn how an object works through a beautiful, continuous 3D exploration. A photograph or description starts an investigation. Research determines the component assembly, geometry, materials, animation, and explanation.
+Atomic Explainer helps people learn how an object works through a beautiful, continuous 3D exploration. A photograph or description starts an investigation. Research determines the component assembly, geometry, materials, animation, and explanation.
 
 ## Product invariants
 

@@ -13,22 +13,24 @@ for (const viewport of [
     await page.goto("/construction-fixtures/phone/index.html?eval=1")
     const errors: string[] = []
     page.on("pageerror", (e) => errors.push(e.message))
-    await page.waitForFunction(() => Boolean(window.__explodeAssemblyReview), null, { timeout: 60_000 })
+    await page.waitForFunction(() => Boolean(window.__atomicExplainerAssemblyReview), null, {
+      timeout: 60_000,
+    })
     await expect(page.locator(".mesh-bottom")).toContainText("Assembly prototype")
-    await page.waitForFunction(() => window.__explodeAssemblyReview!.settled())
+    await page.waitForFunction(() => window.__atomicExplainerAssemblyReview!.settled())
     const hero = await page.evaluate(() => ({
-      model: window.__explodeAssemblyReview!.snapshot().bounds!,
+      model: window.__atomicExplainerAssemblyReview!.snapshot().bounds!,
       title: document.querySelector(".mesh-title")!.getBoundingClientRect().toJSON(),
     }))
     expect(hero.model.bottom).toBeLessThan(hero.title.top - 8)
     expect(hero.model.top).toBeGreaterThan(100)
     await page.screenshot({ path: info.outputPath("assembled.png") })
-    const home = await page.evaluate(() => window.__explodeAssemblyReview!.snapshot().partPositions)
+    const home = await page.evaluate(() => window.__atomicExplainerAssemblyReview!.snapshot().partPositions)
     await page.getByRole("button", { name: "Explode the object" }).click()
     await expect
-      .poll(() => page.evaluate(() => window.__explodeAssemblyReview!.snapshot().separation))
+      .poll(() => page.evaluate(() => window.__atomicExplainerAssemblyReview!.snapshot().separation))
       .toBeGreaterThan(0.995)
-    const opened = await page.evaluate(() => window.__explodeAssemblyReview!.snapshot())
+    const opened = await page.evaluate(() => window.__atomicExplainerAssemblyReview!.snapshot())
     expect(opened.allVisible).toBe(true)
     const keys = Object.keys(home)
     const distance = (a: number[], b: number[]) => Math.hypot(...a.map((v, i) => v - b[i]!))
@@ -48,26 +50,28 @@ for (const viewport of [
     // Native scroll must reverse the actual geometry, without an evaluation hook.
     await page.evaluate(() => window.scrollTo(0, 0))
     await expect
-      .poll(() => page.evaluate(() => window.__explodeAssemblyReview!.snapshot().separation))
+      .poll(() => page.evaluate(() => window.__atomicExplainerAssemblyReview!.snapshot().separation))
       .toBe(0)
-    expect(await page.evaluate(() => window.__explodeAssemblyReview!.snapshot().partPositions)).toEqual(home)
+    expect(
+      await page.evaluate(() => window.__atomicExplainerAssemblyReview!.snapshot().partPositions),
+    ).toEqual(home)
 
     for (const id of ["front-glass", "battery", "logic-board", "enclosure"]) {
       for (const local of [0.3, 0.5, 0.7]) {
-        await page.evaluate(({ id, local }) => window.__explodeAssemblyReview!.inspect(id, local), {
+        await page.evaluate(({ id, local }) => window.__atomicExplainerAssemblyReview!.inspect(id, local), {
           id,
           local,
         })
         await expect
-          .poll(() => page.evaluate(() => window.__explodeAssemblyReview!.snapshot().selected))
+          .poll(() => page.evaluate(() => window.__atomicExplainerAssemblyReview!.snapshot().selected))
           .toBe(id)
-        await page.waitForFunction(() => window.__explodeAssemblyReview!.settled())
+        await page.waitForFunction(() => window.__atomicExplainerAssemblyReview!.settled())
         const actual = await page.evaluate(() => {
           const caption = [...document.querySelectorAll(".mesh-caption")].find(
             (n) => getComputedStyle(n).visibility === "visible",
           )!
           return {
-            state: window.__explodeAssemblyReview!.snapshot(),
+            state: window.__atomicExplainerAssemblyReview!.snapshot(),
             caption: caption.getBoundingClientRect().toJSON(),
             overflow: document.documentElement.scrollWidth > innerWidth,
           }
@@ -85,7 +89,7 @@ for (const viewport of [
     }
     await page.getByLabel("Explore a component").selectOption("rear-cameras")
     await expect
-      .poll(() => page.evaluate(() => window.__explodeAssemblyReview!.snapshot().selected))
+      .poll(() => page.evaluate(() => window.__atomicExplainerAssemblyReview!.snapshot().selected))
       .toBe("rear-cameras")
     await expect(page.locator(".mesh-caption").filter({ hasText: "Light becomes data" })).toBeVisible()
     await page.screenshot({ path: info.outputPath("camera.png") })

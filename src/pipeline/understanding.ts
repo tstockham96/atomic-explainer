@@ -1,9 +1,9 @@
-import type { ExplodeSpec } from "../spec/schema.ts"
+import type { ExplainerSpec } from "../spec/schema.ts"
 import type { ObjectUnderstanding } from "../spec/understanding.ts"
 import { COMPONENT_QUALITY_REQUIREMENTS } from "./quality.ts"
 
 /** Structural/evidence-link checks, not a claim that the sources prove the prose. */
-export function understandingIssues(spec: ExplodeSpec): string[] {
+export function understandingIssues(spec: ExplainerSpec): string[] {
   const study = spec.understanding
   if (!study) return ["Missing object understanding and component construction plan."]
   const issues: string[] = []
@@ -41,7 +41,7 @@ export function understandingIssues(spec: ExplodeSpec): string[] {
   return issues
 }
 
-export function buildReconstructionPlan(spec: ExplodeSpec) {
+export function buildReconstructionPlan(spec: ExplainerSpec) {
   const issues = understandingIssues(spec)
   const components = spec.understanding?.components ?? []
   const work = components.filter((part) => part.reconstruction.method !== "exterior-draft")
@@ -64,7 +64,7 @@ export function buildReconstructionPlan(spec: ExplodeSpec) {
     assetHandoff: {
       contract: "src/spec/assets.ts",
       nextStep:
-        "Search existing models, inspect exact-variant candidates and reference images, then execute component tasks with --asset-plan or explode_prepare_asset.",
+        "Search existing models, inspect exact-variant candidates and reference images, then execute component tasks with --asset-plan or atomic_explainer_prepare_asset.",
       requiredEvidence: [
         "Actual file geometry and material inventory",
         "Inspected component image files linked to construction references",
@@ -91,7 +91,7 @@ export function buildReconstructionPlan(spec: ExplodeSpec) {
 /** Keep only retrieved URLs; do not promote unsupported claims into facts. */
 export function groundUnderstanding(
   study: ObjectUnderstanding,
-  sources: ExplodeSpec["sources"],
+  sources: ExplainerSpec["sources"],
 ): ObjectUnderstanding {
   const allowed = new Set(sources.map((source) => source.url))
   const references = study.references.filter((ref) => allowed.has(ref.url))

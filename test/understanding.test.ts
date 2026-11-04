@@ -2,7 +2,7 @@ import { mkdtemp, readFile, rm } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import path from "node:path"
 import { describe, expect, it, vi } from "vitest"
-import { explodeSpecSchema } from "../src/spec/schema.ts"
+import { explainerSpecSchema } from "../src/spec/schema.ts"
 import { normalizeSpec } from "../src/spec/normalize.ts"
 import {
   buildReconstructionPlan,
@@ -11,11 +11,11 @@ import {
 } from "../src/pipeline/understanding.ts"
 import { reconstruct } from "../src/pipeline/solid3d.ts"
 import { exteriorStudy } from "./helpers/understanding.ts"
-const legacy = explodeSpecSchema.parse(JSON.parse(await readFile("public/chronograph.json", "utf8")))
+const legacy = explainerSpecSchema.parse(JSON.parse(await readFile("public/chronograph.json", "utf8")))
 
 describe("research determines reconstruction", () => {
   it("preserves legacy display specs but requires a plan before new generation", () => {
-    expect(explodeSpecSchema.safeParse(legacy).success).toBe(true)
+    expect(explainerSpecSchema.safeParse(legacy).success).toBe(true)
     expect(buildReconstructionPlan(legacy).status).toBe("research-required")
   })
   it("requires a plan for every part and valid relationship endpoints", () => {
@@ -44,7 +44,7 @@ describe("research determines reconstruction", () => {
     const spec = exteriorStudy(legacy)
     spec.understanding!.components[0]!.reconstruction.method = "model-part"
     const generate = vi.fn()
-    const outDir = await mkdtemp(path.join(tmpdir(), "explode-understanding-"))
+    const outDir = await mkdtemp(path.join(tmpdir(), "atomic-explainer-understanding-"))
     try {
       await expect(
         reconstruct({

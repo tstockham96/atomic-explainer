@@ -1,6 +1,6 @@
 import path from "node:path"
 import { readFile } from "node:fs/promises"
-import { explodeSpecSchema } from "../src/spec/schema.ts"
+import { explainerSpecSchema } from "../src/spec/schema.ts"
 import { renderSite } from "../src/pipeline/render-site.ts"
 import { renderAssetReview } from "../src/pipeline/asset-review-site.ts"
 import { assembleStudy } from "../src/pipeline/assemble.ts"
@@ -23,7 +23,7 @@ const review = {
 }
 await renderAssetReview(path.join(output, "iphone-source-review"), review, output)
 if (process.argv.includes("--with-local-assets")) {
-  const spec = explodeSpecSchema.parse(
+  const spec = explainerSpecSchema.parse(
     JSON.parse(await readFile("examples/iphone-18-pro/internal-study.json", "utf8")),
   )
   await renderSite(spec, path.join(output, "iphone-study"), {
@@ -44,7 +44,7 @@ if (process.argv.includes("--with-local-assets")) {
 }
 console.log("Built example routes; local internal assembly requires --with-local-assets.")
 
-const engine = explodeSpecSchema.parse(
+const engine = explainerSpecSchema.parse(
   JSON.parse(await readFile("examples/porsche-911-engine/research.json", "utf8")),
 )
 await renderSite(engine, path.join(output, "porsche-study"), {
@@ -56,7 +56,7 @@ await renderSite(engine, path.join(output, "porsche-study"), {
 // A second-object integration fixture for the reusable story contract. Its
 // simple geometry is a construction test, never presented as a fidelity demo.
 const fixtureDir = path.join(output, "construction-fixtures/phone")
-const storyFixture = explodeSpecSchema.parse(
+const storyFixture = explainerSpecSchema.parse(
   JSON.parse(await readFile(path.join(fixtureDir, "spec.json"), "utf8")),
 )
 if (storyFixture.scene3d?.kind === "gltf") {

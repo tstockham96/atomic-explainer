@@ -8,9 +8,9 @@ For researched component sourcing and generation, use the newer [asset workflow]
 
 For the research-only studio, set `OPENAI_API_KEY` in `.env`, then run `npm run build && npm run studio`. Open `http://127.0.0.1:4319/create`. PNG/JPEG, 20 MB maximum. The server binds to loopback, validates Host/Origin and a session submission token, and never exposes API credentials. It is a local tool, not a multi-user hosted service.
 
-The studio saves a research/construction plan; it does not call Tripo or claim a finished 3D model. CLI planning: `npm run explode -- ./photo.jpg --plan --out ./research`.
+The studio saves a research/construction plan; it does not call Tripo or claim a finished 3D model. CLI planning: `npm run atomic-explainer -- ./photo.jpg --plan --out ./research`.
 
-The separate exterior-draft CLI requires `TRIPO_API_KEY` too: `npm run explode -- ./photo.jpg --3d --out ./site`. The existing image/video route remains available without `--3d`. MCP `explode_run` accepts `three: true`.
+The separate exterior-draft CLI requires `TRIPO_API_KEY` too: `npm run atomic-explainer -- ./photo.jpg --3d --out ./site`. The existing image/video route remains available without `--3d`. MCP `atomic_explainer_run` accepts `three: true`.
 
 ## Research-first boundary
 
@@ -28,7 +28,7 @@ Read [the product principles](research-first.md). The structured `understanding`
 
 ## Jobs and recovery
 
-Studio jobs live in `.explode-jobs/<uuid>/`. `source.png` or `source.jpg` is outside the exported site. Research jobs contain `site/research.json` and `site/construction-plan.json`. Separately, an exterior-generation CLI output contains `research.json`, `coverage.json`, `models/provider-original.glb`, `models/generated.glb`, `models/mesh-inventory.json`, and `models/tripo-tasks.json`. Treat these as working artifacts. No generated assets are automatically committed, published, or relicensed.
+Studio jobs live in `.atomic-explainer-jobs/<uuid>/`. `source.png` or `source.jpg` is outside the exported site. Research jobs contain `site/research.json` and `site/construction-plan.json`. Separately, an exterior-generation CLI output contains `research.json`, `coverage.json`, `models/provider-original.glb`, `models/generated.glb`, `models/mesh-inventory.json`, and `models/tripo-tasks.json`. Treat these as working artifacts. No generated assets are automatically committed, published, or relicensed.
 
 Task IDs are saved immediately after a response. Polling is bounded; a timeout preserves the IDs. Resume interrupted research in the studio. For provider geometry jobs, rerun the CLI with the same photo/output directory. To avoid repeating completed research, pass `--from-spec ./site/research.json` as well as the original photo and `--3d`.
 

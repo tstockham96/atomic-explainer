@@ -1,4 +1,4 @@
-import type { ExplodeSpec } from "./schema.ts"
+import type { ExplainerSpec } from "./schema.ts"
 
 export interface CameraPose {
   x: number
@@ -32,7 +32,7 @@ export function cameraAt(local: number, target?: { x: number; y: number; scale: 
 }
 
 /** Only authored, visible targets belong in the film. Other parts stay in Anatomy. */
-export function focusTour(spec: ExplodeSpec) {
+export function focusTour(spec: ExplainerSpec) {
   return (spec.film?.focus ?? []).flatMap((target) => {
     const component = spec.components.find((part) => part.id === target.componentId)
     return component ? [{ ...target, component }] : []

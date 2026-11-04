@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
-import type { ExplodeSpec } from "./spec/schema.ts"
+import type { ExplainerSpec } from "./spec/schema.ts"
 import { Teardown } from "./viewer/Teardown.tsx"
 import { loadSpec } from "./viewer/loadSpec.ts"
 import { Create } from "./studio/Create.tsx"
 
 type State =
-  { status: "loading" } | { status: "ready"; spec: ExplodeSpec } | { status: "error"; message: string }
+  { status: "loading" } | { status: "ready"; spec: ExplainerSpec } | { status: "error"; message: string }
 
 export default function App() {
   if (window.location.pathname === "/create") return <Create />

@@ -1,9 +1,9 @@
 ---
-name: explode
-description: Build a researched, continuous 3D object explainer with the Explode repository from a photograph, object description, or existing model. Use when the user wants an agent to research an object's parts, obtain or generate multipart geometry, and create a scroll-driven exploration. Ordinary landing pages and still-image illustrations are outside this skill's purpose.
+name: atomic-explainer
+description: Build a researched, continuous 3D object explainer with the Atomic Explainer repository from a photograph, object description, or existing model. Use when the user wants an agent to research an object's parts, obtain or generate multipart geometry, and create a scroll-driven exploration. Ordinary landing pages and still-image illustrations are outside this skill's purpose.
 ---
 
-# Explode
+# Atomic Explainer
 
 Produce one convincing object in one continuous 3D scene: an assembled turn, readable separation, close exploration of individual components, a visible closing reassembly, and anatomy stories afterward. The purpose is learning: the user should understand how the object works. Research determines the geometry and the story; motion reveals that understanding. The project is https://github.com/tstockham96/atomic-explainer.
 
@@ -53,7 +53,7 @@ Use the strongest appropriate source for each assembly:
 
 Before generating product geometry, record the asset search and decisions in `asset-plan.json` using `src/spec/assets.ts`; read `docs/asset-workflow.md`. Inspect downloaded geometry, not just listing thumbnails. Record actual image observations with local files and reference IDs; a URL found by search is not an inspected photograph. Check exact variant, component coverage and rights separately. Manufacturer AR may contain several display instances and only exterior surfaces. Eight vertices with four faces may be an advertisement plane, not the model advertised in its title.
 
-Use `explode_prepare_asset` or `--asset-plan … --component …` to execute a sourced GLB import or a researched Tripo component task. Multi-view generation receives the inspected images; text-to-model receives an explicit construction prompt. The image-to-model and multi-view routes do not receive prose prompts. Do not imply a research paragraph conditioned an API request when it was never sent. Save the actual request, reference hashes and returned asset. Returned geometry remains under review.
+Use `atomic_explainer_prepare_asset` or `--asset-plan … --component …` to execute a sourced GLB import or a researched Tripo component task. Multi-view generation receives the inspected images; text-to-model receives an explicit construction prompt. The image-to-model and multi-view routes do not receive prose prompts. Do not imply a research paragraph conditioned an API request when it was never sent. Save the actual request, reference hashes and returned asset. Returned geometry remains under review.
 
 A recipe of boxes and cylinders is useful for assembly or camera regression tests. It is not the default fallback when a high-fidelity asset is missing. Resolve the missing asset/reference or state the specific limitation; do not feature a crude construction fixture as the product result.
 
@@ -93,15 +93,15 @@ Keep the source GLB under `models/` beside the spec. From the repository:
 
 ```sh
 npm run build
-npm run explode -- --from-spec /absolute/path/object/spec.json --out /absolute/path/object/site
+npm run atomic-explainer -- --from-spec /absolute/path/object/spec.json --out /absolute/path/object/site
 ```
 
-This export path does not call an AI provider. An MCP-capable host can instead use the existing `explode_build_site` tool with the spec and output paths after connecting the repository's MCP server. Availability of this skill does not mean that server is already connected.
+This export path does not call an AI provider. An MCP-capable host can instead use the existing `atomic_explainer_build_site` tool with the spec and output paths after connecting the repository's MCP server. Availability of this skill does not mean that server is already connected.
 
 For unattended generation with configured credentials:
 
 ```sh
-npm run explode -- /absolute/path/photo.jpg --3d --out /absolute/path/object/site
+npm run atomic-explainer -- /absolute/path/photo.jpg --3d --out /absolute/path/object/site
 ```
 
 That route needs the credentials described in `.env.example`; it is an alternative to the host-agent route, not a prerequisite for all use.

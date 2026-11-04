@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import type { ExplodeSpec } from "../spec/schema.ts"
+import type { ExplainerSpec } from "../spec/schema.ts"
 import { Film } from "./Film.tsx"
 
 function usePrefersReducedMotion() {
@@ -17,10 +17,10 @@ function usePrefersReducedMotion() {
   return reduce
 }
 
-export function Teardown({ spec }: { spec: ExplodeSpec }) {
+export function Teardown({ spec }: { spec: ExplainerSpec }) {
   const reduce = usePrefersReducedMotion()
   useEffect(() => {
-    document.title = `explode — ${spec.item.name}`
+    document.title = `Atomic Explainer — ${spec.item.name}`
   }, [spec.item.name])
 
   if (reduce) return <Film spec={spec} reduced />

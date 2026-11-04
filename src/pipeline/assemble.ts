@@ -2,7 +2,7 @@ import { readFile, writeFile, mkdir } from "node:fs/promises"
 import path from "node:path"
 import { GLTFExporter } from "three/addons/exporters/GLTFExporter.js"
 import { assemblySchema } from "../spec/assembly.ts"
-import { explodeSpecSchema } from "../spec/schema.ts"
+import { explainerSpecSchema } from "../spec/schema.ts"
 import { buildAssembly, validateAssemblyEvidence } from "../authoring/assembly.ts"
 import { disposeObject } from "../viewer/three/model.ts"
 import { renderSite } from "./render-site.ts"
@@ -41,7 +41,7 @@ export async function assembleStudy(
   templateDir?: string,
   requirementsPath?: string,
 ) {
-  const spec = explodeSpecSchema.parse(JSON.parse(await readFile(specFile, "utf8")))
+  const spec = explainerSpecSchema.parse(JSON.parse(await readFile(specFile, "utf8")))
   const recipe = assemblySchema.parse(JSON.parse(await readFile(recipeFile, "utf8")))
   validateAssemblyEvidence(spec, recipe)
   const root = buildAssembly(recipe)
@@ -67,7 +67,7 @@ export async function assembleStudy(
     url: "assembly.glb",
     parts: recipe.parts.map((p) => ({ componentId: p.componentId, node: p.componentId, offset: p.offset })),
   }
-  explodeSpecSchema.parse(spec) // Revalidate narrative coverage against the actual recipe inventory.
+  explainerSpecSchema.parse(spec) // Revalidate narrative coverage against the actual recipe inventory.
   // All generated geometry starts unreviewed, including self-labelled reference-matched parts.
   spec.modelNotice = "Assembly prototype · approximate or unreviewed geometry"
   spec.artNote =

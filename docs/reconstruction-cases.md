@@ -1,6 +1,6 @@
 # Reconstruction cases and reusable rules
 
-This is a growing record of failures discovered while building Explode. Apply the rules to any object; do not copy the Murph's geometry, materials or dimensions into unrelated products. The Murph is an authored test case, not proof of automatic reconstruction for arbitrary uploads.
+This is a growing record of failures discovered while building Atomic Explainer. Apply the rules to any object; do not copy the Murph's geometry, materials or dimensions into unrelated products. The Murph is an authored test case, not proof of automatic reconstruction for arbitrary uploads.
 
 | Case / symptom | General rule | Check before delivery |
 | --- | --- | --- |

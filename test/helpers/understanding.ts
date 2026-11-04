@@ -1,7 +1,7 @@
-import type { ExplodeSpec } from "../../src/spec/schema.ts"
+import type { ExplainerSpec } from "../../src/spec/schema.ts"
 
 /** An explicit exterior-only fixture, never a factual assertion about the sample watch. */
-export function exteriorStudy(spec: ExplodeSpec): ExplodeSpec {
+export function exteriorStudy(spec: ExplainerSpec): ExplainerSpec {
   const source = { title: "Fixture reference", url: "https://example.com/fixture" }
   return {
     ...spec,

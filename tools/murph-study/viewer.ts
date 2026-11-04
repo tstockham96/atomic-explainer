@@ -27,7 +27,7 @@ import {
   inspectionDistance,
   turnAboutCenter,
 } from "../../src/viewer/three/inspection.ts"
-import type { ExplodeSpec } from "../../src/spec/schema.ts"
+import type { ExplainerSpec } from "../../src/spec/schema.ts"
 import { murphCrystalZ } from "../../src/authoring/crystal.ts"
 import { RGBELoader } from "three/addons/loaders/RGBELoader.js"
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js"
@@ -37,7 +37,7 @@ import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js"
 import { FXAAShader } from "three/addons/shaders/FXAAShader.js"
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js"
 import { ease, separation, bridgeOffset, orbitBetween } from "../../src/authoring/studyMotion.ts"
-import { explodeSpecSchema } from "../../src/spec/schema.ts"
+import { explainerSpecSchema } from "../../src/spec/schema.ts"
 import { componentLesson } from "../../src/viewer/three/learning.ts"
 
 const el = (id: string) => document.getElementById(id)!
@@ -140,7 +140,7 @@ let free = false,
   last = performance.now(),
   time = 0,
   model: Awaited<ReturnType<typeof buildMurph>>
-let dossier: ExplodeSpec
+let dossier: ExplainerSpec
 const tour = createInspectionTour([
   { id: "crystal", at: 0.28 },
   { id: "hands", at: 0.43 },
@@ -863,7 +863,7 @@ async function main() {
   pmrem.dispose()
   const studyResponse = await fetch("study.json")
   if (!studyResponse.ok) throw Error("Research dossier is missing")
-  dossier = explodeSpecSchema.parse(await studyResponse.json())
+  dossier = explainerSpecSchema.parse(await studyResponse.json())
   for (const component of dossier.components) {
     const lesson = componentLesson(dossier, component.id)!
     if (tour.intervals.some((stop) => stop.id === component.id)) {
@@ -1390,7 +1390,7 @@ async function main() {
   renderer.setAnimationLoop(render)
   if (params.has("eval"))
     Object.assign(window, {
-      __explodeReview: {
+      __atomicExplainerReview: {
         ready: true,
         ids: Object.keys(model.parts),
         inspect: (id: string, local = 0.2) => {

@@ -2,16 +2,16 @@ import { it, expect } from "vitest"
 import { readFile, mkdtemp, writeFile, rm } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import path from "node:path"
-import { explodeSpecSchema } from "../src/spec/schema.ts"
+import { explainerSpecSchema } from "../src/spec/schema.ts"
 import { assemblyRequirementsSchema } from "../src/spec/requirements.ts"
 import { auditCompleteness, writeCompleteness } from "../src/pipeline/completeness.ts"
 const requirements = assemblyRequirementsSchema.parse(
   JSON.parse(await readFile("examples/iphone-18-pro/requirements.json", "utf8")),
 )
-const exterior = explodeSpecSchema.parse(
+const exterior = explainerSpecSchema.parse(
   JSON.parse(await readFile("examples/iphone-18-pro/exterior-study.json", "utf8")),
 )
-const internal = explodeSpecSchema.parse(
+const internal = explainerSpecSchema.parse(
   JSON.parse(await readFile("examples/iphone-18-pro/internal-study.json", "utf8")),
 )
 it("an immaculate exterior cannot erase the required internals", () => {
@@ -39,7 +39,7 @@ it("structural coverage never grants visual approval", () => {
   expect(report.ready).toBe(false)
 })
 it("a resumed export cannot silently shrink the requirement inventory", async () => {
-  const dir = await mkdtemp(path.join(tmpdir(), "explode-scope-"))
+  const dir = await mkdtemp(path.join(tmpdir(), "atomic-explainer-scope-"))
   try {
     await writeFile(path.join(dir, "assembly-requirements.json"), JSON.stringify(requirements))
     const file = path.join(dir, "reduced.json")

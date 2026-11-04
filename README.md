@@ -1,6 +1,6 @@
-# explode
+# Atomic Explainer
 
-**Understand the object, then build its explanation.** Explode researches how the parts work and fit together before choosing how to reconstruct them. The 3D scene and text teach that understanding. [Core product principles](docs/research-first.md) · [Murph research and construction brief](docs/research/murph.md).
+**Understand the object, then build its explanation.** Atomic Explainer researches how the parts work and fit together before choosing how to reconstruct them. The 3D scene and text teach that understanding. [Core product principles](docs/research-first.md) · [Murph research and construction brief](docs/research/murph.md).
 
 An open-source engine for exploring physical objects through a continuous, scroll-driven 3D story.
 
@@ -20,7 +20,7 @@ The [assembly-story contract](docs/assembly-stories.md) now drives the Murph, pu
 
 ## Use with an agent
 
-Point a capable agent at this repository and ask it to use [the Explode skill](skills/explode/SKILL.md) with your photograph, object description, or model. For example: “Use the Explode skill in this repo to research this object and build a continuous 3D explainer. Prioritize fidelity; inspect a short assembled-to-exploded sequence before making the full tour.”
+Point a capable agent at this repository and ask it to use [the Atomic Explainer skill](skills/atomic-explainer/SKILL.md) with your photograph, object description, or model. For example: “Use the Atomic Explainer skill in this repo to research this object and build a continuous 3D explainer. Prioritize fidelity; inspect a short assembled-to-exploded sequence before making the full tour.”
 
 The skill directs research, geometry sourcing/generation, part assembly, visual review, and export. It can use the host agent's tools; an OpenAI API key is not required to render a spec the agent authors. External generation still requires an available provider/account, and a skill does not make arbitrary-photo mechanical reconstruction reliable. The standalone API pipeline below is also supported. This skill is included in the source checkout; it is not automatically installed or connected as an MCP plugin.
 
@@ -49,7 +49,7 @@ Requires Node.js 22.12 or newer.
 - Rendering any spec you already have:
 
 ```bash
-npm run explode -- --from-spec public/chronograph.json --out ./site
+npm run atomic-explainer -- --from-spec public/chronograph.json --out ./site
 npx serve ./site
 ```
 
@@ -64,9 +64,9 @@ npm run build
 npm run studio
 ```
 
-Open [the upload studio](http://127.0.0.1:4319/create). Choose a PNG or JPEG photo, then **Research this object**. The studio identifies the object, researches its construction, and saves `research.json` and `construction-plan.json`. It does **not** purchase or generate geometry. Give those files to an agent using the Explode skill to source/build, assemble and evaluate the components. Jobs remain in ignored `.explode-jobs/` and interrupted research can resume after a restart.
+Open [the upload studio](http://127.0.0.1:4319/create). Choose a PNG or JPEG photo, then **Research this object**. The studio identifies the object, researches its construction, and saves `research.json` and `construction-plan.json`. It does **not** purchase or generate geometry. Give those files to an agent using the Atomic Explainer skill to source/build, assemble and evaluate the components. Jobs remain in ignored `.atomic-explainer-jobs/` and interrupted research can resume after a restart.
 
-CLI: `npm run explode -- ./photo.jpg --plan --out ./research`. Existing research needs no credentials: `npm run explode -- --from-spec evals/cases/iphone-18-pro.json --plan --out ./research`. MCP `explode_run` accepts `planOnly: true`.
+CLI: `npm run atomic-explainer -- ./photo.jpg --plan --out ./research`. Existing research needs no credentials: `npm run atomic-explainer -- --from-spec evals/cases/iphone-18-pro.json --plan --out ./research`. MCP `atomic_explainer_run` accepts `planOnly: true`.
 
 The separate `--3d` adapter requires Tripo and OpenAI credentials. It only proceeds when the research plan explicitly permits an exterior draft; plans requiring independent internal parts stop before a paid geometry call.
 
@@ -80,29 +80,29 @@ Identification, structured writing, and image generation use Vercel AI Gateway w
 cp .env.example .env
 # fill in OPENAI_API_KEY (and optionally AI_GATEWAY_API_KEY)
 
-npx explode ./photo.jpg --out ./site
+npx atomic-explainer ./photo.jpg --out ./site
 ```
 
 From this repo, before the package bin exists, use:
 
 ```bash
-npm run explode -- ./photo.jpg --out ./site
+npm run atomic-explainer -- ./photo.jpg --out ./site
 ```
 
-`npm run build` writes `dist/cli.js`, which is the `explode` bin.
+`npm run build` writes `dist/cli.js`, which is the `atomic-explainer` bin.
 
 | Step | Default model | Override |
 | --- | --- | --- |
-| Identify the photo | `google/gemini-2.5-flash` | `EXPLODE_VISION_MODEL` |
-| Research the teardown | `anthropic/claude-sonnet-4.5` | `EXPLODE_RESEARCH_MODEL` |
-| Edit the photo | `google/gemini-2.5-flash-image` | `EXPLODE_IMAGE_MODEL` |
-| Turn and explode clips | `klingai/kling-v2.6-i2v` | `EXPLODE_VIDEO_MODEL` |
+| Identify the photo | `google/gemini-2.5-flash` | `ATOMIC_EXPLAINER_VISION_MODEL` |
+| Research the teardown | `anthropic/claude-sonnet-4.5` | `ATOMIC_EXPLAINER_RESEARCH_MODEL` |
+| Edit the photo | `google/gemini-2.5-flash-image` | `ATOMIC_EXPLAINER_IMAGE_MODEL` |
+| Turn and explode clips | `klingai/kling-v2.6-i2v` | `ATOMIC_EXPLAINER_VIDEO_MODEL` |
 
 The image step is an edit. The uploaded photo is sent as the reference (`prompt.images`), and the prompt asks for a photoreal studio shot of that same object. Other reference-capable gateway ids: `bfl/flux-kontext-pro`, `bfl/flux-3-image`, `openai/gpt-image-1`. Direct OpenAI defaults to `gpt-image-1` and asks for a transparent PNG.
 
 ```bash
-npm run explode -- ./photo.jpg --skip-images
-npm run explode -- ./photo.jpg --from-spec public/spec.json --images --out ./site
+npm run atomic-explainer -- ./photo.jpg --skip-images
+npm run atomic-explainer -- ./photo.jpg --from-spec public/spec.json --images --out ./site
 ```
 
 No secrets belong in the repo. `.env` is gitignored.
@@ -110,11 +110,11 @@ No secrets belong in the repo. `.env` is gitignored.
 The photographic fallback assets include those photographs, plus a 9:16 hero (`murph/hero-916.jpg`) and the frame sequences. Movement, crown, and caseback are representative, and the caseback engraving in the picture is not Hamilton’s production text. The watermarked retailer photo used to generate them is not in the repo. The source mp4s are not in the repo either. To rebuild the sequences:
 
 ```bash
-npm run explode -- --extract ./rotate.mp4 --frames-dir public/murph/frames/rotation --fps 12
-npm run explode -- --extract ./explode.mp4 --frames-dir public/murph/frames/explode --fps 12 --skip 4.55-5.65 --skip-keep 2
+npm run atomic-explainer -- --extract ./rotate.mp4 --frames-dir public/murph/frames/rotation --fps 12
+npm run atomic-explainer -- --extract ./explode.mp4 --frames-dir public/murph/frames/explode --fps 12 --skip 4.55-5.65 --skip-keep 2
 ```
 
-`--motion` generates both clips from the hero and exploded stills (gateway Kling, Veo, or Seedance, or fal with `EXPLODE_VIDEO_PROVIDER=fal`), then runs the same ffmpeg extract.
+`--motion` generates both clips from the hero and exploded stills (gateway Kling, Veo, or Seedance, or fal with `ATOMIC_EXPLAINER_VIDEO_PROVIDER=fal`), then runs the same ffmpeg extract.
 
 ## Pipeline
 
@@ -142,7 +142,7 @@ The spec is version `1`. See `src/spec/schema.ts`.
 
 ## Agent tool
 
-`runExplode()` in `src/pipeline/run.ts` is the whole pipeline. The MCP server exposes the same steps: `explode_identify`, `explode_research`, `explode_visualize`, `explode_motion`, `explode_extract_frames`, `explode_build_site`, `explode_run`, `explode_prepare_asset`, `explode_assemble`.
+`runExplainer()` in `src/pipeline/run.ts` is the whole pipeline. The MCP server exposes the same steps: `atomic_explainer_identify`, `atomic_explainer_research`, `atomic_explainer_visualize`, `atomic_explainer_motion`, `atomic_explainer_extract_frames`, `atomic_explainer_build_site`, `atomic_explainer_run`, `atomic_explainer_prepare_asset`, `atomic_explainer_assemble`.
 
 Details, including a client config, are in [docs/agent.md](docs/agent.md).
 
@@ -192,7 +192,7 @@ The Murph copy is summarized from Hamilton’s H70605731 page, Hamilton’s acco
 
 ## Licenses
 
-Explode code is MIT. Third-party software and model assets retain their own terms; the Chronograph model and derived renders are CC BY 4.0 with separate logo notices. See [THIRD_PARTY.md](THIRD_PARTY.md).
+Atomic Explainer code is MIT. Third-party software and model assets retain their own terms; the Chronograph model and derived renders are CC BY 4.0 with separate logo notices. See [THIRD_PARTY.md](THIRD_PARTY.md).
 
 
 ### Second-object preview and agent handoff
@@ -205,7 +205,7 @@ After `npm run build && npm run studio`, open:
 
 The primitive phone was rejected for fidelity. It now lives at `/construction-fixtures/phone/index.html` only as a construction regression test. The local iPhone study preserves the sourced exterior and adds 21 reference-fitted internal groups, including the battery, board layers, processor, memory, storage, cooling, camera hardware and supporting systems. Its 28 chapters are approximations under visual review, not manufacturer internal CAD. The standalone source inspector is at `/iphone-source-review/index.html`. The local development study uses an inspected manufacturer exterior; Apple geometry is **not bundled or licensed under MIT**. Fresh checkouts show an explicit missing-model notice. With a permitted converted single-device model at `examples/iphone-18-pro/assets.local/apple-reference.glb`, run `PLAYWRIGHT_CHANNEL=chrome node --import tsx tools/iphone-study/build.mjs` after building to reconstruct and export the internal study. Chrome and the development dependencies are required. Later `npm run build:examples -- dist-site --with-local-assets` reuses that local export. This command copies the local asset into that output: do not redistribute that output without the necessary rights. Exact internal dimensions, concealed micro-mechanisms and reference fidelity remain unresolved. See [the asset workflow](docs/asset-workflow.md) and [the actual source audit](docs/research/iphone-source-audit.md).
 
-An agent can author `research.json` plus `assembly.json`, then use `--assemble` or the `explode_assemble` MCP tool. Open the resulting `assembly-project.json` in the studio to build and review it without API keys. Prefer `--asset-plan` or `explode_prepare_asset` to preserve an existing detailed GLB or generate a component from inspected reference views. These paths create review artifacts and a local inspector, not an automatically approved explainer. See [the construction contract](docs/3d-scenes.md#build-an-agent-authored-component-recipe).
+An agent can author `research.json` plus `assembly.json`, then use `--assemble` or the `atomic_explainer_assemble` MCP tool. Open the resulting `assembly-project.json` in the studio to build and review it without API keys. Prefer `--asset-plan` or `atomic_explainer_prepare_asset` to preserve an existing detailed GLB or generate a component from inspected reference views. These paths create review artifacts and a local inspector, not an automatically approved explainer. See [the construction contract](docs/3d-scenes.md#build-an-agent-authored-component-recipe).
 
 
 ### Preserve the whole assembly request
@@ -214,9 +214,9 @@ An agent can author `research.json` plus `assembly.json`, then use `--assemble` 
 
 ```sh
 # Advance every researched asset task; failures and missing tasks stay in the queue.
-npm run explode -- --from-spec research.json --asset-plan assets.json --requirements assembly-requirements.json --out asset-work
+npm run atomic-explainer -- --from-spec research.json --asset-plan assets.json --requirements assembly-requirements.json --out asset-work
 # After fitting the multipart GLB, audit it against the original inventory.
-npm run explode -- --from-spec spec.json --requirements assembly-requirements.json --out site
+npm run atomic-explainer -- --from-spec spec.json --requirements assembly-requirements.json --out site
 ```
 
 `assembly-progress.json` tracks the remaining asset work. `assembly-completeness.json` checks research, actual exported geometry and story mappings independently. A missing battery cannot disappear from scope simply because an exterior asset lacks one. The site visibly reports incomplete coverage. Coverage-complete is not a visual quality pass. The agent still executes fitting and fidelity review; the upload form is not yet an unattended universal reconstruction service.

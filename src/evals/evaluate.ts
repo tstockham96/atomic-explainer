@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type { ExplodeSpec } from '../spec/schema.ts'
+import type { ExplainerSpec } from '../spec/schema.ts'
 import { understandingIssues } from '../pipeline/understanding.ts'
 import { RUBRIC } from './rubric.ts'
 
@@ -36,7 +36,7 @@ export interface Measurements {
   optics?:{samples:number;minimumContrastRetention:number}
 }
 
-export function evaluate(spec:ExplodeSpec,review:Review,measurements:Measurements){
+export function evaluate(spec:ExplainerSpec,review:Review,measurements:Measurements){
   const gates:Gate[]=[],ids=new Set(spec.components.map(p=>p.id)),refs=new Set(spec.understanding?.references.map(r=>r.id)??[])
   const add=(id:string,status:Gate['status'],detail:string)=>gates.push({id,status,detail})
   const issues=understandingIssues(spec)

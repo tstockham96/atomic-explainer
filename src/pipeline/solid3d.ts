@@ -2,7 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises"
 import path from "node:path"
 import { generateObject } from "ai"
 import { z } from "zod"
-import type { ExplodeSpec } from "../spec/schema.ts"
+import type { ExplainerSpec } from "../spec/schema.ts"
 import { readPhoto } from "./photo.ts"
 import { languageModel } from "./providers.ts"
 import { assertModels } from "./models.ts"
@@ -23,7 +23,7 @@ const mappingSchema = z.object({
 export type MeshMapping = z.infer<typeof mappingSchema>["assignments"]
 
 export function buildGeneratedScene(
-  spec: ExplodeSpec,
+  spec: ExplainerSpec,
   entries: { node: string; label: string }[],
   mapping: MeshMapping,
 ) {
@@ -75,7 +75,7 @@ export function buildGeneratedScene(
     ...(missing.length ? [`Not present in the model: ${missing.map((part) => part.name).join(", ")}.`] : []),
     ...(unassigned.length ? [`${unassigned.length} mesh(es) could not be confidently identified.`] : []),
   ]
-  const result: ExplodeSpec = {
+  const result: ExplainerSpec = {
     ...spec,
     components: generatedComponents,
     heroImage: undefined,
@@ -99,7 +99,7 @@ export function buildGeneratedScene(
 }
 
 export async function reconstruct(input: {
-  spec: ExplodeSpec
+  spec: ExplainerSpec
   sourcePhoto: string
   outDir: string
   log?: (message: string) => void

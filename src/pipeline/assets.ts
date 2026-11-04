@@ -2,7 +2,7 @@ import { createHash } from "node:crypto"
 import { readFile, mkdir, writeFile } from "node:fs/promises"
 import path from "node:path"
 import { assetPlanSchema, type AssetPlan } from "../spec/assets.ts"
-import { explodeSpecSchema, type ExplodeSpec } from "../spec/schema.ts"
+import { explainerSpecSchema, type ExplainerSpec } from "../spec/schema.ts"
 import { understandingIssues } from "./understanding.ts"
 import { createTripoProvider, type AssetMeshProvider } from "./three/tripo.ts"
 import { readPhoto } from "./photo.ts"
@@ -97,7 +97,7 @@ export function inspectAsset(bytes: Uint8Array) {
   }
 }
 
-export function assetPlanIssues(spec: ExplodeSpec, plan: AssetPlan, componentId: string) {
+export function assetPlanIssues(spec: ExplainerSpec, plan: AssetPlan, componentId: string) {
   const issues = understandingIssues(spec)
   if (plan.identity !== spec.understanding?.identityScope)
     issues.push("Asset plan identity must match the researched variant exactly.")
@@ -154,7 +154,7 @@ export async function prepareAsset(input: {
   requirementsPath?: string
   log?: (message: string) => void
 }) {
-  const spec = explodeSpecSchema.parse(JSON.parse(await readFile(input.specPath, "utf8")))
+  const spec = explainerSpecSchema.parse(JSON.parse(await readFile(input.specPath, "utf8")))
   const plan = assetPlanSchema.parse(JSON.parse(await readFile(input.planPath, "utf8")))
   const issues = assetPlanIssues(spec, plan, input.componentId)
   if (issues.length) throw Error(`Asset research is incomplete. ${issues.join(" ")} No generation purchased.`)
@@ -267,7 +267,7 @@ export async function prepareAsset(input: {
 /** Advance every researched component, retaining failures and missing tasks in a
  * durable queue. A successful asset import never means the assembly is done. */
 export async function prepareAssets(input: Omit<Parameters<typeof prepareAsset>[0], "componentId">) {
-  const spec = explodeSpecSchema.parse(JSON.parse(await readFile(input.specPath, "utf8")))
+  const spec = explainerSpecSchema.parse(JSON.parse(await readFile(input.specPath, "utf8")))
   const plan = assetPlanSchema.parse(JSON.parse(await readFile(input.planPath, "utf8")))
   const requirements = input.requirementsPath
     ? (await import("../spec/requirements.ts")).assemblyRequirementsSchema.parse(

@@ -8,8 +8,8 @@ import { identifyPhoto } from "./pipeline/identify.ts"
 import { assertModels } from "./pipeline/models.ts"
 import { renderSite } from "./pipeline/render-site.ts"
 import { researchItem } from "./pipeline/research.ts"
-import { runExplode } from "./pipeline/run.ts"
-import { explodeSpecSchema } from "./spec/schema.ts"
+import { runExplainer } from "./pipeline/run.ts"
+import { explainerSpecSchema } from "./spec/schema.ts"
 import { readFile } from "node:fs/promises"
 import { readPhoto } from "./pipeline/photo.ts"
 import { generateVisuals } from "./pipeline/visuals.ts"
@@ -33,12 +33,12 @@ function failure(error: unknown) {
 
 export function createServer() {
   const server = new McpServer({
-    name: "explode",
+    name: "atomic-explainer",
     version: "0.1.0",
   })
 
   server.registerTool(
-    "explode_identify",
+    "atomic_explainer_identify",
     {
       title: "Identify an object",
       description: "Identify the maker, model, and category of a physical object from a photo on disk.",
@@ -57,11 +57,11 @@ export function createServer() {
   )
 
   server.registerTool(
-    "explode_research",
+    "atomic_explainer_research",
     {
       title: "Research how it's made",
       description:
-        "Research components, materials, and manufacturing for an identified object. Returns an explode spec JSON. Does not call an image model.",
+        "Research components, materials, and manufacturing for an identified object. Returns an Atomic Explainer spec JSON. Does not call an image model.",
       inputSchema: {
         maker: z.string(),
         model: z.string(),
@@ -82,13 +82,13 @@ export function createServer() {
   )
 
   server.registerTool(
-    "explode_visualize",
+    "atomic_explainer_visualize",
     {
       title: "Generate teardown images",
       description:
         "Edit the uploaded photo into a photoreal hero, an exploded view, and one close-up per component. The photo is the reference, not a style hint.",
       inputSchema: {
-        specPath: z.string().describe("Path to an explode spec JSON"),
+        specPath: z.string().describe("Path to an Atomic Explainer spec JSON"),
         imagePath: z.string().describe("Path to the uploaded photo used as the edit reference"),
         outDir: z.string().describe("Folder that will receive images/"),
       },
@@ -97,7 +97,7 @@ export function createServer() {
       try {
         const models = assertModels()
         const raw = JSON.parse(await readFile(specPath, "utf8")) as unknown
-        const spec = normalizeSpec(explodeSpecSchema.parse(raw))
+        const spec = normalizeSpec(explainerSpecSchema.parse(raw))
         const photo = await readPhoto(imagePath)
         const next = await generateVisuals(spec, path.resolve(outDir), models, photo.bytes)
         return text(next)
@@ -108,7 +108,7 @@ export function createServer() {
   )
 
   server.registerTool(
-    "explode_prepare_asset",
+    "atomic_explainer_prepare_asset",
     {
       title: "Source or generate a researched component",
       description:
@@ -134,7 +134,7 @@ export function createServer() {
   )
 
   server.registerTool(
-    "explode_assemble",
+    "atomic_explainer_assemble",
     {
       title: "Build researched component geometry",
       description:
@@ -164,10 +164,11 @@ export function createServer() {
   )
 
   server.registerTool(
-    "explode_build_site",
+    "atomic_explainer_build_site",
     {
       title: "Build the scroll site",
-      description: "Write a static scrollytelling site from an explode spec JSON. Does not call a model.",
+      description:
+        "Write a static scrollytelling site from an Atomic Explainer spec JSON. Does not call a model.",
       inputSchema: {
         specPath: z.string(),
         outDir: z.string(),
@@ -182,7 +183,7 @@ export function createServer() {
     async ({ specPath, outDir, requirementsPath }) => {
       try {
         const raw = JSON.parse(await readFile(specPath, "utf8")) as unknown
-        const spec = normalizeSpec(explodeSpecSchema.parse(raw))
+        const spec = normalizeSpec(explainerSpecSchema.parse(raw))
         const index = await renderSite(spec, outDir, {
           assetRoot: path.dirname(path.resolve(specPath)),
           requirementsPath,
@@ -195,9 +196,9 @@ export function createServer() {
   )
 
   server.registerTool(
-    "explode_run",
+    "atomic_explainer_run",
     {
-      title: "Run the full explode pipeline",
+      title: "Run the full Atomic Explainer pipeline",
       description:
         "Identify a photo, research how the object is made, optionally generate images, and write a static scroll-driven teardown site.",
       inputSchema: {
@@ -222,8 +223,8 @@ export function createServer() {
     },
     async ({ imagePath, outDir, skipImages, motion, three, planOnly }) => {
       try {
-        const destination = outDir ?? "./explode-out"
-        const spec = await runExplode({
+        const destination = outDir ?? "./atomic-explainer-out"
+        const spec = await runExplainer({
           photo: imagePath,
           outDir: destination,
           skipImages: skipImages ?? false,
@@ -247,7 +248,7 @@ export function createServer() {
   )
 
   server.registerTool(
-    "explode_extract_frames",
+    "atomic_explainer_extract_frames",
     {
       title: "Extract a scroll sequence",
       description:
@@ -274,7 +275,7 @@ export function createServer() {
   )
 
   server.registerTool(
-    "explode_motion",
+    "atomic_explainer_motion",
     {
       title: "Generate rotation and explode clips",
       description:
@@ -289,7 +290,7 @@ export function createServer() {
         const video = resolveVideo()
         if ("error" in video) throw new Error(video.error)
         const raw = JSON.parse(await readFile(specPath, "utf8")) as unknown
-        const spec = normalizeSpec(explodeSpecSchema.parse(raw))
+        const spec = normalizeSpec(explainerSpecSchema.parse(raw))
         const next = await generateMotion(spec, outDir, video)
         return text({
           video: next.generation?.videoModel,

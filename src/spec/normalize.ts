@@ -1,4 +1,4 @@
-import { explodeSpecSchema, type ExplodeSpec } from "./schema.ts"
+import { explainerSpecSchema, type ExplainerSpec } from "./schema.ts"
 
 export function slug(value: string) {
   const cleaned = value
@@ -8,8 +8,8 @@ export function slug(value: string) {
   return cleaned || "part"
 }
 
-export function normalizeSpec(input: ExplodeSpec): ExplodeSpec {
-  const parsed = explodeSpecSchema.parse(input)
+export function normalizeSpec(input: ExplainerSpec): ExplainerSpec {
+  const parsed = explainerSpecSchema.parse(input)
   const sorted = [...parsed.components].sort((a, b) => a.order - b.order || a.name.localeCompare(b.name))
   const seen = new Set<string>()
 

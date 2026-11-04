@@ -17,15 +17,15 @@ const errors=[],rows=[]
 try{
  const page=await browser.newPage({viewport:{width:1200,height:850}});page.on('pageerror',e=>errors.push(e.message))
  const target=new URL(url);target.searchParams.set('eval','1');target.searchParams.set('materialReview',hash.slice(0,12))
- await page.goto(target.href);await page.waitForFunction(()=>window.__explodeAssemblyReview,null,{timeout:90000})
+ await page.goto(target.href);await page.waitForFunction(()=>window.__atomicExplainerAssemblyReview,null,{timeout:90000})
  await page.waitForTimeout(1500);await page.screenshot({path:path.join(output,'assembled.png')})
  const declared=spec.scene3d.inspectionGroups??[],seen=new Set();
  const stops=spec.scene3d.parts.flatMap(p=>{const g=declared.find(g=>g.componentIds.includes(p.componentId)),part=g??spec.components.find(c=>c.id===p.componentId);if(seen.has(part.id))return [];seen.add(part.id);return [part]});
  for(const part of stops){
   const shots=[]
   for(const [view,local]of [['front',.28],['reverse',.5],['oblique',.61]]){
-   await page.evaluate(({id,local})=>window.__explodeAssemblyReview.inspect(id,local),{id:part.id,local});await page.waitForTimeout(1500)
-   const state=await page.evaluate(()=>window.__explodeAssemblyReview.snapshot());if(!state.allVisible||state.selected!==part.id||!state.bounds)throw Error('Inspection failed: '+part.id)
+   await page.evaluate(({id,local})=>window.__atomicExplainerAssemblyReview.inspect(id,local),{id:part.id,local});await page.waitForTimeout(1500)
+   const state=await page.evaluate(()=>window.__atomicExplainerAssemblyReview.snapshot());if(!state.allVisible||state.selected!==part.id||!state.bounds)throw Error('Inspection failed: '+part.id)
    const b=state.bounds,x=Math.max(0,b.left-10),y=Math.max(0,b.top-10),file=part.id+'-'+view+'.png'
    await page.screenshot({path:path.join(output,file),clip:{x,y,width:Math.min(1200-x,b.right-b.left+20),height:Math.min(850-y,b.bottom-b.top+20)}})
    shots.push({view,file,data:(await readFile(path.join(output,file))).toString('base64')})

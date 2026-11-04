@@ -6,21 +6,21 @@ import { createTripoProvider } from "../src/pipeline/three/tripo.ts"
 import { indexMeshNodes } from "../src/pipeline/three/glb.ts"
 import { buildGeneratedScene, reconstruct } from "../src/pipeline/solid3d.ts"
 import { groundComponents } from "../src/pipeline/research.ts"
-import { explodeSpecSchema } from "../src/spec/schema.ts"
+import { explainerSpecSchema } from "../src/spec/schema.ts"
 import { renderSite, SPEC_MARKER } from "../src/pipeline/render-site.ts"
 import { mkdir } from "node:fs/promises"
 import { exteriorStudy } from "./helpers/understanding.ts"
 
 const directories: string[] = []
 async function temp() {
-  const dir = await mkdtemp(path.join(tmpdir(), "explode-generate-"))
+  const dir = await mkdtemp(path.join(tmpdir(), "atomic-explainer-generate-"))
   directories.push(dir)
   return dir
 }
 afterEach(async () => {
   await Promise.all(directories.splice(0).map((dir) => rm(dir, { force: true, recursive: true })))
 })
-const spec = explodeSpecSchema.parse(JSON.parse(await readFile("public/chronograph.json", "utf8")))
+const spec = explainerSpecSchema.parse(JSON.parse(await readFile("public/chronograph.json", "utf8")))
 const original = await readFile("public/models/chronograph/watch.glb")
 const ok = (data: unknown) => new Response(JSON.stringify({ code: 0, data }))
 const photo = new Uint8Array([137, 80, 78, 71])
@@ -196,7 +196,7 @@ describe("generated model handoff", () => {
           reason: "Test fixture assignment only",
         })),
     })
-    expect(explodeSpecSchema.safeParse(next).success).toBe(true)
+    expect(explainerSpecSchema.safeParse(next).success).toBe(true)
     const templateDir = path.join(directory, "template")
     await mkdir(templateDir)
     await writeFile(path.join(templateDir, "index.html"), `<script>${SPEC_MARKER}</script>`)

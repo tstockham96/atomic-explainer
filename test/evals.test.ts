@@ -2,11 +2,11 @@ import { describe, it, expect } from "vitest"
 import { readFileSync } from "node:fs"
 import { evaluate, reviewSchema, type Review, type Measurements } from "../src/evals/evaluate.ts"
 import { RUBRIC } from "../src/evals/rubric.ts"
-import { explodeSpecSchema } from "../src/spec/schema.ts"
+import { explainerSpecSchema } from "../src/spec/schema.ts"
 import { buildReconstructionPlan } from "../src/pipeline/understanding.ts"
 import { componentLesson } from "../src/viewer/three/learning.ts"
 
-const phone = explodeSpecSchema.parse(JSON.parse(readFileSync("evals/cases/iphone-18-pro.json", "utf8")))
+const phone = explainerSpecSchema.parse(JSON.parse(readFileSync("evals/cases/iphone-18-pro.json", "utf8")))
 const realReview = reviewSchema.parse(JSON.parse(readFileSync("evals/reviews/iphone-18-pro.json", "utf8")))
 // Deliberately synthetic complete review. It tests evaluator logic, NOT the phone.
 function control() {

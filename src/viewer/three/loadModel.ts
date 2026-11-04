@@ -1,20 +1,23 @@
 import * as THREE from "three"
 import { GLTFLoader, type GLTF } from "three/addons/loaders/GLTFLoader.js"
-import type { ExplodeSpec } from "../../spec/schema.ts"
+import type { ExplainerSpec } from "../../spec/schema.ts"
 import { inspectionStops } from "../../spec/scene3d.ts"
 import { asset } from "../asset.ts"
 import { disposeObject, type ExplodableModel, type ExplodablePart } from "./model.ts"
 import { createWatch } from "./watch.ts"
 import { solidifyCover } from "./solidify.ts"
 
-export async function loadModel(spec: ExplodeSpec): Promise<ExplodableModel> {
+export async function loadModel(spec: ExplainerSpec): Promise<ExplodableModel> {
   if (spec.scene3d?.kind === "procedural-watch") return createWatch()
   if (spec.scene3d?.kind !== "gltf") throw new Error("This object has no 3D scene.")
   return prepareModel(spec, await new GLTFLoader().loadAsync(asset(spec.scene3d.url)))
 }
 
 /** Separate loaded geometry without changing its authored assembly or materials. */
-export function prepareModel(spec: ExplodeSpec, loaded: Pick<GLTF, "scene" | "animations">): ExplodableModel {
+export function prepareModel(
+  spec: ExplainerSpec,
+  loaded: Pick<GLTF, "scene" | "animations">,
+): ExplodableModel {
   if (spec.scene3d?.kind !== "gltf") throw new Error("Expected a multipart model spec.")
   const root = new THREE.Group()
   root.add(loaded.scene)

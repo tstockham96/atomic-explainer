@@ -1,5 +1,5 @@
 import { z } from "zod"
-import type { ExplodeSpec } from "./schema.ts"
+import type { ExplainerSpec } from "./schema.ts"
 
 export const manifestSchema = z.object({
   hero: z.string().min(1).optional(),
@@ -10,7 +10,7 @@ export const manifestSchema = z.object({
 export type ImageManifest = z.infer<typeof manifestSchema>
 
 /** Point a spec at photograph files. Paths are relative to the site root. */
-export function applyManifest(spec: ExplodeSpec, manifest: ImageManifest): ExplodeSpec {
+export function applyManifest(spec: ExplainerSpec, manifest: ImageManifest): ExplainerSpec {
   return {
     ...spec,
     heroImage: manifest.hero ?? spec.heroImage,

@@ -1,6 +1,6 @@
 # Third-party software and assets
 
-Explode's own code is MIT-licensed. Third-party code and assets retain their licenses.
+Atomic Explainer's own code is MIT-licensed. Third-party code and assets retain their licenses.
 
 - **Three.js**: MIT. https://github.com/mrdoob/three.js
 - **Basement Scrollytelling**: MIT, copyright basement.studio. https://github.com/basementstudio/scrollytelling/blob/main/LICENSE

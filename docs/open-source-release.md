@@ -1,6 +1,6 @@
 # Open-source release preparation — 2026-11-02
 
-Explode's own code is MIT licensed. Third-party software and assets retain their separately documented terms in `THIRD_PARTY.md` and the accompanying asset notices. Public availability is distinct from verified reconstruction quality: the current project should be described as an experimental, agent-assisted research and authoring tool.
+Atomic Explainer's own code is MIT licensed. Third-party software and assets retain their separately documented terms in `THIRD_PARTY.md` and the accompanying asset notices. Public availability is distinct from verified reconstruction quality: the current project should be described as an experimental, agent-assisted research and authoring tool.
 
 ## Repository review
 

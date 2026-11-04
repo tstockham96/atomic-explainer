@@ -8,11 +8,11 @@ for (const width of [1440, 390])
       if (r.url().includes("/presentation/") && !r.ok()) errors.push(`Asset ${r.status()}: ${r.url()}`)
     })
     await page.goto("/murph-study/index.html?eval=1")
-    await page.waitForFunction(() => Boolean((window as any).__explodeReview?.ready), null, {
+    await page.waitForFunction(() => Boolean((window as any).__atomicExplainerReview?.ready), null, {
       timeout: 90000,
     })
-    const snap = () => page.evaluate(() => (window as any).__explodeReview.snapshot())
-    await page.evaluate(() => (window as any).__explodeReview.seek(0))
+    const snap = () => page.evaluate(() => (window as any).__atomicExplainerReview.snapshot())
+    await page.evaluate(() => (window as any).__atomicExplainerReview.seek(0))
     const initial = await snap()
     expect(initial.setting).toBe("workbench")
     expect(initial.unobscuredParts.length, "opening subject must not be behind scenery").toBeGreaterThan(0)
@@ -24,7 +24,7 @@ for (const width of [1440, 390])
     expect(initial.cameraDirection[2]).toBeLessThan(0.2)
     expect(initial.gridSpacing).toBe(10)
     expect(initial.partPositions).toEqual(initial.homePositions)
-    await page.evaluate(() => (window as any).__explodeReview.inspect("movement-system", 0.35))
+    await page.evaluate(() => (window as any).__atomicExplainerReview.inspect("movement-system", 0.35))
     const before = await snap()
     for (const setting of ["workbench", "plain"]) {
       await page.getByLabel("Scene setting").selectOption(setting)
@@ -42,7 +42,7 @@ for (const width of [1440, 390])
     }
     await page.getByLabel("Scene setting").selectOption("workbench")
     for (const id of ["crystal", "rear-window"]) {
-      await page.evaluate((id) => (window as any).__explodeReview.inspect(id, 0.3), id)
+      await page.evaluate((id) => (window as any).__atomicExplainerReview.inspect(id, 0.3), id)
       const state = await snap()
       state.cameraDirection.forEach((v: number, i: number) =>
         expect(v).toBeCloseTo(initial.cameraDirection[i], 8),
@@ -53,7 +53,7 @@ for (const width of [1440, 390])
       expect(state.allVisible).toBe(true)
       await page.screenshot({ path: info.outputPath(`${id}.png`) })
     }
-    await page.evaluate(() => (window as any).__explodeReview.seek(1))
+    await page.evaluate(() => (window as any).__atomicExplainerReview.seek(1))
     expect((await snap()).partPositions).toEqual(initial.homePositions)
     await page.getByLabel("Scene setting").selectOption("plain")
     await page.getByLabel("Go to component").selectOption("mainspring")
@@ -62,17 +62,17 @@ for (const width of [1440, 390])
   })
 test("the same world-space settings work on a second object", async ({ page }, info) => {
   await page.goto("/construction-fixtures/assembly-story/index.html?eval=1")
-  await page.waitForFunction(() => Boolean(window.__explodeAssemblyReview), null, { timeout: 60000 })
+  await page.waitForFunction(() => Boolean(window.__atomicExplainerAssemblyReview), null, { timeout: 60000 })
   await page.getByLabel("Explore a component").selectOption("chapter:powered-core")
   await expect
-    .poll(() => page.evaluate(() => window.__explodeAssemblyReview!.snapshot().selected))
+    .poll(() => page.evaluate(() => window.__atomicExplainerAssemblyReview!.snapshot().selected))
     .toBe("powered-core")
   for (const setting of ["workbench", "plain"]) {
     await page.getByLabel("Scene setting").selectOption(setting)
     await expect
-      .poll(() => page.evaluate(() => window.__explodeAssemblyReview!.snapshot().setting))
+      .poll(() => page.evaluate(() => window.__atomicExplainerAssemblyReview!.snapshot().setting))
       .toBe(setting)
-    const state = await page.evaluate(() => window.__explodeAssemblyReview!.snapshot())
+    const state = await page.evaluate(() => window.__atomicExplainerAssemblyReview!.snapshot())
     expect(state.selectedParts).toEqual(["logic-board", "battery"])
     expect(state.allVisible).toBe(true)
   }
@@ -86,7 +86,9 @@ test("workshop handoffs keep a physical part in view and Original survives reloa
 }, info) => {
   test.slow() // 144 rendered handoff positions plus two complete scene reloads.
   await page.goto("/murph-study/index.html?eval=1")
-  await page.waitForFunction(() => Boolean((window as any).__explodeReview?.ready), null, { timeout: 90000 })
+  await page.waitForFunction(() => Boolean((window as any).__atomicExplainerReview?.ready), null, {
+    timeout: 90000,
+  })
   const chapters = await page
     .locator("#component-menu option")
     .evaluateAll((options) =>
@@ -94,11 +96,11 @@ test("workshop handoffs keep a physical part in view and Original survives reloa
     )
   for (const [index, id] of chapters.entries()) {
     for (const local of [0.02, 0.07, 0.13, 0.18, 0.78, 0.86, 0.94, 0.999]) {
-      await page.evaluate(({ id, local }) => (window as any).__explodeReview.inspect(id, local), {
+      await page.evaluate(({ id, local }) => (window as any).__atomicExplainerReview.inspect(id, local), {
         id,
         local,
       })
-      const state = await page.evaluate(() => (window as any).__explodeReview.snapshot())
+      const state = await page.evaluate(() => (window as any).__atomicExplainerReview.snapshot())
       expect(state.partsInView.length, `${id} at ${local}`).toBeGreaterThan(0)
       expect(state.lighting.source).toBe("bench_key")
       expect(state.lighting.castsShadow).toBe(true)
@@ -108,10 +110,14 @@ test("workshop handoffs keep a physical part in view and Original survives reloa
   }
   await page.getByLabel("Scene setting").selectOption("plain")
   await page.reload()
-  await page.waitForFunction(() => Boolean((window as any).__explodeReview?.ready), null, { timeout: 90000 })
+  await page.waitForFunction(() => Boolean((window as any).__atomicExplainerReview?.ready), null, {
+    timeout: 90000,
+  })
   await expect(page.getByLabel("Scene setting")).toHaveValue("plain")
   await page.getByLabel("Scene setting").selectOption("workbench")
   await page.reload()
-  await page.waitForFunction(() => Boolean((window as any).__explodeReview?.ready), null, { timeout: 90000 })
+  await page.waitForFunction(() => Boolean((window as any).__atomicExplainerReview?.ready), null, {
+    timeout: 90000,
+  })
   await expect(page.getByLabel("Scene setting")).toHaveValue("workbench")
 })

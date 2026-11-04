@@ -1,7 +1,7 @@
 import { it, expect } from "vitest"
 import { readFileSync } from "node:fs"
 import * as THREE from "three"
-import { explodeSpecSchema } from "../src/spec/schema.ts"
+import { explainerSpecSchema } from "../src/spec/schema.ts"
 import { prepareModel } from "../src/viewer/three/loadModel.ts"
 
 function fixture() {
@@ -12,7 +12,7 @@ function fixture() {
     mesh.name = name
     scene.add(mesh)
   }
-  const spec = explodeSpecSchema.parse({
+  const spec = explainerSpecSchema.parse({
     ...base,
     scene3d: {
       kind: "gltf",

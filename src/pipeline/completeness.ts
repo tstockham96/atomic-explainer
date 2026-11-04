@@ -1,13 +1,13 @@
 import { createHash } from "node:crypto"
 import { readFile, writeFile, mkdir } from "node:fs/promises"
 import path from "node:path"
-import type { ExplodeSpec } from "../spec/schema.ts"
+import type { ExplainerSpec } from "../spec/schema.ts"
 import { assemblyRequirementsSchema, type AssemblyRequirements } from "../spec/requirements.ts"
 import { glbComponentIds } from "../evals/inventory.ts"
 
 export function auditCompleteness(
   requirements: AssemblyRequirements,
-  spec: ExplodeSpec,
+  spec: ExplainerSpec,
   geometryIds: string[],
 ) {
   const geometry = new Set(geometryIds),
@@ -38,7 +38,7 @@ export function auditCompleteness(
 }
 export async function writeCompleteness(
   requirementsPath: string,
-  spec: ExplodeSpec,
+  spec: ExplainerSpec,
   modelPath: string,
   outDir: string,
 ) {

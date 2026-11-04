@@ -31,7 +31,7 @@ export function Create() {
               : e.message,
           )
       })
-    const id = localStorage.getItem("explode-job")
+    const id = localStorage.getItem("atomic-explainer-job")
     if (id)
       fetch(`/api/jobs/${id}`, { signal: controller.signal })
         .then((r) => (r.ok ? r.json() : undefined))
@@ -82,12 +82,15 @@ export function Create() {
     try {
       const response = await fetch(resume ? `/api/jobs/${job!.id}/resume` : "/api/jobs", {
         method: "POST",
-        headers: { "X-Explode-Token": config.token, ...(!resume ? { "Content-Type": file!.type } : {}) },
+        headers: {
+          "X-Atomic-Explainer-Token": config.token,
+          ...(!resume ? { "Content-Type": file!.type } : {}),
+        },
         body: resume ? undefined : file,
       })
       const result = await response.json()
       if (!response.ok) throw new Error(result.error)
-      localStorage.setItem("explode-job", result.id)
+      localStorage.setItem("atomic-explainer-job", result.id)
       setJob(result)
     } catch (e) {
       setError(e instanceof Error ? e.message : "Upload failed.")
@@ -106,12 +109,12 @@ export function Create() {
     try {
       const response = await fetch("/api/assemblies", {
         method: "POST",
-        headers: { "Content-Type": "application/json", "X-Explode-Token": config.token },
+        headers: { "Content-Type": "application/json", "X-Atomic-Explainer-Token": config.token },
         body: await project.text(),
       })
       const result = await response.json()
       if (!response.ok) throw Error(result.error)
-      localStorage.setItem("explode-job", result.id)
+      localStorage.setItem("atomic-explainer-job", result.id)
       setJob(result)
     } catch (error) {
       setError(error instanceof Error ? error.message : "Could not open the project.")
@@ -124,7 +127,7 @@ export function Create() {
   return (
     <main className="create-studio">
       <a className="create-wordmark" href="/">
-        explode<span> / studio</span>
+        Atomic Explainer<span> / studio</span>
       </a>
       <div className="create-layout">
         <section className="create-intro">
@@ -270,7 +273,7 @@ export function Create() {
               {job.plan && (
                 <>
                   <p>
-                    Give this plan to your coding agent with the Explode skill. It contains component
+                    Give this plan to your coding agent with the Atomic Explainer skill. It contains component
                     references, modeling tasks and individual quality reviews. No geometry has been purchased
                     or generated.
                   </p>
