@@ -1,6 +1,6 @@
 # Security
 
-Report suspected vulnerabilities through [GitHub private vulnerability reporting](https://github.com/tstockham96/explode/security/advisories/new). Do not put API keys, private photos, provider responses containing credentials, or sensitive models in public issues.
+Report suspected vulnerabilities through [GitHub private vulnerability reporting](https://github.com/tstockham96/atomic-explainer/security/advisories/new). Do not put API keys, private photos, provider responses containing credentials, or sensitive models in public issues.
 
 This is an experimental local authoring tool. The studio and development previews bind to localhost. The studio checks request origin/host and uses a per-process submission token; it is not an authenticated multi-user hosting service. Do not expose it directly to the internet. Static exported explainers can be hosted separately after checking their assets and provenance.
 

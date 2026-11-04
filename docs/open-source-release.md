@@ -4,7 +4,7 @@ Explode's own code is MIT licensed. Third-party software and assets retain their
 
 ## Repository review
 
-- GitHub repository: `tstockham96/explode`. Visibility was PRIVATE when inspected.
+- GitHub repository: `tstockham96/atomic-explainer` (renamed from `tstockham96/explode`). Visibility was PRIVATE when inspected.
 - Default branch: `main`. The current implementation is on `design/editorial-explainer`, draft PR #1. Publishing the repository alone does not merge that work into the default branch.
 - Gitleaks v8.30.1, downloaded from its official release with SHA-256 checksum verification, scanned all reachable local Git refs (26 commits at the time of the initial audit) with zero findings. Reports were redacted. A clean scan is evidence, not a guarantee that no sensitive information exists.
 - The staged release/story changes also passed a redacted Gitleaks scan with zero findings.

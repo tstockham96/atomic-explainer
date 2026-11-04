@@ -5,7 +5,7 @@ description: Build a researched, continuous 3D object explainer with the Explode
 
 # Explode
 
-Produce one convincing object in one continuous 3D scene: an assembled turn, readable separation, close exploration of individual components, a visible closing reassembly, and anatomy stories afterward. The purpose is learning: the user should understand how the object works. Research determines the geometry and the story; motion reveals that understanding. The project is https://github.com/tstockham96/explode.
+Produce one convincing object in one continuous 3D scene: an assembled turn, readable separation, close exploration of individual components, a visible closing reassembly, and anatomy stories afterward. The purpose is learning: the user should understand how the object works. Research determines the geometry and the story; motion reveals that understanding. The project is https://github.com/tstockham96/atomic-explainer.
 
 ## Locate the engine and available capabilities
 
