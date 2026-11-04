@@ -60,6 +60,8 @@ During development, `npm run mcp` runs the TypeScript entry over stdio.
 | `explode_extract_frames` | ffmpeg a clip into a numbered WebP sequence. No model call | No |
 | `explode_build_site` | Static scroll site from a spec file | No |
 | `explode_run` | Identify, research, images, site. Pass `motion: true` to add clips | Yes |
+| `explode_prepare_asset` | Import a sourced GLB or generate a researched component with Tripo. Omit `componentId` to advance every required component | Tripo generation only |
+| `explode_assemble` | Build an agent-authored assembly recipe into a multipart GLB, review checklist, and explainer | No |
 
 `explode_build_site` is the one to use on the committed Murph spec when you only want a site folder.
 

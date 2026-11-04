@@ -142,7 +142,7 @@ The spec is version `1`. See `src/spec/schema.ts`.
 
 ## Agent tool
 
-`runExplode()` in `src/pipeline/run.ts` is the whole pipeline. The MCP server exposes the same steps: `explode_identify`, `explode_research`, `explode_visualize`, `explode_build_site`, `explode_run`.
+`runExplode()` in `src/pipeline/run.ts` is the whole pipeline. The MCP server exposes the same steps: `explode_identify`, `explode_research`, `explode_visualize`, `explode_motion`, `explode_extract_frames`, `explode_build_site`, `explode_run`, `explode_prepare_asset`, `explode_assemble`.
 
 Details, including a client config, are in [docs/agent.md](docs/agent.md).
 
@@ -173,6 +173,8 @@ npm run dev        # demo on port 4317
 npm run studio     # upload studio on port 4319, after build
 npm test           # spec, geometry, provider contracts, local server, export
 npm run typecheck
+npm run lint       # oxlint
+npm run format     # Prettier; CI runs format:check
 npm run build      # dist-site/ and dist/cli.js
 ```
 

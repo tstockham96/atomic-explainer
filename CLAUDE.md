@@ -27,21 +27,23 @@ Pipeline, in order:
 5. **Site.** Static folder: `index.html`, the viewer, `spec.json`, and the frames.
 6. **True 3D viewer.** `reconstruct` first writes `construction-plan.json`. The single-photo adapter only executes an explicitly scoped exterior draft; plans needing component work stop before a paid generation. The agent must author/source those components rather than discard them. Implemented in `src/viewer/three`. Specs choose a procedural watch or a multipart GLB via `scene3d`. `--3d` now calls Tripo image-to-model and semantic segmentation through `solid3d.ts`. The integration has mocked HTTP/real GLB tests and two live watch trials. Neither result passed the visual/component quality target; see `docs/tripo-watch-trial.md` and `docs/murph-reconstruction-trial.md`. Do not claim accurate hidden geometry or validated part matching. See `docs/photo-to-3d.md`.
 
-`runExplode()` in `src/pipeline/run.ts` is the whole pipeline. MCP tools (`explode_identify`, `explode_research`, `explode_visualize`, `explode_motion`, `explode_extract_frames`, `explode_build_site`, `explode_run`) call the same code. Details are in `docs/agent.md`.
+`runExplode()` in `src/pipeline/run.ts` is the whole pipeline. MCP tools (`explode_identify`, `explode_research`, `explode_visualize`, `explode_motion`, `explode_extract_frames`, `explode_build_site`, `explode_run`, `explode_prepare_asset`, `explode_assemble`) call the same code. Details are in `docs/agent.md`.
 
 ## How to run
 
-The Murph demo needs no API key.
+The default demo needs no API key.
 
 ```bash
 npm install
 npm run dev          # http://127.0.0.1:4317
 npm test
 npm run typecheck
+npm run lint
+npm run format       # Prettier; CI runs format:check
 npm run build        # dist-site/ and dist/cli.js
 ```
 
-Generate a site from a photo (needs `AI_GATEWAY_API_KEY`, or `OPENAI_API_KEY` if the gateway key is unset):
+Generate a site from a photo. Web research needs `OPENAI_API_KEY`; identification, writing and images use `AI_GATEWAY_API_KEY` when set, otherwise OpenAI:
 
 ```bash
 cp .env.example .env
@@ -81,7 +83,7 @@ npm run explode -- --extract ./explode.mp4 --frames-dir public/murph/frames/expl
 
 ## Continuous scene
 
-`Film.tsx` pins one scene with Basement Scrollytelling (Root, Pin, Animation), GSAP, and Lenis. A `scene3d` spec selects `ObjectScene.tsx`, which lazy-loads Three.js. The chronograph has six grouped assemblies. `timeline.ts` maps scroll to turn, separation, and focus; `choreography.ts` computes geometry-based camera framing and per-part orbit directions. `scene.ts` applies lighting, animation, and fading of neighboring components. Imported material maps and bevels are retained. Both atmosphere options share the same geometry and timeline. The user rejected the procedural model and overlapping, repetitive motion. The current imported-asset pass addresses those concrete defects. Do not treat test counts or switching color themes as proof of visual quality.
+`Film.tsx` pins one scene with Basement Scrollytelling (Root, Pin, Animation), GSAP, and Lenis. A `scene3d` spec selects `ObjectScene.tsx`, which lazy-loads Three.js. The chronograph has six grouped assemblies. `timeline.ts` maps scroll to turn, separation, and focus; `choreography.ts` computes geometry-based camera framing and per-part orbit directions. `scene.ts` applies lighting, animation, and fading of neighboring components. Imported material maps and bevels are retained. Both atmosphere options share the same geometry and timeline. Do not reintroduce the procedural model or overlapping, repetitive motion. Do not treat test counts or switching color themes as proof of visual quality.
 
 Generic GLB scenes map named, non-overlapping nodes to component IDs. See `docs/3d-scenes.md`. Keep model authoring separate from the reusable viewer. The procedural watch is illustrative, not Hamilton CAD or an accurate H-10 simulation.
 
@@ -105,7 +107,7 @@ No API keys belong in the repo. `.env` and `.env.*` are gitignored; `.env.exampl
 
 ## Direction
 
-Prioritize object fidelity and intentional camera choreography. The requested experience is floating around one continuous, real 3D object while scroll reveals how its parts work. The user liked the anatomy stories after the scene. Keep both atmospheres available while the model and motion are refined; theme selection is secondary.
+Prioritize object fidelity and intentional camera choreography. The requested experience is floating around one continuous, real 3D object while scroll reveals how its parts work. Keep the anatomy stories after the scene. Keep both atmospheres available while the model and motion are refined; theme selection is secondary.
 
 ## Quality evaluations
 

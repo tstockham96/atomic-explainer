@@ -1,7 +1,7 @@
 {
   "name": "explode",
   "version": "0.1.0",
-  "description": "Turn a photo of a physical object into a scroll-driven how-it's-made teardown.",
+  "description": "An open-source engine for exploring physical objects through a continuous, scroll-driven 3D story.",
   "type": "module",
   "license": "MIT",
   "bin": {
