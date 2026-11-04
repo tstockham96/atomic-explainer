@@ -27,7 +27,7 @@ npm install
 npm run setup
 ```
 
-`npm run setup` builds the viewer, makes sure a browser is available for review renders, installs Blender (Homebrew on macOS, winget on Windows), and asks for your `TRIPO_API_KEY`, which it saves to `.env`. Tripo is a hosted API, so the key is all it needs. No OpenAI or AI Gateway key is needed: the agent does its own research and writing. `npm run setup -- --check` reports without changing anything.
+You don't have to run these yourself: the skill tells the agent to run setup on its own. `npm run setup` builds the viewer, makes sure a browser is available for review renders, and installs Blender (Homebrew on macOS, winget on Windows). If `TRIPO_API_KEY` is missing, it opens the Tripo key page and a native password window and saves what you paste to `.env`, so the key never passes through the agent's chat. Tripo is optional; without it the agent models visible parts in Blender. No OpenAI or AI Gateway key is needed: the agent does its own research and writing. `npm run setup -- --check` reports without changing anything. The agent picks a sensible default object reference and a Tripo credit cap (`ATOMIC_EXPLAINER_TRIPO_CREDITS`, default 300) instead of asking you up front.
 
 Point a capable agent at this repository and ask it to use [the Atomic Explainer skill](skills/atomic-explainer/SKILL.md) with your photograph, object description, or model. For example: “Use the Atomic Explainer skill in this repo to research this object and build a continuous 3D explainer. Prioritize fidelity; inspect a short assembled-to-exploded sequence before making the full tour.”
 

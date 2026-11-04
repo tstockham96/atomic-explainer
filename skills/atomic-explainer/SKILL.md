@@ -7,15 +7,24 @@ description: Build a researched, continuous 3D object explainer with the Atomic 
 
 Produce one convincing object in one continuous 3D scene: an assembled turn, readable separation, close exploration of individual components, a visible closing reassembly, and anatomy stories afterward. The purpose is learning: the user should understand how the object works. Research determines the geometry and the story; motion reveals that understanding. The project is https://github.com/tstockham96/atomic-explainer.
 
-## Set up first
+## Set up first, yourself
 
-Before any research, run `npm install` (if `node_modules` is missing) and `npm run setup` in the checkout. It builds the viewer, ensures a browser for review renders, installs Blender, and reports whether `TRIPO_API_KEY` is set. Read its result with `npm run setup -- --check --json`.
+Run every command yourself, setup included. Never tell the user to run a command, open a terminal, or type `!`, and never hand back a list of steps for them to do.
 
-- **Blender missing:** `npm run setup` installs it where a package manager allows; otherwise give the user its printed fix. Run Blender scripts with `npm run blender -- script.py -- args`.
-- **Tripo key missing:** do not ask the user to paste the key into chat. Ask them to run `npm run setup` in their own terminal, which prompts for it and saves it to `.env`, then rerun the check.
+1. Run `npm install` if `node_modules` is missing, then `npm run setup`. It builds the viewer, ensures a browser for review renders, and installs Blender.
+2. If `TRIPO_API_KEY` is not set, the same `npm run setup` opens the Tripo key page and a native password window on the user's screen, and saves what they paste to `.env`. Tell them in one line that the window is up; you never see or handle the key. If they skip it, carry on: Tripo is optional and Blender covers the visible geometry.
+3. Read the result with `npm run setup -- --check --json`. `ok` covers everything required; the Tripo check is marked `optional`.
+
+- **Blender with no package manager** (Linux): install it with the platform's own package tool yourself, or use the printed download as a last resort. Run Blender scripts with `npm run blender -- script.py -- args`.
 - **Never ask for `OPENAI_API_KEY` or `AI_GATEWAY_API_KEY`.** You do the research and writing yourself; those keys serve only the standalone pipeline and upload studio.
 
-Do not start building geometry until the check reports ready, or the user has explicitly chosen to continue without one capability.
+## Decide, don't ask
+
+Start working as soon as setup is done. Do not open with clarifying questions.
+
+- **Which exact variant:** if the request names a model line without a reference, build the current standard reference (for example, the current production Moonwatch Professional for "Speedmaster") and state the reference you chose in your first update. The user can redirect you.
+- **Tripo budget:** if the user named no cap, spend up to `ATOMIC_EXPLAINER_TRIPO_CREDITS` from `.env`, or 300 credits when that is unset. Say the cap in your first update and report credits spent at the end. Stop and ask only before going past it.
+- Ask only for something you truly cannot decide or do yourself, and keep working on everything else while you wait.
 
 ## Quality bar — read before anything else
 
@@ -82,7 +91,7 @@ Multiple reference views can constrain visible form. Generated reference views r
 
 For the repository's Tripo adapter, read `docs/photo-to-3d.md`. It saves a construction plan first and only generates an exterior when the plan explicitly permits an exterior draft. Plans requiring separately built components stop before a paid call; use available modeling/asset tools to execute those plans. The adapter then segments the draft and proposes label-based matches. It does not yet reconstruct missing internals. Its generic separation layout is a draft. Do not describe this path as a proven solution for arbitrary objects.
 
-Respect the user's generation budget. Preserve returned provider task IDs. If a paid submission loses its response, determine its outcome before retrying; do not purchase duplicates to recover a missing preview.
+Stay within the Tripo budget set under "Decide, don't ask". Preserve returned provider task IDs. If a paid submission loses its response, determine its outcome before retrying; do not purchase duplicates to recover a missing preview.
 
 ## Prove a small sequence first
 

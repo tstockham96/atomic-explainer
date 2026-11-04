@@ -1,5 +1,5 @@
 import { execFile } from "node:child_process"
-import { access, readFile } from "node:fs/promises"
+import { access, readFile, writeFile } from "node:fs/promises"
 import path from "node:path"
 import { promisify } from "node:util"
 
@@ -44,6 +44,68 @@ export async function hasKey(name: string, root = process.cwd(), env: NodeJS.Pro
   } catch {
     return false
   }
+}
+
+/** Sets one key in the checkout's .env, replacing an existing line, without touching the others. */
+export async function writeEnvKey(name: string, value: string, root = process.cwd()) {
+  const file = path.join(root, ".env")
+  const current = (await exists(file)) ? await readFile(file, "utf8") : ""
+  const entry = `${name}=${value.replace(/[\r\n]/g, "")}`
+  const line = new RegExp(`^[ \\t]*${name}[ \\t]*=.*$`, "m")
+  const next = line.test(current)
+    ? current.replace(line, () => entry)
+    : `${current}${current && !current.endsWith("\n") ? "\n" : ""}${entry}\n`
+  await writeFile(file, next, { mode: 0o600 })
+}
+
+const DIALOG_TITLE = "Atomic Explainer setup"
+const appleString = (text: string) => `"${text.replaceAll("\\", "\\\\").replaceAll('"', '\\"')}"`
+
+/** Native password dialogs, so an agent running setup can collect a key the agent never sees. */
+export function secretDialogCommands(message: string, platform = process.platform): [string, string[]][] {
+  if (platform === "darwin")
+    return [
+      [
+        "osascript",
+        [
+          "-e",
+          `set r to display dialog ${appleString(message)} default answer "" with hidden answer with title ${appleString(DIALOG_TITLE)} buttons {"Skip", "Save"} default button "Save" cancel button "Skip" giving up after 900`,
+          "-e",
+          'if gave up of r then return ""',
+          "-e",
+          "return text returned of r",
+        ],
+      ],
+    ]
+  if (platform === "win32")
+    return [
+      [
+        "powershell",
+        [
+          "-NoProfile",
+          "-Command",
+          `$c = Get-Credential -UserName 'TRIPO_API_KEY' -Message '${message.replaceAll("'", "''")}'; if ($c) { $c.GetNetworkCredential().Password }`,
+        ],
+      ],
+    ]
+  return [
+    ["zenity", ["--entry", "--hide-text", "--title", DIALOG_TITLE, "--text", message]],
+    ["kdialog", ["--title", DIALOG_TITLE, "--password", message]],
+  ]
+}
+
+/** Shows a native password dialog; undefined when skipped, closed, or no dialog tool exists. */
+export async function askSecretInWindow(message: string, platform = process.platform) {
+  for (const [command, args] of secretDialogCommands(message, platform)) {
+    try {
+      const { stdout } = await run(command, args, { timeout: 15 * 60_000 })
+      return stdout.trim() || undefined
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code === "ENOENT") continue
+      return undefined
+    }
+  }
+  return undefined
 }
 
 export async function exists(file: string) {

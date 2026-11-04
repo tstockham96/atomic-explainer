@@ -229,10 +229,10 @@ export function Create() {
           <div className="create-import">
             <strong>Already working with an agent?</strong>
             <p>
-              You do not need this upload or an OpenAI key. Run <code>npm run setup</code> once (Blender and a
-              Tripo key), then ask your agent to use the Atomic Explainer skill. It researches, builds and
-              opens the result itself. Recipe imports below are construction tests, not a substitute for
-              detailed assets.
+              You do not need this upload or an OpenAI key. Ask your agent to use the Atomic Explainer skill.
+              It sets itself up (Blender, plus an optional Tripo key you paste into a popup), researches,
+              builds and opens the result itself. Recipe imports below are construction tests, not a
+              substitute for detailed assets.
             </p>
             <button disabled={busy || !config} onClick={() => projectInput.current?.click()}>
               Open construction test

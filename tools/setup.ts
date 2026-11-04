@@ -4,15 +4,25 @@
  *   npm run setup -- --check  report only; exit 1 if something the agent needs is missing
  *   npm run setup -- --json   machine-readable report for the agent
  *
- * The agent does its own research and writing, so no OpenAI or AI Gateway key is needed.
- * Tripo is a hosted API; it needs only TRIPO_API_KEY in .env. */
+ * An agent runs this itself; the person never has to. When the Tripo key is missing and
+ * there is no terminal to type into, setup opens the Tripo key page and a native password
+ * window, and writes the answer to .env, so the key never passes through the agent.
+ * Tripo is optional: without it the agent models visible parts in Blender.
+ * The agent does its own research and writing, so no OpenAI or AI Gateway key is needed. */
 import { chromium } from "@playwright/test"
 import { spawn } from "node:child_process"
-import { appendFile, readFile, writeFile } from "node:fs/promises"
 import path from "node:path"
 import { createInterface } from "node:readline/promises"
 import { parseArgs } from "node:util"
-import { blenderInstallCommand, exists, findBlender, hasKey } from "../src/pipeline/tools.ts"
+import { openInBrowser, shouldAutoOpen } from "../src/pipeline/open-site.ts"
+import {
+  askSecretInWindow,
+  blenderInstallCommand,
+  exists,
+  findBlender,
+  hasKey,
+  writeEnvKey,
+} from "../src/pipeline/tools.ts"
 
 const { values } = parseArgs({
   options: { check: { type: "boolean", default: false }, json: { type: "boolean", default: false } },
@@ -45,7 +55,7 @@ async function browser() {
   return undefined
 }
 
-type Check = { name: string; ok: boolean; detail: string; fix?: string }
+type Check = { name: string; ok: boolean; detail: string; fix?: string; optional?: boolean }
 const checks: Check[] = []
 
 // Node and dependencies.
@@ -96,37 +106,47 @@ checks.push({
     : "Install Blender 4.2+ from https://www.blender.org/download/ or set ATOMIC_EXPLAINER_BLENDER to its binary.",
 })
 
-// Tripo: per-component image-to-3D generation.
+// Tripo: per-component image-to-3D generation. Optional; Blender covers modeling without it.
+const TRIPO_KEYS = "https://platform.tripo3d.ai/"
 let tripo = await hasKey("TRIPO_API_KEY", root)
-if (!tripo && install && process.stdin.isTTY && !values.json) {
-  const prompt = createInterface({ input: process.stdin, output: process.stderr })
-  say("\n  Tripo generates component geometry from your reference photos.")
-  say("  Create a key at https://platform.tripo3d.ai/ (API keys). Leave blank to skip for now.")
-  const key = (await prompt.question("  TRIPO_API_KEY: ")).trim()
-  prompt.close()
+if (!tripo && install) {
+  let key: string | undefined
+  if (process.stdin.isTTY && !values.json) {
+    const prompt = createInterface({ input: process.stdin, output: process.stderr })
+    say("\n  Tripo generates component geometry from reference photos (optional).")
+    say(`  Create a key at ${TRIPO_KEYS} (API keys). Leave blank to skip and model in Blender.`)
+    key = (await prompt.question("  TRIPO_API_KEY: ")).trim()
+    prompt.close()
+  } else if (shouldAutoOpen()) {
+    say("  Opening the Tripo key page and a password window for TRIPO_API_KEY…")
+    openInBrowser(TRIPO_KEYS)
+    key = await askSecretInWindow(
+      "Paste your Tripo API key (platform.tripo3d.ai, API Keys; that page just opened in your browser). " +
+        "It is saved to .env in this checkout and is not shown to the agent. Skip to model in Blender only.",
+    )
+  }
   if (key) {
-    const envFile = path.join(root, ".env")
-    const current = (await exists(envFile)) ? await readFile(envFile, "utf8") : ""
-    if (/^\s*TRIPO_API_KEY\s*=.*$/m.test(current))
-      await writeFile(envFile, current.replace(/^\s*TRIPO_API_KEY\s*=.*$/m, `TRIPO_API_KEY=${key}`))
-    else await appendFile(envFile, `${current && !current.endsWith("\n") ? "\n" : ""}TRIPO_API_KEY=${key}\n`)
+    await writeEnvKey("TRIPO_API_KEY", key, root)
     tripo = true
   }
 }
 checks.push({
   name: "tripo key",
   ok: tripo,
-  detail: tripo ? "TRIPO_API_KEY set" : "missing",
-  fix: "Run npm run setup in your own terminal to enter it, or add TRIPO_API_KEY=... to .env.",
+  optional: true,
+  detail: tripo ? "TRIPO_API_KEY set" : "not set (optional: visible parts are modeled in Blender)",
+  fix: "Run npm run setup again to reopen the key window, or add TRIPO_API_KEY=... to .env.",
 })
 
-const ok = checks.every((c) => c.ok)
+const ok = checks.every((c) => c.ok || c.optional)
 if (values.json)
   console.log(JSON.stringify({ ok, checks, notNeeded: ["OPENAI_API_KEY", "AI_GATEWAY_API_KEY"] }, null, 2))
 else {
   say("\nAtomic Explainer setup")
   for (const c of checks)
-    say(`  ${c.ok ? "✓" : "✗"} ${c.name.padEnd(13)} ${c.detail}${c.ok ? "" : `\n      fix: ${c.fix}`}`)
+    say(
+      `  ${c.ok ? "✓" : c.optional ? "○" : "✗"} ${c.name.padEnd(13)} ${c.detail}${c.ok ? "" : `\n      fix: ${c.fix}`}`,
+    )
   say("  · OpenAI / AI Gateway keys are not needed when an agent builds the explainer.")
   say(ok ? "\nReady." : "\nNot ready: fix the items marked ✗, then run npm run setup again.")
 }
