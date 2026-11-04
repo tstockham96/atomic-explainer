@@ -7,6 +7,17 @@ description: Build a researched, continuous 3D object explainer with the Atomic 
 
 Produce one convincing object in one continuous 3D scene: an assembled turn, readable separation, close exploration of individual components, a visible closing reassembly, and anatomy stories afterward. The purpose is learning: the user should understand how the object works. Research determines the geometry and the story; motion reveals that understanding. The project is https://github.com/tstockham96/atomic-explainer.
 
+## Quality bar — read before anything else
+
+Someone who knows the object must recognize it instantly in the opening shot, and it must hold up at close range. Past runs failed this by modeling from one front product photo, hand-coding the visible exterior from three.js boxes and cylinders, truncating the bracelet to two links per side, and shipping a render defect that was already noted in their own README. These rules are not optional:
+
+1. **Photographs before geometry.** Inspect at least eight photographs of the exact reference before authoring anything: front, back, both sides, a three-quarter oblique, controls/crown detail, strap or bracelet and clasp, plus teardown or service photos for internals. Save each locally and record it as an `observations` entry with its `view`. `referenceCoverage()` in `src/spec/assets.ts` must report `ok`. Each component cites the observations that actually show it.
+2. **Real geometry for everything visible.** For the exterior, use in order: a licensed multipart model; Blender (`blender --background --python script.py`, with the references as image planes) or CAD; Tripo multi-view generation per component. Hand-written primitive geometry is acceptable only for hidden or schematic internals, labeled as such. If none of the three is available, stop and tell the user what is missing; do not ship a primitive exterior.
+3. **Build the whole object.** Full-length bracelets, straps, cables and clasps. A part cut short "for framing" reads as a broken object.
+4. **Iterate on the fidelity sheet.** Run `npm run review:compare -- --site <built site> --plan <asset-plan.json>` and look at the PNG it writes. It shows the real viewer's opening shot and front, oblique, side and back renders beside every inspected photograph. Write down each mismatch (silhouette, proportions, missing or partial parts, finish, printed detail, flicker or see-through layers), fix it, rebuild, and rerun. Finish only when there is nothing left you would have to point out to the user. A defect you documented is still a defect.
+5. **Do not promote a draft.** Do not add the object to the studio's sample list or call it finished until the sheet passes.
+6. **Open the result.** CLI site builds open in the browser when finished. For a site built another way, run `npm run atomic-explainer -- --preview <site dir>`. Also give the user the URL.
+
 ## Locate the engine and available capabilities
 
 Use the user's checkout when present; otherwise obtain the named repository in an appropriate workspace. Resolve all repository paths below against that checkout. Read its `README.md`, `docs/research-first.md`, and `docs/3d-scenes.md` before authoring a scene. The spec contract is `src/spec/schema.ts`.
@@ -112,7 +123,7 @@ Inspect the continuous sequence in both scroll directions and at narrow and wide
 
 Give every component a complete inspection turn after its neighbors have cleared. Separate parts farther or move the camera to focus; do not fade, dissolve or hide story components. Restore each assembly orientation before returning it to its seat. After the final inspection, visibly reassemble the complete object and hold it before the anatomy section; reverse scrolling must retrace the same positions. The repository's reusable inspection helpers provide full turns with fixed framing; construction plans carry the corresponding visual-review requirements. These helpers do not supply missing geometry or prove reference fidelity.
 
-Deliver the local explainer, reusable spec, source/attribution notes, and a concise account of validation and unresolved quality issues. Distinguish live generation from fixture tests. Leave publication or repository pushes within the user's authorized scope. Never equate successful API responses, mesh counts, or green tests with photorealistic quality.
+Deliver the local explainer opened in the user's browser (`--preview`), the reusable spec, source/attribution notes, the fidelity sheet, and a concise account of validation and unresolved quality issues. Distinguish live generation from fixture tests. Leave publication or repository pushes within the user's authorized scope. Never equate successful API responses, mesh counts, or green tests with photorealistic quality.
 
 ## Apply the quality gates
 

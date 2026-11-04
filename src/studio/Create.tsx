@@ -55,7 +55,11 @@ export function Create() {
           if (!r.ok) throw new Error("Unable to check progress. Refresh to reconnect to your saved job.")
           return r.json()
         })
-        .then(setJob)
+        .then((next: StudioJob) => {
+          setJob(next)
+          // Open the finished exploration as soon as it is ready; a reload of an old job does not redirect.
+          if (next.status !== "running" && next.preview) window.location.assign(next.preview)
+        })
         .catch((e) => {
           if (!controller.signal.aborted) setError(e.message)
         })

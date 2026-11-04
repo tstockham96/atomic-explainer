@@ -61,6 +61,10 @@ export async function createObjectScene(
     antialias: true,
     alpha: false,
     powerPreference: "high-performance",
+    // Wide workbench shots put the camera ~50 units from a 7-unit object with a 0.05
+    // near plane. A linear depth buffer then cannot separate layers a few hundredths of
+    // a millimetre apart (dial over its blank, link over link) and they z-fight.
+    logarithmicDepthBuffer: true,
   })
   configureRenderBudget(renderer)
   renderer.outputColorSpace = THREE.SRGBColorSpace
@@ -82,6 +86,9 @@ export async function createObjectScene(
   const backdrop = createOpticalBackdrop(scene.background)
   scene.add(backdrop)
   const render = () => renderer.render(scene, camera)
+  // `?debug=1` exposes the live scene so agents can inspect real renders.
+  if (new URLSearchParams(location.search).has("debug"))
+    Object.assign(window, { __atomicExplainerDebug: { THREE, renderer, scene, camera, render } })
   const sky = new THREE.HemisphereLight(0xeaf4ff, 0x9c8c78, 2.0)
   const key = new THREE.DirectionalLight(0xfff2db, 3.2)
   key.position.set(-4, 7, 6)

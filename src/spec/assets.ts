@@ -60,3 +60,37 @@ export const assetPlanSchema = z.object({
     .min(1),
 })
 export type AssetPlan = z.infer<typeof assetPlanSchema>
+
+/** Views of the whole object every reconstruction needs before geometry is authored. */
+export const REQUIRED_REFERENCE_VIEWS = ["front", "back", "side", "oblique"] as const
+export const MIN_INSPECTED_PHOTOGRAPHS = 8
+
+/** Flags a plan built from too few inspected photographs. One front product shot cannot
+ * establish case sides, thickness, bracelet/strap construction or the back. */
+export function referenceCoverage(plan: AssetPlan) {
+  const photos = plan.observations.filter((o) => o.origin === "photograph")
+  const images = new Set(photos.map((o) => o.imagePath))
+  const views = new Set(
+    photos.map((o) =>
+      o.view === "left" || o.view === "right" ? "side" : o.view === "assembled" ? "oblique" : o.view,
+    ),
+  )
+  const missingViews = REQUIRED_REFERENCE_VIEWS.filter((view) => !views.has(view))
+  const issues: string[] = []
+  if (images.size < MIN_INSPECTED_PHOTOGRAPHS)
+    issues.push(
+      `Only ${images.size} inspected photograph${images.size === 1 ? "" : "s"}; inspect at least ${MIN_INSPECTED_PHOTOGRAPHS} of the exact reference.`,
+    )
+  if (missingViews.length) issues.push(`No inspected photograph of the ${missingViews.join(", ")} view.`)
+  const shared = new Map<string, number>()
+  for (const task of plan.tasks) {
+    const key = [...task.observationIds].sort().join(",")
+    shared.set(key, (shared.get(key) ?? 0) + 1)
+  }
+  const largest = Math.max(0, ...shared.values())
+  if (plan.tasks.length >= 4 && largest === plan.tasks.length)
+    issues.push(
+      `All ${plan.tasks.length} components cite the same observations; each needs its own evidence.`,
+    )
+  return { photographs: images.size, views: [...views].sort(), missingViews, issues, ok: issues.length === 0 }
+}

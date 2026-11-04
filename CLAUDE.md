@@ -68,6 +68,12 @@ Render a spec you already have, with no model call:
 npx atomic-explainer --from-spec public/spec.json --out ./site
 ```
 
+Site builds open in the browser when they finish (`--no-open` to skip; never in CI or tests). Serve and open an existing build:
+
+```bash
+npx atomic-explainer --preview ./site
+```
+
 MCP server (stdio). Development entry, or `node dist/mcp.js` after `npm run build:cli`:
 
 ```bash
@@ -111,4 +117,4 @@ Prioritize object fidelity and intentional camera choreography. The requested ex
 
 ## Quality evaluations
 
-Read `docs/evaluations.md` before claiming a model or experience is ready. `npm run eval` reports known failures; `npm run eval:release` is a deliberately strict release gate. Tests passing do not establish visual quality or learner comprehension. Reviews bind to the spec and model hashes. Record actual exported front, oblique and reverse views for every component. Preserve research-only and fixture labels; never present them as live generations. The studio now creates plans only (`--plan` / MCP `planOnly`), with component construction handed to an agent.
+Follow the quality bar at the top of `skills/atomic-explainer/SKILL.md` for every new object. Run `npm run review:compare -- --site <site> --plan <asset-plan.json>` and judge its fidelity sheet against the inspected photographs before calling a build done. Read `docs/evaluations.md` before claiming a model or experience is ready. `npm run eval` reports known failures; `npm run eval:release` is a deliberately strict release gate. Tests passing do not establish visual quality or learner comprehension. Reviews bind to the spec and model hashes. Record actual exported front, oblique and reverse views for every component. Preserve research-only and fixture labels; never present them as live generations. The studio now creates plans only (`--plan` / MCP `planOnly`), with component construction handed to an agent.

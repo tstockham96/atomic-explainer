@@ -3,6 +3,7 @@ import { parseArgs } from "node:util"
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { extractFrames } from "./pipeline/motion.ts"
+import { openSite, shouldAutoOpen } from "./pipeline/open-site.ts"
 import { runExplainer } from "./pipeline/run.ts"
 import { parseSkip } from "./spec/frames.ts"
 
@@ -25,6 +26,8 @@ interface Flags {
   fps?: number
   skips: ReturnType<typeof parseSkip>[]
   photo?: string
+  open: boolean
+  preview?: string
 }
 
 export function formatHelp() {
@@ -41,6 +44,7 @@ Usage
   atomic-explainer --from-spec ./research.json --assemble ./assembly.json --out ./site
   atomic-explainer ./photo.jpg --from-spec public/spec.json --images --out ./site
   atomic-explainer ./photo.jpg --motion --out ./site
+  atomic-explainer --preview ./site
   atomic-explainer --extract ./explode.mp4 --frames-dir ./frames/explode --skip 4.55-5.65 --skip-keep 2
 
 Options
@@ -61,6 +65,8 @@ Options
       --skip <a-b>        Source-time range to rush or drop. Repeatable
       --skip-keep <n>     Frames to keep inside each --skip (default 0 drops it)
       --json              Print the spec JSON to stdout
+      --no-open           Do not open the finished site in a browser (default opens it)
+      --preview <dir>     Serve an already built site locally and open it
   -h, --help
 
 Environment
@@ -87,6 +93,7 @@ export function parseFlags(argv: string[]): Flags {
   const { values, positionals } = parseArgs({
     args: argv,
     allowPositionals: true,
+    allowNegative: true,
     options: {
       out: { type: "string", short: "o", default: "./atomic-explainer-out" },
       "from-spec": { type: "string" },
@@ -105,6 +112,8 @@ export function parseFlags(argv: string[]): Flags {
       skip: { type: "string", multiple: true },
       "skip-keep": { type: "string" },
       json: { type: "boolean", default: false },
+      open: { type: "boolean", default: true },
+      preview: { type: "string" },
       help: { type: "boolean", short: "h", default: false },
       "model-vision": { type: "string" },
       "model-research": { type: "string" },
@@ -125,6 +134,8 @@ export function parseFlags(argv: string[]): Flags {
 
   return {
     help: values.help,
+    open: values.open && !values.json && shouldAutoOpen(),
+    preview: values.preview,
     json: values.json,
     out: values.out ?? "./atomic-explainer-out",
     fromSpec: values["from-spec"],
@@ -163,6 +174,17 @@ export async function main(argv: string[]) {
         skips: flags.skips,
       })
       console.error(`  ${sequence.count} frames  ${flags.framesDir}`)
+      return 0
+    } catch (error) {
+      console.error(error instanceof Error ? error.message : String(error))
+      return 1
+    }
+  }
+
+  if (flags.preview) {
+    try {
+      const { url, opened } = await openSite(flags.preview, { open: flags.open })
+      console.error(opened ? `  Opened ${url}` : `  Serving ${url}`)
       return 0
     } catch (error) {
       console.error(error instanceof Error ? error.message : String(error))
@@ -245,11 +267,11 @@ export async function main(argv: string[]) {
       console.error(`  ${spec.components.length} parts`)
       console.error(`  ${index}`)
       console.error("")
-      console.error(
-        flags.plan
-          ? "  Research plan only; geometry still needs construction and review."
-          : "  Serve it with:  npx serve " + path.resolve(flags.out),
-      )
+      if (flags.plan) console.error("  Research plan only; geometry still needs construction and review.")
+      else if (flags.open) {
+        const { url, opened } = await openSite(flags.out)
+        console.error(opened ? `  Opened ${url}` : `  Serving ${url}`)
+      } else console.error(`  Preview it with:  npx atomic-explainer --preview ${path.resolve(flags.out)}`)
     }
     return 0
   } catch (error) {

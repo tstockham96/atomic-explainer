@@ -50,10 +50,9 @@ Requires Node.js 22.12 or newer.
 
 ```bash
 npm run atomic-explainer -- --from-spec public/chronograph.json --out ./site
-npx serve ./site
 ```
 
-The first render builds the viewer into `dist-site/` if it is not there yet.
+The finished site opens in your browser (`--no-open` to skip). `npm run atomic-explainer -- --preview ./site` reopens an existing build. The first render builds the viewer into `dist-site/` if it is not there yet.
 
 ## Generate from a photograph
 
@@ -176,6 +175,7 @@ npm run typecheck
 npm run lint       # oxlint
 npm run format     # Prettier; CI runs format:check
 npm run build      # dist-site/ and dist/cli.js
+npm run review:compare -- --site <site> --plan <asset-plan.json>  # renders beside inspected photos
 ```
 
 ## Roadmap
