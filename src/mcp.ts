@@ -19,7 +19,11 @@ import { normalizeSpec } from "./spec/normalize.ts"
 import { parseSkip } from "./spec/frames.ts"
 
 function text(value: unknown) {
-  return { content: [{ type: "text" as const, text: typeof value === "string" ? value : JSON.stringify(value, null, 2) }] }
+  return {
+    content: [
+      { type: "text" as const, text: typeof value === "string" ? value : JSON.stringify(value, null, 2) },
+    ],
+  }
 }
 
 function failure(error: unknown) {
@@ -107,12 +111,25 @@ export function createServer() {
     "explode_prepare_asset",
     {
       title: "Source or generate a researched component",
-      description: "Omit componentId to advance every required component and save an incomplete work queue; supply it for one task. Import an existing GLB or send inspected multi-view images / an explicit construction prompt to Tripo. Requires a source search, exact variant, image observations and component research. Saves original geometry, provenance, request and pending review; never publishes an unreviewed explainer.",
-      inputSchema: { specPath: z.string(), planPath: z.string(), componentId: z.string().optional(), outDir: z.string(), requirementsPath: z.string().optional() },
+      description:
+        "Omit componentId to advance every required component and save an incomplete work queue; supply it for one task. Import an existing GLB or send inspected multi-view images / an explicit construction prompt to Tripo. Requires a source search, exact variant, image observations and component research. Saves original geometry, provenance, request and pending review; never publishes an unreviewed explainer.",
+      inputSchema: {
+        specPath: z.string(),
+        planPath: z.string(),
+        componentId: z.string().optional(),
+        outDir: z.string(),
+        requirementsPath: z.string().optional(),
+      },
     },
-    async input => {
-      try { const api=await import('./pipeline/assets.ts'); if(!input.componentId)return text(await api.prepareAssets(input)); const report=await api.prepareAsset({...input,componentId:input.componentId}); return text({...report,index:path.resolve(input.outDir,'index.html')}) }
-      catch (error) { return failure(error) }
+    async (input) => {
+      try {
+        const api = await import("./pipeline/assets.ts")
+        if (!input.componentId) return text(await api.prepareAssets(input))
+        const report = await api.prepareAsset({ ...input, componentId: input.componentId })
+        return text({ ...report, index: path.resolve(input.outDir, "index.html") })
+      } catch (error) {
+        return failure(error)
+      }
     },
   )
 
@@ -120,14 +137,29 @@ export function createServer() {
     "explode_assemble",
     {
       title: "Build researched component geometry",
-      description: "Build an agent-authored dimensional assembly recipe into a multipart GLB, review checklist and explainer. No paid model calls. All parts remain unreviewed until compared with references.",
-      inputSchema: { specPath: z.string(), assemblyPath: z.string(), outDir: z.string(), requirementsPath: z.string().optional() },
+      description:
+        "Build an agent-authored dimensional assembly recipe into a multipart GLB, review checklist and explainer. No paid model calls. All parts remain unreviewed until compared with references.",
+      inputSchema: {
+        specPath: z.string(),
+        assemblyPath: z.string(),
+        outDir: z.string(),
+        requirementsPath: z.string().optional(),
+      },
     },
     async ({ specPath, assemblyPath, outDir, requirementsPath }) => {
       try {
-        const spec = await (await import('./pipeline/assemble.ts')).assembleStudy(specPath, assemblyPath, path.resolve(outDir), undefined, requirementsPath)
-        return text({ index: path.resolve(outDir, 'index.html'), project: path.resolve(outDir, 'assembly-project.json'), item: spec.item.name, status: 'unreviewed' })
-      } catch (error) { return failure(error) }
+        const spec = await (
+          await import("./pipeline/assemble.ts")
+        ).assembleStudy(specPath, assemblyPath, path.resolve(outDir), undefined, requirementsPath)
+        return text({
+          index: path.resolve(outDir, "index.html"),
+          project: path.resolve(outDir, "assembly-project.json"),
+          item: spec.item.name,
+          status: "unreviewed",
+        })
+      } catch (error) {
+        return failure(error)
+      }
     },
   )
 
@@ -139,14 +171,22 @@ export function createServer() {
       inputSchema: {
         specPath: z.string(),
         outDir: z.string(),
-        requirementsPath: z.string().optional().describe("Original researched component inventory; prevents an exterior asset from narrowing the scope"),
+        requirementsPath: z
+          .string()
+          .optional()
+          .describe(
+            "Original researched component inventory; prevents an exterior asset from narrowing the scope",
+          ),
       },
     },
     async ({ specPath, outDir, requirementsPath }) => {
       try {
         const raw = JSON.parse(await readFile(specPath, "utf8")) as unknown
         const spec = normalizeSpec(explodeSpecSchema.parse(raw))
-        const index = await renderSite(spec, outDir, { assetRoot: path.dirname(path.resolve(specPath)), requirementsPath })
+        const index = await renderSite(spec, outDir, {
+          assetRoot: path.dirname(path.resolve(specPath)),
+          requirementsPath,
+        })
         return text({ index, item: spec.item.name, parts: spec.components.length })
       } catch (error) {
         return failure(error)
@@ -164,9 +204,20 @@ export function createServer() {
         imagePath: z.string(),
         outDir: z.string().optional(),
         skipImages: z.boolean().optional(),
-        motion: z.boolean().optional().describe("Also generate rotation and explode clips, then extract WebP frames"),
-        planOnly: z.boolean().optional().describe("Save research and a construction plan only; do not generate geometry or images"),
-        three: z.boolean().optional().describe("Generate a textured multipart 3D draft with Tripo instead of images; needs TRIPO_API_KEY and OPENAI_API_KEY"),
+        motion: z
+          .boolean()
+          .optional()
+          .describe("Also generate rotation and explode clips, then extract WebP frames"),
+        planOnly: z
+          .boolean()
+          .optional()
+          .describe("Save research and a construction plan only; do not generate geometry or images"),
+        three: z
+          .boolean()
+          .optional()
+          .describe(
+            "Generate a textured multipart 3D draft with Tripo instead of images; needs TRIPO_API_KEY and OPENAI_API_KEY",
+          ),
       },
     },
     async ({ imagePath, outDir, skipImages, motion, three, planOnly }) => {
@@ -182,7 +233,9 @@ export function createServer() {
         })
         return text({
           outDir: path.resolve(destination),
-          ...(planOnly ? {plan: path.resolve(destination, "construction-plan.json")} : {index: path.resolve(destination, "index.html")}),
+          ...(planOnly
+            ? { plan: path.resolve(destination, "construction-plan.json") }
+            : { index: path.resolve(destination, "index.html") }),
           item: spec.item,
           components: spec.components.map((component) => component.name),
           warnings: spec.generation?.warnings ?? [],

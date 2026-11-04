@@ -73,7 +73,11 @@ async function listFrames(dir: string) {
  * Pull a WebP sequence from a clip. Optional skip ranges drop or rush a bad patch
  * (the Murph explode clip flashes a second crystal around 4.5–5.6s).
  */
-export async function extractFrames(videoPath: string, outDir: string, options: ExtractOptions = {}): Promise<ExtractedSequence> {
+export async function extractFrames(
+  videoPath: string,
+  outDir: string,
+  options: ExtractOptions = {},
+): Promise<ExtractedSequence> {
   const fps = options.fps ?? DEFAULT_FPS
   const width = options.width ?? DEFAULT_WIDTH
   const input = path.resolve(videoPath)
@@ -302,7 +306,9 @@ export async function generateMotion(
   })
 
   log("Extract rotation frames")
-  const rotation = await extractFrames(rotationVideo, path.join(root, "frames", "rotation"), { fps: options.fps })
+  const rotation = await extractFrames(rotationVideo, path.join(root, "frames", "rotation"), {
+    fps: options.fps,
+  })
   log("Extract explode frames")
   const burst = await extractFrames(explodeVideo, path.join(root, "frames", "explode"), {
     fps: options.fps,

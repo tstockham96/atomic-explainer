@@ -58,5 +58,6 @@ jobs:
           path: |
             playwright-report/
             test-results/
+
 # These are regressions, not a certificate of reference fidelity or learning.
 # The separate release-quality gate intentionally remains not-ready.

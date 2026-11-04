@@ -16,7 +16,10 @@ export function normalizeSpec(input: ExplodeSpec): ExplodeSpec {
   const components = sorted.map((component, index) => {
     let id = slug(component.id || component.name)
     while (seen.has(id)) id = `${id}-${index + 1}`
-    if (parsed.understanding && id !== component.id) throw new Error("Researched assemblies require unique lowercase hyphenated component IDs so evidence and relationships remain attached.")
+    if (parsed.understanding && id !== component.id)
+      throw new Error(
+        "Researched assemblies require unique lowercase hyphenated component IDs so evidence and relationships remain attached.",
+      )
     seen.add(id)
     return { ...component, id, order: index }
   })

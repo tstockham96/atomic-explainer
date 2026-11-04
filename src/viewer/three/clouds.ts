@@ -5,7 +5,8 @@ export function createClouds() {
     depthWrite: false,
     depthTest: false,
     uniforms: {
-      uTime: { value: 0 }, uNight: { value: 0 },
+      uTime: { value: 0 },
+      uNight: { value: 0 },
       uResolution: { value: new THREE.Vector2(1, 1) },
     },
     vertexShader: `void main() { gl_Position = vec4(position.xy, 1.0, 1.0); }`,

@@ -5,9 +5,7 @@ import { loadSpec } from "./viewer/loadSpec.ts"
 import { Create } from "./studio/Create.tsx"
 
 type State =
-  | { status: "loading" }
-  | { status: "ready"; spec: ExplodeSpec }
-  | { status: "error"; message: string }
+  { status: "loading" } | { status: "ready"; spec: ExplodeSpec } | { status: "error"; message: string }
 
 export default function App() {
   if (window.location.pathname === "/create") return <Create />

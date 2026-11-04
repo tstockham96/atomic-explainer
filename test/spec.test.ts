@@ -39,7 +39,9 @@ describe("Murph demo spec", () => {
   })
 
   it("points every part at a photograph in the manifest", () => {
-    const manifest = JSON.parse(readFileSync(path.join(process.cwd(), "public/murph/manifest.json"), "utf8")) as {
+    const manifest = JSON.parse(
+      readFileSync(path.join(process.cwd(), "public/murph/manifest.json"), "utf8"),
+    ) as {
       components: Record<string, string>
     }
     for (const component of murph.components) {
@@ -90,8 +92,16 @@ describe("film sequence", () => {
 describe("layout", () => {
   it("stacks parts from top to bottom when the model omits coordinates", () => {
     const part = { placement: "stack" } as ComponentSpec
-    const top = layoutFor({ ...part, id: "a", name: "A", material: "m", howItsMade: "h", funFacts: ["f"], order: 0 }, 0, 5)
-    const bottom = layoutFor({ ...part, id: "b", name: "B", material: "m", howItsMade: "h", funFacts: ["f"], order: 4 }, 4, 5)
+    const top = layoutFor(
+      { ...part, id: "a", name: "A", material: "m", howItsMade: "h", funFacts: ["f"], order: 0 },
+      0,
+      5,
+    )
+    const bottom = layoutFor(
+      { ...part, id: "b", name: "B", material: "m", howItsMade: "h", funFacts: ["f"], order: 4 },
+      4,
+      5,
+    )
     expect(top.y).toBeLessThan(0)
     expect(bottom.y).toBeGreaterThan(0)
   })
@@ -109,7 +119,9 @@ describe("normalizeSpec", () => {
       ...murph,
       components: [...murph.components].reverse().map((component, index) => ({ ...component, order: index })),
     })
-    expect(spec.components.map((component) => component.order)).toEqual(spec.components.map((_, index) => index))
+    expect(spec.components.map((component) => component.order)).toEqual(
+      spec.components.map((_, index) => index),
+    )
     expect(new Set(spec.components.map((component) => component.id)).size).toBe(spec.components.length)
   })
 })

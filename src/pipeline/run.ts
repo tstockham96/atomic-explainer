@@ -12,8 +12,8 @@ import { generateMotion } from "./motion.ts"
 import { resolveVideo } from "./models.ts"
 import type { SkipRange } from "../spec/frames.ts"
 import { reconstruct } from "./solid3d.ts"
-import { buildReconstructionPlan } from './understanding.ts'
-import { assemblyRequirementsSchema } from '../spec/requirements.ts'
+import { buildReconstructionPlan } from "./understanding.ts"
+import { assemblyRequirementsSchema } from "../spec/requirements.ts"
 
 export interface RunOptions {
   photo?: string
@@ -32,15 +32,19 @@ export interface RunOptions {
 
 export async function runExplode(options: RunOptions): Promise<ExplodeSpec> {
   const log = options.log ?? (() => undefined)
-  if (options.planOnly && (options.three || options.motion)) throw new Error('Choose research planning or generation, not both.')
+  if (options.planOnly && (options.three || options.motion))
+    throw new Error("Choose research planning or generation, not both.")
   if (options.three) {
     if (!options.photo) throw new Error("3D generation requires a source photo.")
     const photo = await readPhoto(options.photo)
-    if (!["image/png", "image/jpeg"].includes(photo.mediaType) || photo.bytes.length > 20 * 1024 * 1024) throw new Error("3D generation needs a PNG or JPEG photo under 20 MB.")
+    if (!["image/png", "image/jpeg"].includes(photo.mediaType) || photo.bytes.length > 20 * 1024 * 1024)
+      throw new Error("3D generation needs a PNG or JPEG photo under 20 MB.")
     if (options.motion) throw new Error("Choose 3D generation or video motion, not both.")
-    if (!process.env.TRIPO_API_KEY?.trim()) throw new Error("Set TRIPO_API_KEY in .env before generating 3D geometry.")
+    if (!process.env.TRIPO_API_KEY?.trim())
+      throw new Error("Set TRIPO_API_KEY in .env before generating 3D geometry.")
     assertModels()
-    if (!options.specPath && !process.env.OPENAI_API_KEY?.trim()) throw new Error("Set OPENAI_API_KEY in .env for web-backed research.")
+    if (!options.specPath && !process.env.OPENAI_API_KEY?.trim())
+      throw new Error("Set OPENAI_API_KEY in .env for web-backed research.")
   }
   let spec: ExplodeSpec
 
@@ -60,17 +64,31 @@ export async function runExplode(options: RunOptions): Promise<ExplodeSpec> {
   }
 
   if (options.planOnly) {
-    await mkdir(options.outDir,{recursive:true})
-    await writeFile(path.join(options.outDir,'research.json'),JSON.stringify(spec,null,2))
-    const plan=buildReconstructionPlan(spec)
-    await writeFile(path.join(options.outDir,'construction-plan.json'),JSON.stringify(plan,null,2))
-    const requirements=assemblyRequirementsSchema.parse({version:1,identity:spec.understanding?.identityScope??spec.item.name,objective:spec.understanding?.learningGoals.join(' ')??spec.item.summary,components:spec.components.map(c=>({id:c.id,name:c.name,system:spec.item.category,purpose:spec.understanding?.components.find(p=>p.componentId===c.id)?.function??c.howItsMade,sourceUrls:c.evidence?.sourceUrls.length?c.evidence.sourceUrls:spec.sources.map(s=>s.url)}))})
-    const scopePath=path.join(options.outDir,'assembly-requirements.json')
+    await mkdir(options.outDir, { recursive: true })
+    await writeFile(path.join(options.outDir, "research.json"), JSON.stringify(spec, null, 2))
+    const plan = buildReconstructionPlan(spec)
+    await writeFile(path.join(options.outDir, "construction-plan.json"), JSON.stringify(plan, null, 2))
+    const requirements = assemblyRequirementsSchema.parse({
+      version: 1,
+      identity: spec.understanding?.identityScope ?? spec.item.name,
+      objective: spec.understanding?.learningGoals.join(" ") ?? spec.item.summary,
+      components: spec.components.map((c) => ({
+        id: c.id,
+        name: c.name,
+        system: spec.item.category,
+        purpose: spec.understanding?.components.find((p) => p.componentId === c.id)?.function ?? c.howItsMade,
+        sourceUrls: c.evidence?.sourceUrls.length ? c.evidence.sourceUrls : spec.sources.map((s) => s.url),
+      })),
+    })
+    const scopePath = path.join(options.outDir, "assembly-requirements.json")
     try {
-      const previous=assemblyRequirementsSchema.parse(JSON.parse(await readFile(scopePath,'utf8')))
-      if(previous.components.some(c=>!requirements.components.some(n=>n.id===c.id)))throw Error('Research would drop required components from the original assembly scope.')
-    }catch(error){if((error as NodeJS.ErrnoException).code!=='ENOENT')throw error}
-    await writeFile(scopePath,JSON.stringify(requirements,null,2))
+      const previous = assemblyRequirementsSchema.parse(JSON.parse(await readFile(scopePath, "utf8")))
+      if (previous.components.some((c) => !requirements.components.some((n) => n.id === c.id)))
+        throw Error("Research would drop required components from the original assembly scope.")
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error
+    }
+    await writeFile(scopePath, JSON.stringify(requirements, null, 2))
 
     log(`Research plan saved · ${plan.status}. No geometry generated.`)
     return spec
@@ -99,11 +117,24 @@ export async function runExplode(options: RunOptions): Promise<ExplodeSpec> {
     spec = await generateMotion(spec, options.outDir, video, log, { skips: options.skips })
   }
 
-  await renderSite(spec, options.outDir, { log, requirementsPath: options.requirementsPath, assetRoot: options.three ? path.resolve(options.outDir) : options.specPath ? path.dirname(path.resolve(options.specPath)) : undefined })
+  await renderSite(spec, options.outDir, {
+    log,
+    requirementsPath: options.requirementsPath,
+    assetRoot: options.three
+      ? path.resolve(options.outDir)
+      : options.specPath
+        ? path.dirname(path.resolve(options.specPath))
+        : undefined,
+  })
   return spec
 }
 
-function withIdentity(spec: ExplodeSpec, identity: Identity, sourcePhoto: string, visionModel: string): ExplodeSpec {
+function withIdentity(
+  spec: ExplodeSpec,
+  identity: Identity,
+  sourcePhoto: string,
+  visionModel: string,
+): ExplodeSpec {
   return {
     ...spec,
     identity: {

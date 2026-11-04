@@ -3,7 +3,13 @@ import { tmpdir } from "node:os"
 import path from "node:path"
 import { afterEach, describe, expect, it } from "vitest"
 import { formatHelp } from "../src/cli.ts"
-import { componentEditPrompt, explodedEditPrompt, explodeMotionPrompt, heroEditPrompt, rotationMotionPrompt } from "../src/pipeline/prompts.ts"
+import {
+  componentEditPrompt,
+  explodedEditPrompt,
+  explodeMotionPrompt,
+  heroEditPrompt,
+  rotationMotionPrompt,
+} from "../src/pipeline/prompts.ts"
 import { applyManifest, manifestSchema } from "../src/spec/manifest.ts"
 import { resolveModels, resolveVideo } from "../src/pipeline/models.ts"
 import { SPEC_MARKER, injectSpec, renderSite } from "../src/pipeline/render-site.ts"
@@ -86,21 +92,32 @@ describe("site render", () => {
     await mkdir(template)
     await writeFile(path.join(template, "index.html"), `<!doctype html><script>${SPEC_MARKER}</script>`)
     await writeFile(path.join(template, "app.js"), "console.log('viewer')")
-    await mkdir(path.join(template,'presentation/workshop'),{recursive:true})
-    await mkdir(path.join(template,'presentation/atelier'),{recursive:true})
-    await writeFile(path.join(template,'presentation/atelier/workshop.glb'),'portable baked scene')
-    await writeFile(path.join(template,'presentation/atelier/workshop-probe.hdr'),'portable room reflections')
-    await writeFile(path.join(template,'presentation/workshop/ATTRIBUTION.md'),'CC0 provenance')
+    await mkdir(path.join(template, "presentation/workshop"), { recursive: true })
+    await mkdir(path.join(template, "presentation/atelier"), { recursive: true })
+    await writeFile(path.join(template, "presentation/atelier/workshop.glb"), "portable baked scene")
+    await writeFile(
+      path.join(template, "presentation/atelier/workshop-probe.hdr"),
+      "portable room reflections",
+    )
+    await writeFile(path.join(template, "presentation/workshop/ATTRIBUTION.md"), "CC0 provenance")
 
     const index = await renderSite(murph, out, { templateDir: template })
     const html = await readFile(index, "utf8")
-    const written = JSON.parse(await readFile(path.join(out, "spec.json"), "utf8")) as { item: { reference?: string } }
+    const written = JSON.parse(await readFile(path.join(out, "spec.json"), "utf8")) as {
+      item: { reference?: string }
+    }
     expect(html).toContain("H70605731")
     expect(written.item.reference).toBe("H70605731")
     expect(await readFile(path.join(out, "app.js"), "utf8")).toContain("viewer")
-    expect(await readFile(path.join(out,'presentation/atelier/workshop.glb'),'utf8')).toBe('portable baked scene')
-    expect(await readFile(path.join(out,'presentation/atelier/workshop-probe.hdr'),'utf8')).toBe('portable room reflections')
-    expect(await readFile(path.join(out,'presentation/workshop/ATTRIBUTION.md'),'utf8')).toBe('CC0 provenance')
+    expect(await readFile(path.join(out, "presentation/atelier/workshop.glb"), "utf8")).toBe(
+      "portable baked scene",
+    )
+    expect(await readFile(path.join(out, "presentation/atelier/workshop-probe.hdr"), "utf8")).toBe(
+      "portable room reflections",
+    )
+    expect(await readFile(path.join(out, "presentation/workshop/ATTRIBUTION.md"), "utf8")).toBe(
+      "CC0 provenance",
+    )
   })
 
   it("includes a local multipart model when exporting a portable explainer", async () => {
@@ -112,25 +129,38 @@ describe("site render", () => {
     await mkdir(templateDir)
     await mkdir(path.join(assetRoot, "models"), { recursive: true })
     await writeFile(path.join(templateDir, "index.html"), `<script>${SPEC_MARKER}</script>`)
-    const json = Buffer.from(JSON.stringify({asset:{version:'2.0'},scenes:[{nodes:[]}],scene:0}))
+    const json = Buffer.from(JSON.stringify({ asset: { version: "2.0" }, scenes: [{ nodes: [] }], scene: 0 }))
     const length = Math.ceil(json.length / 4) * 4
     const bytes = Buffer.alloc(20 + length, 32)
-    bytes.writeUInt32LE(0x46546c67, 0); bytes.writeUInt32LE(2, 4); bytes.writeUInt32LE(bytes.length, 8)
-    bytes.writeUInt32LE(length, 12); bytes.writeUInt32LE(0x4e4f534a, 16); json.copy(bytes, 20)
+    bytes.writeUInt32LE(0x46546c67, 0)
+    bytes.writeUInt32LE(2, 4)
+    bytes.writeUInt32LE(bytes.length, 8)
+    bytes.writeUInt32LE(length, 12)
+    bytes.writeUInt32LE(0x4e4f534a, 16)
+    json.copy(bytes, 20)
     await writeFile(path.join(assetRoot, "models", "object.glb"), bytes)
-    const spec = explodeSpecSchema.parse({ ...murph, scene3d: {
-      kind: "gltf", url: "models/object.glb",
-      parts: [{ componentId: "crystal", node: "Glass", offset: [0, 2, 0] }],
-    } })
+    const spec = explodeSpecSchema.parse({
+      ...murph,
+      scene3d: {
+        kind: "gltf",
+        url: "models/object.glb",
+        parts: [{ componentId: "crystal", node: "Glass", offset: [0, 2, 0] }],
+      },
+    })
     await renderSite(spec, out, { templateDir, assetRoot })
     expect(await readFile(path.join(out, "models", "object.glb"))).toEqual(bytes)
-    const materialReview = JSON.parse(await readFile(path.join(out, 'material-review.json'), 'utf8'))
+    const materialReview = JSON.parse(await readFile(path.join(out, "material-review.json"), "utf8"))
     expect(materialReview.ready).toBe(false)
     expect(materialReview.modelSha256).toHaveLength(64)
     expect(JSON.parse(await readFile(path.join(out, "spec.json"), "utf8")).scene3d).toEqual(spec.scene3d)
 
-    await expect(renderSite({ ...spec, scene3d: { ...spec.scene3d!, kind: "gltf", url: "../outside.glb", parts: [] } }, out, { templateDir, assetRoot }))
-      .rejects.toThrow("must stay inside")
+    await expect(
+      renderSite(
+        { ...spec, scene3d: { ...spec.scene3d!, kind: "gltf", url: "../outside.glb", parts: [] } },
+        out,
+        { templateDir, assetRoot },
+      ),
+    ).rejects.toThrow("must stay inside")
   })
 
   it("reports a missing local model instead of exporting a broken scene", async () => {
@@ -139,11 +169,17 @@ describe("site render", () => {
     const templateDir = path.join(root, "template")
     await mkdir(templateDir)
     await writeFile(path.join(templateDir, "index.html"), `<script>${SPEC_MARKER}</script>`)
-    const spec = explodeSpecSchema.parse({ ...murph, scene3d: {
-      kind: "gltf", url: "models/missing.glb",
-      parts: [{ componentId: "crystal", node: "Glass", offset: [0, 2, 0] }],
-    } })
-    await expect(renderSite(spec, path.join(root, "site"), { templateDir })).rejects.toThrow("3D model is missing")
+    const spec = explodeSpecSchema.parse({
+      ...murph,
+      scene3d: {
+        kind: "gltf",
+        url: "models/missing.glb",
+        parts: [{ componentId: "crystal", node: "Glass", offset: [0, 2, 0] }],
+      },
+    })
+    await expect(renderSite(spec, path.join(root, "site"), { templateDir })).rejects.toThrow(
+      "3D model is missing",
+    )
   })
 })
 

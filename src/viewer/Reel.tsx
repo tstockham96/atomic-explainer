@@ -11,10 +11,7 @@ export interface ReelHandle {
 }
 
 /** One canvas, one world. The camera never substitutes an isolated component photo. */
-export function Reel({ spec, ref }: {
-  spec: ExplodeSpec
-  ref: Ref<ReelHandle>
-}) {
+export function Reel({ spec, ref }: { spec: ExplodeSpec; ref: Ref<ReelHandle> }) {
   const tour = focusTour(spec)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const titleRef = useRef<HTMLDivElement>(null)
@@ -22,7 +19,10 @@ export function Reel({ spec, ref }: {
   const progressRef = useRef(0)
   const rotationRef = useRef<Array<HTMLImageElement | null>>([])
   const explodeRef = useRef<Array<HTMLImageElement | null>>([])
-  const stillsRef = useRef<{ hero: HTMLImageElement | null; exploded: HTMLImageElement | null }>({ hero: null, exploded: null })
+  const stillsRef = useRef<{ hero: HTMLImageElement | null; exploded: HTMLImageElement | null }>({
+    hero: null,
+    exploded: null,
+  })
   const spriteRef = useRef<HTMLCanvasElement | null>(null)
   const spriteImageRef = useRef<HTMLImageElement | null>(null)
   const requestRef = useRef(0)
@@ -74,13 +74,19 @@ export function Reel({ spec, ref }: {
     context.fillRect(0, 0, width, height)
     context.imageSmoothingEnabled = true
     context.imageSmoothingQuality = "high"
-    const fit = Math.min(width * 0.9 / image.naturalWidth, height * 0.92 / image.naturalHeight)
+    const fit = Math.min((width * 0.9) / image.naturalWidth, (height * 0.92) / image.naturalHeight)
     const imageWidth = image.naturalWidth * fit * camera.scale
     const imageHeight = image.naturalHeight * fit * camera.scale
     const narrow = width < 700
     const anchorX = width * (0.5 - (narrow ? 0 : 0.14) * camera.focus)
     const anchorY = height * (0.48 - (narrow ? 0.14 : 0) * camera.focus)
-    context.drawImage(sprite(image), anchorX - imageWidth * camera.x, anchorY - imageHeight * camera.y, imageWidth, imageHeight)
+    context.drawImage(
+      sprite(image),
+      anchorX - imageWidth * camera.x,
+      anchorY - imageHeight * camera.y,
+      imageWidth,
+      imageHeight,
+    )
   }
 
   const apply = () => {
@@ -98,24 +104,32 @@ export function Reel({ spec, ref }: {
     }
     setCaption(titleRef.current, windowOpacity(progress, 0, 0.025, 0.03))
     captionRefs.current.forEach((node, index) => {
-      setCaption(node, target && sample.partIndex === index ? windowOpacity(sample.local, 0.34, 0.68, 0.16) : 0)
+      setCaption(
+        node,
+        target && sample.partIndex === index ? windowOpacity(sample.local, 0.34, 0.68, 0.16) : 0,
+      )
     })
 
     const rotation = rotationRef.current
     const explosion = explodeRef.current
     let image: HTMLImageElement | null
     if (sample.phase === "title" || sample.phase === "turn") {
-      image = nearestReady(rotation, frameIndex(sample.phase === "title" ? 0 : sample.local, rotation.length)) ?? stillsRef.current.hero
+      image =
+        nearestReady(rotation, frameIndex(sample.phase === "title" ? 0 : sample.local, rotation.length)) ??
+        stillsRef.current.hero
     } else {
       // Keep the exact final exploded frame for every camera move, including the pullbacks.
-      const index = sample.phase === "burst" ? frameIndex(sample.local, explosion.length) : explosion.length - 1
+      const index =
+        sample.phase === "burst" ? frameIndex(sample.local, explosion.length) : explosion.length - 1
       image = nearestReady(explosion, index) ?? stillsRef.current.exploded ?? stillsRef.current.hero
     }
     if (image) paint(image, camera)
   }
 
   const applyRef = useRef(apply)
-  useEffect(() => { applyRef.current = apply })
+  useEffect(() => {
+    applyRef.current = apply
+  })
   const schedule = () => {
     if (requestRef.current) return
     requestRef.current = requestAnimationFrame(() => {
@@ -126,7 +140,16 @@ export function Reel({ spec, ref }: {
   // `schedule` only touches refs, so the first instance stays valid.
   const scheduleRef = useRef(schedule)
 
-  useImperativeHandle(ref, () => ({ setProgress: (progress) => { progressRef.current = progress; scheduleRef.current() } }), [])
+  useImperativeHandle(
+    ref,
+    () => ({
+      setProgress: (progress) => {
+        progressRef.current = progress
+        scheduleRef.current()
+      },
+    }),
+    [],
+  )
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -163,23 +186,30 @@ export function Reel({ spec, ref }: {
         schedule()
       }
       image.src = asset(path)
-      stops.push(() => { image.onload = null })
+      stops.push(() => {
+        image.onload = null
+      })
     }
     const rotation = spec.frames?.rotation
     const explosion = spec.frames?.explode
     loadStill("hero", rotation && rotation.count > 1 ? frameFile(rotation, 0) : spec.heroImage)
-    loadStill("exploded", explosion && explosion.count > 1 ? frameFile(explosion, explosion.count - 1) : spec.explodedImage)
+    loadStill(
+      "exploded",
+      explosion && explosion.count > 1 ? frameFile(explosion, explosion.count - 1) : spec.explodedImage,
+    )
 
     const arm = (kind: "rotation" | "explode", sequence: FrameSequence) => {
       const frames: Array<HTMLImageElement | null> = Array.from({ length: sequence.count }, () => null)
       if (kind === "rotation") rotationRef.current = frames
       else explodeRef.current = frames
-      stops.push(loadFrames(sequenceUrls(sequence), (index, image) => {
-        if (cancelled) return
-        frames[index] = image
-        if (kind === "rotation" && index === 0) setMotion("ready")
-        schedule()
-      }))
+      stops.push(
+        loadFrames(sequenceUrls(sequence), (index, image) => {
+          if (cancelled) return
+          frames[index] = image
+          if (kind === "rotation" && index === 0) setMotion("ready")
+          schedule()
+        }),
+      )
     }
     void (async () => {
       const [turn, burst] = await Promise.all([discoverSequence(rotation), discoverSequence(explosion)])
@@ -201,18 +231,44 @@ export function Reel({ spec, ref }: {
 
   return (
     <div className="object-film">
-      <canvas ref={canvasRef} className="object-canvas" role="img" aria-label={`${spec.item.name}, rotating and separating into its components as you scroll`} />
+      <canvas
+        ref={canvasRef}
+        className="object-canvas"
+        role="img"
+        aria-label={`${spec.item.name}, rotating and separating into its components as you scroll`}
+      />
       <div className="film-title" ref={titleRef}>
         <p>{spec.item.maker}</p>
         <h1>{spec.item.model}</h1>
-        <span>{motion === "loading" ? "Preparing the object" : motion === "still" ? "Still-image study · scroll to explore" : "Scroll to look inside"} <span aria-hidden="true">↓</span></span>
+        <span>
+          {motion === "loading"
+            ? "Preparing the object"
+            : motion === "still"
+              ? "Still-image study · scroll to explore"
+              : "Scroll to look inside"}{" "}
+          <span aria-hidden="true">↓</span>
+        </span>
       </div>
       {tour.map((target, index) => (
-        <div key={target.componentId} className="focus-caption" ref={(node) => { captionRefs.current[index] = node }} aria-hidden="true">
-          <p className="kicker">{String(index + 1).padStart(2, "0")} / {String(tour.length).padStart(2, "0")}</p>
+        <div
+          key={target.componentId}
+          className="focus-caption"
+          ref={(node) => {
+            captionRefs.current[index] = node
+          }}
+          aria-hidden="true"
+        >
+          <p className="kicker">
+            {String(index + 1).padStart(2, "0")} / {String(tour.length).padStart(2, "0")}
+          </p>
           <h2>{target.component.name}</h2>
           <p className="focus-material">{target.component.material}</p>
-          <p className="focus-description">{target.component.howItsMade.split(/(?<=[.!?])\s/).slice(0, 2).join(" ")}</p>
+          <p className="focus-description">
+            {target.component.howItsMade
+              .split(/(?<=[.!?])\s/)
+              .slice(0, 2)
+              .join(" ")}
+          </p>
         </div>
       ))}
     </div>

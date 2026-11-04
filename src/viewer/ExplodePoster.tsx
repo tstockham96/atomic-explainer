@@ -12,10 +12,7 @@ export function ExplodePoster({
   chapter: number
   onJump: (index: number) => void
 }) {
-  const components = useMemo(
-    () => [...spec.components].sort((a, b) => a.order - b.order),
-    [spec.components],
-  )
+  const components = useMemo(() => [...spec.components].sort((a, b) => a.order - b.order), [spec.components])
   const studio = spec.studio ?? "light"
   const overview = chapter < 0 || chapter >= components.length
   const active = overview ? null : components[chapter]

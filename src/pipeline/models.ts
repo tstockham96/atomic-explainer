@@ -75,7 +75,10 @@ export const VIDEO_PRESETS = {
 
 export function resolveVideo(env: NodeJS.ProcessEnv = process.env): ResolvedVideo | { error: string } {
   const requested = env.EXPLODE_VIDEO_PROVIDER?.trim().toLowerCase()
-  const provider: VideoProvider = requested === "fal" || (!requested && env.FAL_KEY?.trim() && !env.AI_GATEWAY_API_KEY?.trim()) ? "fal" : "gateway"
+  const provider: VideoProvider =
+    requested === "fal" || (!requested && env.FAL_KEY?.trim() && !env.AI_GATEWAY_API_KEY?.trim())
+      ? "fal"
+      : "gateway"
   if (requested && requested !== "fal" && requested !== "gateway") {
     return { error: `Unknown EXPLODE_VIDEO_PROVIDER "${requested}". Use gateway or fal.` }
   }
@@ -89,7 +92,8 @@ export function resolveVideo(env: NodeJS.ProcessEnv = process.env): ResolvedVide
 
   if (!env.AI_GATEWAY_API_KEY?.trim()) {
     return {
-      error: "AI_GATEWAY_API_KEY is required for gateway video. Or set EXPLODE_VIDEO_PROVIDER=fal and FAL_KEY.",
+      error:
+        "AI_GATEWAY_API_KEY is required for gateway video. Or set EXPLODE_VIDEO_PROVIDER=fal and FAL_KEY.",
     }
   }
   return { provider, model: env.EXPLODE_VIDEO_MODEL?.trim() || GATEWAY_VIDEO_DEFAULT }

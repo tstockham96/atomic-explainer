@@ -158,7 +158,10 @@ export async function main(argv: string[]) {
       return 1
     }
     try {
-      const sequence = await extractFrames(flags.extract, flags.framesDir, { fps: flags.fps, skips: flags.skips })
+      const sequence = await extractFrames(flags.extract, flags.framesDir, {
+        fps: flags.fps,
+        skips: flags.skips,
+      })
       console.error(`  ${sequence.count} frames  ${flags.framesDir}`)
       return 0
     } catch (error) {
@@ -174,43 +177,79 @@ export async function main(argv: string[]) {
 
   try {
     if (flags.assetPlan) {
-      if (!flags.fromSpec || flags.assemble || flags.three || flags.images || flags.motion || flags.plan) throw Error('--asset-plan requires --from-spec; cannot combine generation modes.')
+      if (!flags.fromSpec || flags.assemble || flags.three || flags.images || flags.motion || flags.plan)
+        throw Error("--asset-plan requires --from-spec; cannot combine generation modes.")
       if (!flags.component) {
-        const batch = await (await import('./pipeline/assets.ts')).prepareAssets({specPath:flags.fromSpec,planPath:flags.assetPlan,outDir:flags.out,requirementsPath:flags.requirements,log:message=>console.error(message)})
-        console.log(JSON.stringify(batch,null,2)); return 0
+        const batch = await (
+          await import("./pipeline/assets.ts")
+        ).prepareAssets({
+          specPath: flags.fromSpec,
+          planPath: flags.assetPlan,
+          outDir: flags.out,
+          requirementsPath: flags.requirements,
+          log: (message) => console.error(message),
+        })
+        console.log(JSON.stringify(batch, null, 2))
+        return 0
       }
-      const report = await (await import('./pipeline/assets.ts')).prepareAsset({specPath: flags.fromSpec, planPath: flags.assetPlan, componentId: flags.component, outDir: flags.out, log: message => console.error(message)})
-      console.log(JSON.stringify({status: report.status, index: path.resolve(flags.out, 'index.html'), review: path.resolve(flags.out, 'asset-review.json'), model: path.resolve(flags.out, 'model.glb')}, null, 2))
+      const report = await (
+        await import("./pipeline/assets.ts")
+      ).prepareAsset({
+        specPath: flags.fromSpec,
+        planPath: flags.assetPlan,
+        componentId: flags.component,
+        outDir: flags.out,
+        log: (message) => console.error(message),
+      })
+      console.log(
+        JSON.stringify(
+          {
+            status: report.status,
+            index: path.resolve(flags.out, "index.html"),
+            review: path.resolve(flags.out, "asset-review.json"),
+            model: path.resolve(flags.out, "model.glb"),
+          },
+          null,
+          2,
+        ),
+      )
       return 0
     }
-    if (flags.assemble && (!flags.fromSpec || flags.three || flags.plan || flags.motion || flags.images)) throw Error("--assemble requires --from-spec and cannot be combined with generation flags.")
+    if (flags.assemble && (!flags.fromSpec || flags.three || flags.plan || flags.motion || flags.images))
+      throw Error("--assemble requires --from-spec and cannot be combined with generation flags.")
     const spec = flags.assemble
-      ? await (await import("./pipeline/assemble.ts")).assembleStudy(flags.fromSpec!, flags.assemble, flags.out, undefined, flags.requirements)
+      ? await (
+          await import("./pipeline/assemble.ts")
+        ).assembleStudy(flags.fromSpec!, flags.assemble, flags.out, undefined, flags.requirements)
       : await runExplode({
-      photo: flags.photo,
-      specPath: flags.fromSpec,
-      requirementsPath: flags.requirements,
-      outDir: flags.out,
-      skipImages: flags.images ? false : flags.fromSpec ? true : flags.skipImages,
-      motion: flags.motion,
-      three: flags.three,
-      planOnly: flags.plan,
-      skips: flags.skips,
-      log: (message) => {
-        if (!flags.json) console.error(message)
-      },
-    })
+          photo: flags.photo,
+          specPath: flags.fromSpec,
+          requirementsPath: flags.requirements,
+          outDir: flags.out,
+          skipImages: flags.images ? false : flags.fromSpec ? true : flags.skipImages,
+          motion: flags.motion,
+          three: flags.three,
+          planOnly: flags.plan,
+          skips: flags.skips,
+          log: (message) => {
+            if (!flags.json) console.error(message)
+          },
+        })
 
     if (flags.json) {
       console.log(JSON.stringify(spec, null, 2))
     } else {
-      const index = path.resolve(flags.out, flags.plan ? 'construction-plan.json' : "index.html")
+      const index = path.resolve(flags.out, flags.plan ? "construction-plan.json" : "index.html")
       console.error("")
       console.error(`  ${spec.item.name}`)
       console.error(`  ${spec.components.length} parts`)
       console.error(`  ${index}`)
       console.error("")
-      console.error(flags.plan?'  Research plan only; geometry still needs construction and review.':"  Serve it with:  npx serve " + path.resolve(flags.out))
+      console.error(
+        flags.plan
+          ? "  Research plan only; geometry still needs construction and review."
+          : "  Serve it with:  npx serve " + path.resolve(flags.out),
+      )
     }
     return 0
   } catch (error) {

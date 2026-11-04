@@ -1,5 +1,5 @@
 import type { ComponentSpec, ExplodeSpec } from "../spec/schema.ts"
-import { COMPONENT_QUALITY_REQUIREMENTS } from './quality.ts'
+import { COMPONENT_QUALITY_REQUIREMENTS } from "./quality.ts"
 
 export const IDENTIFY_PROMPT = `You identify a physical product in a photograph.
 Return the maker (brand), the model or family, a short category such as "wristwatch" or "sneaker", and the common full name.
@@ -26,7 +26,7 @@ Rules:
 - closing is two or three sentences that put the object back together after the teardown.
 - version must be 1.
 Component construction and acceptance requirements:
-${COMPONENT_QUALITY_REQUIREMENTS.map(rule=>`- ${rule.check}`).join('\n')}`
+${COMPONENT_QUALITY_REQUIREMENTS.map((rule) => `- ${rule.check}`).join("\n")}`
 
 function studioLine(spec: ExplodeSpec) {
   if (spec.studio === "dark") {
@@ -35,7 +35,8 @@ function studioLine(spec: ExplodeSpec) {
   return "Clean white to light-gray studio background."
 }
 
-const NO_TYPE = "Do not illustrate. Do not bake in labels, numbers, leader lines, captions, titles, or watermarks. The page draws those."
+const NO_TYPE =
+  "Do not illustrate. Do not bake in labels, numbers, leader lines, captions, titles, or watermarks. The page draws those."
 
 export function heroEditPrompt(spec: ExplodeSpec) {
   return [

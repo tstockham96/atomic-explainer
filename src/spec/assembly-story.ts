@@ -1,28 +1,61 @@
-import {z} from 'zod'
+import { z } from "zod"
 
-export const assemblyStorySchema=z.object({
- opening:z.object({title:z.string().min(1),description:z.string().min(1),from:z.tuple([z.number(),z.number(),z.number()]).default([.25,.2,1])}).default({title:'One object. Many working parts.',description:'Start with the whole, then discover how its core becomes a complete object.',from:[.25,.2,1]}),
- title:z.string().min(1),note:z.string().min(1),closing:z.object({title:z.string(),description:z.string()}),
- chapters:z.array(z.object({
-  id:z.string().min(1),kind:z.enum(['component','milestone']).optional(),
-  componentIds:z.array(z.string()).min(1),title:z.string().min(1),description:z.string().min(1),joined:z.string().min(1),detail:z.string().optional(),
-  from:z.tuple([z.number(),z.number(),z.number()]).default([.25,.15,1]),approach:z.tuple([z.number(),z.number(),z.number()]).default([0,0,1])
- })).min(1)
-}).superRefine((story,ctx)=>{
- if(Math.hypot(...story.opening.from)<.001)ctx.addIssue({code:'custom',message:'Opening direction must be nonzero'})
- const ids=new Set<string>(),members=new Set<string>()
- for(const c of story.chapters){
-  if(ids.has(c.id))ctx.addIssue({code:'custom',message:'Duplicate story chapter'});ids.add(c.id)
-  if(new Set(c.componentIds).size!==c.componentIds.length)ctx.addIssue({code:'custom',message:'A chapter cannot repeat a component'})
-  for(const id of c.componentIds){
-   if(c.kind==='milestone'){
-    if(!members.has(id))ctx.addIssue({code:'custom',message:'A milestone can only explain previously assembled components'})
-   }else{
-    if(members.has(id))ctx.addIssue({code:'custom',message:'A component can join only once'})
-    members.add(id)
-   }
-  }
-  if(Math.hypot(...c.from)<.001||Math.hypot(...c.approach)<.001)ctx.addIssue({code:'custom',message:'Story directions must be nonzero'})
- }
-})
-export type AssemblyStory=z.infer<typeof assemblyStorySchema>
+export const assemblyStorySchema = z
+  .object({
+    opening: z
+      .object({
+        title: z.string().min(1),
+        description: z.string().min(1),
+        from: z.tuple([z.number(), z.number(), z.number()]).default([0.25, 0.2, 1]),
+      })
+      .default({
+        title: "One object. Many working parts.",
+        description: "Start with the whole, then discover how its core becomes a complete object.",
+        from: [0.25, 0.2, 1],
+      }),
+    title: z.string().min(1),
+    note: z.string().min(1),
+    closing: z.object({ title: z.string(), description: z.string() }),
+    chapters: z
+      .array(
+        z.object({
+          id: z.string().min(1),
+          kind: z.enum(["component", "milestone"]).optional(),
+          componentIds: z.array(z.string()).min(1),
+          title: z.string().min(1),
+          description: z.string().min(1),
+          joined: z.string().min(1),
+          detail: z.string().optional(),
+          from: z.tuple([z.number(), z.number(), z.number()]).default([0.25, 0.15, 1]),
+          approach: z.tuple([z.number(), z.number(), z.number()]).default([0, 0, 1]),
+        }),
+      )
+      .min(1),
+  })
+  .superRefine((story, ctx) => {
+    if (Math.hypot(...story.opening.from) < 0.001)
+      ctx.addIssue({ code: "custom", message: "Opening direction must be nonzero" })
+    const ids = new Set<string>(),
+      members = new Set<string>()
+    for (const c of story.chapters) {
+      if (ids.has(c.id)) ctx.addIssue({ code: "custom", message: "Duplicate story chapter" })
+      ids.add(c.id)
+      if (new Set(c.componentIds).size !== c.componentIds.length)
+        ctx.addIssue({ code: "custom", message: "A chapter cannot repeat a component" })
+      for (const id of c.componentIds) {
+        if (c.kind === "milestone") {
+          if (!members.has(id))
+            ctx.addIssue({
+              code: "custom",
+              message: "A milestone can only explain previously assembled components",
+            })
+        } else {
+          if (members.has(id)) ctx.addIssue({ code: "custom", message: "A component can join only once" })
+          members.add(id)
+        }
+      }
+      if (Math.hypot(...c.from) < 0.001 || Math.hypot(...c.approach) < 0.001)
+        ctx.addIssue({ code: "custom", message: "Story directions must be nonzero" })
+    }
+  })
+export type AssemblyStory = z.infer<typeof assemblyStorySchema>

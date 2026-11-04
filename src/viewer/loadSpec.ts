@@ -10,9 +10,7 @@ declare global {
 
 export async function loadSpec(): Promise<ExplodeSpec> {
   const injected = window.__EXPLODE_SPEC__
-  const spec = injected
-    ? explodeSpecSchema.parse(injected)
-    : await fetchSpec()
+  const spec = injected ? explodeSpecSchema.parse(injected) : await fetchSpec()
 
   if (injected || spec.item.reference !== "H70605731") return spec
 

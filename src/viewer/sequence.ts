@@ -53,7 +53,13 @@ export async function discoverSequence(sequence: FrameSequence | undefined): Pro
   try {
     const response = await fetch(asset(`${sequence.dir.replace(/\/$/, "")}/index.json`))
     if (!response.ok) return null
-    const body = (await response.json()) as { count?: number; ext?: FrameSequence["ext"]; pad?: number; start?: number; note?: string }
+    const body = (await response.json()) as {
+      count?: number
+      ext?: FrameSequence["ext"]
+      pad?: number
+      start?: number
+      note?: string
+    }
     if (!body.count || body.count < 2) return null
     return {
       ...sequence,

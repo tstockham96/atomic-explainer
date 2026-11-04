@@ -1,4 +1,4 @@
-import {assemblyScrollVh} from './three/assemblyTimeline.ts'
+import { assemblyScrollVh } from "./three/assemblyTimeline.ts"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -32,35 +32,64 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
   const [images, setImages] = useState<Record<string, string>>({})
   // GSAP tweens this object in place; it is created once and never replaced.
   const [driver] = useState(() => ({ progress: 0 }))
-  const scrollTo = useRef((top:number)=>window.scrollTo({top,behavior:'instant'}))
-  const tween = useMemo(() => ({ start: 0, end: 100, target: driver, fromTo: [
-    { progress: 0 }, { progress: 1, ease: "none", onUpdate: () => api.current?.setProgress(driver.progress) },
-  ] as [gsap.TweenVars, gsap.TweenVars] }), [driver])
-  const callbacks = useMemo(() => ({ onRefresh: (self: ScrollTrigger) => api.current?.setProgress(self.progress) }), [])
+  const scrollTo = useRef((top: number) => window.scrollTo({ top, behavior: "instant" }))
+  const tween = useMemo(
+    () => ({
+      start: 0,
+      end: 100,
+      target: driver,
+      fromTo: [
+        { progress: 0 },
+        { progress: 1, ease: "none", onUpdate: () => api.current?.setProgress(driver.progress) },
+      ] as [gsap.TweenVars, gsap.TweenVars],
+    }),
+    [driver],
+  )
+  const callbacks = useMemo(
+    () => ({ onRefresh: (self: ScrollTrigger) => api.current?.setProgress(self.progress) }),
+    [],
+  )
   const tourLength = spec.scene3d ? inspectionStops(spec).length : focusTour(spec).length
 
-  useGSAP(() => {
-    const lenis = new Lenis({ lerp: 0.09, smoothWheel: true, autoRaf: false, anchors: true })
-    lenis.on("scroll", ScrollTrigger.update)
-    // Menu jumps must cancel wheel momentum in the same scrolling driver.
-    scrollTo.current=(top)=>lenis.scrollTo(top,{immediate:true,force:true})
-    const tick = (time: number) => lenis.raf(time * 1000)
-    gsap.ticker.add(tick)
-    return () => {
-      scrollTo.current=(top)=>window.scrollTo({top,behavior:'instant'})
-      lenis.destroy()
-      gsap.ticker.remove(tick)
-    }
-  }, { scope: rootRef, dependencies: [spec], revertOnUpdate: true })
+  useGSAP(
+    () => {
+      const lenis = new Lenis({ lerp: 0.09, smoothWheel: true, autoRaf: false, anchors: true })
+      lenis.on("scroll", ScrollTrigger.update)
+      // Menu jumps must cancel wheel momentum in the same scrolling driver.
+      scrollTo.current = (top) => lenis.scrollTo(top, { immediate: true, force: true })
+      const tick = (time: number) => lenis.raf(time * 1000)
+      gsap.ticker.add(tick)
+      return () => {
+        scrollTo.current = (top) => window.scrollTo({ top, behavior: "instant" })
+        lenis.destroy()
+        gsap.ticker.remove(tick)
+      }
+    },
+    { scope: rootRef, dependencies: [spec], revertOnUpdate: true },
+  )
 
   return (
     <main ref={rootRef} className="reel continuous-reel">
-      <a className="skip-film" href="#parts">Skip motion and read the anatomy</a>
+      <a className="skip-film" href="#parts">
+        Skip motion and read the anatomy
+      </a>
       <Scrollytelling.Root callbacks={callbacks}>
-        <Scrollytelling.Pin childHeight="100svh" pinSpacerHeight={`${spec.scene3d?.kind==='gltf'&&spec.scene3d.assemblyStory?assemblyScrollVh(tourLength):(4+tourLength*1.15)*100}svh`}>
+        <Scrollytelling.Pin
+          childHeight="100svh"
+          pinSpacerHeight={`${spec.scene3d?.kind === "gltf" && spec.scene3d.assemblyStory ? assemblyScrollVh(tourLength) : (4 + tourLength * 1.15) * 100}svh`}
+        >
           <Scrollytelling.Animation tween={tween} />
           <section id="film" className="pin" aria-label={`${spec.item.name}: rotate, explode, and explore`}>
-            {spec.scene3d ? <ObjectScene spec={spec} ref={api} onImages={setImages} scrollTo={top=>scrollTo.current(top)} /> : <Reel spec={spec} ref={api} />}
+            {spec.scene3d ? (
+              <ObjectScene
+                spec={spec}
+                ref={api}
+                onImages={setImages}
+                scrollTo={(top) => scrollTo.current(top)}
+              />
+            ) : (
+              <Reel spec={spec} ref={api} />
+            )}
           </section>
         </Scrollytelling.Pin>
       </Scrollytelling.Root>
@@ -70,32 +99,68 @@ function Pinned({ spec }: { spec: ExplodeSpec }) {
 }
 
 function Sheets({ spec, images = {} }: { spec: ExplodeSpec; images?: Record<string, string> }) {
-  const components=anatomyComponents(spec)
+  const components = anatomyComponents(spec)
   return (
     <>
       <section id="parts" className="sheet">
-        <div className="section-rule"><span>01 / Anatomy</span><span>{String(components.length).padStart(2, "0")} individual stories</span></div>
+        <div className="section-rule">
+          <span>01 / Anatomy</span>
+          <span>{String(components.length).padStart(2, "0")} individual stories</span>
+        </div>
         <div className="sheet-head">
-          <h2>A whole world.<br /><em>In every part.</em></h2>
-          <p>Look a little closer. Discover the materials, processes, and small decisions behind each component.</p>
+          <h2>
+            A whole world.
+            <br />
+            <em>In every part.</em>
+          </h2>
+          <p>
+            Look a little closer. Discover the materials, processes, and small decisions behind each
+            component.
+          </p>
         </div>
         <ol className="part-grid">
           {components.map((component, index) => (
             <li key={component.id} id={`detail-${component.id}`}>
               <div className="part-image">
                 <span className="part-number">{String(index + 1).padStart(2, "0")}</span>
-                {images[component.id] || component.image ? <img src={images[component.id] ?? asset(component.image!)} alt={component.name} loading="lazy" /> : <div className="empty-shot">{component.name}</div>}
+                {images[component.id] || component.image ? (
+                  <img
+                    src={images[component.id] ?? asset(component.image!)}
+                    alt={component.name}
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="empty-shot">{component.name}</div>
+                )}
               </div>
               <p className="part-material">{component.material}</p>
               <h3>{component.name}</h3>
               <p className="part-summary">{lead(component.howItsMade)}</p>
               <details onToggle={() => ScrollTrigger.refresh()}>
-                <summary>How it’s made <span aria-hidden="true">+</span></summary>
+                <summary>
+                  How it’s made <span aria-hidden="true">+</span>
+                </summary>
                 <div className="part-detail">
                   <p>{component.howItsMade}</p>
-                  {component.funFacts.map((fact) => <p key={fact}>{fact}</p>)}
+                  {component.funFacts.map((fact) => (
+                    <p key={fact}>{fact}</p>
+                  ))}
                   {component.figureLabel ? <p className="figure-note">{component.figureLabel}</p> : null}
-                  {component.evidence && <div className="figure-note"><p>{component.evidence.basis === "documented" ? "Documented construction" : "Inferred construction"} · {component.evidence.note}</p>{component.evidence.sourceUrls.map((url, i) => <a key={url} href={url} target="_blank" rel="noreferrer">Source {i + 1} ↗ </a>)}</div>}
+                  {component.evidence && (
+                    <div className="figure-note">
+                      <p>
+                        {component.evidence.basis === "documented"
+                          ? "Documented construction"
+                          : "Inferred construction"}{" "}
+                        · {component.evidence.note}
+                      </p>
+                      {component.evidence.sourceUrls.map((url, i) => (
+                        <a key={url} href={url} target="_blank" rel="noreferrer">
+                          Source {i + 1} ↗{" "}
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </details>
             </li>
@@ -104,15 +169,35 @@ function Sheets({ spec, images = {} }: { spec: ExplodeSpec; images?: Record<stri
       </section>
 
       <section id="notes" className="notes">
-        <div className="section-rule"><span>Sources & image notes</span></div>
+        <div className="section-rule">
+          <span>Sources & image notes</span>
+        </div>
         <div className="notes-layout">
-          <div><h2>Behind the study.</h2>{spec.scene3d?.kind === "procedural-watch" ? <p>The interactive watch is an illustrative procedural model, not Hamilton CAD. Its movement demonstrates the idea of a mechanical watch and does not reproduce the H-10 mechanism.</p> : null}{spec.artNote ? <p>{spec.artNote}</p> : null}</div>
-          {spec.sources.length > 0 ? <ol>{spec.sources.map((source, index) => (
-            <li key={source.url}><a href={source.url} target="_blank" rel="noreferrer"><span>{String(index + 1).padStart(2, "0")}</span>{source.title}<span aria-hidden="true">↗</span></a></li>
-          ))}</ol> : null}
+          <div>
+            <h2>Behind the study.</h2>
+            {spec.scene3d?.kind === "procedural-watch" ? (
+              <p>
+                The interactive watch is an illustrative procedural model, not Hamilton CAD. Its movement
+                demonstrates the idea of a mechanical watch and does not reproduce the H-10 mechanism.
+              </p>
+            ) : null}
+            {spec.artNote ? <p>{spec.artNote}</p> : null}
+          </div>
+          {spec.sources.length > 0 ? (
+            <ol>
+              {spec.sources.map((source, index) => (
+                <li key={source.url}>
+                  <a href={source.url} target="_blank" rel="noreferrer">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    {source.title}
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          ) : null}
         </div>
       </section>
-
     </>
   )
 }
@@ -120,7 +205,11 @@ function Sheets({ spec, images = {} }: { spec: ExplodeSpec; images?: Record<stri
 function Quiet({ spec }: { spec: ExplodeSpec }) {
   const rotation = spec.frames?.rotation
   const explode = spec.frames?.explode
-  const hero = sequenceReady(rotation) ? asset(frameFile(rotation, 0)) : spec.heroImage ? asset(spec.heroImage) : undefined
+  const hero = sequenceReady(rotation)
+    ? asset(frameFile(rotation, 0))
+    : spec.heroImage
+      ? asset(spec.heroImage)
+      : undefined
   const opened =
     sequenceReady(explode) && explode
       ? asset(frameFile(explode, explode.count - 1))

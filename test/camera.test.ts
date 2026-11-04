@@ -34,7 +34,7 @@ describe("continuous camera tour", () => {
       return cameraAt(sample.local, sample.phase === "part" ? tour[sample.partIndex] : undefined)
     }
     for (let index = 0; index < count; index++) {
-      const boundary = map.parts + index * (1 - map.parts) / count
+      const boundary = map.parts + (index * (1 - map.parts)) / count
       const before = pose(boundary - 0.000001)
       const after = pose(boundary + 0.000001)
       expect(before.x).toBeCloseTo(after.x, 6)
@@ -48,7 +48,9 @@ describe("continuous camera tour", () => {
     expect(focusEnvelope(0.7)).toBe(1)
     for (const target of tour) {
       const forward = Array.from({ length: 101 }, (_, index) => cameraAt(index / 100, target))
-      const reverse = Array.from({ length: 101 }, (_, index) => cameraAt((100 - index) / 100, target)).reverse()
+      const reverse = Array.from({ length: 101 }, (_, index) =>
+        cameraAt((100 - index) / 100, target),
+      ).reverse()
       expect(reverse).toEqual(forward)
       expect(cameraAt(0.00001, target).scale).toBeCloseTo(1, 7)
       expect(cameraAt(0.99999, target).scale).toBeCloseTo(1, 7)
@@ -57,13 +59,22 @@ describe("continuous camera tour", () => {
 
   it("does not invent camera targets for older or incomplete specs", () => {
     expect(focusTour({ ...spec, film: undefined })).toEqual([])
-    expect(focusTour({ ...spec, film: { focus: [{ componentId: "missing", x: 0.5, y: 0.5, scale: 2 }] } })).toEqual([])
+    expect(
+      focusTour({ ...spec, film: { focus: [{ componentId: "missing", x: 0.5, y: 0.5, scale: 2 }] } }),
+    ).toEqual([])
     expect(cameraAt(0.5)).toEqual(overview)
   })
 
   it("rejects targets outside the image or unusable zoom values", () => {
-    for (const target of [{ x: -0.1, y: 0.5, scale: 2 }, { x: 0.5, y: 1.1, scale: 2 }, { x: 0.5, y: 0.5, scale: 0 }]) {
-      expect(explodeSpecSchema.safeParse({ ...spec, film: { focus: [{ componentId: "crystal", ...target }] } }).success).toBe(false)
+    for (const target of [
+      { x: -0.1, y: 0.5, scale: 2 },
+      { x: 0.5, y: 1.1, scale: 2 },
+      { x: 0.5, y: 0.5, scale: 0 },
+    ]) {
+      expect(
+        explodeSpecSchema.safeParse({ ...spec, film: { focus: [{ componentId: "crystal", ...target }] } })
+          .success,
+      ).toBe(false)
     }
   })
 })

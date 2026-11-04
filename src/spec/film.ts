@@ -28,8 +28,8 @@ function clamp(value: number, min: number, max: number) {
 export function filmMap(count: number): FilmMap {
   const n = Math.max(1, count)
   const turn = 0.055
-  const burst = turn + 0.20
-  const parts = burst + 0.20
+  const burst = turn + 0.2
+  const parts = burst + 0.2
   return { turn, burst, parts, count: n }
 }
 

@@ -1,4 +1,4 @@
-import {assemblyStorySchema} from './assembly-story.ts'
+import { assemblyStorySchema } from "./assembly-story.ts"
 import { z } from "zod"
 import { understandingSchema } from "./understanding.ts"
 
@@ -13,11 +13,13 @@ export const layoutSchema = z.object({
 export const componentSchema = z.object({
   id: z.string().min(1),
   name: z.string().min(1),
-  evidence: z.object({
-    basis: z.enum(["documented", "inferred"]),
-    sourceUrls: z.array(z.string().url()),
-    note: z.string(),
-  }).optional(),
+  evidence: z
+    .object({
+      basis: z.enum(["documented", "inferred"]),
+      sourceUrls: z.array(z.string().url()),
+      note: z.string(),
+    })
+    .optional(),
   material: z.string().min(1),
   howItsMade: z.string().min(1),
   funFacts: z.array(z.string().min(1)).min(1).max(4),
@@ -98,64 +100,109 @@ export const explodeSpecSchema = z.object({
     })
     .optional(),
   /** A reusable multipart scene. Mesh reconstruction is a separate pipeline concern. */
-  scene3d: z.discriminatedUnion("kind", [
-    z.object({ kind: z.literal("procedural-watch") }),
-    z.object({
-      kind: z.literal("gltf"),
-      url: z.string().min(1),
-      assemblyStory: assemblyStorySchema.optional(),
-      lighting: z.enum(['studio', 'neutral', 'product']).optional(),
-      inspectionGroups: z.array(z.object({
-        id: z.string().min(1), name: z.string().min(1),
-        componentIds: z.array(z.string().min(1)).min(2),
-        description: z.string().min(1), material: z.string().min(1),
-        gap: z.number().nonnegative().optional(),
-      })).optional(),
-      requireCompleteMapping: z.boolean().optional(),
-      omittedNodes: z.array(z.object({ node: z.string().min(1), reason: z.string().min(1) })).optional(),
-      parts: z.array(z.object({
-        componentId: z.string().min(1),
-        node: z.string().min(1).optional(),
-        nodes: z.array(z.string().min(1)).min(1).optional(),
-        offset: z.tuple([z.number(), z.number(), z.number()]),
-        distance: z.number().min(1).max(50).optional(),
-        coverThickness: z.number().positive().max(1).optional(),
-        doubleSided: z.boolean().optional(),
-        reverseSurface: z.object({
-          color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
-          roughness: z.number().min(0).max(1),
-          note: z.string().min(1),
-        }).optional(),
-        shot: z.object({
-          from: z.tuple([z.number(), z.number(), z.number()]),
-          to: z.tuple([z.number(), z.number(), z.number()]),
-        }).optional(),
-      }).refine((part) => Boolean(part.node) !== Boolean(part.nodes), "Supply either node or nodes for each part.")).min(1),
-    }).superRefine((scene,ctx)=>{
-      const physical=new Set(scene.parts.map(p=>p.componentId)),seen=new Set<string>(),ids=new Set<string>()
-      if(scene.assemblyStory){
-        const members=scene.assemblyStory.chapters.filter(c=>c.kind!=='milestone').flatMap(c=>c.componentIds)
-        if(members.length!==physical.size||members.some(id=>!physical.has(id)))ctx.addIssue({code:'custom',message:'Assembly story must include every mapped physical component exactly once'})
-      }
-      for(const g of scene.inspectionGroups??[]){
-        if(physical.has(g.id)||ids.has(g.id))ctx.addIssue({code:'custom',message:'Inspection group IDs must be unique and distinct from physical parts'})
-        ids.add(g.id)
-        for(const id of g.componentIds){
-          if(!physical.has(id)||seen.has(id))ctx.addIssue({code:'custom',message:'Inspection groups must reference distinct mapped parts'})
-          seen.add(id)
-        }
-      }
-    }),
-  ]).optional(),
+  scene3d: z
+    .discriminatedUnion("kind", [
+      z.object({ kind: z.literal("procedural-watch") }),
+      z
+        .object({
+          kind: z.literal("gltf"),
+          url: z.string().min(1),
+          assemblyStory: assemblyStorySchema.optional(),
+          lighting: z.enum(["studio", "neutral", "product"]).optional(),
+          inspectionGroups: z
+            .array(
+              z.object({
+                id: z.string().min(1),
+                name: z.string().min(1),
+                componentIds: z.array(z.string().min(1)).min(2),
+                description: z.string().min(1),
+                material: z.string().min(1),
+                gap: z.number().nonnegative().optional(),
+              }),
+            )
+            .optional(),
+          requireCompleteMapping: z.boolean().optional(),
+          omittedNodes: z.array(z.object({ node: z.string().min(1), reason: z.string().min(1) })).optional(),
+          parts: z
+            .array(
+              z
+                .object({
+                  componentId: z.string().min(1),
+                  node: z.string().min(1).optional(),
+                  nodes: z.array(z.string().min(1)).min(1).optional(),
+                  offset: z.tuple([z.number(), z.number(), z.number()]),
+                  distance: z.number().min(1).max(50).optional(),
+                  coverThickness: z.number().positive().max(1).optional(),
+                  doubleSided: z.boolean().optional(),
+                  reverseSurface: z
+                    .object({
+                      color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
+                      roughness: z.number().min(0).max(1),
+                      note: z.string().min(1),
+                    })
+                    .optional(),
+                  shot: z
+                    .object({
+                      from: z.tuple([z.number(), z.number(), z.number()]),
+                      to: z.tuple([z.number(), z.number(), z.number()]),
+                    })
+                    .optional(),
+                })
+                .refine(
+                  (part) => Boolean(part.node) !== Boolean(part.nodes),
+                  "Supply either node or nodes for each part.",
+                ),
+            )
+            .min(1),
+        })
+        .superRefine((scene, ctx) => {
+          const physical = new Set(scene.parts.map((p) => p.componentId)),
+            seen = new Set<string>(),
+            ids = new Set<string>()
+          if (scene.assemblyStory) {
+            const members = scene.assemblyStory.chapters
+              .filter((c) => c.kind !== "milestone")
+              .flatMap((c) => c.componentIds)
+            if (members.length !== physical.size || members.some((id) => !physical.has(id)))
+              ctx.addIssue({
+                code: "custom",
+                message: "Assembly story must include every mapped physical component exactly once",
+              })
+          }
+          for (const g of scene.inspectionGroups ?? []) {
+            if (physical.has(g.id) || ids.has(g.id))
+              ctx.addIssue({
+                code: "custom",
+                message: "Inspection group IDs must be unique and distinct from physical parts",
+              })
+            ids.add(g.id)
+            for (const id of g.componentIds) {
+              if (!physical.has(id) || seen.has(id))
+                ctx.addIssue({
+                  code: "custom",
+                  message: "Inspection groups must reference distinct mapped parts",
+                })
+              seen.add(id)
+            }
+          }
+        }),
+    ])
+    .optional(),
   /** Camera targets on the final exploded frame. Coordinates are normalized image positions. */
-  film: z.object({
-    focus: z.array(z.object({
-      componentId: z.string().min(1),
-      x: z.number().min(0).max(1),
-      y: z.number().min(0).max(1),
-      scale: z.number().min(1).max(6),
-    })).default([]),
-  }).optional(),
+  film: z
+    .object({
+      focus: z
+        .array(
+          z.object({
+            componentId: z.string().min(1),
+            x: z.number().min(0).max(1),
+            y: z.number().min(0).max(1),
+            scale: z.number().min(1).max(6),
+          }),
+        )
+        .default([]),
+    })
+    .optional(),
   visualMode: z.enum(["pending", "generated", "mixed"]).default("pending"),
   artNote: z.string().optional(),
   modelNotice: z.string().max(120).optional(),

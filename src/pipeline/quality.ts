@@ -1,16 +1,64 @@
 /** Review requirements carried through agent/provider handoffs, not a claim
  * that automatic reconstruction or visual verification has occurred. */
 export const COMPONENT_QUALITY_REQUIREMENTS = [
-  {id:'complete-turn',check:'Inspect every component through 360 degrees under the scene lighting. Reconstruct the reverse, thickness, cavities and interfaces from evidence; mark inferred geometry explicitly.'},
-  {id:'surface-bound-detail',check:'Place printing, inlays and engraving on their physical supporting surfaces. Cutouts remain empty; markings cannot float over holes or appear on an undocumented reverse face.'},
-  {id:'coherent-materials',check:'Render parts together under one fixed lighting rig and exposure. Separate base color, roughness and surface relief; do not bake photographic highlights or shadows into a new material to fake a finish.'},
-  {id:'material-evidence',check:'Separate verified substrate/plating from photo-observed finish. Do not infer an alloy from silver color. Match grain direction and scale, distinguish adjoining finishes, and check their response throughout a turn. Export normal and roughness maps and reopen the exported asset to verify they survive.'},
-  {id:'every-component-material',check:'Complete a material review for every component, including hidden/rear surfaces and small fittings. Compare related materials under the same lighting and backdrop; any difference in tint, grain, roughness, reflection or transparency needs evidence or an explicit approximation. Glass receives consistent optical treatment wherever it occurs; shape and composition may legitimately differ. Do not approve an entire assembly because one hero part passed.'},
-  {id:'material-export-scale',check:'Read material-review.json from the exported preview. Reject lost texture images or UV channels. Declare physical grain size and map units; compare small and large objects after viewer normalization. Coatings, rubber, board resin and chip packages are dielectric surfaces, not partially metallic just because metal is underneath. Keep source-authored maps and artwork unchanged. Use src/authoring/finishes.ts only as an explicit reference-adjusted starting point, never as automatic material identification.'},
-  {id:'reference-detail',check:'Compare identifying silhouettes and details with multiple inspected references, including macro and reverse views. Increasing texture resolution does not repair incorrect geometry.'},
-  {id:'paired-inspection',check:'Identify true pairs and repeated functional sets from the research. Declare scene3d.inspectionGroups so matching halves or banks share one framed 360-degree view, explanation and anatomy entry. Keep every physical component, source mapping and assembly requirement. Do not group by name alone or hide meaningful differences. Review both members at narrow and wide widths; union framing is not a guarantee against occlusion.'},
-  {id:'material-lighting-review',check:'Inspect the actual exported material under presentation lighting, not only the presence of maps. Uniform reflections can make metal look like plastic; excessive grain can make it look like stone. Use restrained relief at a physical scale and reflected light-dark contrast; model casting ribs, borders and bosses as geometry where supported by references.'},
-  {id:'assembly-throughline',check:'For a how-it-is-made story, establish the complete object first, physically reveal a researched functional core, then explain the capability each added layer introduces. Inspect, seat and retain each part in the accumulating object; preserve true pairs and physical inventory. Write a transition after seating. Distinguish educational narrative order from a verified factory procedure, and end on the complete object before anatomy. Declare scene3d.assemblyStory for the general GLB viewer; validate every mapped part joins once. See docs/assembly-stories.md and the reusable assemblyStory helper.'},
-  {id:'lesson-coverage',check:'Preserve a component lesson for every distinct function; only explicitly justified true pairs share a lesson. Add kind: milestone chapters for assembled systems after the constituent lessons. Milestones reuse already assembled IDs and never replace detail or add physical parts. Review story-review.json independently of mesh inventory; preserve detailed anatomy and reading time as the narrative grows.'},
-  {id:'physical-continuity',check:'Clear neighboring parts before a full inspection turn. Use physical separation and camera travel, never opacity fades or visibility toggles. Return to the assembly orientation before reseating; verify both scroll directions.'},
+  {
+    id: "complete-turn",
+    check:
+      "Inspect every component through 360 degrees under the scene lighting. Reconstruct the reverse, thickness, cavities and interfaces from evidence; mark inferred geometry explicitly.",
+  },
+  {
+    id: "surface-bound-detail",
+    check:
+      "Place printing, inlays and engraving on their physical supporting surfaces. Cutouts remain empty; markings cannot float over holes or appear on an undocumented reverse face.",
+  },
+  {
+    id: "coherent-materials",
+    check:
+      "Render parts together under one fixed lighting rig and exposure. Separate base color, roughness and surface relief; do not bake photographic highlights or shadows into a new material to fake a finish.",
+  },
+  {
+    id: "material-evidence",
+    check:
+      "Separate verified substrate/plating from photo-observed finish. Do not infer an alloy from silver color. Match grain direction and scale, distinguish adjoining finishes, and check their response throughout a turn. Export normal and roughness maps and reopen the exported asset to verify they survive.",
+  },
+  {
+    id: "every-component-material",
+    check:
+      "Complete a material review for every component, including hidden/rear surfaces and small fittings. Compare related materials under the same lighting and backdrop; any difference in tint, grain, roughness, reflection or transparency needs evidence or an explicit approximation. Glass receives consistent optical treatment wherever it occurs; shape and composition may legitimately differ. Do not approve an entire assembly because one hero part passed.",
+  },
+  {
+    id: "material-export-scale",
+    check:
+      "Read material-review.json from the exported preview. Reject lost texture images or UV channels. Declare physical grain size and map units; compare small and large objects after viewer normalization. Coatings, rubber, board resin and chip packages are dielectric surfaces, not partially metallic just because metal is underneath. Keep source-authored maps and artwork unchanged. Use src/authoring/finishes.ts only as an explicit reference-adjusted starting point, never as automatic material identification.",
+  },
+  {
+    id: "reference-detail",
+    check:
+      "Compare identifying silhouettes and details with multiple inspected references, including macro and reverse views. Increasing texture resolution does not repair incorrect geometry.",
+  },
+  {
+    id: "paired-inspection",
+    check:
+      "Identify true pairs and repeated functional sets from the research. Declare scene3d.inspectionGroups so matching halves or banks share one framed 360-degree view, explanation and anatomy entry. Keep every physical component, source mapping and assembly requirement. Do not group by name alone or hide meaningful differences. Review both members at narrow and wide widths; union framing is not a guarantee against occlusion.",
+  },
+  {
+    id: "material-lighting-review",
+    check:
+      "Inspect the actual exported material under presentation lighting, not only the presence of maps. Uniform reflections can make metal look like plastic; excessive grain can make it look like stone. Use restrained relief at a physical scale and reflected light-dark contrast; model casting ribs, borders and bosses as geometry where supported by references.",
+  },
+  {
+    id: "assembly-throughline",
+    check:
+      "For a how-it-is-made story, establish the complete object first, physically reveal a researched functional core, then explain the capability each added layer introduces. Inspect, seat and retain each part in the accumulating object; preserve true pairs and physical inventory. Write a transition after seating. Distinguish educational narrative order from a verified factory procedure, and end on the complete object before anatomy. Declare scene3d.assemblyStory for the general GLB viewer; validate every mapped part joins once. See docs/assembly-stories.md and the reusable assemblyStory helper.",
+  },
+  {
+    id: "lesson-coverage",
+    check:
+      "Preserve a component lesson for every distinct function; only explicitly justified true pairs share a lesson. Add kind: milestone chapters for assembled systems after the constituent lessons. Milestones reuse already assembled IDs and never replace detail or add physical parts. Review story-review.json independently of mesh inventory; preserve detailed anatomy and reading time as the narrative grows.",
+  },
+  {
+    id: "physical-continuity",
+    check:
+      "Clear neighboring parts before a full inspection turn. Use physical separation and camera travel, never opacity fades or visibility toggles. Return to the assembly orientation before reseating; verify both scroll directions.",
+  },
 ] as const
