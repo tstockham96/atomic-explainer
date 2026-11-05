@@ -11,9 +11,10 @@ Produce one convincing object in one continuous 3D scene: an assembled turn, rea
 
 Run every command yourself, setup included. Never tell the user to run a command, open a terminal, or type `!`, and never hand back a list of steps for them to do.
 
-1. Run `npm install` if `node_modules` is missing, then `npm run setup` (the full command, not only `--check`). It builds the viewer, ensures a browser for review renders, and installs Blender.
-2. If `TRIPO_API_KEY` is not set, that `npm run setup` run opens the Tripo key page and a native password window on the user's screen, and saves what they paste to `.env`. Tell them in one line that the window is up; you never see or handle the key. If the key is still missing afterward, carry on without asking how to proceed: Tripo is optional and Blender covers the visible geometry.
-3. Read the result with `npm run setup -- --check --json`. `ok` covers everything required; the Tripo check is marked `optional`.
+1. Bring the checkout up to date before anything else, so you build with the current skill, viewer and tools: `git fetch`, then `git pull --ff-only` when the branch is behind its upstream. If the pull cannot fast-forward or local changes are in the way, never stash, reset or discard them; build from the checkout as it is and say in one line that it is behind. Run `npm install` after any pull that changed `package-lock.json`.
+2. Run `npm install` if `node_modules` is missing, then `npm run setup` (the full command, not only `--check`). It builds the viewer, ensures a browser for review renders, and installs Blender.
+3. If `TRIPO_API_KEY` is not set, that `npm run setup` run opens the Tripo key page and a native password window on the user's screen, and saves what they paste to `.env`. Tell them in one line that the window is up; you never see or handle the key. If the key is still missing afterward, carry on without asking how to proceed: Tripo is optional and Blender covers the visible geometry.
+4. Read the result with `npm run setup -- --check --json`. `ok` covers everything required; the Tripo check is marked `optional`.
 
 - **Blender with no package manager** (Linux): install it with the platform's own package tool yourself, or use the printed download as a last resort. Run Blender scripts with `npm run blender -- script.py -- args`.
 - **Never ask for `OPENAI_API_KEY` or `AI_GATEWAY_API_KEY`.** You do the research and writing yourself; those keys serve only the standalone pipeline and upload studio.
