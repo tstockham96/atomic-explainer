@@ -7,7 +7,7 @@
  * An agent runs this itself; the person never has to. When the Tripo key is missing and
  * there is no terminal to type into, setup opens the Tripo key page and a native password
  * window, and writes the answer to .env, so the key never passes through the agent.
- * Tripo is optional: without it the agent models visible parts in Blender.
+ * Tripo generates the exterior shell; a licensed model found during research can replace it.
  * The agent does its own research and writing, so no OpenAI or AI Gateway key is needed. */
 import { chromium } from "@playwright/test"
 import { spawn } from "node:child_process"
@@ -106,15 +106,16 @@ checks.push({
     : "Install Blender 4.2+ from https://www.blender.org/download/ or set ATOMIC_EXPLAINER_BLENDER to its binary.",
 })
 
-// Tripo: per-component image-to-3D generation. Optional; Blender covers modeling without it.
+// Tripo: whole-object exterior generation from reference photos. Not required when research
+// finds a licensed model, so the check is optional; Blender only fits and repairs geometry.
 const TRIPO_KEYS = "https://platform.tripo3d.ai/"
 let tripo = await hasKey("TRIPO_API_KEY", root)
 if (!tripo && install) {
   let key: string | undefined
   if (process.stdin.isTTY && !values.json) {
     const prompt = createInterface({ input: process.stdin, output: process.stderr })
-    say("\n  Tripo generates component geometry from reference photos (optional).")
-    say(`  Create a key at ${TRIPO_KEYS} (API keys). Leave blank to skip and model in Blender.`)
+    say("\n  Tripo generates the object's exterior from reference photos.")
+    say(`  Create a key at ${TRIPO_KEYS} (API keys). Leave blank to skip for now.`)
     key = (await prompt.question("  TRIPO_API_KEY: ")).trim()
     prompt.close()
   } else if (shouldAutoOpen()) {
@@ -122,7 +123,7 @@ if (!tripo && install) {
     openInBrowser(TRIPO_KEYS)
     key = await askSecretInWindow(
       "Paste your Tripo API key (platform.tripo3d.ai, API Keys; that page just opened in your browser). " +
-        "It is saved to .env in this checkout and is not shown to the agent. Skip to model in Blender only.",
+        "It is saved to .env in this checkout and is not shown to the agent. Skip if you will add it later.",
     )
   }
   if (key) {
@@ -134,7 +135,9 @@ checks.push({
   name: "tripo key",
   ok: tripo,
   optional: true,
-  detail: tripo ? "TRIPO_API_KEY set" : "not set (optional: visible parts are modeled in Blender)",
+  detail: tripo
+    ? "TRIPO_API_KEY set"
+    : "not set (needed for the exterior unless research finds a licensed model)",
   fix: "Run npm run setup again to reopen the key window, or add TRIPO_API_KEY=... to .env.",
 })
 
