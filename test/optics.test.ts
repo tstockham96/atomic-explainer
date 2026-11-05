@@ -1,6 +1,12 @@
 import { describe, it, expect } from "vitest"
 import * as T from "three"
-import { createClearGlass, hasOptics, inspectionTurn } from "../src/viewer/three/optics.ts"
+import {
+  canSharpenTransmission,
+  createClearGlass,
+  hasOptics,
+  inspectionTurn,
+  sharpenTransmission,
+} from "../src/viewer/three/optics.ts"
 
 describe("shared glass presentation", () => {
   it.each([1.5, 1.76])("never changes the optical properties of glass with IOR %s", (ior) => {
@@ -22,5 +28,15 @@ describe("shared glass presentation", () => {
     expect(angles[0]).toBe(0)
     expect(angles[100]).toBeCloseTo(Math.PI * 2)
     expect(angles.every((a, i) => !i || a >= angles[i - 1]!)).toBe(true)
+  })
+
+  it("reads polished glass's background directly instead of through the bicubic blur", () => {
+    expect(canSharpenTransmission()).toBe(true)
+    const glass = sharpenTransmission(new T.MeshPhysicalMaterial({ transmission: 1 }))
+    const shader = { fragmentShader: "#include <transmission_pars_fragment>\nvoid main() {}" }
+    glass.onBeforeCompile(shader as never, undefined as never)
+    expect(shader.fragmentShader).toContain("lod < 0.5 ? texture2D( transmissionSamplerMap")
+    expect(glass.customProgramCacheKey()).toContain("sharp-transmission")
+    expect(createClearGlass().customProgramCacheKey()).toContain("sharp-transmission")
   })
 })

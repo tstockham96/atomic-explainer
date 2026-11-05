@@ -6,7 +6,7 @@ import { createAssemblyStory } from "./assemblyStory.ts"
 import { disposeObject, modelStops, stopBounds } from "./model.ts"
 import { sampleScene, THREE_TIMING, ease } from "./timeline.ts"
 import { configureRenderBudget } from "./renderBudget.ts"
-import { isTransmitting, createOpticalBackdrop } from "./optics.ts"
+import { isTransmitting, createOpticalBackdrop, sharpenTransmission } from "./optics.ts"
 import * as THREE from "three"
 import {
   createStudioEnvironment,
@@ -153,6 +153,7 @@ export async function createObjectScene(
         if (!copies.has(material)) {
           const cloned = material.clone()
           if (isTransmitting(cloned)) {
+            sharpenTransmission(cloned)
             cloned.envMap = glassEnvironment.texture
             cloned.envMapIntensity = 0.7
           }

@@ -1,19 +1,48 @@
 import * as THREE from "three"
 
+const BICUBIC_SAMPLE = "return textureBicubic( transmissionSamplerMap, fragCoord.xy, lod );"
+const SHARP_SAMPLE =
+  "return lod < 0.5 ? texture2D( transmissionSamplerMap, fragCoord.xy ) : textureBicubic( transmissionSamplerMap, fragCoord.xy, lod );"
+
+/** Three.js always reads what is behind transmitting glass through a bicubic B-spline
+ * filter, which softens it even at zero roughness. A clear crystal over a dial then
+ * keeps about a sixth of the dial's detail. Polished glass reads the pixel directly;
+ * frosted glass (roughness high enough to need a blurrier mip) keeps the filter. */
+export function sharpenTransmission<M extends THREE.MeshPhysicalMaterial>(material: M) {
+  const previous = material.onBeforeCompile
+  material.onBeforeCompile = (shader, renderer) => {
+    previous.call(material, shader, renderer)
+    shader.fragmentShader = shader.fragmentShader.replace(
+      "#include <transmission_pars_fragment>",
+      THREE.ShaderChunk.transmission_pars_fragment.replace(BICUBIC_SAMPLE, SHARP_SAMPLE),
+    )
+  }
+  const key = material.customProgramCacheKey.bind(material)
+  material.customProgramCacheKey = () => `${key()}|sharp-transmission`
+  material.needsUpdate = true
+  return material
+}
+
+/** Whether this Three.js build still has the sampler line that sharpenTransmission replaces. */
+export const canSharpenTransmission = () =>
+  THREE.ShaderChunk.transmission_pars_fragment.includes(BICUBIC_SAMPLE)
+
 /** Clear dielectric defaults. Visibility comes from Fresnel reflections and real
  * geometry, never a milky tint, metalness, or a change of opacity at a story stop. */
 export function createClearGlass(ior = 1.5) {
-  return new THREE.MeshPhysicalMaterial({
-    color: "#ffffff",
-    metalness: 0,
-    roughness: 0.02,
-    transmission: 1,
-    opacity: 1,
-    transparent: false,
-    thickness: 0,
-    ior,
-    envMapIntensity: 0.7,
-  })
+  return sharpenTransmission(
+    new THREE.MeshPhysicalMaterial({
+      color: "#ffffff",
+      metalness: 0,
+      roughness: 0.02,
+      transmission: 1,
+      opacity: 1,
+      transparent: false,
+      thickness: 0,
+      ior,
+      envMapIntensity: 0.7,
+    }),
+  )
 }
 
 export function isTransmitting(material: THREE.Material): material is THREE.MeshPhysicalMaterial {
